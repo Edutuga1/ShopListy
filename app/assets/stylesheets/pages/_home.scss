@@ -1,1 +1,25 @@
 // Specific CSS for your home-page
+h1 {
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 50px;
+  font-weight: bolder;
+  font-style: italic;
+  text-align: center;
+}
+
+h2 {
+  color: white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 40px;
+  font-weight: bolder;
+  font-style: italic;
+  text-align: center;
+  margin-top: 90px;
+}
+
+body {
+  background-image: url(https://img.freepik.com/free-photo/black-friday-elements-assortment_23-2149074075.jpg?t=st=1723144793~exp=1723148393~hmac=28187e389a4f564592f319dc4ecdb6fac04ff01262ba78228b3c966f99310cef&w=996);
+  background-size: cover;
+  overflow-y: scroll;
+}
