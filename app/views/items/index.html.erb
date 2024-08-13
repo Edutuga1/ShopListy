@@ -1,0 +1,10 @@
+<h1>Groceries List</h1>
+
+<% @categories.each do |category| %>
+  <h2><%= category.name %></h2>
+  <ul>
+    <% category.items.each do |item| %>
+      <li><%= item.name %></li>
+    <% end %>
+  </ul>
+<% end %>

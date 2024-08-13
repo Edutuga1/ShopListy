@@ -7,3 +7,28 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+categories = ['Hygiene', 'Fruits', 'Meat', 'Fish']
+
+categories.each do |category_name|
+  category = Category.create(name: category_name)
+
+  case category_name
+  when 'Hygiene'
+    ['Shower Gel', 'Shampoo', 'Toilet Paper'].each do |item_name|
+      category.items.create(name: item_name)
+    end
+  when 'Fruits'
+    ['Apple', 'Banana', 'Orange'].each do |item_name|
+      category.items.create(name: item_name)
+    end
+  when 'Meat'
+    ['Chicken', 'Beef', 'Pork'].each do |item_name|
+      category.items.create(name: item_name)
+    end
+  when 'Fish'
+    ['Salmon', 'Tuna', 'Cod'].each do |item_name|
+      category.items.create(name: item_name)
+    end
+  end
+end

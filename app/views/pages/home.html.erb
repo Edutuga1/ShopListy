@@ -1,9 +1,8 @@
+<!-- app/views/pages/home.html.erb -->
 <% if user_signed_in? %>
   <h1>Welcome back, <%= current_user.name %>!</h1>
-  <%= link_to 'Dashboard', dashboard_path %>
+  <%= link_to 'Create a new list', new_user_list_path(current_user) %>
 <% else %>
   <!-- This content might not be seen because of the redirect -->
   <h1>Please log in or sign up to continue</h1>
-  <%= link_to 'Log in', new_user_session_path %>
-  <%= link_to 'Sign up', new_user_registration_path %>
 <% end %>
