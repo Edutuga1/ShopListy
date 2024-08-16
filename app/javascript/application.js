@@ -1,10 +1,12 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
-import "@popperjs/core"
-import "bootstrap"
+// Import dependencies using import map
+import "@hotwired/turbo-rails";
+import "controllers";
+import "@popperjs/core";
+import "bootstrap";
 
+// Add custom JavaScript functionality here
 document.addEventListener('DOMContentLoaded', () => {
+  // Set up event listeners for delete links with confirmation
   document.querySelectorAll('a[data-method="delete"]').forEach(link => {
     link.addEventListener('click', (event) => {
       event.preventDefault();

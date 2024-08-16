@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'checkout/show'
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -9,9 +8,9 @@ Rails.application.routes.draw do
   # Root route
   root to: "pages#home"
 
-  # User resources
+  # User resources with nested lists
   resources :users, only: [:new, :create, :show, :update, :destroy] do
-    resources :lists
+    resources :lists, only: [:new, :create, :index, :show] # Nested lists routes under users
   end
 
   # Independent resources
@@ -19,7 +18,7 @@ Rails.application.routes.draw do
   resources :meat_products, only: [:index, :show]
   resources :items
   resources :categories do
-    get :items, on: :member
+    get :items, on: :member # Nested items route under categories
   end
 
   # List resources with additional actions
@@ -36,11 +35,14 @@ Rails.application.routes.draw do
   # Cart routes
   resource :cart, only: [:show] do
     post 'add_item', to: 'carts#add_item'
+    post 'add_to_list', to: 'carts#add_to_list'
+    patch 'update_item/:id', to: 'carts#update_item', as: :update_item
+    delete 'remove_item/:id', to: 'carts#remove_item', as: :remove_item
   end
 
-  # Add the checkout route
+  # Checkout route
   get 'checkout', to: 'checkout#show', as: :checkout
 
-  # Catch-all route for non-matching routes (if needed)
-  match '*path', to: 'errors#not_found', via: :all
+  # Uncomment this if you create an ErrorsController
+  # match '*path', to: 'errors#not_found', via: :all
 end

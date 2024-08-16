@@ -1,12 +1,12 @@
-<h1> Create a New List </h1>
+<h1>Create a New List</h1>
 
 <div class="button-container">
   <%= link_to meat_path, class: "custom-button btn" do %>
     <strong>MEAT</strong>
-    <div id="container-stars">
-      <div id="stars"></div>
+    <div id="container-stars-meat">
+      <div id="stars-meat"></div>
     </div>
-    <div id="glow">
+    <div id="glow-meat">
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
@@ -14,16 +14,12 @@
 
   <%= link_to milk_and_eggs_path, class: "custom-button btn" do %>
     <strong>MILK & EGGS</strong>
-    <div id="container-stars">
-      <div id="stars"></div>
+    <div id="container-stars-milk-eggs">
+      <div id="stars-milk-eggs"></div>
     </div>
-    <div id="glow">
+    <div id="glow-milk-eggs">
       <div class="circle"></div>
       <div class="circle"></div>
     </div>
   <% end %>
 </div>
-
-
-
-<%= link_to "New List", new_list_path %>

@@ -3,7 +3,7 @@
 # Fetch the 'Meat' category
 meat_category = Category.find_by(name: 'Meat')
 
-# Create meat products if the 'Meat' category exists
+# Create products if the 'Meat' category exists
 if meat_category
   [
     { name: 'Beef Steak', price: 12.99 },
@@ -27,7 +27,7 @@ if meat_category
     { name: 'Venison Steak', price: 20.99 },
     { name: 'Rabbit Stew Meat', price: 10.99 }
   ].each do |product_attributes|
-    MeatProduct.find_or_create_by!(product_attributes.merge(category_id: meat_category.id))
+    Product.find_or_create_by!(product_attributes.merge(category_id: meat_category.id))
   end
 else
   puts "Error: 'Meat' category not found. Meat products not created."

@@ -2,21 +2,24 @@
 <html>
   <head>
     <title>ShoppingList</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %> <!-- This line should include application.js -->
+    <%= javascript_importmap_tags %> <!-- Ensure application.js is included -->
   </head>
 
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
+
+    <!-- Ensure flash messages are rendered inside a turbo_frame_tag -->
+    <%= turbo_frame_tag "flash" do %>
+      <%= render "shared/flash_messages" %>
+    <% end %>
 
     <header>
       <nav>
-        <%= link_to 'Home', root_path %>
         <%= link_to 'Cart', cart_path %> <!-- Added Cart Link -->
         <!-- Add more links as needed -->
       </nav>

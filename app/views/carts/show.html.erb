@@ -1,32 +1,47 @@
-<!-- app/views/carts/show.html.erb -->
 <h1>Your Cart</h1>
 
-<% if @cart.items.any? %>
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @cart.cart_items.each do |cart_item| %>
+<% if @cart.cart_items.any? %>
+  <div class="table-container">
+    <table>
+      <thead>
         <tr>
-          <td><%= cart_item.item.name %></td>
-          <td><%= cart_item.quantity %></td>
-          <td><%= number_to_currency(cart_item.item.price) %></td>
-          <td><%= number_to_currency(cart_item.item.price * cart_item.quantity) %></td>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
-
-  <h3>Total: <%= number_to_currency(@cart.total_price) %></h3>
+      </thead>
+      <tbody>
+        <% @cart.cart_items.each do |cart_item| %>
+          <tr>
+            <td><%= cart_item.product.name %></td>
+            <td>
+              <%= form_with(url: update_item_cart_path(cart_item), method: :patch, local: true) do |form| %>
+                <%= form.number_field :quantity, value: cart_item.quantity, min: 1 %>
+                <%= form.submit 'Update', class: 'btn btn-warning' %>
+              <% end %>
+            </td>
+            <td><%= number_to_currency(cart_item.product.price) %></td>
+            <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
+            <td>
+              <%= button_to 'Remove', remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="total-price">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
 <% else %>
   <p>Your cart is empty.</p>
 <% end %>
 
-<%= link_to 'Continue Shopping', root_path %>
-<%= link_to 'Checkout', checkout_path %> <!-- Replace with your actual checkout path -->
+<div class="navigation-buttons">
+  <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
+    <%= form.label :list_id, 'Select List to Add Items' %>
+    <%= form.collection_select :list_id, List.all, :id, :name, { prompt: 'Choose a List' }, { class: 'form-control' } %>
+    <%= form.submit 'Add to List', class: 'btn btn-primary' %>
+  <% end %>
+  <%= link_to 'Back to Products', root_path, class: 'btn btn-secondary' %> <!-- Back button -->
+</div>
