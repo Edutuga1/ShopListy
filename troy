@@ -1,0 +1,52 @@
+=> 
+[[32m#<Category:0x00007fafea50d010[0m
+  id: [34m[1m1[0m,
+  name: [31m[1m"[0m[31mHygiene[0m[31m[1m"[0m,
+  created_at: Tue, 13 Aug 2024 19:00:37.632147000 UTC +00:00,
+  updated_at: Tue, 13 Aug 2024 19:00:37.632147000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee408[0m
+  id: [34m[1m2[0m,
+  name: [31m[1m"[0m[31mFruits[0m[31m[1m"[0m,
+  created_at: Tue, 13 Aug 2024 19:00:37.956911000 UTC +00:00,
+  updated_at: Tue, 13 Aug 2024 19:00:37.956911000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee340[0m
+  id: [34m[1m3[0m,
+  name: [31m[1m"[0m[31mMeat[0m[31m[1m"[0m,
+  created_at: Tue, 13 Aug 2024 19:00:38.097255000 UTC +00:00,
+  updated_at: Tue, 13 Aug 2024 19:00:38.097255000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee278[0m
+  id: [34m[1m4[0m,
+  name: [31m[1m"[0m[31mFish[0m[31m[1m"[0m,
+  created_at: Tue, 13 Aug 2024 19:00:38.288127000 UTC +00:00,
+  updated_at: Tue, 13 Aug 2024 19:00:38.288127000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee1b0[0m
+  id: [34m[1m5[0m,
+  name: [31m[1m"[0m[31mMeat[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 17:43:01.400571000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 17:43:01.400571000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee0e8[0m
+  id: [34m[1m6[0m,
+  name: [31m[1m"[0m[31mMilk & Eggs[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 17:43:01.409741000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 17:43:01.409741000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ee020[0m
+  id: [34m[1m7[0m,
+  name: [31m[1m"[0m[31mCleaning Products[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 17:43:01.415963000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 17:43:01.415963000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4edf58[0m
+  id: [34m[1m8[0m,
+  name: [31m[1m"[0m[31mFruits and Vegetables[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 17:43:01.421197000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 17:43:01.421197000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4ede90[0m
+  id: [34m[1m9[0m,
+  name: [31m[1m"[0m[31mBakery[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 17:43:01.426201000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 17:43:01.426201000 UTC +00:00[32m>[0m,
+ [32m#<Category:0x00007fafea4eddc8[0m
+  id: [34m[1m10[0m,
+  name: [31m[1m"[0m[31mMeat[0m[31m[1m"[0m,
+  created_at: Thu, 15 Aug 2024 19:12:07.667560000 UTC +00:00,
+  updated_at: Thu, 15 Aug 2024 19:12:07.667560000 UTC +00:00[32m>[0m,
+ [31m[1m"[0m[31m...[0m[31m[1m"[0m]

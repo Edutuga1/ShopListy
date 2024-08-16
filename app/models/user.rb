@@ -6,7 +6,7 @@ class User < ApplicationRecord
   # Associations
   has_many :groceries, dependent: :destroy
   has_many :lists, dependent: :destroy
-
+  has_one :cart
   # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true

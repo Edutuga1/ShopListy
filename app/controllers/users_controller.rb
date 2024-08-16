@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  after_action :create_cart, only: :create
+
   def new
     @user = User.new
   end
@@ -16,5 +18,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation)
+  end
+
+  def create_cart
+    current_user.create_cart
   end
 end

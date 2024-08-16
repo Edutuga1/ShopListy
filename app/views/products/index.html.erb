@@ -1,0 +1,7 @@
+<!-- app/views/products/index.html.erb -->
+<% @products.each do |product| %>
+  <div class="product-item">
+    <p><%= product.name %></p>
+    <p><%= product.price %></p>
+  </div>
+<% end %>

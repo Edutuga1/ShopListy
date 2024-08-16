@@ -1,0 +1,17 @@
+<div class="meat-page">
+  <h1>Meats</h1>
+  <% if @meat_products.any? %>
+    <% @meat_products.each do |meat_product| %>
+      <div class="meat-item">
+        <p><%= meat_product.name %></p>
+        <%= form_with url: add_item_cart_path, method: :post, local: true do |form| %>
+          <%= form.hidden_field :item_id, value: meat_product.id %>
+          <%= form.number_field :quantity, min: 1, value: 1 %>
+          <%= form.submit "Add to Cart" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No meat products available.</p>
+  <% end %>
+</div>

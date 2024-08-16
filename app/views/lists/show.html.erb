@@ -1,11 +1,15 @@
 <h1><%= @list.name %></h1>
+<p><%= @list.description %></p>
 
-<p>Items in this list:</p>
 <ul>
   <% @list.items.each do |item| %>
-    <li><%= item.name %></li>
+    <% items_list = @list.items_lists.find_by(item_id: item.id) %>
+    <li><%= item.name %>: <%= items_list.quantity if items_list %></li>
   <% end %>
 </ul>
 
-<%= link_to 'Edit List', edit_user_list_path(@user, @list) %> |
-<%= link_to 'Back to Lists', user_lists_path(@user) %>
+<%= turbo_frame_tag dom_id(@list) do %>
+  <%= link_to 'Back to Lists', user_lists_path(@user) %>
+  <%= link_to 'Edit List', edit_user_list_path(@user, @list) %>
+  <%= link_to 'Delete', user_list_path(@user, @list), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+<% end %>

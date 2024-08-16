@@ -1,0 +1,7 @@
+<h1><%= @category.name %></h1>
+<ul>
+  <% @products.each do |product| %>
+    <li><%= link_to product.name, product_path(product) %></li>
+    <%= button_to "Add to Cart", add_to_cart_path(product_id: product.id), method: :post %>
+  <% end %>
+</ul>

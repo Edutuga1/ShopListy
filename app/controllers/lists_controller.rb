@@ -1,80 +1,74 @@
 class ListsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_categories, only: [:new, :create] # Only include existing actions
-  before_action :set_user, only: [:new, :create]
   before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:show, :edit, :update, :destroy]
 
-  def new
-    @user = User.find(params[:user_id])
-    @list = @user.lists.build
-    load_items
+  def index
+    @lists = current_user.lists.includes(items: :category)
   end
 
   def show
-    # @list is set by set_list
+  end
+
+  def new
+    @list = List.new
+    @cart = User.find_by(id: session[:user_id])&.cart  # Assuming user retrieval
+    render :new
+  end
+
+  def add_item
+    list = List.find(params[:id])
+    item = Item.find(params[:item_id])
+
+    items_list = ItemsList.find_or_create_by(list_id: list.id, item_id: item.id)
+    items_list.update(quantity: (items_list.quantity || 0) + 1)
+
+    redirect_to list_path(list), notice: 'Item added to list'
+  end
+
+  def add_category
+    list = List.find(params[:id]) # Use params[:id] to access list
+    Category.find(params[:category_id]) # Use params[:category_id]
+
+    redirect_to list_path(list), notice: 'Category added to list'
   end
 
   def create
-    @user = User.find(params[:user_id])
-    @list = @user.lists.build(list_params)
-
+    @list = List.new(list_params)
+    @list.user = current_user
     if @list.save
-      # Redirect to the user's lists page after saving
-      redirect_to user_lists_path(@user)
+      redirect_to lists_path, notice: 'List was successfully created.'
     else
-      # Reload items and re-render the form with errors
-      load_items
       render :new
     end
   end
 
-  def destroy
-    @list.destroy
-    redirect_to user_lists_path(@user), notice: 'List was successfully deleted.'
-  end
-
-  def index
-    @user = User.find(params[:user_id])
-    @lists = @user.lists
-  end
-
   def edit
-    # @list is already set by set_list before_action
   end
 
   def update
     if @list.update(list_params)
-      redirect_to user_list_path(@user, @list), notice: 'List was successfully updated.'
+      redirect_to @list, notice: 'List was successfully updated.'
     else
       render :edit
     end
   end
 
+  def destroy
+    @list.destroy
+    redirect_to lists_path, notice: 'List was successfully destroyed.'
+  end
+
   private
 
-  def load_items
-    @hygiene_items = Item.where(category: 'Hygiene')
-    @food_items = Item.where(category: 'Food')
-    @cleaning_items = Item.where(category: 'House Cleaning')
-  end
-
-  def set_user
-    @user = User.find(params[:user_id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: "User not found"
-  end
-
   def set_list
-    @list = @user.lists.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to user_lists_path(@user), alert: "List not found"
-  end
-
-  def set_categories
-    @categories = Category.includes(:items).all
+    @list = List.find(params[:id])
   end
 
   def list_params
-    params.require(:list).permit(:name, item_ids: [])
+    params.require(:list).permit(:name, :description)
+  end
+
+  def set_cart
+    @cart = User.find_by(id: session[:user_id])&.cart
   end
 end

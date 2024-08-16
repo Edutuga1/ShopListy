@@ -2,8 +2,8 @@ class GroceriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @groceries = current_user.groceries
-    render json: @groceries
+    @categories = Category.all
+    @products = Product.all
   end
 
   def create

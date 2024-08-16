@@ -1,9 +1,12 @@
-<h1>Your Lists</h1>
-
-<%= link_to 'New List', new_user_list_path(@user) %>
-
-<ul>
+<ul id="lists">
   <% @lists.each do |list| %>
-    <li><%= link_to list.name, user_list_path(@user, list) %></li>
+    <li>
+      <%= link_to list.name, list_path(list) %>
+      <ul>
+        <% list.items.each do |item| %>
+          <li><%= item.name %> - <%= item.category.name %></li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
 </ul>

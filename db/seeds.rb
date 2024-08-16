@@ -1,34 +1,34 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
 
-categories = ['Hygiene', 'Fruits', 'Meat', 'Fish']
+# Fetch the 'Meat' category
+meat_category = Category.find_by(name: 'Meat')
 
-categories.each do |category_name|
-  category = Category.create(name: category_name)
-
-  case category_name
-  when 'Hygiene'
-    ['Shower Gel', 'Shampoo', 'Toilet Paper'].each do |item_name|
-      category.items.create(name: item_name)
-    end
-  when 'Fruits'
-    ['Apple', 'Banana', 'Orange'].each do |item_name|
-      category.items.create(name: item_name)
-    end
-  when 'Meat'
-    ['Chicken', 'Beef', 'Pork'].each do |item_name|
-      category.items.create(name: item_name)
-    end
-  when 'Fish'
-    ['Salmon', 'Tuna', 'Cod'].each do |item_name|
-      category.items.create(name: item_name)
-    end
+# Create meat products if the 'Meat' category exists
+if meat_category
+  [
+    { name: 'Beef Steak', price: 12.99 },
+    { name: 'Chicken Breast', price: 8.99 },
+    { name: 'Ground Beef', price: 8.99 },
+    { name: 'Beef Ribs', price: 15.99 },
+    { name: 'Beef Tenderloin', price: 24.99 },
+    { name: 'Beef Brisket', price: 10.99 },
+    { name: 'Pork Chops', price: 9.99 },
+    { name: 'Pork Loin Roast', price: 14.99 },
+    { name: 'Pork Belly', price: 11.99 },
+    { name: 'Pork Sausage', price: 7.99 },
+    { name: 'Ham Steak', price: 10.99 },
+    { name: 'Chicken Thighs', price: 7.99 },
+    { name: 'Chicken Wings', price: 6.99 },
+    { name: 'Turkey Breast', price: 12.99 },
+    { name: 'Duck Breast', price: 18.99 },
+    { name: 'Lamb Chops', price: 18.99 },
+    { name: 'Lamb Shoulder', price: 14.99 },
+    { name: 'Ground Lamb', price: 11.99 },
+    { name: 'Venison Steak', price: 20.99 },
+    { name: 'Rabbit Stew Meat', price: 10.99 }
+  ].each do |product_attributes|
+    MeatProduct.find_or_create_by!(product_attributes.merge(category_id: meat_category.id))
   end
+else
+  puts "Error: 'Meat' category not found. Meat products not created."
 end

@@ -1,0 +1,44 @@
+<%= form_with url: items_path, method: :post, local: true do |form| %>
+  <div>
+    <%= form.label :category_id, 'Select Category' %>
+    <%= select_tag :category_id, options_from_collection_for_select(@categories, :id, :name), prompt: 'Choose a category', id: 'category_id' %>
+  </div>
+
+  <div id="items-list">
+    <!-- JavaScript will populate items here based on selected category -->
+  </div>
+
+  <div>
+    <%= form.label :quantity, 'Quantity' %>
+    <%= number_field_tag :quantity, 1, min: 1 %>
+  </div>
+
+  <%= form.submit 'Add to Cart' %>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const categorySelect = document.getElementById('category_id');
+    const itemsListDiv = document.getElementById('items-list');
+
+    categorySelect.addEventListener('change', function() {
+      const categoryId = categorySelect.value;
+      if (!categoryId) return;
+
+      fetch(`/category/${categoryId}/items`)
+        .then(response => response.json())
+        .then(data => {
+          itemsListDiv.innerHTML = '';
+
+          data.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.innerHTML = `
+              <input type="radio" name="item_id" value="${item.id}" id="item_${item.id}" required>
+              <label for="item_${item.id}">${item.name}</label>
+            `;
+            itemsListDiv.appendChild(itemDiv);
+          });
+        });
+    });
+  });
+</script>
