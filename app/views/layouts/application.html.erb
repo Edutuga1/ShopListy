@@ -34,9 +34,11 @@
         fetch(`/users/${userId}/unread_messages_count`)
           .then(response => response.json())
           .then(data => {
-            if (data.unread_messages > 0) {
+            const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
+            if (data.unread_messages > storedCount) {
               showNewMessagePopup(data.unread_messages);
               updateUnreadMessageCount(data.unread_messages);
+              localStorage.setItem('unreadMessagesCount', data.unread_messages);
             }
           })
           .catch(error => console.error('Error fetching messages:', error));
@@ -61,11 +63,23 @@
         }
       }
 
-      // Trigger the check for new messages on page load and at regular intervals
-      document.addEventListener('DOMContentLoaded', function() {
+      function loadUnreadMessageCount() {
+        const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
+        updateUnreadMessageCount(storedCount);
+      }
+
+      // Check for new messages and load count on Turbo navigation
+      document.addEventListener('turbo:load', function() {
         if (document.body.dataset.userId) {
           checkForNewMessages();
-          setInterval(checkForNewMessages, 60000); // Check every 60 seconds
+          loadUnreadMessageCount();
+        }
+      });
+
+      // Initial setup
+      document.addEventListener('DOMContentLoaded', function() {
+        if (document.body.dataset.userId) {
+          loadUnreadMessageCount();
         }
       });
     </script>
@@ -143,7 +157,7 @@
     }
 
     // Conditionally initialize map based on the presence of map container
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('turbo:load', function() {
       if (document.getElementById('map')) {
         initMap();
       }
@@ -153,3 +167,4 @@
   </script>
 </body>
 </html>
+
