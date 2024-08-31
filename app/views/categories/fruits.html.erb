@@ -1,0 +1,23 @@
+<div class="fruit-page">
+  <h1>Fruits</h1>
+
+  <% if @fruits_products.any? %>
+    <% @fruits_products.each do |fruit_product| %>
+      <div class="fruit-item">
+        <p><%= fruit_product.name %></p>
+        <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{fruit_product.id}" } do |form| %>
+          <%= form.hidden_field :product_id, value: fruit_product.id %>
+          <%= form.number_field :quantity, min: 1, value: 1 %>
+          <%= form.submit "Add to Cart", class: 'btn' %> <!-- Updated class here -->
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No fruit products available.</p>
+  <% end %>
+
+  <div class="navigation-buttons">
+    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %> <!-- Back button -->
+    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %> <!-- See Cart button -->
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<h1>Edit List</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @list.products_lists.each do |products_list| %>  <!-- Updated from items_lists to products_lists -->
+      <tr>
+        <td><%= products_list.product.name %></td>  <!-- Updated from items_list.product.name to products_list.product.name -->
+        <td><%= number_to_currency(products_list.product.price) %></td>  <!-- Updated from items_list.product.price to products_list.product.price -->
+        <td>
+          <%= form_with url: list_products_list_path(@list, products_list), method: :patch, local: true do |form| %>  <!-- Updated to correct path helper -->
+            <%= form.number_field :quantity, value: products_list.quantity, min: 0 %>  <!-- Updated from items_list.quantity to products_list.quantity -->
+            <%= form.submit 'Update', class: 'btn btn-warning' %>
+          <% end %>
+        </td>
+        <td>
+          <%= link_to 'Delete', list_products_list_path(@list, products_list), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>  <!-- Updated to correct path helper -->
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

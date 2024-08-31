@@ -3,7 +3,7 @@ class ListsController < ApplicationController
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
 
   def index
-    @lists = current_user.lists.includes(items: :category)
+    @lists = current_user.lists.includes(products: :category)
   end
 
   def show
@@ -15,15 +15,16 @@ class ListsController < ApplicationController
     render :new
   end
 
-  def add_item
+  def add_product
     list = List.find(params[:id])
-    item = Item.find(params[:item_id])
+    product = Product.find(params[:product_id]) # Use Product model
 
-    items_list = ItemsList.find_or_create_by(list_id: list.id, item_id: item.id)
-    items_list.update(quantity: (items_list.quantity || 0) + 1)
+    products_list = ProductsList.find_or_create_by(list_id: list.id, product_id: product.id)
+    products_list.update(quantity: (products_list.quantity || 0) + 1)
 
-    redirect_to list_path(list), notice: 'Item added to list'
+    redirect_to list_path(list), notice: 'Product added to list'
   end
+
 
   def add_category
     list = List.find(params[:id]) # Use params[:id] to access list
@@ -43,22 +44,29 @@ class ListsController < ApplicationController
   end
 
   def edit
+    @products_list = @list.products_lists.includes(:product)
   end
 
   def update
-    if @list.update(list_params)
-      redirect_to @list, notice: 'List was successfully updated.'
+    @products_list = @list.products_lists.find(params[:id])  # Updated from items_lists to products_lists
+    if @products_list.update(products_list_params)
+      redirect_to edit_list_path(@list), notice: 'Quantity updated successfully.'
     else
       render :edit
     end
   end
 
   def destroy
-    @list.destroy
-    redirect_to lists_path, notice: 'List was successfully destroyed.'
+    @products_list = @list.products_lists.find(params[:id])  # Updated from items_lists to products_lists
+    @products_list.destroy
+    redirect_to edit_list_path(@list), notice: 'Product removed successfully.'
   end
 
   private
+
+  def set_user
+    @user = current_user
+  end
 
   def set_list
     @list = List.find(params[:id])
@@ -70,5 +78,9 @@ class ListsController < ApplicationController
 
   def set_cart
     @cart = User.find_by(id: session[:user_id])&.cart
+  end
+
+  def products_list_params
+    params.require(:products_list).permit(:quantity)
   end
 end

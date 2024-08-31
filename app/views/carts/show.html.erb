@@ -17,7 +17,7 @@
           <tr>
             <td><%= cart_item.product.name %></td>
             <td>
-              <%= form_with(url: update_item_cart_path(cart_item), method: :patch, local: true) do |form| %>
+              <%= form_with(model: cart_item, url: update_product_cart_path(cart_item), method: :patch, local: true) do |form| %>
                 <%= form.number_field :quantity, value: cart_item.quantity, min: 1 %>
                 <%= form.submit 'Update', class: 'btn btn-warning' %>
               <% end %>
@@ -39,9 +39,24 @@
 
 <div class="navigation-buttons">
   <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
+    <% @cart.cart_items.each do |cart_item| %>
+      <%= form.hidden_field :product_id, value: cart_item.product.id %>
+    <% end %>
+
     <%= form.label :list_id, 'Select List to Add Items' %>
-    <%= form.collection_select :list_id, List.all, :id, :name, { prompt: 'Choose a List' }, { class: 'form-control' } %>
+    <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: 'Choose an Existing List' }, { class: 'form-control' } %>
+
+    <% if @user.lists.count < 5 %>
+      <div class="new-list-section">
+        <h4>Or Create a New List</h4>
+        <%= form.label :new_list_name, 'New List Name' %>
+        <%= form.text_field :new_list_name, class: 'form-control' %>
+      </div>
+    <% else %>
+      <p>You have reached the maximum of 5 lists. Please delete an existing list to create a new one.</p>
+    <% end %>
+
     <%= form.submit 'Add to List', class: 'btn btn-primary' %>
   <% end %>
-  <%= link_to 'Back to Products', root_path, class: 'btn btn-secondary' %> <!-- Back button -->
+  <%= link_to 'Back to Products', root_path, class: 'btn btn-secondary' %>
 </div>

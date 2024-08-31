@@ -6,14 +6,10 @@ class Cart < ApplicationRecord
     cart_items.sum { |item| item.quantity * item.product.price }
   end
 
-  def add_item(product, quantity)
-    cart_item = cart_items.find_by(product: product)
-    if cart_item
-      cart_item.increment(:quantity, quantity)
-      cart_item.save
-    else
-      cart_items.create(product: product, quantity: quantity)
-    end
+  def add_product(product, quantity = 1)
+    cart_item = cart_items.find_or_initialize_by(product: product)
+    cart_item.quantity = (cart_item.quantity || 0) + quantity
+    cart_item.save
   end
 
   def remove_item(cart_item)

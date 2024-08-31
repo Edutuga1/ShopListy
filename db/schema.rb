@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_16_023302) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_31_162124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -78,6 +78,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_16_023302) do
     t.index ["category_id"], name: "index_meat_products_on_category_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.bigint "sender_id", null: false
+    t.bigint "receiver_id", null: false
+    t.text "content", null: false
+    t.boolean "read", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "subject"
+    t.index ["receiver_id"], name: "index_messages_on_receiver_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.decimal "price"
@@ -85,6 +97,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_16_023302) do
     t.datetime "updated_at", null: false
     t.bigint "category_id", null: false
     t.index ["category_id"], name: "index_products_on_category_id"
+  end
+
+  create_table "products_lists", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "list_id", null: false
+    t.integer "quantity", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_products_lists_on_list_id"
+    t.index ["product_id"], name: "index_products_lists_on_product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -107,5 +129,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_16_023302) do
   add_foreign_key "groceries", "users"
   add_foreign_key "lists", "users"
   add_foreign_key "meat_products", "categories"
+  add_foreign_key "messages", "users", column: "receiver_id"
+  add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "products", "categories"
+  add_foreign_key "products_lists", "lists"
+  add_foreign_key "products_lists", "products"
 end

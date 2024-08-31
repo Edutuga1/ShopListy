@@ -1,12 +1,21 @@
+<h1>Lists</h1>
+
 <ul id="lists">
   <% @lists.each do |list| %>
     <li>
       <%= link_to list.name, list_path(list) %>
+      <%= link_to 'Edit', edit_list_path(list), class: 'btn btn-primary' %>
       <ul>
-        <% list.items.each do |item| %>
-          <li><%= item.name %> - <%= item.category.name %></li>
+        <% list.products_lists.each do |products_list| %>
+          <li>
+            <%= products_list.product.name %> -
+            Quantity: <%= products_list.quantity %> -
+            Price (Each): <%= number_to_currency(products_list.product.price) %> -
+            Total Price: <%= number_to_currency(products_list.quantity * products_list.product.price) %>
+          </li>
         <% end %>
       </ul>
+      <p>Total Cost: <%= number_to_currency(list.total_cost) %></p>
     </li>
   <% end %>
 </ul>

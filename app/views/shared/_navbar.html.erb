@@ -12,13 +12,14 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-                 <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link" %>
+            <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link" %>
           </li>
           <li class="nav-item active">
             <%= link_to "Home", root_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+            <%= link_to "Messages", user_messages_path(current_user), class: "nav-link" %>
+            <span id="unread-message-count" class="badge badge-danger">0</span>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

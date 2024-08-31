@@ -1,0 +1,23 @@
+<div class="cleaning-page">
+  <h1>Cleaning Products</h1>
+
+  <% if @cleaning_products.any? %>
+    <% @cleaning_products.each do |cleaning_product| %>
+      <div class="cleaning-item">
+        <p><%= cleaning_product.name %></p>
+        <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{cleaning_product.id}" } do |form| %>
+          <%= form.hidden_field :product_id, value: cleaning_product.id %>
+          <%= form.number_field :quantity, min: 1, value: 1 %>
+          <%= form.submit "Add to Cart", class: 'btn' %>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No cleaning products available.</p>
+  <% end %>
+
+  <div class="navigation-buttons">
+    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %>
+    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+  </div>
+</div>

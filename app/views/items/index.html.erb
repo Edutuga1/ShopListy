@@ -3,8 +3,8 @@
 <% @categories.each do |category| %>
   <h2><%= category.name %></h2>
   <ul>
-    <% category.items.each do |item| %>
-      <li><%= item.name %></li>
+    <% category.products.each do |product| %>
+      <li><%= product.name %></li>
     <% end %>
   </ul>
 <% end %>

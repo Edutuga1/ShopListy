@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: [:show, :remove_item]
+  before_action :set_cart, only: [:show, :add_product, :remove_item, :update_item, :add_to_list, :update_product]
   before_action :set_current_user
 
   def create
@@ -13,71 +13,75 @@ class CartsController < ApplicationController
   end
 
   def show
-    # @cart is set by the `set_cart` method
   end
 
-  def add_item
+  def add_product
     product = Product.find(params[:product_id])
     quantity = params[:quantity].to_i
-    @cart.add_item(product, quantity)
 
-    respond_to do |format|
-      format.html { redirect_to cart_path, notice: 'Product added to cart.' }
-      format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: 'shared/flash_messages', locals: { notice: 'Product added to cart.' }) }
+    if current_cart
+      current_cart.add_product(product, quantity)
+      current_cart.save
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Product not found.'
+
+    # Set the notice message
+    flash[:notice] = 'Product successfully added to cart!'
+
+    # Redirect back to the referring URL (the page where the request originated)
+    redirect_to request.referer || root_path
   end
 
   def remove_item
     cart_item = @cart.cart_items.find(params[:id])
-    if cart_item
-      cart_item.destroy
-      flash[:notice] = "Item removed from cart."
-    else
-      flash[:alert] = "Item not found."
-    end
-    redirect_to cart_path
+    cart_item.destroy
+    redirect_to cart_path, notice: 'Product removed from cart.'
   end
 
   def update_item
     cart_item = @cart.cart_items.find(params[:id])
-    quantity = params[:quantity].to_i
-
-    if cart_item.update(quantity: quantity)
-      redirect_to cart_path, notice: 'Item quantity updated.'
+    if cart_item.update(cart_item_params)
+      redirect_to cart_path, notice: 'Cart item updated.'
     else
-      redirect_to cart_path, alert: 'Failed to update item quantity.'
+      redirect_to cart_path, alert: 'Failed to update cart item.'
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to cart_path, alert: 'Item not found.'
   end
 
   def add_to_list
-    @list = List.find(params[:list_id])
-
-    if @list.present?
-      @cart.cart_items.each do |cart_item|
-        items_list = @list.items_lists.find_or_initialize_by(item_id: cart_item.product_id)
-        items_list.quantity = cart_item.quantity
-        items_list.save
+    if params[:new_list_name].present?
+      if @user.lists.count >= 5
+        flash[:alert] = "You can't create more than 5 lists."
+        redirect_to cart_path and return
       end
-
-      # Clear the cart if needed
-      @cart.cart_items.destroy_all
-
-      redirect_to cart_path, notice: 'Items added to list and cart cleared.'
+      list = @user.lists.create(name: params[:new_list_name])
     else
-      redirect_to cart_path, alert: 'List not found.'
+      list = List.find(params[:list_id])
     end
-  rescue ActiveRecord::RecordNotFound
-    redirect_to cart_path, alert: 'List not found.'
+
+    product = Product.find(params[:product_id])
+    quantity = params[:quantity].to_i
+
+    if list.add_product(product, quantity)
+      flash[:notice] = "Product added to the list."
+    else
+      flash[:alert] = "Failed to add the product to the list."
+    end
+
+    redirect_to cart_path
+  end
+
+  def update_product
+    cart_item = @cart.cart_items.find(params[:id])
+    if cart_item.update(cart_item_params)
+      redirect_to cart_path, notice: 'Cart item updated successfully.'
+    else
+      redirect_to cart_path, alert: 'Failed to update cart item.'
+    end
   end
 
   private
 
   def set_cart
-    @cart = current_user.cart
+    @cart = current_user.cart || current_user.create_cart
   end
 
   def set_current_user

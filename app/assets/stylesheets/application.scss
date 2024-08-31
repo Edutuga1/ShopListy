@@ -9,7 +9,43 @@
 
 // Your CSS partials
 @import "components/index";
-@import 'pages/new_list_form';
-@import 'pages/homepage';
-@import 'pages/meatselect';
-@import 'pages/cartpage';
+
+
+.notice {
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #fff;
+  background-color: #4CAF50; /* Green */
+  border-radius: 5px;
+}
+
+.navbar {
+  background-color: #f0f0f0; /* Light grey background color */
+  padding: 10px; /* Adjust padding as needed */
+  border-bottom: 1px solid #dcdcdc; /* Optional: Add a border for a subtle seeparation */
+}
+
+.navbar-expand-sm {
+  background-color: #f0f0f0; /* Light grey background color */
+  padding: 10px; /* Adjust padding as needed */
+  border-bottom: 1px solid #dcdcdc; /* Optional: Add a border for a subtle separation */
+}
+
+.navbar-light {
+  background-color: #f0f0f0; /* Light grey background color */
+  padding: 10px; /* Adjust padding as needed */
+  border-bottom: 1px solid #dcdcdc; /* Optional: Add a border for a subtle separation */
+}
+
+.navbar-lewagon {
+  background-color: #f0f0f0; /* Light grey background color */
+  padding: 10px; /* Adjust padding as needed */
+  border-bottom: 1px solid #dcdcdc; /* Optional: Add a border for a subtle separation */
+}
+
+.home-page #map {
+  position: relative; /* Ensure proper positioning */
+  z-index: 1; /* Ensure it's on top */
+  height: 500px; /* Ensure the height is set */
+  width: 100%; /* Ensure the width is set */
+}
