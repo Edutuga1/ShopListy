@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
 
   <!-- Google Maps API Script with async and defer -->
@@ -31,7 +31,7 @@
     <script>
       function checkForNewMessages() {
         const userId = document.body.dataset.userId;
-        fetch(`/users/${userId}/messages/unread_messages_count`)
+        fetch(`/users/${userId}/unread_messages_count`)
           .then(response => response.json())
           .then(data => {
             if (data.unread_messages > 0) {
@@ -62,13 +62,11 @@
       }
 
       // Trigger the check for new messages on page load and at regular intervals
-      document.addEventListener('turbolinks:load', function() {
-        checkForNewMessages();
-        setInterval(checkForNewMessages, 60000); // Check every 60 seconds
-      });
-
-      document.addEventListener('turbo:load', function() {
-        checkForNewMessages();
+      document.addEventListener('DOMContentLoaded', function() {
+        if (document.body.dataset.userId) {
+          checkForNewMessages();
+          setInterval(checkForNewMessages, 60000); // Check every 60 seconds
+        }
       });
     </script>
   <% end %>
@@ -145,12 +143,7 @@
     }
 
     // Conditionally initialize map based on the presence of map container
-    document.addEventListener('turbolinks:load', function() {
-      if (document.getElementById('map')) {
-        initMap();
-      }
-    });
-    document.addEventListener('turbo:load', function() {
+    document.addEventListener('DOMContentLoaded', function() {
       if (document.getElementById('map')) {
         initMap();
       }

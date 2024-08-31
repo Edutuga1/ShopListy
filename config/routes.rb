@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   # User resources with nested lists and messages
   resources :users, only: [:new, :create, :show, :update, :destroy] do
-    resources :lists, only: [:new, :create, :index, :show] # Nested lists routes under users
+    resources :lists, only: [:new, :create, :index, :show]
     resources :messages, only: [:index, :new, :create, :show]
   end
 
@@ -20,20 +20,18 @@ Rails.application.routes.draw do
   # Independent resources
   resources :groceries
   resources :meat_products, only: [:index, :show]
-  resources :products  # Updated from items to products
+  resources :products
   resources :categories do
-    get :products, on: :member # Updated from items to products
+    get :products, on: :member
   end
 
   # List resources with additional actions
   resources :lists do
-    post :add_product, on: :member  # Updated from add_item to add_product
+    post :add_product, on: :member
     post :add_category, on: :member
-    patch :update_product, on: :member  # Updated from update_item to update_product
-    delete :destroy_product, on: :member  # Updated from destroy_item to destroy_product
-
-    # New routes for editing and updating individual products in a list
-    resources :products_lists, only: [:edit, :update, :destroy]  # Updated from items_lists to products_lists
+    patch :update_product, on: :member
+    delete :destroy_product, on: :member
+    resources :products_lists, only: [:edit, :update, :destroy]
   end
 
   # Category-specific routes
@@ -49,14 +47,13 @@ Rails.application.routes.draw do
   get 'frozen', to: 'categories#frozen', as: :frozen
   get 'cold_cuts_and_cheeses', to: 'categories#cold_cuts_and_cheeses', as: :cold_cuts_and_cheeses
   get 'hygiene', to: 'categories#hygiene', as: :hygiene
-  # Add more category-specific routes as needed
 
   # Cart routes
   resource :cart, only: [:show] do
-    post 'add_product', to: 'carts#add_product'  # Updated from add_item to add_product
+    post 'add_product', to: 'carts#add_product'
     post 'add_to_list', to: 'carts#add_to_list'
-    patch 'update_item/:id', to: 'carts#update_product', as: :update_product  # Updated from update_item to update_product
-    delete 'remove_item/:id', to: 'carts#remove_item', as: :remove_item  # Updated from remove_item to remove_product
+    patch 'update_item/:id', to: 'carts#update_product', as: :update_product
+    delete 'remove_item/:id', to: 'carts#remove_item', as: :remove_item
   end
 
   # Checkout route
