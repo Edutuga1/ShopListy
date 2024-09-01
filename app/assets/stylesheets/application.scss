@@ -49,3 +49,48 @@
   height: 500px; /* Ensure the height is set */
   width: 100%; /* Ensure the width is set */
 }
+
+.popup-notification {
+  position: fixed; /* Fixed positioning to keep it in place relative to the viewport */
+  top: 20px; /* Distance from the top of the viewport */
+  left: 50%; /* Horizontally center the popup */
+  transform: translateX(-50%); /* Offset the popup's width to be centered */
+  background-color: #333; /* Background color of the popup */
+  color: #fff; /* Text color */
+  padding: 10px 20px; /* Padding around the text */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Shadow for better visibility */
+  z-index: 1000; /* Ensure it's on top of other elements */
+  font-size: 14px; /* Font size */
+  text-align: center; /* Center text inside the popup */
+}
+
+.popup-notification a {
+  color: #ffdd57; /* Color of the link */
+  text-decoration: none; /* Remove underline from link */
+}
+
+.popup-notification a:hover {
+  text-decoration: underline; /* Underline on hover */
+}
+
+
+.profile {
+  text-align: center;
+  margin: 20px;
+}
+
+.profile-info {
+  margin: 20px;
+}
+
+.profile-picture img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+}
+
+.form-group {
+  margin-top: 20px;
+}
+

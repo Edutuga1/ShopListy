@@ -1,0 +1,16 @@
+<h1>Your Profile</h1>
+
+<div class="profile-info">
+  <div class="profile-picture">
+    <% if @user.user_photo.attached? %>
+      <%= image_tag @user.user_photo, size: "150x150" %>
+    <% else %>
+      <%= image_tag 'placeholder_user_photo.png', size: "150x150" %> <!-- Placeholder image -->
+    <% end %>
+  </div>
+
+  <p><strong>Name:</strong> <%= @user.name %></p>
+  <p><strong>Email:</strong> <%= @user.email %></p>
+
+  <%= link_to 'Edit Profile', edit_profile_path %>
+</div>

@@ -9,14 +9,33 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
+  has_one_attached :user_photo
 
   # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  validate :acceptable_image, if: :user_photo_attached?
 
   def has_unread_messages?
     received_messages.unread.exists?
+  end
+
+  private
+
+  def acceptable_image
+    return unless user_photo.attached?
+
+    if user_photo.byte_size > 1.megabyte
+      errors.add(:user_photo, "is too big")
+    end
+
+    acceptable_types = ["image/jpeg", "image/png"]
+    unless acceptable_types.include?(user_photo.content_type)
+      errors.add(:user_photo, "must be a JPEG or PNG")
+    end
+  end
+
+  def user_photo_attached?
+    user_photo.present?
   end
 end

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   # Root route
   root to: "pages#home"
 
+  # Route for user profile (accessible by logged-in user)
+  resource :profile, only: [:show, :edit, :update]
+
   # User resources with nested lists and messages
   resources :users, only: [:new, :create, :show, :update, :destroy] do
     resources :lists, only: [:new, :create, :index, :show]

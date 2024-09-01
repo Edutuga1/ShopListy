@@ -1,0 +1,7 @@
+<%= form_with(model: @user, local: true) do |f| %>
+  <div class="field">
+    <%= f.label :user_photo, "Profile Picture" %>
+    <%= f.file_field :user_photo %>
+  </div>
+  <%= f.submit %>
+<% end %>
