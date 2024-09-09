@@ -1,7 +1,10 @@
-<%= form_with(model: @user, local: true) do |f| %>
-  <div class="field">
-    <%= f.label :user_photo, "Profile Picture" %>
-    <%= f.file_field :user_photo %>
+<div id="profile">
+  <div class="profile-picture">
+    <% if @user.user_photo.attached? %>
+      <%= image_tag @user.user_photo, size: "150x150" %>
+    <% else %>
+      <%= image_tag 'placeholder_user_photo.png', size: "150x150" %> <!-- Placeholder image -->
+    <% end %>
   </div>
-  <%= f.submit %>
-<% end %>
+  <!-- Other profile fields here -->
+</div>

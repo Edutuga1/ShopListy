@@ -15,9 +15,6 @@
 <body class="<%= controller_name %> <%= action_name %>" data-user-id="<%= current_user.id if user_signed_in? %>">
   <%= render "shared/navbar" %>
   <header>
-    <nav>
-      <%= link_to 'Cart', cart_path %>
-    </nav>
   </header>
   <main>
     <%= yield %>
@@ -167,4 +164,3 @@
   </script>
 </body>
 </html>
-

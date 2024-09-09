@@ -14,8 +14,9 @@ class User < ApplicationRecord
   # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validate :acceptable_image, if: :user_photo_attached?
+  validate :acceptable_image
 
+  # Custom methods
   def has_unread_messages?
     received_messages.unread.exists?
   end
@@ -33,9 +34,5 @@ class User < ApplicationRecord
     unless acceptable_types.include?(user_photo.content_type)
       errors.add(:user_photo, "must be a JPEG or PNG")
     end
-  end
-
-  def user_photo_attached?
-    user_photo.present?
   end
 end

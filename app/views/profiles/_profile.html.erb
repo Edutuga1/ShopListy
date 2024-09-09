@@ -1,9 +1,9 @@
-<div class="profile-picture">
-  <% if @user.persisted? %> <!-- Ensure record is saved -->
+<div id="profile">
+  <div class="profile-picture">
     <% if @user.user_photo.attached? %>
-      <%= image_tag @user.user_photo, size: "150x150" %>
+      <%= image_tag url_for(@user.user_photo), size: "150x150" %>
     <% else %>
       <%= image_tag 'placeholder_user_photo.png', size: "150x150" %> <!-- Placeholder image -->
     <% end %>
-  <% end %>
+  </div>
 </div>

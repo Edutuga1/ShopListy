@@ -27,7 +27,7 @@
     <%= f.file_field :user_photo %>
     <% if @user.user_photo.attached? %>
       <div>
-        <%= image_tag @user.user_photo, size: "150x150" %>
+        <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), size: "150x150" %>
       </div>
     <% end %>
   </div>

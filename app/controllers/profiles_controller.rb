@@ -13,7 +13,19 @@ class ProfilesController < ApplicationController
   def update
     @user = current_user
 
-    if @user.update(user_params)
+    # Filter out password fields if they are blank
+    if user_params[:password].blank? && user_params[:password_confirmation].blank?
+      clean_params = user_params.except(:password, :password_confirmation)
+    else
+      clean_params = user_params
+    end
+
+    if @user.update(clean_params.except(:user_photo))
+      if params[:user][:user_photo].present?
+        @user.user_photo.attach(params[:user][:user_photo])
+        puts @user.user_photo.attached? # Debug line to ensure attachment happens
+      end
+
       respond_to do |format|
         format.html { redirect_to profile_path, notice: 'Profile was successfully updated.' }
         format.turbo_stream { render turbo_stream: turbo_stream.replace('profile', partial: 'profile', locals: { user: @user }) }
@@ -25,7 +37,6 @@ class ProfilesController < ApplicationController
       end
     end
   end
-
 
   private
 

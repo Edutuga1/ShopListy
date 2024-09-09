@@ -7,23 +7,37 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
             <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link" %>
           </li>
+          <%= link_to cart_path, class: "nav-link" do %>
+            <i class="fa-solid fa-cart-shopping"></i>
+          <% end %>
           <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link" %>
+            <%= link_to root_path, class: "nav-link" do %>
+              <i class="fa-solid fa-house"></i>
+            <% end %>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", user_messages_path(current_user), class: "nav-link" %>
-            <span id="unread-message-count" class="badge badge-danger">0</span>
+            <li class="nav-item">
+              <%= link_to user_messages_path(current_user), class: "nav-link" do %>
+                <div class="icon-container">
+                  <i class="fa-regular fa-message"></i>
+                  <span id="unread-message-count" class="badge badge-danger">0</span>
+                </div>
+              <% end %>
+            </li>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= image_tag "https://m.media-amazon.com/images/I/61yQAF86FKL.jpg", class: "avatar", alt: "User avatar" %>
+              <% if current_user.user_photo.attached? %>
+                <%= image_tag current_user.user_photo.variant(resize_to_limit: [50, 50]).processed, class: "avatar", alt: "User avatar" %>
+              <% else %>
+                <%= image_tag "https://m.media-amazon.com/images/I/61yQAF86FKL.jpg", class: "avatar", alt: "Default avatar" %>
+              <% end %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Profile", profile_path, class: "dropdown-item" %>
