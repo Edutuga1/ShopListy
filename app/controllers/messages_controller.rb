@@ -1,47 +1,74 @@
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_users, only: [:new, :create]
+  before_action :set_conversation, only: [:index, :create, :show]
 
   def index
-    @received_messages = current_user.received_messages
-    @sent_messages = current_user.sent_messages
+    @messages = @conversation.messages.order(:created_at)
+    @message = @conversation.messages.build
   end
 
   def new
     @message = Message.new
+    @conversation = Conversation.find(params[:conversation_id]) if params[:conversation_id]
   end
 
   def create
-    @message = current_user.sent_messages.build(message_params)
+    @message = @conversation.messages.new(message_params)
+    @message.sender = current_user
+    @message.receiver = @conversation.other_user(current_user)
+
     if @message.save
-      # Broadcast the notification
-      MessageNotificationChannel.broadcast_to(
-        @message.receiver,
-        { message: "You have a new message from #{current_user.name}" }
-      )
-      redirect_to user_messages_path(current_user), notice: 'Message sent successfully.'
+      respond_to do |format|
+        format.turbo_stream   # This will look for a create.turbo_stream.erb view
+        format.html { redirect_to conversation_path(@conversation), notice: 'Message was successfully sent.' }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.turbo_stream   # In case of error, still respond with Turbo Stream
+        format.html { render :show }
+      end
     end
   end
 
   def show
-    @message = Message.find(params[:id])
-    @message.update(read: true) if @message.receiver == current_user
+    @conversation = Conversation.find_by(id: params[:id])
+    @user = User.find_by(id: params[:user_id]) # Ensure user_id is passed
+
+    # Add debugging information
+    Rails.logger.debug "Current User: #{@user.inspect}, Conversation: #{@conversation.inspect}"
+
+    if @user.nil? || @conversation.nil?
+      redirect_to root_path, alert: 'User or conversation not found.'
+    else
+      @messages = @conversation.messages.order(:created_at)
+      @message = Message.new  # Initialize a new message
+    end
   end
 
   def unread_messages_count
-    count = current_user.received_messages.where(read: false).count
-    render json: { unread_messages: count }
+    count = Message.where(receiver: current_user, read: false).count
+    render json: { count: count }
   end
 
   private
 
-  def set_users
-    @users = User.where.not(id: current_user.id)
+def set_conversation
+  @conversation = Conversation.find_by(id: params[:conversation_id])
+  @user = User.find_by(id: params[:user_id])  # Ensure user_id is passed
+
+  Rails.logger.debug "Set Conversation: #{@conversation.inspect}, User: #{@user.inspect}"
+
+  unless @conversation && @user
+    redirect_to root_path, alert: 'User or conversation not found.'
   end
 
+  # Check if the user is part of the conversation
+  unless @conversation.participants.include?(@user)
+    redirect_to root_path, alert: 'User not authorized to view this conversation.'
+  end
+end
+
   def message_params
-    params.require(:message).permit(:receiver_id, :content, :subject, :body)
+    params.require(:message).permit(:content).merge(conversation_id: @conversation.id, sender_id: current_user.id)
   end
 end

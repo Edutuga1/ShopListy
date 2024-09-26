@@ -1,20 +1,6 @@
-<%= form_with(model: [current_user, @message], local: true) do |form| %>
-  <div class="field">
-    <%= form.label :receiver_id %>
-    <%= form.collection_select :receiver_id, @users, :id, :name, prompt: 'Select recipient' %>
+<%= form_with model: @message, url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id), local: true do |form| %>
+  <div class="form-group">
+    <%= form.text_area :content, class: 'form-control', rows: 3, placeholder: "Type your message..." %>
   </div>
-
-  <div class="field">
-    <%= form.label :subject %>
-    <%= form.text_field :subject %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit 'Send Message' %>
-  </div>
+  <%= form.submit 'Send', class: 'btn btn-primary' %>
 <% end %>

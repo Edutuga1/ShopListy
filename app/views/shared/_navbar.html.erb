@@ -22,14 +22,13 @@
             <% end %>
           </li>
           <li class="nav-item">
-            <li class="nav-item">
-              <%= link_to user_messages_path(current_user), class: "nav-link" do %>
-                <div class="icon-container">
-                  <i class="fa-regular fa-message"></i>
-                  <span id="unread-message-count" class="badge badge-danger">0</span>
-                </div>
-              <% end %>
-            </li>
+            <%= link_to user_conversations_path(current_user), class: "nav-link" do %>
+              <div class="icon-container">
+                <i class="fa-regular fa-message"></i>
+                <span id="unread-message-count" class="badge badge-danger">0</span>
+              </div>
+              Messages
+            <% end %>
           </li>
           <li class="nav-item dropdown">
             <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

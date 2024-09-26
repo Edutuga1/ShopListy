@@ -1,0 +1,7 @@
+<div class="message-card <%= 'unread' unless message.read %>">
+  <div class="message-info">
+    <strong><%= message.sender.name %>:</strong> <%= message.content %>
+    <br>
+    <small><%= message.created_at.strftime('%Y-%m-%d %H:%M:%S') %></small>
+  </div>
+</div>

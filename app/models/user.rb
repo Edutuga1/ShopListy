@@ -21,6 +21,15 @@ class User < ApplicationRecord
     received_messages.unread.exists?
   end
 
+  def user_photo_or_default
+    if user_photo.attached?
+      user_photo
+    else
+      # Replace with your default image URL or path
+      "default-avatar.png"
+    end
+  end
+
   private
 
   def acceptable_image

@@ -28,11 +28,14 @@
     <script>
       function checkForNewMessages() {
         const userId = document.body.dataset.userId;
+        if (!userId) return; // No user ID, no need to check
+
         fetch(`/users/${userId}/unread_messages_count`)
           .then(response => response.json())
           .then(data => {
+            console.log('Unread messages data:', data); // Debugging
             const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
-            if (data.unread_messages > storedCount) {
+            if (data.unread_messages !== storedCount) {
               showNewMessagePopup(data.unread_messages);
               updateUnreadMessageCount(data.unread_messages);
               localStorage.setItem('unreadMessagesCount', data.unread_messages);
@@ -69,8 +72,8 @@
       document.addEventListener('turbo:load', function() {
         if (document.body.dataset.userId) {
           checkForNewMessages();
-          loadUnreadMessageCount();
         }
+        loadUnreadMessageCount();
       });
 
       // Initial setup

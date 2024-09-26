@@ -9,20 +9,31 @@ Rails.application.routes.draw do
   root to: "pages#home"
 
   # Route for user profile (accessible by logged-in user)
-  resource :profile, only: [:show, :edit, :update]
+  resource :profile, only: %i[show edit update]
 
-  # User resources with nested lists and messages
-  resources :users, only: [:new, :create, :show, :update, :destroy] do
-    resources :lists, only: [:new, :create, :index, :show]
-    resources :messages, only: [:index, :new, :create, :show]
+  # User resources with nested lists and conversations
+  resources :users, only: %i[show update destroy] do
+    resources :lists, only: %i[new create index show]
+
+    # Conversations routes nested under users
+    resources :conversations, only: %i[index show create] do
+      # Messages routes nested under conversations
+      resources :messages, only: %i[create]
+    end
+
+    # Messages routes nested under users
+    resources :messages, only: %i[index new create show] do
+      # Custom route to delete a conversation with a specific sender
+      delete 'destroy_conversation/:sender_id', to: 'messages#destroy_conversation', on: :collection, as: :destroy_conversation
+    end
+
+    # Custom route for unread messages count
+    get '/unread_messages_count', to: 'messages#unread_messages_count', as: :unread_messages_count
   end
-
-  # Custom route for unread messages count
-  get '/users/:user_id/unread_messages_count', to: 'messages#unread_messages_count', as: :unread_messages_count
 
   # Independent resources
   resources :groceries
-  resources :meat_products, only: [:index, :show]
+  resources :meat_products, only: %i[index show]
   resources :products
   resources :categories do
     get :products, on: :member

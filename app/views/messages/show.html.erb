@@ -1,10 +1,39 @@
-<h1>Message Details</h1>
+<h1>Conversation</h1>
 
-<p><strong>From:</strong> <%= @message.sender.name %></p>
-<p><strong>To:</strong> <%= @message.receiver.name %></p>
-<p><strong>Sent At:</strong> <%= @message.created_at.strftime('%Y-%m-%d %H:%M:%S') %></p>
+<% if @message && @message.sender %>
+  <h1>Conversation with <%= @message.sender.name %></h1>
+<% else %>
+  <p>No conversation found or sender is invalid.</p>
+<% end %>
 
-<h2>Message Content</h2>
-<p><%= @message.content %></p>
+<% if @conversation.present? %>
+  <% @conversation.each do |msg| %>
+    <div class="message-card <%= 'unread' unless msg.read? %>">
+      <div class="message-info">
+        <strong><%= msg.sender.name %>:</strong> <%= msg.content %>
+        <br>
+        <small><%= msg.created_at.strftime('%Y-%m-%d %H:%M:%S') %></small>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <p>No messages in this conversation yet.</p>
+<% end %>
+
+<h2>Send a New Message</h2>
+
+<%= form_with(model: @new_message, url: user_messages_path(current_user), local: true) do |form| %>
+  <%# Check if @message and sender exist before displaying the hidden field %>
+  <% if @message && @message.sender %>
+    <%= form.hidden_field :receiver_id, value: @message.sender_id %>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :content, "Message:" %>
+    <%= form.text_area :content, class: 'form-control', rows: 5 %>
+  </div>
+
+  <%= form.submit "Send", class: 'btn btn-primary' %>
+<% end %>
 
 <%= link_to 'Back to Messages', user_messages_path(current_user), class: 'btn btn-secondary' %>
