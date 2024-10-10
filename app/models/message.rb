@@ -19,6 +19,6 @@ class Message < ApplicationRecord
   end
 
   def user
-    sender  # or you might want to use `receiver` based on context
+    sender # or you might want to use `receiver` based on context
   end
 end

@@ -9,7 +9,6 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
 
-  <!-- Google Maps API Script with async and defer -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh7L4FQj5_TNUS5TtoMUcFO5tM4_r3E7c&libraries=places&v=beta&loading=async" async defer></script>
 </head>
 <body class="<%= controller_name %> <%= action_name %>" data-user-id="<%= current_user.id if user_signed_in? %>">
@@ -23,43 +22,58 @@
     <% end %>
   </main>
 
-  <!-- Pop-up Notification Script -->
   <% if user_signed_in? %>
     <script>
       function checkForNewMessages() {
         const userId = document.body.dataset.userId;
-        if (!userId) return; // No user ID, no need to check
+        if (!userId) {
+          console.log('No user ID found, skipping new message check');
+          return;
+        }
 
+        console.log('Fetching unread messages count for user:', userId);
         fetch(`/users/${userId}/unread_messages_count`)
-          .then(response => response.json())
-          .then(data => {
-            console.log('Unread messages data:', data); // Debugging
-            const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
-            if (data.unread_messages !== storedCount) {
-              showNewMessagePopup(data.unread_messages);
-              updateUnreadMessageCount(data.unread_messages);
-              localStorage.setItem('unreadMessagesCount', data.unread_messages);
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
             }
+            return response.json();
           })
-          .catch(error => console.error('Error fetching messages:', error));
+          .then(data => {
+            console.log('Unread messages fetched:', data);
+            updateUnreadMessageCount(data.unread_messages);
+          })
+          .catch(error => console.error('Error fetching unread messages:', error));
       }
 
-      function showNewMessagePopup(unreadCount) {
-        const popup = document.createElement('div');
-        popup.classList.add('popup-notification');
-        popup.innerHTML = `You have ${unreadCount} new message(s)! <a href="/users/${document.body.dataset.userId}/messages">View Messages</a>`;
-        document.body.appendChild(popup);
-
-        // Automatically remove the popup after 5 seconds
-        setTimeout(() => {
-          popup.remove();
-        }, 5000);
+      function sendMessage(message, conversationId) {
+        const userId = document.body.dataset.userId; // Ensure you have the user ID here
+        fetch(`/users/${userId}/conversations/${conversationId}/messages`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          },
+          body: JSON.stringify({ message: message })
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log('Message sent successfully.');
+            checkForNewMessages(); // Check for new messages after sending
+          } else {
+            console.error('Error sending message:', response);
+          }
+        })
+        .catch(error => console.error('Error sending message:', error));
       }
 
       function updateUnreadMessageCount(unreadCount) {
         const unreadCountElement = document.getElementById('unread-message-count');
         if (unreadCountElement) {
           unreadCountElement.textContent = unreadCount;
+          console.log('Updated unread message count displayed:', unreadCount);
+        } else {
+          console.error('Unread message count element not found');
         }
       }
 
@@ -68,23 +82,52 @@
         updateUnreadMessageCount(storedCount);
       }
 
+      // Function to mark messages as read when a conversation is opened
+      function markMessagesAsRead(userId, conversationId) {
+        fetch(`/users/${userId}/conversations/${conversationId}/mark_as_read`, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            return response.json(); // Get the unread count returned from the server
+          } else {
+            throw new Error('Error marking messages as read');
+          }
+        })
+        .then(data => {
+          console.log('Updated unread messages count:', data.unread_messages);
+          updateUnreadMessageCount(data.unread_messages); // Update UI with the new count
+          localStorage.setItem('unreadMessagesCount', data.unread_messages); // Update localStorage
+        })
+        .catch(error => console.error('Error marking messages as read:', error));
+      }
+
       // Check for new messages and load count on Turbo navigation
       document.addEventListener('turbo:load', function() {
-        if (document.body.dataset.userId) {
-          checkForNewMessages();
+        const userId = document.body.dataset.userId;
+        const conversationHeader = document.getElementById('conversation-header');
+
+        if (userId) {
+          checkForNewMessages(); // Check for new messages on page load
+          if (conversationHeader) {
+            const conversationId = conversationHeader.dataset.conversationId; // Ensure the conversation ID is stored in the header
+            markMessagesAsRead(userId, conversationId); // Mark messages as read when the conversation is loaded
+          }
         }
-        loadUnreadMessageCount();
+        loadUnreadMessageCount(); // Load the unread count from local storage on initial page load
       });
 
       // Initial setup
       document.addEventListener('DOMContentLoaded', function() {
         if (document.body.dataset.userId) {
-          loadUnreadMessageCount();
+          loadUnreadMessageCount(); // Load the unread count from local storage on initial page load
         }
       });
     </script>
   <% end %>
-
   <!-- Define initMap function in the global scope -->
   <script>
     function initMap() {

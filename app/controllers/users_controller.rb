@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_user
   after_action :create_cart, only: :create
 
   def new
@@ -22,5 +23,11 @@ class UsersController < ApplicationController
 
   def create_cart
     current_user.create_cart
+  end
+
+  def set_user
+    @user = User.find(params[:id]) # Check that this line correctly finds the user
+  rescue ActiveRecord::RecordNotFound
+    @user = nil
   end
 end

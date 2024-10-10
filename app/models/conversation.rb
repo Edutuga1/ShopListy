@@ -1,7 +1,9 @@
 class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy
+  has_many :users, through: :messages
   belongs_to :sender, class_name: 'User'
   belongs_to :receiver, class_name: 'User'
+  has_and_belongs_to_many :participants, class_name: 'User'
 
   validates :sender_id, presence: true
   validates :receiver_id, presence: true
@@ -25,7 +27,7 @@ class Conversation < ApplicationRecord
   def participants
     [sender, receiver]
   end
-  
+
   private
 
   def sender_is_not_receiver

@@ -10,15 +10,14 @@ class User < ApplicationRecord
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
   has_one_attached :user_photo
-
   # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validate :acceptable_image
 
   # Custom methods
-  def has_unread_messages?
-    received_messages.unread.exists?
+  def unread_messages_count
+    messages.where(read: false).count
   end
 
   def user_photo_or_default
