@@ -20,193 +20,217 @@
     <% if controller_name == 'pages' && action_name == 'home' %>
       <div id="map" style="height: 500px; width: 100%;"></div>
     <% end %>
+    <!-- Button to manually mark messages as read -->
+    <button id="mark-as-read-button" style="display: none;">Mark Messages as Read</button>
   </main>
 
   <% if user_signed_in? %>
     <script>
-      function checkForNewMessages() {
+      document.addEventListener('DOMContentLoaded', function() {
         const userId = document.body.dataset.userId;
-        if (!userId) {
-          console.log('No user ID found, skipping new message check');
-          return;
-        }
 
-        console.log('Fetching unread messages count for user:', userId);
-        fetch(`/users/${userId}/unread_messages_count`)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Unread messages fetched:', data);
-            updateUnreadMessageCount(data.unread_messages);
-          })
-          .catch(error => console.error('Error fetching unread messages:', error));
-      }
-
-      function sendMessage(message, conversationId) {
-        const userId = document.body.dataset.userId; // Ensure you have the user ID here
-        fetch(`/users/${userId}/conversations/${conversationId}/messages`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-          },
-          body: JSON.stringify({ message: message })
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log('Message sent successfully.');
-            checkForNewMessages(); // Check for new messages after sending
-          } else {
-            console.error('Error sending message:', response);
-          }
-        })
-        .catch(error => console.error('Error sending message:', error));
-      }
-
-      function updateUnreadMessageCount(unreadCount) {
-        const unreadCountElement = document.getElementById('unread-message-count');
-        if (unreadCountElement) {
-          unreadCountElement.textContent = unreadCount;
-          console.log('Updated unread message count displayed:', unreadCount);
-        } else {
-          console.error('Unread message count element not found');
-        }
-      }
-
-      function loadUnreadMessageCount() {
-        const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
-        updateUnreadMessageCount(storedCount);
-      }
-
-      // Function to mark messages as read when a conversation is opened
-      function markMessagesAsRead(userId, conversationId) {
-        fetch(`/users/${userId}/conversations/${conversationId}/mark_as_read`, {
-          method: 'POST',
-          headers: {
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
-          }
-        })
-        .then(response => {
-          if (response.ok) {
-            return response.json(); // Get the unread count returned from the server
-          } else {
-            throw new Error('Error marking messages as read');
-          }
-        })
-        .then(data => {
-          console.log('Updated unread messages count:', data.unread_messages);
-          updateUnreadMessageCount(data.unread_messages); // Update UI with the new count
-          localStorage.setItem('unreadMessagesCount', data.unread_messages); // Update localStorage
-        })
-        .catch(error => console.error('Error marking messages as read:', error));
-      }
-
-      // Check for new messages and load count on Turbo navigation
-      document.addEventListener('turbo:load', function() {
-        const userId = document.body.dataset.userId;
-        const conversationHeader = document.getElementById('conversation-header');
+        // Check if current-user-id element exists
+        const currentUserIdElement = document.getElementById('current-user-id');
+        const currentUserId = currentUserIdElement ? currentUserIdElement.value : null; // Set to null if not found
 
         if (userId) {
-          checkForNewMessages(); // Check for new messages on page load
-          if (conversationHeader) {
-            const conversationId = conversationHeader.dataset.conversationId; // Ensure the conversation ID is stored in the header
-            markMessagesAsRead(userId, conversationId); // Mark messages as read when the conversation is loaded
+          loadUnreadMessageCount();
+          checkForNewMessages();
+        }
+
+        // Load the unread message count from local storage
+        function loadUnreadMessageCount() {
+          const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
+          updateUnreadMessageCount(storedCount);
+        }
+
+        // Function to update the unread message count in the UI
+        function updateUnreadMessageCount(unreadCount) {
+          const unreadCountElement = document.getElementById('unread-message-count');
+          if (unreadCountElement) {
+            unreadCountElement.textContent = unreadCount > 0 ? unreadCount : ''; // Hide counter if 0
+            console.log('Updated unread message count displayed:', unreadCount);
+          } else {
+            console.error('Unread message count element not found');
           }
         }
-        loadUnreadMessageCount(); // Load the unread count from local storage on initial page load
+
+        // Function to fetch and update the unread messages count
+        function checkForNewMessages() {
+          fetch(`/users/${userId}/unread_messages_count`)
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('Unread messages fetched:', data);
+              updateUnreadMessageCount(data.unread_messages);
+              localStorage.setItem('unreadMessagesCount', data.unread_messages);
+            })
+            .catch(error => console.error('Error fetching unread messages:', error));
+        }
+
+        // Optionally, refresh the count periodically
+        setInterval(checkForNewMessages, 30000); // every 30 seconds
+
+        // Function to send a message
+        function sendMessage(message, conversationId) {
+          fetch(`/users/${userId}/conversations/${conversationId}/messages`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify({ message: message })
+          })
+          .then(response => {
+            if (response.ok) {
+              console.log('Message sent successfully.');
+              checkForNewMessages(); // Check for new messages after sending
+            } else {
+              console.error('Error sending message:', response);
+            }
+          })
+          .catch(error => console.error('Error sending message:', error));
+        }
+
+        // Function to mark messages as read when a conversation is opened
+        function markMessagesAsRead(conversationId) {
+          console.log('Marking messages as read for conversation:', conversationId); // Debugging line
+          return fetch(`/users/${userId}/conversations/${conversationId}/mark_as_read`, {
+            method: 'POST',
+            headers: {
+              'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+            }
+          })
+          .then(response => {
+            console.log('Response from mark as read:', response); // Debugging line
+            if (response.ok) {
+              return response.json(); // Get the unread count returned from the server
+            } else {
+              throw new Error('Error marking messages as read: ' + response.status);
+            }
+          })
+          .then(data => {
+            console.log('Updated unread messages count:', data.unread_messages); // Debugging line
+            updateUnreadMessageCount(data.unread_messages); // Update UI with the new count
+            localStorage.setItem('unreadMessagesCount', data.unread_messages); // Update localStorage with the new unread count
+          })
+          .catch(error => console.error('Error marking messages as read:', error));
+        }
+
+        // Event listeners for Turbo navigation
+        document.addEventListener('turbo:load', function() {
+          console.log('Turbo load event fired'); // Debugging line
+          loadUnreadMessageCount(); // Load the count when navigating
+          checkForNewMessages(); // Fetch the latest count
+
+          const conversationHeader = document.getElementById('conversation-header');
+          if (conversationHeader) {
+            const conversationId = conversationHeader.dataset.conversationId;
+            markMessagesAsRead(conversationId) // Mark messages as read when the conversation is loaded
+              .then(() => {
+                checkForNewMessages(); // Update the count after marking as read
+              });
+          }
+
+          // Show the manual mark as read button if the conversation header exists
+          if (conversationHeader) {
+            document.getElementById('mark-as-read-button').style.display = 'block';
+          }
+        });
+
+        // Button event listener for marking messages as read
+        document.getElementById('mark-as-read-button').addEventListener('click', function() {
+          const conversationHeader = document.getElementById('conversation-header');
+          if (conversationHeader) {
+            const conversationId = conversationHeader.dataset.conversationId;
+            markMessagesAsRead(conversationId);
+          }
+        });
       });
 
-      // Initial setup
-      document.addEventListener('DOMContentLoaded', function() {
-        if (document.body.dataset.userId) {
-          loadUnreadMessageCount(); // Load the unread count from local storage on initial page load
+      // Google Maps initialization function
+      function initMap() {
+        const mapOptions = {
+          center: { lat: 40.7128, lng: -74.0060 }, // Default to New York City; update as needed
+          zoom: 12,
+          mapId: '199aae26c3acd33a',
+        };
+
+        const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+            const userLocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            map.setCenter(userLocation);
+
+            // User's location marker
+            new google.maps.Marker({
+              map: map,
+              position: userLocation,
+              title: "You are here",
+              icon: {
+                url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                scaledSize: new google.maps.Size(32, 32)
+              }
+            });
+
+            const service = new google.maps.places.PlacesService(map);
+            const request = {
+              location: userLocation,
+              radius: '5000',
+              type: ['supermarket']
+            };
+
+            service.nearbySearch(request, (results, status) => {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                results.forEach((place) => {
+                  const placeLocation = place.geometry.location;
+
+                  // Marker for each supermarket
+                  new google.maps.Marker({
+                    map: map,
+                    position: placeLocation,
+                    title: place.name,
+                    icon: {
+                      url: 'http://maps.google.com/mapfiles/ms/icons/shopping.png',
+                      scaledSize: new google.maps.Size(32, 32)
+                    }
+                  });
+                });
+              } else {
+                console.error('Places service failed: ' + status);
+              }
+            });
+          }, () => {
+            handleLocationError(true, map.getCenter());
+          });
+        } else {
+          handleLocationError(false, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, pos) {
+        console.error(browserHasGeolocation ?
+          'Error: The Geolocation service failed.' :
+          'Error: Your browser doesn\'t support geolocation.');
+      }
+
+      // Conditionally initialize map based on the presence of map container
+      document.addEventListener('turbo:load', function() {
+        if (document.getElementById('map')) {
+          initMap();
         }
       });
+
+      window.initMap = initMap; // Make initMap globally accessible
     </script>
   <% end %>
-  <!-- Define initMap function in the global scope -->
-  <script>
-    function initMap() {
-      const mapOptions = {
-        center: { lat: 40.7128, lng: -74.0060 }, // Default to New York City; update as needed
-        zoom: 12,
-        mapId: '199aae26c3acd33a', // Replace with your actual Map ID
-      };
-
-      const map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const userLocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          };
-          map.setCenter(userLocation);
-
-          // User's location marker with default icon
-          new google.maps.Marker({
-            map: map,
-            position: userLocation,
-            title: "You are here",
-            icon: {
-              url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-              scaledSize: new google.maps.Size(32, 32) // Adjust size as needed
-            }
-          });
-
-          const service = new google.maps.places.PlacesService(map);
-          const request = {
-            location: userLocation,
-            radius: '5000',
-            type: ['supermarket']
-          };
-
-          service.nearbySearch(request, (results, status) => {
-            if (status === google.maps.places.PlacesServiceStatus.OK) {
-              results.forEach((place) => {
-                const placeLocation = place.geometry.location;
-
-                // Marker for each supermarket
-                new google.maps.Marker({
-                  map: map,
-                  position: placeLocation,
-                  title: place.name,
-                  icon: {
-                    url: 'http://maps.google.com/mapfiles/ms/icons/shopping.png', // Default shopping icon
-                    scaledSize: new google.maps.Size(32, 32) // Adjust size as needed
-                  }
-                });
-              });
-            } else {
-              console.error('Places service failed: ' + status);
-            }
-          });
-        }, () => {
-          handleLocationError(true, map.getCenter());
-        });
-      } else {
-        handleLocationError(false, map.getCenter());
-      }
-    }
-
-    function handleLocationError(browserHasGeolocation, pos) {
-      console.error(browserHasGeolocation ?
-                  'Error: The Geolocation service failed.' :
-                  'Error: Your browser doesn\'t support geolocation.');
-    }
-
-    // Conditionally initialize map based on the presence of map container
-    document.addEventListener('turbo:load', function() {
-      if (document.getElementById('map')) {
-        initMap();
-      }
-    });
-
-    window.initMap = initMap;
-  </script>
 </body>
 </html>

@@ -1,4 +1,3 @@
-# config/routes.rb
 Rails.application.routes.draw do
   # Health check route
   get "up" => "rails/health#show", as: :rails_health_check
@@ -18,7 +17,9 @@ Rails.application.routes.draw do
 
     # Conversations routes nested under users
     resources :conversations, only: %i[index show create] do
-      post 'mark_as_read', on: :member
+      # Ensure this route is correctly defined for marking messages as read
+      post 'mark_as_read', on: :member, to: 'conversations#mark_as_read'
+
       resources :messages, only: %i[create]
     end
 

@@ -26,18 +26,28 @@ class MessagesController < ApplicationController
   end
 
   def show
-    @messages = @conversation.messages.order(:created_at)
-    @message = Message.new # Initialize a new message
-  end
+    @conversation = Conversation.find(params[:id])
 
-  def mark_as_read
-    message = Message.find(params[:message_id])
-    message.mark_as_read!
-    unread_count = Message.where(receiver_id: current_user.id, read: false).count
-    render json: { unread_messages: unread_count }, status: :ok
+    # Mark all unread messages in this conversation as read for the current user
+    @conversation.messages.where(receiver_id: current_user.id, read: false).update_all(read: true)
+
+    # Optionally, you might want to return the conversation data
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @conversation }
+    end
   end
 
   def unread_messages_count
+    count = Message.where(receiver_id: current_user.id, read: false).count
+    render json: { unread_messages: count }, status: :ok
+  end
+
+  def mark_messages_as_read
+    # Update messages in the conversation
+    Message.where(receiver_id: current_user.id, conversation_id: params[:conversation_id], read: false).update_all(read: true)
+
+    # Return the updated count of unread messages
     count = Message.where(receiver_id: current_user.id, read: false).count
     render json: { unread_messages: count }, status: :ok
   end

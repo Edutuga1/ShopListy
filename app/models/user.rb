@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_one :cart, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
+  has_many :conversations, through: :sent_messages
   has_one_attached :user_photo
   # Validations
   validates :name, presence: true
@@ -17,7 +18,7 @@ class User < ApplicationRecord
 
   # Custom methods
   def unread_messages_count
-    messages.where(read: false).count
+    Message.where(receiver_id: id, read: false).count
   end
 
   def user_photo_or_default

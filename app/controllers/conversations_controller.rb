@@ -29,9 +29,24 @@ class ConversationsController < ApplicationController
     end
   end
 
+  def mark_as_read
+    # Find the conversation by ID
+    @conversation = Conversation.find(params[:id])
+
+    # Mark messages as read (implement your logic here)
+    # For example, assuming you have a method that marks messages as read
+    @conversation.mark_messages_as_read(current_user)
+
+    # Return the unread message count as JSON
+    render json: { unread_messages: current_user.unread_messages_count }
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Conversation not found' }, status: :not_found
+  end
+
+
   # Show a specific conversation
   def show
-    @messages = @conversation.messages.order(:created_at)
+    @messages = @conversation.messages.includes(:sender).order(created_at: :asc)
   end
 
   private

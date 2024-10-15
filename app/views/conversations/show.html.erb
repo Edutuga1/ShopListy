@@ -1,5 +1,13 @@
 <h1>Conversation with <%= @conversation.other_user(current_user).email %></h1>
 
+<div id="conversation-header" data-conversation-id="<%= @conversation.id %>">
+  <h2>Details about the conversation</h2>
+  <p>Participants: <%= @conversation.messages.map(&:sender).map(&:email).uniq.join(', ') %></p>
+
+  <!-- Mark as Read Button -->
+  <%= button_to 'Mark as Read', mark_as_read_user_conversation_path(current_user, @conversation), method: :post, class: 'btn btn-primary', id: 'mark-as-read-button' %>
+</div>
+
 <div id="messages">
   <% @messages.each do |message| %>
     <div class="message">
