@@ -11,27 +11,72 @@ class User < ApplicationRecord
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
   has_many :conversations, through: :sent_messages
   has_one_attached :user_photo
+  has_many :friendships, dependent: :destroy
+  has_many :friends, -> { where(friendships: { status: 'accepted' }) }, through: :friendships, source: :friend
+
+  # Friendships where the user is the recipient
+  has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
+  has_many :inverse_friends, -> { where(friendships: { status: 'accepted' }) }, through: :inverse_friendships, source: :user
+
   # Validations
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validate :acceptable_image
 
-  # Custom methods
-  def unread_messages_count
-    Message.where(receiver_id: id, read: false).count
+  # Checks if the current user is friends with another user
+  def friend?(other_user)
+    return false if other_user.nil? # Prevent calling id on nil
+    friendships.exists?(friend_id: other_user.id, status: 'accepted') ||
+    inverse_friendships.exists?(user_id: other_user.id, status: 'accepted')
   end
 
+  def friends
+    Friendship.where(user_id: id, status: 'accepted').map(&:friend) +
+    Friendship.where(friend_id: id, status: 'accepted').map(&:user)
+  end
+
+  # Method to send a friend request
+  def send_friend_request(friend)
+    friendships.create(friend: friend, status: 'pending')
+    Rails.logger.debug "Friend request created from User ID: #{id} to User ID: #{friend.id}"
+  end
+
+  # Method to accept a friend request
+  def accept_friend_request(friendship)
+    friendship.update(status: 'accepted')
+    Rails.logger.debug "Friend request accepted for User ID: #{id}, Friendship ID: #{friendship.id}"
+  end
+
+  # Method to reject a friend request
+  def reject_friend_request(friendship)
+    friendship.update(status: 'rejected')
+    Rails.logger.debug "Friend request rejected for User ID: #{id}, Friendship ID: #{friendship.id}"
+  end
+
+  # Returns pending friend requests received by the user
+  def pending_friend_requests
+    Friendship.where(friend_id: self.id, status: 'pending')
+  end
+
+  # Checks if a friend request is pending or has been sent to/from another user
+  def friend_request_exists?(other_user)
+    friendships.exists?(friend_id: other_user.id, status: 'pending') ||
+    inverse_friendships.exists?(user_id: other_user.id, status: 'pending')
+  end
+
+  # Custom method to count unread messages
+  def unread_messages_count
+    received_messages.where(read: false).count
+  end
+
+  # Returns user photo if attached, otherwise a default path
   def user_photo_or_default
-    if user_photo.attached?
-      user_photo
-    else
-      # Replace with your default image URL or path
-      "default-avatar.png"
-    end
+    user_photo.attached? ? user_photo : "default-avatar.png"
   end
 
   private
 
+  # Validates attached image size and type
   def acceptable_image
     return unless user_photo.attached?
 
@@ -43,5 +88,10 @@ class User < ApplicationRecord
     unless acceptable_types.include?(user_photo.content_type)
       errors.add(:user_photo, "must be a JPEG or PNG")
     end
+  end
+
+  def self.search(email)
+    # Using `where` to perform a case-insensitive search
+    where("email ILIKE ?", "%#{email}%")
   end
 end

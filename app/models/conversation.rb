@@ -33,6 +33,16 @@ class Conversation < ApplicationRecord
     messages.where(receiver_id: user.id).update_all(read: true)
   end
 
+   # Scope to find conversations between two specific users
+   scope :between, ->(user1, user2) {
+    where(sender: user1, recipient: user2).or(where(sender: user2, recipient: user1))
+  }
+
+  # Helper method to find the other user in a conversation
+  def other_user(current_user)
+    sender == current_user ? receiver : sender
+  end
+
   private
 
   def sender_is_not_receiver

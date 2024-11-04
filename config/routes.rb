@@ -11,12 +11,26 @@ Rails.application.routes.draw do
   # Route for user profile (accessible by logged-in user)
   resource :profile, only: %i[show edit update]
 
-  # User resources with nested lists and conversations
+  # User resources with nested lists, conversations, friendships, and search
   resources :users, only: %i[show update destroy] do
+    # Add search route for finding users by email
+    collection do
+      get :search  # route for user search functionality
+    end
+
+    # Nested routes for lists
     resources :lists, only: %i[new create index show]
 
+    # Friendships routes nested under users
+    resources :friendships, only: %i[index create update destroy] do
+      member do
+        patch 'accept', to: 'friendships#accept'  # Accept a friend request
+        patch 'reject', to: 'friendships#reject'  # Reject a friend request
+      end
+    end
+
     # Conversations routes nested under users
-    resources :conversations, only: %i[index show create] do
+    resources :conversations, only: %i[index new show create] do
       # Ensure this route is correctly defined for marking messages as read
       post 'mark_as_read', on: :member, to: 'conversations#mark_as_read'
 

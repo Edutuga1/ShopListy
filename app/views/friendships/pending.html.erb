@@ -1,0 +1,6 @@
+<h2>Pending Friend Requests</h2>
+<% @pending_requests.each do |friendship| %>
+  <p><%= friendship.user.email %> has sent you a friend request.</p>
+  <%= button_to "Accept", friendship_path(friendship), method: :put %>
+  <%= button_to "Reject", friendship_path(friendship), method: :delete %>
+<% end %>

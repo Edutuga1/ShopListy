@@ -14,3 +14,9 @@
 
   <%= link_to 'Edit Profile', edit_profile_path %>
 </div>
+
+<h2>Your Friends</h2>
+  <% current_user.friends.each do |friend| %>
+    <p><%= friend.name %></p>
+  <% end %>
+

@@ -1,0 +1,15 @@
+<h3>Pending Friend Requests</h3>
+
+<% if @pending_friend_requests.any? %>
+  <ul>
+    <% @pending_friend_requests.each do |friendship| %>
+      <li>
+        <%= friendship.user.email %>
+        <%= button_to "Accept", accept_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-success" %>
+        <%= button_to "Reject", reject_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-danger" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No pending friend requests.</p>
+<% end %>

@@ -1,5 +1,43 @@
 <h1>Your Conversations</h1>
 
+<h2>Search for a Friend by Email</h2>
+<%= form_with url: search_users_path, method: :get, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :email, "Enter friend's email:" %>
+    <%= f.text_field :email, placeholder: "Friend's email", class: "form-control" %>
+  </div>
+  <%= f.submit "Search", class: "btn btn-primary" %>
+<% end %>
+
+<h3>Friend Requests</h3>
+<% if @pending_friend_requests.present? %>
+  <ul>
+    <% @pending_friend_requests.each do |friendship| %>
+      <li>
+        <%= friendship.user.email %>
+        <%= button_to "Accept", accept_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-success" %>
+        <%= button_to "Reject", reject_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-danger" %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No friend requests at this time.</p>
+<% end %>
+
+<h2>Start a New Conversation with a Friend</h2>
+<% if @friends_without_conversations.any? %>
+  <ul>
+    <% @friends_without_conversations.each do |friend| %>
+      <li>
+        <%= link_to "Start conversation with #{friend.email}", new_user_conversation_path(current_user, friend_id: friend.id) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>All your friends already have conversations.</p>
+<% end %>
+
+<h1>Your Conversations</h1>
 <ul>
   <% @conversations.each do |conversation| %>
     <li>
@@ -7,16 +45,3 @@
     </li>
   <% end %>
 </ul>
-
-<h2>Start a New Conversation</h2>
-
-<%= form_with url: user_conversations_path(current_user), method: :post do |f| %>
-  <div class="form-group">
-    <%= label_tag :receiver_id, "Select a user to start a conversation with:" %>
-    <%= select_tag :receiver_id, options_from_collection_for_select(User.where.not(id: current_user.id), :id, :name), prompt: "Choose a user", class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit "Start Conversation", class: "btn btn-primary" %>
-  </div>
-<% end %>

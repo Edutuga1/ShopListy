@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user
+  before_action :set_user, only: %i[show]
   after_action :create_cart, only: :create
 
   def new
@@ -13,6 +13,20 @@ class UsersController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def search
+    if params[:email].present?
+      @users = User.where("email ILIKE ?", "%#{params[:email]}%").where.not(id: current_user.id)
+    else
+      @users = []
+    end
+
+    @user = current_user # Set this if you want to reference the current user
   end
 
   private

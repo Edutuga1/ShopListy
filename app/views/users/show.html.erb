@@ -1,0 +1,10 @@
+<h1><%= @user.name %>'s Profile</h1>
+<p>Email: <%= @user.email %></p>
+
+<% if current_user.friend_request_exists?(@user) %>
+  <p>Friend request already sent.</p>
+<% elsif !current_user.friend?(@user) %>
+  <%= button_to "Add Friend", user_friendships_path(friend_id: user.id), method: :post, class: "btn btn-secondary" %>
+<% else %>
+  <p>You are friends.</p>
+<% end %>
