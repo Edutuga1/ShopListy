@@ -1,0 +1,13 @@
+<h1>Start a New Conversation</h1>
+
+<% if @friends_without_conversations.any? %>
+  <ul>
+    <% @friends_without_conversations.each do |friend| %>
+      <li>
+        <%= link_to "Start conversation with #{friend.email}", user_conversations_path(current_user, friend_id: friend.id), method: :post %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No friends available to start a conversation with.</p>
+<% end %>

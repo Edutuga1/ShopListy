@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     end
 
     # Conversations routes nested under users
-    resources :conversations, only: %i[index new show create] do
+    resources :conversations, only: %i[index new show create destroy] do
       # Ensure this route is correctly defined for marking messages as read
       post 'mark_as_read', on: :member, to: 'conversations#mark_as_read'
 

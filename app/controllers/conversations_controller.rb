@@ -19,13 +19,13 @@ class ConversationsController < ApplicationController
 
   # Create a new conversation
   def create
-    @conversation = Conversation.new(conversation_params)
-    @conversation.sender_id = current_user.id
+    friend = User.find(params[:friend_id]) # Fetch friend by friend_id param
+    @conversation = Conversation.between(current_user, friend).first_or_create(sender: current_user, receiver: friend)
 
-    if @conversation.save
+    if @conversation.persisted?
       redirect_to user_conversation_path(current_user, @conversation), notice: 'Conversation started successfully.'
     else
-      render :new
+      render :new, alert: 'Unable to start conversation.'
     end
   end
 
@@ -43,26 +43,44 @@ class ConversationsController < ApplicationController
     render json: { error: 'Conversation not found' }, status: :not_found
   end
 
-
   # Show a specific conversation
   def show
     @messages = @conversation.messages.includes(:sender).order(created_at: :asc)
   end
 
+  # ConversationsController#new
   def new
-    @friend = User.find(params[:friend_id]) # Assuming friend_id is passed in the URL
-    @conversation = Conversation.new
+    if params[:friend_id]
+      friend = User.find(params[:friend_id])
+
+      # Find or create the conversation with the specified friend
+      @conversation = Conversation.between(current_user, friend).first
+      unless @conversation
+        @conversation = Conversation.create(sender: current_user, receiver: friend)
+      end
+
+      # Redirect to the conversation's show page
+      redirect_to user_conversation_path(current_user, @conversation)
+    else
+      # Load friends without conversations if needed for a form display
+      @friends_without_conversations = current_user.friends - current_user.conversations.map { |c| c.other_user(current_user) }
+    end
   end
 
+  def destroy
+    if @conversation.sender == current_user || @conversation.receiver == current_user
+      @conversation.destroy
+      redirect_to user_conversations_path(current_user), notice: 'Conversation deleted successfully.'
+    else
+      redirect_to user_conversations_path(current_user), alert: 'You can only delete your own conversations.'
+    end
+  end
+  
   private
 
   def set_conversation
     @conversation = Conversation.find_by(id: params[:id])
     redirect_to root_path, alert: 'Conversation not found' unless @conversation
-  end
-
-  def message_params
-    params.require(:message).permit(:receiver_email, :receiver_id, :content)
   end
 
   def set_user

@@ -21,7 +21,7 @@ class Conversation < ApplicationRecord
   end
 
   def other_user(current_user)
-    (self.sender == current_user) ? self.receiver : self.sender
+    sender == current_user ? receiver : sender
   end
 
   def participants
@@ -35,13 +35,8 @@ class Conversation < ApplicationRecord
 
    # Scope to find conversations between two specific users
    scope :between, ->(user1, user2) {
-    where(sender: user1, recipient: user2).or(where(sender: user2, recipient: user1))
-  }
-
-  # Helper method to find the other user in a conversation
-  def other_user(current_user)
-    sender == current_user ? receiver : sender
-  end
+  where(sender: user1, receiver: user2).or(where(sender: user2, receiver: user1))
+}
 
   private
 

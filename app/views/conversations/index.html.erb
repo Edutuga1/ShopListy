@@ -41,7 +41,8 @@
 <ul>
   <% @conversations.each do |conversation| %>
     <li>
-      <%= link_to "Conversation with #{conversation.other_user(current_user).email}", user_conversation_path(current_user, conversation) %>
+      <%= link_to "Conversation with #{conversation.other_user(current_user).name}", user_conversation_path(current_user, conversation) %>
+      <%= button_to 'Delete', user_conversation_path(current_user, conversation), method: :delete, data: { confirm: 'Are you sure you want to delete this conversation?' }, class: 'btn btn-danger btn-sm' %>
     </li>
   <% end %>
 </ul>
