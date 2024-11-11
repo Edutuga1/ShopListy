@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
 
     # Nested routes for lists
-    resources :lists, only: %i[new create index show]
+    resources :lists, only: %i[new create index show destroy]
 
     # Friendships routes nested under users
     resources :friendships, only: %i[index create update destroy] do

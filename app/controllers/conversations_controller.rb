@@ -68,19 +68,27 @@ class ConversationsController < ApplicationController
   end
 
   def destroy
-    if @conversation.sender == current_user || @conversation.receiver == current_user
-      @conversation.destroy
-      redirect_to user_conversations_path(current_user), notice: 'Conversation deleted successfully.'
+    @conversation = Conversation.find(params[:id])
+
+    if @conversation.nil? || (@conversation.sender != current_user && @conversation.receiver != current_user)
+      redirect_to user_conversations_path(current_user), alert: 'Unauthorized action or conversation not found.'
     else
-      redirect_to user_conversations_path(current_user), alert: 'You can only delete your own conversations.'
+      @conversation.destroy
+      respond_to do |format|
+        format.html { redirect_to user_conversations_path(current_user), notice: 'Conversation deleted successfully.' }
+        format.turbo_stream # This allows Turbo to handle the removal without a full page refresh
+      end
     end
   end
-  
+
+
   private
 
   def set_conversation
     @conversation = Conversation.find_by(id: params[:id])
-    redirect_to root_path, alert: 'Conversation not found' unless @conversation
+    unless @conversation
+      redirect_to user_conversations_path(current_user), alert: 'Conversation not found'
+    end
   end
 
   def set_user
