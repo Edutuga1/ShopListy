@@ -1,7 +1,9 @@
 class RenameItemIdToProductIdInCartItems < ActiveRecord::Migration[7.1]
   def change
-    # Rename the column
-    rename_column :cart_items, :item_id, :product_id
+    # First, ensure that the item_id column exists before renaming it
+    if column_exists?(:cart_items, :item_id)
+      rename_column :cart_items, :item_id, :product_id
+    end
 
     # Remove the old index if it exists
     if index_exists?(:cart_items, :item_id, name: "index_cart_items_on_item_id")
@@ -13,8 +15,14 @@ class RenameItemIdToProductIdInCartItems < ActiveRecord::Migration[7.1]
       add_index :cart_items, :product_id, name: "index_cart_items_on_product_id"
     end
 
-    # Update the foreign key
-    remove_foreign_key :cart_items, column: :product_id if foreign_key_exists?(:cart_items, column: :product_id)
-    add_foreign_key :cart_items, :products, column: :product_id
+    # Remove the old foreign key and add the new one (if applicable)
+    if foreign_key_exists?(:cart_items, column: :item_id)
+      remove_foreign_key :cart_items, column: :item_id
+    end
+
+    # Add foreign key referencing the products table, only if it doesn't exist
+    unless foreign_key_exists?(:cart_items, column: :product_id)
+      add_foreign_key :cart_items, :products, column: :product_id
+    end
   end
 end

@@ -73,8 +73,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171641) do
   end
 
   create_table "conversations", force: :cascade do |t|
-    t.integer "sender_id"
-    t.integer "receiver_id"
+    t.integer "sender_id", null: false
+    t.integer "receiver_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -133,7 +133,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171641) do
     t.string "subject"
     t.boolean "sender_deleted", default: false
     t.boolean "receiver_deleted", default: false
-    t.integer "conversation_id"
+    t.bigint "conversation_id"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["receiver_id"], name: "index_messages_on_receiver_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
@@ -181,6 +182,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_21_171641) do
   add_foreign_key "groceries", "users"
   add_foreign_key "lists", "users"
   add_foreign_key "meat_products", "categories"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users", column: "receiver_id"
   add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "products", "categories"
