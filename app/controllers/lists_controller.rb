@@ -57,9 +57,8 @@ class ListsController < ApplicationController
   end
 
   def destroy
-    @products_list = @list.products_lists.find(params[:id])  # Updated from items_lists to products_lists
-    @products_list.destroy
-    redirect_to edit_list_path(@list), notice: 'Product removed successfully.'
+    @list.destroy
+    redirect_to lists_path, notice: 'List was successfully deleted.'
   end
 
   private

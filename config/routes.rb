@@ -84,6 +84,7 @@ Rails.application.routes.draw do
     post 'add_to_list', to: 'carts#add_to_list'
     patch 'update_item/:id', to: 'carts#update_product', as: :update_product
     delete 'remove_item/:id', to: 'carts#remove_item', as: :remove_item
+    delete 'clear', on: :member
   end
 
   # Checkout route

@@ -16,6 +16,7 @@ class CartsController < ApplicationController
   end
 
   def add_product
+    Rails.logger.info("Received params: #{params.inspect}")
     product = Product.find(params[:product_id])
     quantity = params[:quantity].to_i
 
@@ -47,26 +48,26 @@ class CartsController < ApplicationController
   end
 
   def add_to_list
+    # If the user is trying to create a new list
     if params[:new_list_name].present?
-      if @user.lists.count >= 5
-        flash[:alert] = "You can't create more than 5 lists."
-        redirect_to cart_path and return
-      end
-      list = @user.lists.create(name: params[:new_list_name])
+      # Create a new list with the provided name
+      list = List.create(name: params[:new_list_name], user_id: current_user.id)
     else
+      # If an existing list is selected, use that list
       list = List.find(params[:list_id])
     end
 
-    product = Product.find(params[:product_id])
-    quantity = params[:quantity].to_i
-
-    if list.add_product(product, quantity)
-      flash[:notice] = "Product added to the list."
-    else
-      flash[:alert] = "Failed to add the product to the list."
+    # Now add products to the list
+    if params[:product_ids].present? && params[:quantities].present?
+      params[:product_ids].each do |product_id|
+        product = Product.find(product_id)
+        quantity = params[:quantities][product_id].to_i
+        list.add_product(product, quantity) if quantity.positive?
+      end
     end
 
-    redirect_to cart_path
+    # Redirect or render based on your application's flow
+    redirect_to cart_path, notice: 'Products added to list successfully!'
   end
 
   def update_product
@@ -77,6 +78,18 @@ class CartsController < ApplicationController
       redirect_to cart_path, alert: 'Failed to update cart item.'
     end
   end
+
+  def clear
+    @cart = current_user.cart # or wherever the cart is associated
+    if @cart
+      @cart.cart_items.destroy_all   # Delete all items in the cart
+      flash[:notice] = "All items have been removed from your cart."
+    else
+      flash[:alert] = "Cart not found."
+    end
+    redirect_to cart_path(@cart)
+  end
+
 
   private
 

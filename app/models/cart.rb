@@ -8,8 +8,19 @@ class Cart < ApplicationRecord
 
   def add_product(product, quantity = 1)
     cart_item = cart_items.find_or_initialize_by(product: product)
-    cart_item.quantity = (cart_item.quantity || 0) + quantity
-    cart_item.save
+    if cart_item.new_record?
+      # Set the quantity to the specified value if it's a new item
+      cart_item.quantity = quantity
+    else
+      # Increment the quantity if it’s an existing item
+      cart_item.quantity += quantity
+    end
+
+    if cart_item.save
+      Rails.logger.info("Cart item saved with quantity: #{cart_item.quantity}")
+    else
+      Rails.logger.error("Failed to save cart item: #{cart_item.errors.full_messages.join(", ")}")
+    end
   end
 
   def remove_item(cart_item)
