@@ -8,7 +8,7 @@
         <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{hygiene_product.id}" } do |form| %>
           <%= form.hidden_field :product_id, value: hygiene_product.id %>
           <%= form.number_field :quantity, min: 1, value: 1 %>
-          <%= form.submit "Add to Cart", class: 'btn btn-primary' %> <!-- Updated class here -->
+          <%= form.submit "Add to Cart", class: 'btn btn-primary' %> 
         <% end %>
       </div>
     <% end %>
@@ -17,7 +17,7 @@
   <% end %>
 
   <div class="navigation-buttons">
-    <%= link_to 'Back', root_path, class: 'btn btn-secondary' %> <!-- Back button -->
-    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %> <!-- See Cart button -->
+    <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
   </div>
 </div>

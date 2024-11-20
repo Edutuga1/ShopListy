@@ -1,140 +1,55 @@
 <!DOCTYPE html>
 <html>
-    <main>
-      <h1>Create a New List</h1>
-      <div class="button-container">
-      <%= link_to drink_path, class: "custom-button btn" do %>
-          <strong>DRINKS</strong>
-          <div id="container-stars-drink">
-            <div id="stars-drink"></div>
-          </div>
-          <div id="glow-drink">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+  <main>
+    <h1>Create a New List</h1>
+    <div class="button-grid">
+      <%= link_to drink_path, class: "btn btn-drink" do %>
+        <span class="btn-text"><strong>DRINKS</strong></span>
+      <% end %>
 
-        <%= link_to meat_path, class: "custom-button btn" do %>
-          <strong>MEAT</strong>
-          <div id="container-stars-meat">
-            <div id="stars-meat"></div>
-          </div>
-          <div id="glow-meat">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to meat_path, class: "btn btn-meat" do %>
+        <span class="btn-text"><strong>MEAT</strong></span>
+      <% end %>
 
-         <%= link_to fish_path, class: "custom-button btn" do %>
-          <strong>FISH</strong>
-          <div id="container-stars-meat">
-            <div id="stars-fish"></div>
-          </div>
-          <div id="glow-fish">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to fish_path, class: "btn btn-fish" do %>
+        <span class="btn-text"><strong>FISH</strong></span>
+      <% end %>
 
-         <%= link_to bakery_path, class: "custom-button btn" do %>
-          <strong>BAKERY</strong>
-          <div id="container-stars-bakery">
-            <div id="stars-bakery"></div>
-          </div>
-          <div id="glow-bakery">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to bakery_path, class: "btn btn-bakery" do %>
+        <span class="btn-text"><strong>BAKERY</strong></span>
+      <% end %>
 
-        <%= link_to cold_cuts_and_cheeses_path, class: "custom-button btn" do %>
-         <strong>COLD CUTS AND CHEESE</strong>
-         <div id="container-stars-cold-cuts-and-cheeses">
-           <div id="stars-cold-cuts-and-cheeses"></div>
-         </div>
-         <div id="glow-cold-cuts-and-cheeses">
-           <div class="circle"></div>
-           <div class="circle"></div>
-        </div>
-        <% end %>
+      <%= link_to cold_cuts_and_cheeses_path, class: "btn btn-cheese" do %>
+        <span class="btn-text"><strong>COLD CUTS AND CHEESE</strong></span>
+      <% end %>
 
-        <%= link_to car_path, class: "custom-button btn" do %>
-          <strong>CAR</strong>
-          <div id="container-stars-car">
-            <div id="stars-car"></div>
-          </div>
-          <div id="glow-car">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to car_path, class: "btn btn-car" do %>
+        <span class="btn-text"><strong>CAR</strong></span>
+      <% end %>
 
-           <%= link_to frozen_path, class: "custom-button btn" do %>
-          <strong>FROZEN</strong>
-          <div id="container-stars-frozen">
-            <div id="stars-frozen"></div>
-          </div>
-          <div id="glow-frozen">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to frozen_path, class: "btn btn-frozen" do %>
+        <span class="btn-text"><strong>FROZEN</strong></span>
+      <% end %>
 
-        <%= link_to milk_and_eggs_path, class: "custom-button btn" do %>
-          <strong>MILK & EGGS</strong>
-          <div id="container-stars-milk-eggs">
-            <div id="stars-milk-eggs"></div>
-          </div>
-          <div id="glow-milk-eggs">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to milk_and_eggs_path, class: "btn btn-milk" do %>
+        <span class="btn-text"><strong>MILK & EGGS</strong></span>
+      <% end %>
 
-        <%= link_to fruits_path, class: "custom-button btn" do %>
-          <strong>FRUITS</strong>
-          <div id="container-stars-fruits">
-            <div id="stars-fruits"></div>
-          </div>
-          <div id="glow-fruits">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to fruits_path, class: "btn btn-fruit" do %>
+        <span class="btn-text"><strong>FRUITS</strong></span>
+      <% end %>
 
-        <%= link_to vegetables_path, class: "custom-button btn" do %>
-          <strong>VEGGIES</strong>
-          <div id="container-stars-vegetables">
-            <div id="stars-vegetables"></div>
-          </div>
-          <div id="glow-vegetables">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to vegetables_path, class: "btn btn-veggies" do %>
+        <span class="btn-text"><strong>VEGGIES</strong></span>
+      <% end %>
 
-          <%= link_to hygiene_path, class: "custom-button btn" do %>
-          <strong>HYGIENE</strong>
-          <div id="container-stars-hygiene">
-            <div id="stars-hygiene"></div>
-          </div>
-          <div id="glow-hygiene">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
+      <%= link_to hygiene_path, class: "btn btn-hygiene" do %>
+        <span class="btn-text"><strong>HYGIENE</strong></span>
+      <% end %>
 
-        <%= link_to cleaning_path, class: "custom-button btn" do %>
-          <strong>CLEANING</strong>
-          <div id="container-stars-cleaning">
-            <div id="stars-cleaning"></div>
-          </div>
-          <div id="glow-cleaning">
-            <div class="circle"></div>
-            <div class="circle"></div>
-          </div>
-        <% end %>
-      </div>
-    </main>
-  </body>
+      <%= link_to cleaning_path, class: "btn btn-cleaning" do %>
+        <span class="btn-text"><strong>CLEANING</strong></span>
+      <% end %>
+    </div>
+  </main>
 </html>

@@ -16,7 +16,11 @@
 </div>
 
 <h2>Your Friends</h2>
+<ul>
   <% current_user.friends.each do |friend| %>
-    <p><%= friend.name %></p>
+    <li>
+      <%= link_to friend.name, user_path(friend), class: "friend-link" %>
+    </li>
   <% end %>
+</ul>
 

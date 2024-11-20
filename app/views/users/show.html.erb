@@ -1,6 +1,17 @@
 <h1><%= @user.name %>'s Profile</h1>
 <p>Email: <%= @user.email %></p>
 
+
+<div class="profile-container">
+  <% if @user.user_photo.attached? %>
+    <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), alt: "#{@user.name}'s photo" %>
+  <% else %>
+    <p>No profile picture available.</p>
+  <% end %>
+
+  <p>Name: <%= @user.name %></p>
+</div>
+
 <% if current_user.friend_request_exists?(@user) %>
   <p>Friend request already sent.</p>
 <% elsif !current_user.friend?(@user) %>

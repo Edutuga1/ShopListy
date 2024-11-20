@@ -4,18 +4,11 @@
     <div class="button-container">
       <%= link_to new_user_list_path(current_user), class: "btn" do %>
         <strong>CREATE A NEW LIST</strong>
-        <div id="container-stars">
-          <div id="stars"></div>
-        </div>
-        <div id="glow">
-          <div class="circle"></div>
-          <div class="circle"></div>
-        </div>
       <% end %>
     </div>
 
     <!-- Map container -->
-    <div id="map" style="height: 500px; width: 100%;"></div>
+    <div id="map"></div>
   </div>
 <% else %>
   <h1>Please log in or sign up to continue</h1>

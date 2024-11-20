@@ -4,27 +4,10 @@
   <ul id="lists">
     <% @lists.each do |list| %>
       <li>
-        <!-- Link to view and edit the list -->
         <%= link_to list.name, list_path(list) %>
-        <%= link_to 'Edit', edit_list_path(list), class: 'btn btn-primary' %>
-
-        <!-- Button to delete the list -->
+        <br>
+        <small>Created on: <%= list.created_at.strftime('%B %d, %Y') %></small>
         <%= button_to 'Delete', list_path(list), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this list?' } %>
-
-        <!-- Display the products in the list -->
-        <ul>
-          <% list.products_lists.each do |products_list| %>
-            <li>
-              <%= products_list.product.name %> -
-              Quantity: <%= products_list.quantity %> -
-              Price (Each): <%= number_to_currency(products_list.product.price) %> -
-              Total Price: <%= number_to_currency(products_list.quantity * products_list.product.price) %>
-            </li>
-          <% end %>
-        </ul>
-
-        <!-- Display the total cost of the list -->
-        <p>Total Cost: <%= number_to_currency(list.total_cost) %></p>
       </li>
     <% end %>
   </ul>

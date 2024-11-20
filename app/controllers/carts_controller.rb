@@ -90,7 +90,6 @@ class CartsController < ApplicationController
     redirect_to cart_path(@cart)
   end
 
-
   private
 
   def set_cart

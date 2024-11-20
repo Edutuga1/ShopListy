@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
 
     # Nested routes for lists
-    resources :lists, only: %i[new create index show destroy]
+    resources :lists, only: %i[new create index show destroy edit update]
 
     # Friendships routes nested under users
     resources :friendships, only: %i[index create update destroy] do
@@ -34,7 +34,7 @@ Rails.application.routes.draw do
       # Ensure this route is correctly defined for marking messages as read
       post 'mark_as_read', on: :member, to: 'conversations#mark_as_read'
 
-      resources :messages, only: %i[create]
+      resources :messages, only: %i[create index]
     end
 
     # Messages routes nested under users

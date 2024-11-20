@@ -1,0 +1,167 @@
+h1 {
+  color:#ffffff;
+  text-align: center;
+  margin-top: 20px;
+}
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+  gap: 20px; /* Space between buttons */
+  padding: 20px; /* Add padding around the grid */
+}
+
+/* General button styling */
+.button-grid .btn {
+  display: flex;
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+  height: 150px; /* Height of each button */
+  color: #ffffff; /* Default text color */
+  font-weight: bold;
+  text-transform: uppercase;
+  border: none; /* No border */
+  border-radius: 10px; /* Rounded corners */
+  position: relative; /* For positioning text and pseudo-element */
+  overflow: hidden; /* Ensure no content overflows */
+  text-align: center;
+  text-decoration: none; /* Remove underline from text */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Button effects */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7), -2px -2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Button's background image with blur on hover */
+.button-grid .btn::before {
+  content: ''; /* Empty content for the pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: filter 0.3s ease; /* Smooth transition for the filter */
+  z-index: -1; /* Ensure background is behind the text */
+}
+
+/* Initially, the background image will be set */
+.btn-drink::before {
+  background-image: url('/assets/drinking.png');
+  background-color: #ffffff !important;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-meat::before {
+  background-image: url('/assets/meat.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-fish::before {
+  background-image: url('/assets/fish.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-bakery::before {
+  background-image: url('/assets/bread.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-cheese::before {
+  background-image: url('/assets/cheese.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-car::before {
+  background-image: url('/assets/car.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-frozen::before {
+  background-image: url('/assets/frozen-food.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-milk::before {
+  background-image: url('/assets/milk.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-fruit::before {
+  background-image: url('/assets/fruit-salad.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-veggies::before {
+  background-image: url('/assets/vegetables.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-hygiene::before {
+  background-image: url('/assets/personal-hygiene.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-cleaning::before {
+  background-image: url('/assets/products.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+/* On hover, apply the blur to the background image only */
+.button-grid .btn:hover::before {
+  filter: blur(2px); /* Apply blur effect to the background */
+}
+
+.button-grid .btn:hover {
+  transform: scale(1.05); /* Slightly enlarge button on hover */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+/* Initially hide the text inside the buttons */
+.button-grid .btn .btn-text {
+  opacity: 0; /* Hide text */
+  visibility: hidden; /* Ensure text doesn't take up space */
+  position: absolute; /* Position text absolutely in the center */
+  text-align: center;
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition for text appearance */
+}
+
+/* On hover, make the text visible */
+.button-grid .btn:hover .btn-text {
+  opacity: 1; /* Make the text visible */
+  visibility: visible; /* Ensure text is visible */
+}
