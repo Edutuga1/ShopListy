@@ -130,12 +130,50 @@ drinks_category = Category.find_or_create_by(name: 'Drinks')
 
 # Create drink products if the 'Drinks' category exists
 if drinks_category
+  # Non-alcoholic drinks
   [
     { name: 'Coca-Cola', price: 1.49 },
+    { name: 'Water', price: 0.99 },
+    { name: 'Sparkling Water', price: 1.19 },
+    { name: 'Gatorade', price: 1.79 },
+    { name: 'Powerade', price: 1.69 },
     { name: 'Pepsi', price: 1.39 },
+    { name: 'Ice Tea', price: 1.69 },
+    { name: 'Guaraná', price: 1.59 },
+    { name: '7-Up', price: 1.29 },
+    { name: 'Dr.Pepper', price: 1.49 },
+    { name: 'Fanta Orange', price: 1.39 },
+    { name: 'Fanta Pineapple', price: 1.39 },
+    { name: 'Fanta Strawberry', price: 1.39 },
+    { name: 'Fanta Grape', price: 1.39 },
     { name: 'Orange Juice', price: 2.99 },
     { name: 'Apple Juice', price: 2.89 },
-    { name: 'Lemonade', price: 3.49 }
+    { name: 'Pineapple Juice', price: 2.49 },
+    { name: 'Lemonade', price: 3.49 },
+    { name: 'Tonic Water', price: 1.49 },
+    { name: 'Ginger Ale', price: 1.29 },
+    { name: 'Soda', price: 1.19 },
+    { name: 'Monster Energy Drink', price: 2.49 },
+    { name: 'Red Bull', price: 2.99 }
+  ].each do |product_attributes|
+    Product.find_or_create_by!(product_attributes.merge(category_id: drinks_category.id))
+  end
+
+  # Alcoholic drinks
+  [
+    { name: 'White Wine', price: 8.49 },
+    { name: 'Red Wine', price: 9.89 },
+    { name: 'Rose Wine', price: 7.39 },
+    { name: 'Whiskey', price: 20.00 },
+    { name: 'Gin', price: 15.00 },
+    { name: 'Rum', price: 12.00 },
+    { name: 'Vodka', price: 10.00 },
+    { name: 'Beer', price: 1.99 },
+    { name: 'Cider', price: 2.49 },
+    { name: 'Porto Wine', price: 25.00 },
+    { name: 'Champagne', price: 30.00 },
+    { name: 'Tequila', price: 18.00 },
+    { name: 'Aperol', price: 17.49 }
   ].each do |product_attributes|
     Product.find_or_create_by!(product_attributes.merge(category_id: drinks_category.id))
   end
