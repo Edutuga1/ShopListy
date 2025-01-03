@@ -53,6 +53,18 @@ Rails.application.routes.draw do
   resources :products
   resources :categories do
     get :products, on: :member
+    get 'meat', on: :collection
+    get 'milk_and_eggs', on: :collection
+    get 'fruits', on: :collection
+    get 'vegetables', on: :collection
+    get 'cleaning', on: :collection
+    get 'fish', on: :collection
+    get 'bakery', on: :collection
+    get 'car', on: :collection
+    get 'drink', on: :collection
+    get 'frozen', on: :collection
+    get 'cold_cuts_and_cheeses', on: :collection
+    get 'hygiene', on: :collection
   end
 
   # List resources with additional actions

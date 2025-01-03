@@ -1,23 +1,52 @@
 <div class="dairy-page">
   <h1>Milk and Eggs</h1>
 
-  <% if @dairy_products.any? %>
-    <% @dairy_products.each do |dairy_product| %>
-      <div class="dairy-item">
-        <p><%= dairy_product.name %></p>
-        <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{dairy_product.id}" } do |form| %>
-          <%= form.hidden_field :product_id, value: dairy_product.id %>
-          <%= form.number_field :quantity, min: 1, value: 1 %>
-          <%= form.submit "Add to Cart", class: 'btn' %>
-        <% end %>
-      </div>
-    <% end %>
-  <% else %>
-    <p>No dairy products available.</p>
-  <% end %>
-
+  <!-- Back and See Cart Buttons -->
   <div class="navigation-buttons">
     <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
     <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
   </div>
+
+  <!-- Centered Search Bar -->
+  <div class="search-container">
+    <%= form_with url: milk_and_eggs_path, method: :get, local: true, class: "search-form" do |form| %>
+      <%= form.text_field :query, value: params[:query], placeholder: "Search for a product...", class: "search-input" %>
+      <%= form.submit "Search", class: "btn search-btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <!-- Dairy Products Display -->
+  <% if @dairy_products.any? %>
+    <div class="dairy-grid">
+      <% @dairy_products.each do |product| %>
+        <div class="dairy-item">
+          <p><%= product.name %></p>
+
+          <% image_filename = "#{product.name.parameterize}" %>
+          <% if File.exist?(Rails.root.join("app/assets/images/#{image_filename}.jpg")) %>
+            <%= image_tag "#{image_filename}.jpg", class: "product-image", alt: product.name %>
+          <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
+            <%= image_tag "#{image_filename}.png", class: "product-image", alt: product.name %>
+          <% else %>
+            <p>No image available</p>
+          <% end %>
+
+          <!-- Add to Cart Form -->
+          <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
+            <%= form.hidden_field :product_id, value: product.id %>
+            <label class="quantity-label" for="quantity-<%= product.id %>">Quantity:</label>
+            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
+            <button class="btn add-to-cart" type="submit">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>No dairy products available.</p>
+  <% end %>
+
+  <!-- Font Awesome Script -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </div>

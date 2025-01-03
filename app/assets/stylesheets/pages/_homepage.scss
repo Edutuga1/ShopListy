@@ -1,10 +1,10 @@
 body {
+  min-height: 100vh; // Ensures the body always fills the viewport height
+  background: linear-gradient(to bottom, #4aa1fe, #004ea1);
+  background-attachment: fixed; // Makes the gradient consistent
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: 0;
-  font-family: Arial, sans-serif;
-
-  // Background gradient
-  background: linear-gradient(to bottom, #003366, #87CEEB);
-  height: 100vh; // Full viewport height
 }
 
 .home-page {

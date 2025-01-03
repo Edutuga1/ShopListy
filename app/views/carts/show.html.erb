@@ -1,76 +1,81 @@
-<h1>Your Cart</h1>
+<div class="cart-page">
+  <h1>Your Cart</h1>
 
-<% if @cart.cart_items.any? %>
-  <div class="table-container">
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Total</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @cart.cart_items.each do |cart_item| %>
+  <% if @cart.cart_items.any? %>
+    <div class="table-container">
+      <table>
+        <thead>
           <tr>
-            <td><%= cart_item.product.name %></td>
-            <td>
-              <!-- Allow quantity update in the cart table -->
-              <%= form_with(model: cart_item, url: update_product_cart_path(cart_item), method: :patch, local: true) do |form| %>
-                <%= form.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control' %>
-                <%= form.submit 'Update', class: 'btn btn-warning' %>
-              <% end %>
-            </td>
-            <td><%= number_to_currency(cart_item.product.price) %></td>
-            <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
-            <td>
-              <%= button_to 'Remove', remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
-            </td>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Actions</th>
           </tr>
+        </thead>
+        <tbody>
+          <% @cart.cart_items.each do |cart_item| %>
+            <tr>
+              <td><%= cart_item.product.name %></td>
+              <td>
+                <!-- Quantity and Update button in a flex container -->
+                <div class="quantity-update">
+                  <%= form_with(model: cart_item, url: update_product_cart_path(cart_item), method: :patch, local: true) do |form| %>
+                    <div class="update-wrapper">
+                      <%= form.submit 'Update', class: 'btn btn-warning' %>
+                      <%= form.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control' %>
+                    </div>
+                  <% end %>
+                </div>
+              </td>
+              <td><%= number_to_currency(cart_item.product.price) %></td>
+              <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
+              <td>
+                <%= button_to 'Remove', remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="total-price">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
+        <!-- Add Hidden Fields for Product IDs -->
+        <% @cart.cart_items.each do |cart_item| %>
+          <%= form.hidden_field :product_ids, value: cart_item.product.id, multiple: true %>
+          <!-- Add Quantity Fields for Each Product (Only for List Creation) -->
+          <%= form.number_field "quantities[#{cart_item.product.id}]", value: cart_item.quantity, min: 1, class: 'form-control', style: 'display:none;' %> <!-- Hide quantity field -->
         <% end %>
-      </tbody>
-    </table>
-  </div>
 
-  <h3 class="total-price">Total Price: <%= number_to_currency(@cart.total_price) %></h3>
+        <!-- Select List or Create New List -->
+        <%= form.label :list_id, 'Select List to Add Items' %>
+        <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: 'Choose an Existing List' }, { class: 'form-control' } %>
 
-  <!-- Navigation for Adding to List -->
-  <div class="navigation-buttons">
-    <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
+        <% if @user.lists.count < 5 %>
+          <div class="new-list-section">
+            <h4>Or Create a New List</h4>
+            <%= form.label :new_list_name, 'New List Name' %>
+            <%= form.text_field :new_list_name, class: 'form-control' %>
+          </div>
+        <% else %>
+          <p>You have reached the maximum of 5 lists. Please delete an existing list to create a new one.</p>
+        <% end %>
 
-      <!-- Add Hidden Fields for Product IDs -->
-      <% @cart.cart_items.each do |cart_item| %>
-        <%= form.hidden_field :product_ids, value: cart_item.product.id, multiple: true %>
-        <!-- Add Quantity Fields for Each Product (Only for List Creation) -->
-        <%= form.number_field "quantities[#{cart_item.product.id}]", value: cart_item.quantity, min: 1, class: 'form-control', style: 'display:none;' %> <!-- Hide quantity field -->
+        <%= form.submit 'Add to List', class: 'btn btn-primary' %>
       <% end %>
 
-      <!-- Select List or Create New List -->
-      <%= form.label :list_id, 'Select List to Add Items' %>
-      <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: 'Choose an Existing List' }, { class: 'form-control' } %>
+      <%= link_to 'Back to Products', request.referer || root_path, class: 'btn btn-secondary' %>
+    </div>
 
-      <% if @user.lists.count < 5 %>
-        <div class="new-list-section">
-          <h4>Or Create a New List</h4>
-          <%= form.label :new_list_name, 'New List Name' %>
-          <%= form.text_field :new_list_name, class: 'form-control' %>
-        </div>
-      <% else %>
-        <p>You have reached the maximum of 5 lists. Please delete an existing list to create a new one.</p>
-      <% end %>
-
-      <%= form.submit 'Add to List', class: 'btn btn-primary' %>
-    <% end %>
-
-    <%= link_to 'Back to Products', request.referer || root_path, class: 'btn btn-secondary' %>
-  </div>
-
-<!-- Add "Delete All" button -->
-  <div class="delete-all-button">
-    <%= button_to 'Delete All', clear_cart_path(@cart.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete all items from your cart?' } %>
-  </div>
-<% else %>
-  <p>Your cart is empty.</p>
-<% end %>
+    <!-- Add "Delete All" button -->
+    <div class="delete-all-button">
+      <%= button_to 'Delete All', clear_cart_path(@cart.id), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete all items from your cart?' } %>
+    </div>
+  <% else %>
+    <p>Your cart is empty.</p>
+  <% end %>
+</div>

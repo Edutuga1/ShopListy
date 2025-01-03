@@ -1,5 +1,15 @@
 <div class="drink-page">
   <h1>Drinks</h1>
+  <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
+  <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+
+   <div class="search-bar">
+    <%= form_with url: drink_path, method: :get, local: true do |form| %>
+      <%= form.label :query, "Search for a product:", class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: "Type to search...", class: "search-input" %>
+      <%= form.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 
   <% if @drinks_products.any? %>
     <div class="drink-grid">
@@ -17,10 +27,16 @@
             <p>No image available</p>
           <% end %>
 
-          <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{drink_product.id}" } do |form| %>
+          <!-- Use remote form submission -->
+          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{drink_product.id}" } do |form| %>
             <%= form.hidden_field :product_id, value: drink_product.id %>
-            <%= form.number_field :quantity, min: 1, value: 1 %>
-            <%= form.submit "Add to Cart", class: 'btn' %>
+
+            <label class="quantity-label" for="quantity-<%= drink_product.id %>">Quantity:</label>
+            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{drink_product.id}" %>
+
+            <button class="btn add-to-cart" type="submit">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
           <% end %>
         </div>
       <% end %>
@@ -33,4 +49,7 @@
     <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
     <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
   </div>
+
+  <!-- Font Awesome Script -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </div>

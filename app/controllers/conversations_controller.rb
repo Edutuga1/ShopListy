@@ -19,13 +19,18 @@ class ConversationsController < ApplicationController
 
   # Create a new conversation
   def create
-    friend = User.find(params[:friend_id]) # Fetch friend by friend_id param
-    @conversation = Conversation.between(current_user, friend).first_or_create(sender: current_user, receiver: friend)
+    @conversation = Conversation.find(params[:conversation_id])
+    @message = @conversation.messages.new(message_params)
+    @message.sender = current_user
 
-    if @conversation.persisted?
-      redirect_to user_conversation_path(current_user, @conversation), notice: 'Conversation started successfully.'
+    if @message.save
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to user_conversation_path(current_user, @conversation), notice: 'Message sent.' }
+      end
     else
-      render :new, alert: 'Unable to start conversation.'
+      flash[:alert] = "Unable to send message."
+      redirect_to user_conversation_path(current_user, @conversation)
     end
   end
 
@@ -97,5 +102,9 @@ class ConversationsController < ApplicationController
 
   def conversation_params
     params.require(:conversation).permit(:receiver_id) # Ensure you permit the receiver_id
+  end
+
+  def message_params
+    params.require(:message).permit(:content)
   end
 end

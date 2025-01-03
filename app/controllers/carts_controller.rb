@@ -25,11 +25,13 @@ class CartsController < ApplicationController
       current_cart.save
     end
 
-    # Set the notice message
-    flash[:notice] = 'Product successfully added to cart!'
-
-    # Redirect back to the referring URL (the page where the request originated)
-    redirect_to request.referer || root_path
+    respond_to do |format|
+      format.html { redirect_to request.referer || root_path, notice: 'Product successfully added to cart!' }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.append('flash-messages', partial: 'shared/flash', locals: { message: 'Product added to cart!' })
+      end
+      format.json { render json: { message: 'Product added to cart!' }, status: :ok }
+    end
   end
 
   def remove_item
@@ -48,16 +50,12 @@ class CartsController < ApplicationController
   end
 
   def add_to_list
-    # If the user is trying to create a new list
     if params[:new_list_name].present?
-      # Create a new list with the provided name
       list = List.create(name: params[:new_list_name], user_id: current_user.id)
     else
-      # If an existing list is selected, use that list
       list = List.find(params[:list_id])
     end
 
-    # Now add products to the list
     if params[:product_ids].present? && params[:quantities].present?
       params[:product_ids].each do |product_id|
         product = Product.find(product_id)
@@ -66,7 +64,6 @@ class CartsController < ApplicationController
       end
     end
 
-    # Redirect or render based on your application's flow
     redirect_to cart_path, notice: 'Products added to list successfully!'
   end
 
@@ -80,9 +77,9 @@ class CartsController < ApplicationController
   end
 
   def clear
-    @cart = current_user.cart # or wherever the cart is associated
+    @cart = current_user.cart
     if @cart
-      @cart.cart_items.destroy_all   # Delete all items in the cart
+      @cart.cart_items.destroy_all
       flash[:notice] = "All items have been removed from your cart."
     else
       flash[:alert] = "Cart not found."

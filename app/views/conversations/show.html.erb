@@ -1,29 +1,31 @@
-<h1>Conversation with <%= @conversation.other_user(current_user).email %></h1>
+<div class="chat-page">
 
-<div id="conversation-header" data-conversation-id="<%= @conversation.id %>">
-  <h2>Details about the conversation</h2>
-  <p>Participants: <%= @conversation.messages.map(&:sender).map(&:email).uniq.join(', ') %></p>
-</div>
+  <h1>Conversation with <%= @conversation.other_user(current_user).name %></h1>
 
-<div id="messages">
-  <% @messages.each do |message| %>
-    <div class="message">
-      <% if message.sender == current_user %>
-        <strong>You:</strong>
-      <% else %>
-        <strong><%= message.sender.email %>:</strong>
-      <% end %>
-      <p><%= message.content %></p>
-      <p><small><%= time_ago_in_words(message.created_at) %> ago</small></p>
-    </div>
+  <div id="conversation-header" data-conversation-id="<%= @conversation.id %>">
+    <h2>Details about the conversation</h2>
+    <p>Participants: <%= @conversation.messages.map(&:sender).map(&:email).uniq.join(', ') %></p>
+  </div>
+
+  <!-- Updated messages container with Stimulus controller for scrolling -->
+  <div id="messages" data-controller="scroll">
+    <% @messages.each do |message| %>
+      <%= render partial: "messages/message", locals: { message: message } %>
+    <% end %>
+  </div>
+
+  <% if @conversation %>
+    <!-- Form with Stimulus controller to clear the input after sending -->
+    <%= form_with(model: Message.new,
+                  url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id),
+                  data: { turbo_stream: true },
+                  local: false,
+                  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } }) do |form| %>
+      <%= form.text_area :content, class: "form-control", placeholder: "Type your message...", id: "message-content" %>
+      <%= form.submit "Send", class: "btn btn-primary" %>
+    <% end %>
+  <% else %>
+    <p>Error: Conversation not found.</p>
   <% end %>
-</div>
 
-<% if @conversation %>
-  <%= form_with(model: Message.new, url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id)) do |form| %>
-    <%= form.text_area :content %>
-    <%= form.submit "Send" %>
-  <% end %>
-<% else %>
-  <p>Error: Conversation not found.</p>
-<% end %>
+</div>

@@ -8,11 +8,17 @@
 <% end %>
 
 <% if @messages.present? %>
+  <% last_sender = nil %> <!-- Track the last sender to prevent alternating layout -->
   <% @messages.each do |message| %>
-    <% other_user = message.sender_id == current_user.id ? User.find(message.receiver_id) : User.find(message.sender_id) %>
-    <div class="message">
-      <p><strong><%= other_user.email %>:</strong> <%= message.content %></p>
+    <% # Determine whether the message is from the current user or the other user %>
+    <% message_class = message.sender == current_user ? 'sent' : 'received' %>
+
+    <!-- Message rendering -->
+    <div class="message <%= message_class %>">
+      <p><strong><%= message.sender == current_user ? 'You' : message.sender.email %>:</strong> <%= message.content %></p>
       <p><small><%= time_ago_in_words(message.created_at) %> ago</small></p>
     </div>
+
+    <% last_sender = message.sender_id %> <!-- Update the last sender variable -->
   <% end %>
 <% end %>

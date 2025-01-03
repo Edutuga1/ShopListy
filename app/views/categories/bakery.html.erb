@@ -1,17 +1,50 @@
 <div class="bakery-page">
   <h1>Bakery</h1>
 
-  <% if @bakery_products.any? %>
-    <% @bakery_products.each do |bakery_product| %>
-      <div class="bakery-item">
-        <p><%= bakery_product.name %></p>
-        <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{bakery_product.id}" } do |form| %>
-          <%= form.hidden_field :product_id, value: bakery_product.id %>
-          <%= form.number_field :quantity, min: 1, value: 1 %>
-          <%= form.submit "Add to Cart", class: 'btn' %>
-        <% end %>
-      </div>
+  <!-- Back and See Cart Buttons -->
+  <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
+  <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+
+   <!-- Search Bar -->
+  <div class="search-bar">
+    <%= form_with url: bakery_path, method: :get, local: true do |form| %>
+      <%= form.label :query, "Search for a product:", class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: "Type to search...", class: "search-input" %>
+      <%= form.submit "Search", class: "btn btn-primary" %>
     <% end %>
+  </div>
+
+  <!-- Bakery Products Display -->
+  <% if @bakery_products.any? %>
+    <div class="bakery-grid">
+      <% @bakery_products.each do |bakery_product| %>
+        <div class="bakery-item">
+          <p><%= bakery_product.name %></p>
+
+          <% image_filename = "#{bakery_product.name.parameterize}" %>
+
+          <% if File.exist?(Rails.root.join("app/assets/images/#{image_filename}.jpg")) %>
+            <%= image_tag "#{image_filename}.jpg", class: "product-image", alt: bakery_product.name %>
+          <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
+            <%= image_tag "#{image_filename}.png", class: "product-image", alt: bakery_product.name %>
+          <% else %>
+            <p>No image available</p>
+          <% end %>
+
+          <!-- Add to Cart Form -->
+          <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{bakery_product.id}" } do |form| %>
+            <%= form.hidden_field :product_id, value: bakery_product.id %>
+
+            <label class="quantity-label" for="quantity-<%= bakery_product.id %>">Quantity:</label>
+            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{bakery_product.id}" %>
+
+            <button class="btn add-to-cart" type="submit">
+              <i class="fas fa-shopping-cart"></i> Add to Cart
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% else %>
     <p>No bakery products available.</p>
   <% end %>
@@ -20,4 +53,7 @@
     <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
     <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
   </div>
+
+  <!-- Font Awesome Script -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </div>

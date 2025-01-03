@@ -38,4 +38,20 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // Ensure Turbo does not reset scroll position when adding products to cart
+  document.addEventListener('turbo:before-stream-render', function(event) {
+    // Save scroll position before Turbo Stream updates
+    const scrollPosition = window.scrollY;
+
+    event.detail.setAttribute('scroll', scrollPosition);  // Store the scroll position for use later
+  });
+
+  document.addEventListener('turbo:load', function(event) {
+    const scrollPosition = event.detail.getAttribute('scroll');
+    if (scrollPosition !== null) {
+      // If a scroll position was stored, restore it
+      window.scrollTo(0, scrollPosition);
+    }
+  });
 });

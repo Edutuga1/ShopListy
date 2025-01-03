@@ -1,0 +1,20 @@
+<div class="message <%= message.sender == current_user ? 'sent' : 'received' %>">
+  <!-- Message Header: Sender's Name and Profile Picture -->
+  <div class="message-header">
+    <!-- Sender's Profile Picture -->
+    <% if message.sender.user_photo.attached? %>
+      <%= image_tag message.sender.user_photo, class: 'sender-profile-pic', alt: message.sender.name %>
+    <% else %>
+      <%= image_tag 'default-avatar.jpg', class: 'sender-profile-pic', alt: 'Default Avatar' %>  <!-- Replace with the correct path to a default avatar -->
+    <% end %>
+
+    <!-- Sender's Name -->
+    <strong><%= message.sender == current_user ? 'You' : message.sender.name.presence || message.sender.email %></strong>
+
+    <!-- Message Timestamp -->
+    <small><%= time_ago_in_words(message.created_at) %> ago</small>
+  </div>
+
+  <!-- Message Content -->
+  <p><%= message.content %></p>
+</div>

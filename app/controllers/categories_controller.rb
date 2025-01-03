@@ -18,7 +18,12 @@ class CategoriesController < ApplicationController
     @meat_category = Category.find_by(name: 'Meat')
 
     if @meat_category
-      @meat_products = @meat_category.products
+      # If a search query exists, filter products
+      if params[:query].present?
+        @meat_products = @meat_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @meat_products = @meat_category.products
+      end
     else
       @meat_products = []
       flash[:alert] = "Meat category not found."
@@ -26,6 +31,7 @@ class CategoriesController < ApplicationController
 
     @cart = current_user&.cart
   end
+
 
   def milk_and_eggs
     milk_category = Category.find_by(name: 'Milk')
@@ -76,33 +82,51 @@ class CategoriesController < ApplicationController
     @fish_category = Category.find_by(name: 'Fish')
 
     if @fish_category
-      @fish_products = @fish_category.products
+      if params[:query].present?
+        @fish_products = @fish_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @fish_products = @fish_category.products
+      end
     else
       @fish_products = []
       flash[:alert] = "Fish category not found."
     end
+
+    @cart = current_user&.cart
   end
 
   def drink
     @drinks_category = Category.find_by(name: 'Drinks')
 
     if @drinks_category
-      @drinks_products = @drinks_category.products
+      if params[:query].present?
+        @drinks_products = @drinks_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @drinks_products = @drinks_category.products
+      end
     else
       @drinks_products = []
       flash[:alert] = "Drinks category not found."
     end
+
+    @cart = current_user&.cart
   end
 
   def bakery
     @bakery_category = Category.find_by(name: 'Bakery')
 
     if @bakery_category
-      @bakery_products = @bakery_category.products
+      if params[:query].present?
+        @bakery_products = @bakery_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @bakery_products = @bakery_category.products
+      end
     else
       @bakery_products = []
       flash[:alert] = "Bakery category not found."
     end
+
+    @cart = current_user&.cart
   end
 
   def car
@@ -131,11 +155,17 @@ class CategoriesController < ApplicationController
     @cold_cuts_and_cheeses_category = Category.find_by(name: 'Cold_cuts_and_cheeses')
 
     if @cold_cuts_and_cheeses_category
-      @cold_cuts_and_cheeses_products = @cold_cuts_and_cheeses_category.products
+      if params[:query].present?
+        @cold_cuts_and_cheeses_products = @cold_cuts_and_cheeses_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @cold_cuts_and_cheeses_products = @cold_cuts_and_cheeses_category.products
+      end
     else
       @cold_cuts_and_cheeses_products = []
       flash[:alert] = "Cold cuts and cheeses category not found."
     end
+
+    @cart = current_user&.cart
   end
 
   def hygiene

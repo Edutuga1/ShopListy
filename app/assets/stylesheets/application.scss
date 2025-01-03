@@ -12,7 +12,22 @@
 @import "pages/homepage";
 @import "pages/create_list";
 @import "pages/drinks";
-
+@import "pages/meat";
+@import "pages/fish";
+@import "pages/bakery";
+@import "pages/cold_cuts_&_cheese";
+@import "pages/car";
+@import "pages/fruit";
+@import "pages/vegetables";
+@import "pages/dairy";
+@import "pages/frozen";
+@import "pages/hygiene";
+@import "pages/cleaning";
+@import "pages/listspage";
+@import "pages/cartpage";
+@import "pages/editlist";
+@import "pages/chatpage";
+@import "pages/profilepage";
 
 .notice {
   padding: 10px;
@@ -129,4 +144,32 @@
   height: 50px;
   border-radius: 50%;
   margin-right: 10px;
+}
+
+/* Ensure body is set to full height */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default margin */
+}
+
+/* Main content section should grow to take available space */
+.content {
+  flex: 1; /* This ensures it expands to take up all remaining space */
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  /* Ensure footer stays at the bottom */
+  margin-top: auto; /* Pushes the footer to the bottom */
+}
+
+.footer-content {
+  padding: 0 10px;
 }

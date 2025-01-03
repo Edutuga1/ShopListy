@@ -1,7 +1,9 @@
-<div class="message-card <%= 'unread' unless message.read %>">
-  <div class="message-info">
-    <strong><%= message.sender.name %>:</strong> <%= message.content %>
-    <br>
-    <small><%= message.created_at.strftime('%Y-%m-%d %H:%M:%S') %></small>
-  </div>
+<div class="message <%= message.sender == current_user ? 'current-user' : 'other-user' %>">
+  <p class="message-content">
+    <%= message.content %>
+  </p>
+  <p class="message-timestamp">
+    <small><%= time_ago_in_words(message.created_at) %> ago</small>
+  </p>
 </div>
+  

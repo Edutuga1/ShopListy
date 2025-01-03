@@ -1,160 +1,216 @@
-// app/assets/stylesheets/pages/_cartpage.scss
-
-// Variables
-$primary-color: #007bff;
-$secondary-color: #6c757d;
-$warning-color: #ffc107;
-$danger-color: #dc3545;
-$border-color: #e0e0e0;
-$background-image-url: 'https://as1.ftcdn.net/v2/jpg/05/16/05/30/1000_F_516053013_mgysd7HRSixHLUPzFtlTsc8kNeOAn2rV.jpg';
-
-// Apply styles only to the cart page
-.cart.show {
-  body {
-    font-family: 'Arial', sans-serif;
-    background-image: url($background-image-url); // Apply background image
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    margin: 0; // Ensure no default margin is applied
-    padding: 0; // Ensure no default padding is applied
-  }
-}
-
-// Center the container and set a maximum width
-.table-container {
-  max-width: 1200px;
-  margin: 30px auto; // Center horizontally
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center; // Center text inside the container
-}
-
-// Table styling
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #ffffff;
-  border-radius: 8px;
-  overflow: hidden; // Rounded corners for table
-  margin: 0 auto; // Center table horizontally
-
-  thead {
-    background-color: $primary-color;
-    color: #ffffff;
-  }
-
-  th, td {
-    border: 1px solid $border-color;
-    padding: 12px 15px;
-    text-align: left;
-    font-size: 14px;
-  }
-
-  th {
-    font-weight: bold;
-  }
-
-  tbody tr {
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #f1f1f1;
-    }
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: #fafafa;
-  }
-}
-
-// Buttons
-.btn {
-  display: inline-block;
-  font-size: 14px;
-  font-weight: 600;
+.cart-page {
   text-align: center;
-  padding: 10px 15px;
-  border-radius: 4px;
-  border: none;
-  color: #ffffff;
-  cursor: pointer;
-  transition: background-color 0.3s, box-shadow 0.3s;
-  margin: 5px; // Add some margin for spacing
+  padding: 20px;
 
-  &.btn-warning {
-    background-color: $warning-color;
-    border-color: $warning-color;
+  .quantity-update {
+    display: flex;
+    align-items: center; /* Align items vertically */
 
-    &:hover {
-      background-color: darken($warning-color, 10%);
+    .update-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 10px; /* Add space between the button and the number field */
+
+      .btn-warning {
+        order: 2; /* Place the button first */
+      }
+
+      .form-control {
+        order: 1; /* Place the selector second */
+        width: 80px; /* Adjust width as needed */
+        text-align: center;
+      }
     }
   }
 
-  &.btn-danger {
-    background-color: $danger-color;
-    border-color: $danger-color;
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+  }
 
-    &:hover {
-      background-color: darken($danger-color, 10%);
+  .table-container {
+    overflow-x: auto;
+    margin: 20px auto;
+    max-width: 1000px;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+      thead {
+        background-color: #007bff;
+        color: #fff;
+
+        th {
+          padding: 12px;
+          text-align: center;
+          font-size: 1rem;
+          font-weight: bold;
+        }
+      }
+
+      tbody {
+        tr {
+          border-bottom: 1px solid #ddd;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:hover {
+            background-color: #f9f9f9;
+          }
+
+          td {
+            text-align: center;
+            padding: 12px;
+            vertical-align: middle;
+            font-size: 0.9rem;
+
+            .form-control {
+              width: 70px;
+              margin: 0 auto;
+              text-align: center;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              padding: 4px;
+            }
+
+            /* Quantity and Update button alignment */
+            .quantity-update {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 10px; // Space between button and input
+
+              .form-control {
+                width: 70px;
+                text-align: center;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 4px;
+              }
+
+              .btn-warning {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
-  &.btn-primary {
-    background-color: $primary-color;
-    border-color: $primary-color;
+  .total-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: #fff;
+  }
 
-    &:hover {
-      background-color: darken($primary-color, 10%);
+  .navigation-buttons {
+    margin: 30px auto;
+    max-width: 600px;
+    text-align: left;
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 10px 0 5px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .new-list-section {
+      margin-top: 20px;
+      h4 {
+        font-size: 1.2rem;
+        color: white;
+        margin-bottom: 10px;
+      }
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 15px;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &.btn-primary {
+        background-color: #007bff;
+        color: #fff;
+
+        &:hover {
+          background-color: #0056b3;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #6c757d;
+        color: #fff;
+
+        &:hover {
+          background-color: #5a6268;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-warning {
+        background-color: #ffc107;
+        color: #212529;
+
+        &:hover {
+          background-color: #e0a800;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+
+        &:hover {
+          background-color: #c82333;
+          transform: translateY(-2px);
+        }
+      }
     }
   }
 
-  &.btn-secondary {
-    background-color: $secondary-color;
-    border-color: $secondary-color;
+  .delete-all-button {
+    margin: 30px auto;
 
-    &:hover {
-      background-color: darken($secondary-color, 10%);
+    .btn-danger {
+      width: 100%;
+      max-width: 300px;
+      font-size: 1rem;
+
+      &:hover {
+        transform: scale(1.05);
+      }
     }
   }
-}
 
-// Form control
-.form-control {
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid $border-color;
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-// Navigation buttons
-.navigation-buttons {
-  display: flex;
-  flex-direction: column; // Stack buttons vertically
-  align-items: center; // Center horizontally
-  margin-top: 20px;
-
-  .btn {
-    margin: 10px 0; // Add vertical margin for spacing
+  p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-top: 20px;
   }
-}
-
-// Header styling
-h1 {
-  color: $primary-color;
-  font-size: 5rem; // Adjust font size as needed
-  text-align: center; // Center text horizontally
-  margin-bottom: 20px; // Adjust margin as needed
-}
-
-// Total price styling
-.total-price {
-  color: #ffffff; // Set text color to white
-  font-size: 2rem; // Adjust font size as needed
-  text-align: center; // Center text horizontally
-  margin: 20px 0; // Adjust margin as needed
 }
