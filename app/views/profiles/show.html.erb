@@ -14,6 +14,34 @@
     <p><strong>Name:</strong> <%= @user.name %></p>
     <p><strong>Email:</strong> <%= @user.email %></p>
 
+    <!-- About Me Section -->
+    <% if @user.about_me.present? %>
+      <h3>About Me</h3>
+      <p><%= @user.about_me %></p>
+    <% else %>
+      <p><em>No information provided</em></p>
+    <% end %>
+
+    <!-- Favorite Recipe Section -->
+    <h3>Your Favorite Recipe</h3>
+    <% if @user.favorite_recipe %>
+      <ul>
+        <li>
+          <strong><%= @user.favorite_recipe.title %></strong><br>
+
+          <!-- Check if the link is present and render it only if valid -->
+          <% if @user.favorite_recipe.link.present? %>
+            <%= link_to "View Recipe", @user.favorite_recipe.link, target: "_blank" %><br>
+          <% else %>
+            <p><em>No recipe link provided.</em></p>
+          <% end %>
+
+          <p><%= @user.favorite_recipe.description %></p>
+        </li>
+      </ul>
+    <% else %>
+      <p>You haven't saved a favorite recipe yet.</p>
+    <% end %>
   </div>
 
   <h2 class="section-header">Your Friends</h2>

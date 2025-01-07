@@ -13,6 +13,8 @@ class User < ApplicationRecord
   has_one_attached :user_photo
   has_many :friendships, dependent: :destroy
   has_many :friends, -> { where(friendships: { status: 'accepted' }) }, through: :friendships, source: :friend
+  has_many :recipes
+  has_one :favorite_recipe, class_name: 'Recipe'
 
   # Friendships where the user is the recipient
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
