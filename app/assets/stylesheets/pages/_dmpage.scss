@@ -1,0 +1,135 @@
+.DM-page {
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  header {
+    .display-4 {
+      font-weight: bold;
+      color: #f7f8f9;
+    }
+  }
+
+  section {
+    margin-bottom: 2rem;
+
+    h2, h3 {
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .card {
+      border: none;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      label {
+        font-weight: 600;
+        color: #555;
+      }
+
+      .form-control {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 10px;
+
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 4px rgba(0, 123, 255, 0.2);
+        }
+      }
+    }
+
+    .btn {
+      &-primary {
+        background-color: #007bff;
+        border: none;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+
+      &-success {
+        background-color: #28a745;
+        border: none;
+
+        &:hover {
+          background-color: #218838;
+        }
+      }
+
+      &-danger {
+        background-color: #dc3545;
+        border: none;
+
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+
+    .list-group-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      background-color: #fff;
+
+      &:hover {
+        background-color: #f8f9fa;
+      }
+
+      .rounded-circle {
+        flex-shrink: 0; /* Prevent the image from resizing */
+        margin-right: 15px; /* Space between image and text */
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+      }
+
+      .text-primary {
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .text-dark {
+        font-weight: bold;
+
+        &:hover {
+          color: #343a40;
+        }
+      }
+    }
+
+    .text-muted {
+      color: #6c757d;
+      font-style: italic;
+    }
+  }
+}

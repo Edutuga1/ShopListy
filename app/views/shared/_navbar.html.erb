@@ -11,7 +11,7 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link" %>
+            <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link", style: "text-decoration: underline;" %>
           </li>
           <%= link_to cart_path, class: "nav-link" do %>
             <i class="fa-solid fa-cart-shopping"></i>
@@ -24,10 +24,9 @@
           <li class="nav-item">
             <%= link_to user_conversations_path(current_user), class: "nav-link" do %>
               <div class="icon-container">
-                <i class="fa-regular fa-message"></i>
+                <i class="fa-solid fa-message"></i>
                 <span id="unread-message-count" class="badge badge-danger">0</span>
               </div>
-              Messages
             <% end %>
           </li>
           <li class="nav-item dropdown">

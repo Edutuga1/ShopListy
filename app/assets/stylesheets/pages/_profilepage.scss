@@ -1,106 +1,97 @@
 .profile-page {
+
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f7fa;
-    color: #ffffff;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
   }
 
-  h1 {
-    text-align: center;
-    color: #ffffff;
-    font-size: 2rem;
+  .profile-page {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Ensures all text inside is centered */
+    max-width: 400px;
+    width: 100%;
+  }
+
+  .profile-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center; /* Center text alignment explicitly */
+  }
+
+  .profile-info {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column; /* Arrange children in a column */
+    align-items: center; /* Center all children horizontally */
+  }
+
+  .profile-picture {
     margin-bottom: 20px;
   }
 
-  /* Profile Card Styles */
-  .profile-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 20px auto;
-    padding: 30px;
-    text-align: center;
-
-    .profile-info {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .profile-picture {
-      border-radius: 50%;
-      overflow: hidden;
-      margin-bottom: 20px;
-      width: 150px;
-      height: 150px;
-      position: center;
-
-      .profile-image {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
-    .profile-details {
-      p {
-        font-size: 1.1rem;
-        color: #666;
-        margin-bottom: 10px;
-      }
-      strong {
-        font-weight: 600;
-        color: #333;
-      }
-    }
-
-    .edit-profile-btn {
-      display: inline-block;
-      background-color: #3897f0;
-      color: #fff;
-      padding: 10px 20px;
-      border-radius: 30px;
-      font-size: 1rem;
-      text-decoration: none;
-      margin-top: 15px;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #1877f2;
-      }
-    }
+  .profile-img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 2px solid #ddd;
   }
 
-  /* Friends List Styles */
-  h2 {
+  .btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
     text-align: center;
-    color: #f8f8f8;
-    font-size: 1.5rem;
-    margin-top: 40px;
   }
 
-  .friend-list {
-    list-style-type: none;
+  .btn:hover {
+    background-color: #0056b3;
+  }
+
+  .section-header {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #555;
+    text-align: center; /* Center text alignment explicitly */
+  }
+
+  .friends-list {
+    list-style: none;
     padding: 0;
-    text-align: center;
-
-    li {
-      margin: 10px 0;
-      font-size: 1.2rem;
-    }
-
-    .friend-link {
-      color: #3897f0;
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s;
-
-      &:hover {
-        color: #1877f2;
-      }
-    }
+    margin: 0;
+    display: flex;
+    flex-direction: column; /* Arrange items in a vertical column */
+    align-items: center; /* Center all items */
   }
+
+  .friend-item {
+    margin-bottom: 10px;
+  }
+
+  .friend-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    text-align: center; /* Center the link's text explicitly */
+  }
+
+  .friend-link:hover {
+    text-decoration: underline;
+  }
+
 }

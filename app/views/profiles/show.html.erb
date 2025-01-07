@@ -1,25 +1,25 @@
 <div class="profile-page">
-  <h1>Your Profile</h1>
+  <%= link_to 'Edit Profile', edit_profile_path, class: "btn btn-primary" %>
+  <h1 class="profile-header">Your Profile</h1>
 
   <div class="profile-info">
     <div class="profile-picture">
       <% if @user.user_photo.attached? %>
-        <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]).processed, size: "150x150" %>
+        <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]).processed, class: "profile-img" %>
       <% else %>
-        <%= image_tag 'placeholder_user_photo.png', size: "150x150" %> <!-- Placeholder image -->
+        <%= image_tag 'placeholder_user_photo.png', class: "profile-img" %> <!-- Placeholder image -->
       <% end %>
     </div>
 
     <p><strong>Name:</strong> <%= @user.name %></p>
     <p><strong>Email:</strong> <%= @user.email %></p>
 
-    <%= link_to 'Edit Profile', edit_profile_path %>
   </div>
 
-  <h2>Your Friends</h2>
-  <ul>
+  <h2 class="section-header">Your Friends</h2>
+  <ul class="friends-list">
     <% current_user.friends.each do |friend| %>
-      <li>
+      <li class="friend-item">
         <%= link_to friend.name, user_path(friend), class: "friend-link" %>
       </li>
     <% end %>
