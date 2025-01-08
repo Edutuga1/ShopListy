@@ -22,9 +22,9 @@
   }
 
   .profile-header {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 40px;
+    margin-bottom: 30px;
+    color: #f7f0f0;
     text-align: center; /* Center text alignment explicitly */
   }
 
@@ -33,6 +33,50 @@
     display: flex;
     flex-direction: column; /* Arrange children in a column */
     align-items: center; /* Center all children horizontally */
+    color: red; /* Applies to all text inside .profile-info by default */
+
+    h3 {
+      font-size: 24px;
+      color: #333; /* Sets color of the h3 text */
+      font-weight: bold;
+      margin-bottom: 15px;
+      margin-top: 15px;
+    }
+
+    ul {
+      list-style-type: none; /* Remove default bullet points */
+      padding: 0;
+      margin: 0;
+      width: 100%; /* Ensure ul stretches across the container */
+      text-align: center; /* Center-align the list items */
+    }
+
+    li {
+      font-size: 19px;
+      color: #444; /* Text color for list items */
+      margin-bottom: 10px; /* Space between list items */
+      padding: 10px;
+      border-bottom: 1px solid #ccc; /* Add separator between items */
+      position: relative; /* Required for absolute positioning of the arrow */
+
+      &:before {
+        content: "→"; /* Unicode arrow symbol */
+        position: absolute;
+        left: -20px; /* Adjust position to the left of the text */
+        font-size: 18px; /* Adjust size of the arrow */
+        color: #007bff; /* Arrow color */
+        top: 50%;
+        transform: translateY(-50%); /* Vertically center the arrow */
+      }
+    }
+
+    p {
+      font-size: 18px;
+      color: #3a3a3a; /* Set a softer color for paragraph text */
+      margin-top: 5px;
+      text-align: center; /* Center-align the paragraph text */
+      margin-bottom: auto;
+    }
   }
 
   .profile-picture {
@@ -45,6 +89,7 @@
     height: 150px;
     object-fit: cover;
     border: 2px solid #ddd;
+    margin-bottom: 20px;
   }
 
   .btn {
@@ -64,8 +109,8 @@
   }
 
   .section-header {
-    font-size: 20px;
-    margin-bottom: 15px;
+    font-size: 35px;
+    margin-bottom: 10px;
     color: #555;
     text-align: center; /* Center text alignment explicitly */
   }

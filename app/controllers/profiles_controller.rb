@@ -23,22 +23,16 @@ class ProfilesController < ApplicationController
     end
 
     # Ensure the favorite recipe link has a scheme (http:// or https://)
-    if favorite_recipe_params[:link].present?
-      link = favorite_recipe_params[:link]
+    if params[:user][:favorite_recipe] && params[:user][:favorite_recipe][:link].present?
+      link = params[:user][:favorite_recipe][:link].strip # Trim whitespace
 
-      # Debugging the original link before modification
-      Rails.logger.debug("Original Link: #{link}")
-
-      # Check if the link has no scheme (http or https) and prepend https:// if needed
+      # Prepend https:// if no scheme is present
       unless link =~ /\Ahttps?:\/\// # Check if it starts with http:// or https://
-        link = "https://#{link}" # Prepend https:// if no scheme is present
+        link = "https://#{link}"
       end
 
-      # Debugging the modified link
-      Rails.logger.debug("Modified Link: #{link}")
-
-      # Update the favorite_recipe_params with the modified link
-      favorite_recipe_params[:link] = link
+      # Directly update the params with the modified link
+      params[:user][:favorite_recipe][:link] = link
     end
 
     # Update user profile information
@@ -49,12 +43,8 @@ class ProfilesController < ApplicationController
       end
 
       # Update the favorite recipe if it was provided in the form
-      if favorite_recipe_params[:title].present? || favorite_recipe_params[:link].present? || favorite_recipe_params[:description].present?
-        if @user.favorite_recipe.update(favorite_recipe_params)
-          Rails.logger.debug("Favorite recipe updated successfully")
-        else
-          Rails.logger.debug("Error updating favorite recipe")
-        end
+      if params[:user][:favorite_recipe]
+        @user.favorite_recipe.update(params[:user][:favorite_recipe].permit(:title, :link, :description))
       end
 
       respond_to do |format|
@@ -83,7 +73,6 @@ class ProfilesController < ApplicationController
     params.require(:user).permit(:name, :email, :user_photo, :about_me, :password, :password_confirmation)
   end
 
-  # Permit the favorite recipe parameters for updating the favorite recipe
   def favorite_recipe_params
     params.require(:user).permit(favorite_recipe: [:title, :link, :description])[:favorite_recipe] || {}
   end

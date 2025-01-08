@@ -1,80 +1,82 @@
-<h1>Edit Profile</h1>
+<div class="edit-page">
+  <h1>Edit Profile</h1>
 
-<%= form_for @user, url: profile_path, method: :patch, html: { multipart: true } do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being saved:</h2>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_for @user, url: profile_path, method: :patch, html: { multipart: true } do |f| %>
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@user.errors.count, "error") %> prohibited this profile from being saved:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <!-- User Fields -->
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="field">
+      <%= f.label :user_photo, "Profile Picture" %>
+      <%= f.file_field :user_photo %>
+      <% if @user.user_photo.attached? %>
+        <div>
+          <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), size: "150x150" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :about_me %>
+      <%= f.text_area :about_me, class: "form-control", rows: 4 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <!-- Favorite Recipe Fields -->
+    <h2>Your Favorite Recipe</h2>
+
+    <div class="form-group">
+      <%= f.fields_for :favorite_recipe do |recipe_form| %>
+        <%= recipe_form.label :title, "Recipe Title" %>
+        <%= recipe_form.text_field :title, class: "form-control", value: @user.favorite_recipe&.title %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.fields_for :favorite_recipe do |recipe_form| %>
+        <%= recipe_form.label :link, "Recipe Link" %>
+        <%= recipe_form.text_field :link, class: "form-control", value: @user.favorite_recipe&.link || "" %> <!-- Ensure it's empty if no link -->
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.fields_for :favorite_recipe do |recipe_form| %>
+        <%= recipe_form.label :description, "Description" %>
+        <%= recipe_form.text_area :description, class: "form-control", rows: 3, value: @user.favorite_recipe&.description %>
+      <% end %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save changes", class: "btn btn-primary" %>
     </div>
   <% end %>
 
-  <!-- User Fields -->
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div class="field">
-    <%= f.label :user_photo, "Profile Picture" %>
-    <%= f.file_field :user_photo %>
-    <% if @user.user_photo.attached? %>
-      <div>
-        <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), size: "150x150" %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :about_me %>
-    <%= f.text_area :about_me, class: "form-control", rows: 4 %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-
-  <!-- Favorite Recipe Fields -->
-  <h2>Your Favorite Recipe</h2>
-
-  <div class="form-group">
-    <%= f.fields_for :favorite_recipe do |recipe_form| %>
-      <%= recipe_form.label :title, "Recipe Title" %>
-      <%= recipe_form.text_field :title, class: "form-control", value: @user.favorite_recipe&.title %>
-    <% end %>
-  </div>
-
-  <div class="form-group">
-    <%= f.fields_for :favorite_recipe do |recipe_form| %>
-      <%= recipe_form.label :link, "Recipe Link" %>
-      <%= recipe_form.text_field :link, class: "form-control", value: @user.favorite_recipe&.link || "" %> <!-- Ensure it's empty if no link -->
-    <% end %>
-  </div>
-
-  <div class="form-group">
-    <%= f.fields_for :favorite_recipe do |recipe_form| %>
-      <%= recipe_form.label :description, "Description" %>
-      <%= recipe_form.text_area :description, class: "form-control", rows: 3, value: @user.favorite_recipe&.description %>
-    <% end %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Save changes", class: "btn btn-primary" %>
-  </div>
-<% end %>
-
-<%= link_to 'Back', profile_path %>
+  <%= link_to 'Back', profile_path %>
+</div>

@@ -2,22 +2,56 @@
   <h1><%= @user.name %>'s Profile</h1>
 
   <div class="profile-container">
+    <!-- Profile Picture -->
     <% if @user.user_photo.attached? %>
-      <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), alt: "#{@user.name}'s photo" %>
+      <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), alt: "#{@user.name}'s photo", class: "profile-img" %>
     <% else %>
-      <p>No profile picture available.</p>
+      <%= image_tag 'placeholder_user_photo.png', alt: "Placeholder image", class: "profile-img" %>
     <% end %>
 
-    <p>Name: <%= @user.name %></p>
-    <p>Email: <%= @user.email %></p>
+    <!-- Basic Information -->
+    <p><strong>Name:</strong> <%= @user.name %></p>
+    <p><strong>Email:</strong> <%= @user.email %></p>
   </div>
 
- <div class="centered-container">
-  <% if current_user.friend_request_exists?(@user) %>
-    <p>Friend request already sent.</p>
-  <% elsif !current_user.friend?(@user) %>
-    <%= button_to "Add Friend", user_friendships_path(friend_id: user.id), method: :post, class: "btn btn-secondary" %>
-  <% else %>
-    <p>You are friends. <i class="fa-regular fa-face-smile"></i></p>
-  <% end %>
+  <!-- About Me Section -->
+  <div class="about-me-section">
+    <% if @user.about_me.present? %>
+      <h3>About <%= @user.name %>:</h3>
+      <p><%= @user.about_me %></p>
+    <% else %>
+      <p><em>No information provided.</em></p>
+    <% end %>
+  </div>
+
+  <!-- Favorite Recipe Section -->
+  <div class="favorite-recipe-section">
+    <h3><%= @user.name %>'s Favorite Recipe:</h3>
+    <% if @user.favorite_recipe %>
+      <ul>
+        <li>
+         ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
+          <p><%= @user.favorite_recipe.description %></p>
+          <% if @user.favorite_recipe.link.present? %>
+            <%= link_to "View Recipe", @user.favorite_recipe.link, target: "_blank" %>
+          <% else %>
+            <p><em>No recipe link provided.</em></p>
+          <% end %>
+        </li>
+      </ul>
+    <% else %>
+      <p><em>No favorite recipe available.</em></p>
+    <% end %>
+  </div>
+
+  <!-- Friend Request Section -->
+  <div class="friend-request-section centered-container">
+    <% if current_user.friend_request_exists?(@user) %>
+      <p>Friend request already sent.</p>
+    <% elsif !current_user.friend?(@user) %>
+      <%= button_to "Add Friend", user_friendships_path(friend_id: @user.id), method: :post, class: "btn btn-secondary" %>
+    <% else %>
+      <p>You are friends. <i class="fa-regular fa-face-smile"></i></p>
+    <% end %>
+  </div>
 </div>

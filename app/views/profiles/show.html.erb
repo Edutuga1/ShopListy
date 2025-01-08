@@ -16,27 +16,27 @@
 
     <!-- About Me Section -->
     <% if @user.about_me.present? %>
-      <h3>About Me</h3>
+      <h3>About Me: </h3>
       <p><%= @user.about_me %></p>
     <% else %>
       <p><em>No information provided</em></p>
     <% end %>
 
     <!-- Favorite Recipe Section -->
-    <h3>Your Favorite Recipe</h3>
+    <h3>Your Favorite Recipe: </h3>
     <% if @user.favorite_recipe %>
       <ul>
         <li>
           <strong><%= @user.favorite_recipe.title %></strong><br>
 
-          <!-- Check if the link is present and render it only if valid -->
+          <p><%= @user.favorite_recipe.description %></p>
+
+            <!-- Check if the link is present and render it only if valid -->
           <% if @user.favorite_recipe.link.present? %>
             <%= link_to "View Recipe", @user.favorite_recipe.link, target: "_blank" %><br>
           <% else %>
             <p><em>No recipe link provided.</em></p>
           <% end %>
-
-          <p><%= @user.favorite_recipe.description %></p>
         </li>
       </ul>
     <% else %>
@@ -44,7 +44,7 @@
     <% end %>
   </div>
 
-  <h2 class="section-header">Your Friends</h2>
+  <h2 class="section-header">Your Friends: </h2>
   <ul class="friends-list">
     <% current_user.friends.each do |friend| %>
       <li class="friend-item">
