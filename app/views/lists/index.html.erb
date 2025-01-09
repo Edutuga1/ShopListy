@@ -1,5 +1,5 @@
 <div class="lists-page">
-  <h1>Your Lists</h1>
+  <h1><%= t('lists_page.index.title') %></h1>
 
   <% if @lists.any? %>
     <ul id="lists">
@@ -7,12 +7,15 @@
         <li>
           <%= link_to list.name, list_path(list) %>
           <br>
-          <small>Created on: <%= list.created_at.strftime('%B %d, %Y') %></small>
-          <%= button_to 'Delete', list_path(list), method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure you want to delete this list?' } %>
+          <small><%= t('lists_page.index.created_on') %>: <%= list.created_at.strftime(t('lists_page.index.date_format')) %></small>
+          <%= button_to t('lists_page.index.delete_button'), list_path(list), method: :delete, class: 'btn btn-danger', data: { confirm: t('lists_page.index.delete_confirm') } %>
         </li>
       <% end %>
     </ul>
   <% else %>
-    <p>You still haven't created a list. <%= link_to 'Click here to create a new one! :)', new_list_path(current_user), class: 'btn btn-primary' %></p>
+    <p>
+      <%= t('lists_page.index.no_lists') %>
+      <%= link_to t('lists_page.index.create_new'), new_list_path(current_user), class: 'btn btn-primary' %>
+    </p>
   <% end %>
 </div>

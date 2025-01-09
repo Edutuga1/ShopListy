@@ -3,7 +3,6 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "https://i.pinimg.com/736x/58/c3/2d/58c32dbe96d382df26d9d500810a35b5.jpg", alt: "Logo" %>
     <% end %>
-
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -11,7 +10,7 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item">
-            <%= link_to "My Grocery Lists", user_lists_path(current_user), class: "nav-link", style: "text-decoration: underline;" %>
+            <%= link_to t('navbar.my_grocery_lists'), user_lists_path(current_user), class: "nav-link", style: "text-decoration: underline;" %>
           </li>
           <%= link_to cart_path, class: "nav-link" do %>
             <i class="fa-solid fa-cart-shopping"></i>
@@ -38,18 +37,18 @@
               <% end %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Profile", profile_path, class: "dropdown-item" %>
-              <%= link_to "Settings", "#", class: "dropdown-item" %>
+              <%= link_to t('navbar.profile'), profile_path, class: "dropdown-item" %>
+              <%= link_to t('navbar.settings'), "#", class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
-              <%= link_to "Log out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+              <%= link_to t('navbar.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            <%= link_to t('navbar.login'), new_user_session_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+            <%= link_to t('navbar.sign_up'), new_user_registration_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>

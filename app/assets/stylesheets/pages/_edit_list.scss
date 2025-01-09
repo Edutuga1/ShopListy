@@ -1,0 +1,144 @@
+// Global styles for the page
+$primary-color: #3498db;
+$secondary-color: #2ecc71;
+$danger-color: #e74c3c;
+$neutral-color: #f5f5f5;
+$dark-color: #2c3e50;
+$light-color: #ecf0f1;
+$border-radius: 8px;
+$transition-duration: 0.3s;
+
+// General layout for the page
+.edit-list-page {
+  font-family: 'Arial', sans-serif;
+  background-color: $neutral-color;
+  padding: 20px;
+  border-radius: $border-radius;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+// Header styling
+.edit-list-page h1 {
+  color: $dark-color;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+// Table styling
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 12px 20px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  background-color: $primary-color;
+  color: $light-color;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+td {
+  background-color: $light-color;
+  color: $dark-color;
+  border: 1px solid #ddd;
+}
+
+// Styling for form and buttons
+form {
+  display: flex;
+  align-items: center;  // Ensures buttons and input are aligned
+  justify-content: flex-start; // Aligns items to the left
+  gap: 10px;  // Provides space between input and button
+  flex-wrap: wrap;  // Allows the form to wrap on smaller screens
+}
+
+input[type="number"] {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 120px; // Adjusted width for consistency
+  font-size: 1rem;
+  margin-right: 10px; // Space between input and button
+}
+
+input[type="number"]:focus {
+  outline: none;
+  border-color: $primary-color;
+}
+
+// Button styles
+button, .btn {
+  padding: 10px 20px;
+  border-radius: $border-radius;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-duration ease-in-out;
+}
+
+.btn-warning {
+  background-color: $primary-color;
+  color: $light-color;
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.btn-danger {
+  background-color: $danger-color;
+  color: $light-color;
+  &:hover {
+    background-color: darken($danger-color, 10%);
+  }
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+// Delete link styling
+a.btn-danger {
+  text-decoration: none;
+  display: inline-block;
+}
+
+// Hover effects for table rows
+tr:hover {
+  background-color: #f1f1f1;
+}
+
+// Responsive design for smaller screens
+@media (max-width: 768px) {
+  .edit-list-page {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+
+  form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  input[type="number"] {
+    width: 100%; // Ensure full-width input on smaller screens
+  }
+}

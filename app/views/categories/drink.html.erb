@@ -1,13 +1,13 @@
 <div class="drink-page">
-  <h1>Drinks</h1>
-  <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
-  <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+  <h1><%= t('drinks_page.title') %></h1>
+  <%= link_to t('drinks_page.back'), new_list_path, class: 'btn btn-secondary' %>
+  <%= link_to t('drinks_page.see_cart'), cart_path, class: 'btn btn-primary' %>
 
-   <div class="search-bar">
+  <div class="search-bar">
     <%= form_with url: drink_path, method: :get, local: true do |form| %>
-      <%= form.label :query, "Search for a product:", class: "search-label" %>
-      <%= form.text_field :query, value: params[:query], placeholder: "Type to search...", class: "search-input" %>
-      <%= form.submit "Search", class: "btn btn-primary" %>
+      <%= form.label :query, t('drinks_page.search_label'), class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: t('drinks_page.search_placeholder'), class: "search-input" %>
+      <%= form.submit t('drinks_page.search_button'), class: "btn btn-primary" %>
     <% end %>
   </div>
 
@@ -15,7 +15,8 @@
     <div class="drink-grid">
       <% @drinks_products.each do |drink_product| %>
         <div class="drink-item">
-          <p><%= drink_product.name %></p>
+          <!-- Translated product name -->
+          <p><%= I18n.t("product_names.#{drink_product.name.parameterize.underscore}") %></p>
 
           <% image_filename = "#{drink_product.name.parameterize}" %>
 
@@ -24,30 +25,30 @@
           <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
             <%= image_tag "#{image_filename}.png", class: "product-image", alt: drink_product.name %>
           <% else %>
-            <p>No image available</p>
+            <p><%= t('drinks_page.no_image') %></p>
           <% end %>
 
-          <!-- Use remote form submission -->
+          <!-- Add to Cart Form -->
           <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{drink_product.id}" } do |form| %>
             <%= form.hidden_field :product_id, value: drink_product.id %>
 
-            <label class="quantity-label" for="quantity-<%= drink_product.id %>">Quantity:</label>
+            <label class="quantity-label" for="quantity-<%= drink_product.id %>"><%= t('drinks_page.quantity_label') %>:</label>
             <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{drink_product.id}" %>
 
             <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> Add to Cart
+              <i class="fas fa-shopping-cart"></i> <%= t('drinks_page.add_to_cart') %>
             </button>
           <% end %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p>No drink products available.</p>
+    <p><%= t('drinks_page.no_drinks') %></p>
   <% end %>
 
   <div class="navigation-buttons">
-    <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
-    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+    <%= link_to t('drinks_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('drinks_page.see_cart'), cart_path, class: 'btn btn-primary' %>
   </div>
 
   <!-- Font Awesome Script -->

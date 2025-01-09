@@ -33,13 +33,12 @@
     display: flex;
     flex-direction: column; /* Arrange children in a column */
     align-items: center; /* Center all children horizontally */
-    color: red; /* Applies to all text inside .profile-info by default */
 
     h3 {
       font-size: 24px;
       color: #333; /* Sets color of the h3 text */
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
       margin-top: 15px;
     }
 
@@ -53,21 +52,23 @@
 
     li {
       font-size: 19px;
-      color: #444; /* Text color for list items */
-      margin-bottom: 10px; /* Space between list items */
+      color: #444;
+      margin-bottom: 10px;
       padding: 10px;
-      border-bottom: 1px solid #ccc; /* Add separator between items */
-      position: relative; /* Required for absolute positioning of the arrow */
+      position: relative; /* Required for pseudo-elements */
+    }
 
-      &:before {
-        content: "→"; /* Unicode arrow symbol */
-        position: absolute;
-        left: -20px; /* Adjust position to the left of the text */
-        font-size: 18px; /* Adjust size of the arrow */
-        color: #007bff; /* Arrow color */
-        top: 50%;
-        transform: translateY(-50%); /* Vertically center the arrow */
-      }
+    li::after {
+      content: ''; /* Add a visual spacer */
+      display: block;
+      height: 10px; /* Adjust the height for the spacing above the line */
+      background: transparent; /* Ensure it's invisible */
+      border-bottom: 1px solid #ccc; /* Recreate the white line */
+      position: absolute;
+      bottom: -10px; /* Position it below the main content */
+      left: 0;
+      width: 100%;
+      padding-top: 20px;
     }
 
     p {
@@ -85,8 +86,8 @@
 
   .profile-img {
     border-radius: 50%;
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border: 2px solid #ddd;
     margin-bottom: 20px;

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_locale
   helper_method :current_cart
 
   include Devise::Controllers::Helpers
@@ -17,5 +18,13 @@ class ApplicationController < ActionController::Base
 
   def current_cart
     @current_cart ||= Cart.find_or_create_by(user_id: current_user.id)
+  end
+
+  def set_locale
+    I18n.locale = params[:locale] || I18n.default_locale
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end

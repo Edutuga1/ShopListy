@@ -42,12 +42,9 @@ class CartsController < ApplicationController
 
   def update_item
     cart_item = @cart.cart_items.find(params[:id])
-    if cart_item.update(cart_item_params)
-      redirect_to cart_path, notice: 'Cart item updated.'
-    else
-      redirect_to cart_path, alert: 'Failed to update cart item.'
-    end
+    cart_item.update(cart_item_params)
   end
+
 
   def add_to_list
     if params[:new_list_name].present?

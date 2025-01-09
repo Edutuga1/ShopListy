@@ -1,16 +1,27 @@
 <% if user_signed_in? %>
   <div class="home-page">
-    <h1>Welcome back, <%= current_user.name %>!</h1>
+    <h1><%= t('welcome_back', name: current_user.name) %></h1>
     <div class="button-container">
       <%= link_to new_user_list_path(current_user), class: "btn" do %>
-        <strong>CREATE A NEW LIST</strong>
+        <strong><%= t('CREATE_A_NEW_LIST') %></strong>
       <% end %>
     </div>
 
     <!-- Map container -->
-    <h2> Check on the map the closest supermarkets near you!
+    <h2><%= t('check_on_map_closest_supermarkets') %></h2>
     <div id="map"></div>
   </div>
+
+  <!-- Language Selector Form positioned at bottom right -->
+  <div class="language-selector">
+    <form method="get" action="" class="d-flex align-items-center">
+      <select name="locale" class="form-select form-select-sm" onchange="this.form.submit();">
+        <option value="en" <%= 'selected' if I18n.locale == :en %>>EN</option>
+        <option value="es" <%= 'selected' if I18n.locale == :es %>>ES</option>
+        <option value="pt" <%= 'selected' if I18n.locale == :pt %>>PT</option>
+      </select>
+    </form>
+  </div>
 <% else %>
-  <h1>Please log in or sign up to continue</h1>
+  <h1><%= t('please_log_in_or_sign_up_to_continue') %></h1>
 <% end %>

@@ -1,20 +1,20 @@
 <div class="DM-page">
   <!-- Page Header -->
   <header class="text-center mb-4">
-    <h1 class="display-4">Direct Messages</h1>
+    <h1 class="display-4"><%= t('dm_page.title') %></h1>
   </header>
 
   <!-- Search for a Friend by Email -->
   <section class="mb-5">
-    <h2 class="h4">Search for a Friend</h2>
+    <h2 class="h4"><%= t('dm_page.search_for_friend') %></h2>
     <div class="card shadow-sm p-4">
       <%= form_with url: search_users_path, method: :get, local: true, class: "needs-validation" do |f| %>
         <div class="form-group mb-3">
-          <%= f.label :email, "Enter friend's email:", class: "form-label fw-semibold" %>
-          <%= f.text_field :email, placeholder: "Friend's email", class: "form-control" %>
+          <%= f.label :email, t('dm_page.enter_email'), class: "form-label fw-semibold" %>
+          <%= f.text_field :email, placeholder: t('dm_page.friend_email_placeholder'), class: "form-control" %>
         </div>
         <div class="d-flex justify-content-end">
-          <%= f.submit "Search", class: "btn btn-primary" %>
+          <%= f.submit t('dm_page.search_button'), class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
@@ -22,27 +22,27 @@
 
   <!-- Friend Requests -->
   <section class="mb-5">
-    <h3 class="h4">Friend Requests</h3>
+    <h3 class="h4"><%= t('dm_page.friend_requests') %></h3>
     <% if @pending_friend_requests.present? %>
       <ul class="list-group">
         <% @pending_friend_requests.each do |friendship| %>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             <span><%= friendship.user.email %></span>
             <div>
-              <%= button_to "Accept", accept_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-success btn-sm me-2" %>
-              <%= button_to "Reject", reject_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-danger btn-sm" %>
+              <%= button_to t('dm_page.accept'), accept_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-success btn-sm me-2" %>
+              <%= button_to t('dm_page.reject'), reject_user_friendship_path(user_id: current_user.id, id: friendship.id), method: :patch, class: "btn btn-danger btn-sm" %>
             </div>
           </li>
         <% end %>
       </ul>
     <% else %>
-      <p class="text-muted">No friend requests at this time.</p>
+      <p class="text-muted"><%= t('dm_page.no_friend_requests') %></p>
     <% end %>
   </section>
 
   <!-- Start a New Conversation -->
   <section class="mb-5">
-    <h2 class="h4">Start a New Conversation</h2>
+    <h2 class="h4"><%= t('dm_page.start_new_conversation') %></h2>
     <% if @friends_without_conversations.any? %>
       <ul class="list-group">
         <% @friends_without_conversations.each do |friend| %>
@@ -55,13 +55,13 @@
         <% end %>
       </ul>
     <% else %>
-      <p class="text-muted">All your friends already have conversations.</p>
+      <p class="text-muted"><%= t('dm_page.no_friends_for_conversation') %></p>
     <% end %>
   </section>
 
   <!-- Open Conversations -->
   <section>
-    <h1 class="h4">Your Opened Conversations</h1>
+    <h1 class="h4"><%= t('dm_page.open_conversations') %></h1>
     <ul class="list-group">
       <% @conversations.each do |conversation| %>
         <li id="<%= dom_id(conversation) %>" class="list-group-item d-flex justify-content-between align-items-center">
@@ -73,10 +73,10 @@
                         user_conversation_path(current_user, conversation),
                         class: "text-dark fw-bold" %>
           </div>
-          <%= button_to "Delete",
+          <%= button_to t('dm_page.delete_conversation'),
                         user_conversation_path(current_user, conversation),
                         method: :delete,
-                        data: { turbo_confirm: "Are you sure you want to delete this conversation?" },
+                        data: { turbo_confirm: t('dm_page.delete_confirm') },
                         class: "btn btn-danger btn-sm" %>
         </li>
       <% end %>

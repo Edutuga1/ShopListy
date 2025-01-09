@@ -51,3 +51,28 @@ body {
     box-shadow: 0 0 5px 2px rgba(0, 86, 179, 0.8); // Blue glow
   }
 }
+
+// Language selector positioning
+.language-selector {
+  position: fixed;
+  bottom: 8px;  // 20px from the bottom
+  right: 20px;   // 20px from the right
+  z-index: 1000; // Make sure it appears on top of other content
+
+  .form-select {
+    padding: 8px 12px;  // Adjust padding for better size control
+    font-size: 1rem;  // Ensure the font size is readable
+    min-width: 80px; // Ensure the select box has a minimum width
+    appearance: none; // Remove default styling of the select box arrow
+    -webkit-appearance: none; // For Safari
+    -moz-appearance: none; // For Firefox
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  /* Custom arrow styling */
+  .form-select::-ms-expand {
+    display: none;  // For Internet Explorer to remove default arrow
+  }
+}

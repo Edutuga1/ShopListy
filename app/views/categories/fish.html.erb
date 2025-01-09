@@ -1,16 +1,16 @@
 <div class="fish-page">
-  <h1>Fish</h1>
+  <h1><%= t('fish_page.title') %></h1>
 
   <!-- Back and See Cart Buttons -->
-  <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
-  <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+  <%= link_to t('fish_page.back'), new_list_path, class: 'btn btn-secondary' %>
+  <%= link_to t('fish_page.see_cart'), cart_path, class: 'btn btn-primary' %>
 
-    <!-- Search Bar -->
+  <!-- Search Bar -->
   <div class="search-bar">
     <%= form_with url: fish_path, method: :get, local: true do |form| %>
-      <%= form.label :query, "Search for a product:", class: "search-label" %>
-      <%= form.text_field :query, value: params[:query], placeholder: "Type to search...", class: "search-input" %>
-      <%= form.submit "Search", class: "btn btn-primary" %>
+      <%= form.label :query, t('fish_page.search_label'), class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: t('fish_page.search_placeholder'), class: "search-input" %>
+      <%= form.submit t('fish_page.search_button'), class: "btn btn-primary" %>
     <% end %>
   </div>
 
@@ -19,7 +19,8 @@
     <div class="fish-grid">
       <% @fish_products.each do |fish_product| %>
         <div class="fish-item">
-          <p><%= fish_product.name %></p>
+          <!-- Translated product name -->
+          <p><%= I18n.t("product_names.#{fish_product.name.parameterize.underscore}") %></p>
 
           <% image_filename = "#{fish_product.name.parameterize}" %>
 
@@ -28,31 +29,31 @@
           <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
             <%= image_tag "#{image_filename}.png", class: "product-image", alt: fish_product.name %>
           <% else %>
-            <p>No image available</p>
+            <p><%= t('fish_page.no_image') %></p>
           <% end %>
 
           <!-- Add to Cart Form -->
-          <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{fish_product.id}" } do |form| %>
+          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{fish_product.id}" } do |form| %>
             <%= form.hidden_field :product_id, value: fish_product.id %>
 
-            <label class="quantity-label" for="quantity-<%= fish_product.id %>">Quantity:</label>
+            <label class="quantity-label" for="quantity-<%= fish_product.id %>"><%= t('fish_page.quantity_label') %>:</label>
             <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{fish_product.id}" %>
 
             <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> Add to Cart
+              <i class="fas fa-shopping-cart"></i> <%= t('fish_page.add_to_cart') %>
             </button>
           <% end %>
         </div>
       <% end %>
     </div>
   <% else %>
-    <p>No fish products available.</p>
+    <p><%= t('fish_page.no_fish') %></p>
   <% end %>
 
   <!-- Navigation Buttons -->
   <div class="navigation-buttons">
-    <%= link_to 'Back', new_list_path, class: 'btn btn-secondary' %>
-    <%= link_to 'See Cart', cart_path, class: 'btn btn-primary' %>
+    <%= link_to t('fish_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('fish_page.see_cart'), cart_path, class: 'btn btn-primary' %>
   </div>
 
   <!-- Font Awesome Script -->

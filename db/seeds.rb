@@ -1,11 +1,11 @@
-# db/seeds.rb
+I18n.locale = :en
 
-# Fetch the 'Meat' category
 meat_category = Category.find_or_create_by(name: 'Meat')
 
 # Create meat products if the 'Meat' category exists
 if meat_category
-  [
+  
+  meat_seeds = [
     { name: 'Beef Steak', price: 12.99 },
     { name: 'Chicken Breast', price: 8.99 },
     { name: 'Ground Beef', price: 8.99 },
@@ -26,14 +26,21 @@ if meat_category
     { name: 'Ground Lamb', price: 11.99 },
     { name: 'Venison Steak', price: 20.99 },
     { name: 'Rabbit Stew Meat', price: 10.99 }
-  ].each do |product_attributes|
-    Product.find_or_create_by!(product_attributes.merge(category_id: meat_category.id))
+  ]
+
+  meat_seeds.each do |attributes|
+    product = Product.find_or_initialize_by(name: attributes[:name], category_id: meat_category.id)
+    product.update!(attributes)
   end
+
+  # Remove products that are no longer in the seed file
+  Product.where(category_id: meat_category.id)
+         .where.not(name: meat_seeds.map { |p| p[:name] })
+         .destroy_all
 else
   puts "Error: 'Meat' category not found. Meat products not created."
 end
 
-# Fetch the 'Milk' category
 milk_category = Category.find_or_create_by(name: 'Milk')
 
 # Create milk products if the 'Milk' category exists
@@ -42,7 +49,8 @@ if milk_category
     { name: 'Whole Milk', price: 2.99 },
     { name: 'Skim Milk', price: 2.89 },
     { name: 'Almond Milk', price: 3.49 },
-    { name: 'Oat Milk', price: 3.69 }
+    { name: 'Oat Milk', price: 3.69 },
+    { name: 'Soy Milk', price: 3.69 }
   ].each do |product_attributes|
     Product.find_or_create_by!(product_attributes.merge(category_id: milk_category.id))
   end
@@ -131,7 +139,7 @@ drinks_category = Category.find_or_create_by(name: 'Drinks')
 # Create drink products if the 'Drinks' category exists
 if drinks_category
   # Non-alcoholic drinks
-  [
+  drinks_seeds = [
     { name: 'Coca-Cola', price: 1.49 },
     { name: 'Water', price: 0.99 },
     { name: 'Sparkling Water', price: 1.19 },
@@ -155,31 +163,42 @@ if drinks_category
     { name: 'Soda', price: 1.19 },
     { name: 'Monster Energy Drink', price: 2.49 },
     { name: 'Red Bull', price: 2.99 }
-  ].each do |product_attributes|
-    Product.find_or_create_by!(product_attributes.merge(category_id: drinks_category.id))
+  ]
+
+  drinks_seeds.each do |attributes|
+    product = Product.find_or_initialize_by(name: attributes[:name], category_id: drinks_category.id)
+    product.update!(attributes)
   end
 
+  # Remove products that are no longer in the seed file
+  Product.where(category_id: drinks_category.id)
+         .where.not(name: drinks_seeds.map { |p| p[:name] })
+         .destroy_all
+
   # Alcoholic drinks
-  [
+  alcoholic_drinks_seeds = [
     { name: 'White Wine', price: 8.49 },
-    { name: 'Red Wine', price: 9.89 },
-    { name: 'Rose Wine', price: 7.39 },
-    { name: 'Whiskey', price: 20.00 },
-    { name: 'Gin', price: 15.00 },
-    { name: 'Rum', price: 12.00 },
-    { name: 'Vodka', price: 10.00 },
-    { name: 'Beer', price: 1.99 },
-    { name: 'Cider', price: 2.49 },
     { name: 'Porto Wine', price: 25.00 },
     { name: 'Champagne', price: 30.00 },
     { name: 'Tequila', price: 18.00 },
     { name: 'Aperol', price: 17.49 }
-  ].each do |product_attributes|
-    Product.find_or_create_by!(product_attributes.merge(category_id: drinks_category.id))
+  ]
+   # Update or create bakery products
+   drinks_seeds.each do |attributes|
+    product = Product.find_or_initialize_by(name: attributes[:name], category_id: drinks_category.id)
+    product.update!(attributes)
   end
+
+  # Remove products that are no longer in the seed file
+  Product.where(category_id: drinks_category.id)
+         .where.not(name: drinks_seeds.map { |p| p[:name] })
+         .destroy_all
 else
-  puts "Error: 'Drinks' category not found. Drink products not created."
+  puts "Error: 'Drinks' category not found. Bakery products not created."
 end
+# Fetch the 'Bakery' category
+# Ensure you're setting the locale to the desired language
+I18n.locale = :en  # Or whichever language is the default
 
 # Fetch the 'Bakery' category
 bakery_category = Category.find_or_create_by(name: 'Bakery')
@@ -193,7 +212,7 @@ if bakery_category
     { name: 'Ciabatta', price: 3.49 },
     { name: 'Focaccia', price: 4.29 },
     { name: 'Rye Bread', price: 3.19 },
-    { name: 'Gluten-Free Bread', price: 5.49 },
+    { name: 'Gluten Free Bread', price: 5.49 },
     { name: 'Banana Bread', price: 4.99 },
     { name: 'Blueberry Muffin', price: 2.49 },
     { name: 'Chocolate Chip Muffin', price: 2.79 },
@@ -227,13 +246,15 @@ if bakery_category
     { name: 'Oreo', price: 2.50 },
     { name: 'Bollycao', price: 1.30 },
     { name: 'Belgas', price: 1.99 },
-    { name: 'Filipinos', price: 1.50 },
+    { name: 'Filipinos', price: 1.50 }
   ]
+
   # Update or create bakery products
   bakery_seeds.each do |attributes|
     product = Product.find_or_initialize_by(name: attributes[:name], category_id: bakery_category.id)
     product.update!(attributes)
   end
+
   # Remove products that are no longer in the seed file
   Product.where(category_id: bakery_category.id)
          .where.not(name: bakery_seeds.map { |p| p[:name] })
@@ -241,6 +262,7 @@ if bakery_category
 else
   puts "Error: 'Bakery' category not found. Bakery products not created."
 end
+
 
 # Fetch the 'Car' category
 car_category = Category.find_or_create_by(name: 'Car')
@@ -270,11 +292,13 @@ if car_category
     { name: 'Cabin Filter', price: 4.99 },
     { name: 'Oil Filter', price: 4.99 }
   ]
-   # Update or create bakery products
-    car_seeds.each do |attributes|
+
+  # Update or create car products
+  car_seeds.each do |attributes|
     product = Product.find_or_initialize_by(name: attributes[:name], category_id: car_category.id)
     product.update!(attributes)
   end
+
   # Remove products that are no longer in the seed file
   Product.where(category_id: car_category.id)
          .where.not(name: car_seeds.map { |p| p[:name] })
@@ -326,7 +350,7 @@ fish_category = Category.find_or_create_by(name: 'Fish')
 
 # Create fish products if the 'Fish' category exists
 if fish_category
-  [
+  fish_seeds = [
     { name: 'Salmon Fillet', price: 14.99 },
     { name: 'Tuna Steak', price: 16.99 },
     { name: 'Cod', price: 11.49 },
@@ -347,13 +371,20 @@ if fish_category
     { name: 'Swordfish Steak', price: 21.99 },
     { name: 'Haddock', price: 12.99 },
     { name: 'Snapper', price: 17.49 }
-  ].each do |product_attributes|
-    Product.find_or_create_by!(product_attributes.merge(category_id: fish_category.id))
+  ]
+
+  fish_seeds.each do |attributes|
+    product = Product.find_or_initialize_by(name: attributes[:name], category_id: fish_category.id)
+    product.update!(attributes)
   end
+
+  # Remove products that are no longer in the seed file
+  Product.where(category_id: fish_category.id)
+         .where.not(name: fish_seeds.map { |p| p[:name] })
+         .destroy_all
 else
   puts "Error: 'Fish' category not found. Fish products not created."
 end
-
 
 # Fetch the 'Cold Cuts and Cheeses' category
 cold_cuts_and_cheeses_category = Category.find_or_create_by(name: 'Cold_cuts_and_cheeses')
@@ -381,6 +412,7 @@ else
   puts "Error: 'Cold Cuts and Cheeses' category not found. Cold cuts and cheeses products not created."
 end
 
+# Fetch the 'Hygiene' category
 hygiene_category = Category.find_or_create_by(name: 'Hygiene')
 
 # Create hygiene products if the 'Hygiene' category exists
