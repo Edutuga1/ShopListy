@@ -153,7 +153,7 @@
       // Google Maps initialization function
       function initMap() {
         const mapOptions = {
-          center: { lat: 40.7128, lng: -74.0060 }, // Default to New York City; update as needed
+          center: { lat: 40.7128, lng: -74.0060 }, // Default location
           zoom: 12,
           mapId: '199aae26c3acd33a',
         };
@@ -168,7 +168,7 @@
             };
             map.setCenter(userLocation);
 
-            // User's location marker
+            // Add marker for user's location
             new google.maps.Marker({
               map: map,
               position: userLocation,
@@ -182,19 +182,31 @@
             const service = new google.maps.places.PlacesService(map);
             const request = {
               location: userLocation,
-              radius: '5000',
+              radius: '5000', // 5km radius
               type: ['supermarket']
             };
 
             service.nearbySearch(request, (results, status) => {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-                results.forEach((place) => {
-                  const placeLocation = place.geometry.location;
+                const supermarketList = document.getElementById('supermarket-list-items');
+                supermarketList.innerHTML = ''; // Clear previous results
 
-                  // Marker for each supermarket
+                // Calculate distances for all supermarkets
+                const supermarketsWithDistance = results.map((place) => {
+                  const distance = calculateDistance(userLocation.lat, userLocation.lng,
+                                                     place.geometry.location.lat(),
+                                                     place.geometry.location.lng());
+                  return { ...place, distance };
+                });
+
+                // Sort supermarkets by distance
+                supermarketsWithDistance.sort((a, b) => a.distance - b.distance);
+
+                // Show all markers on the map
+                supermarketsWithDistance.forEach((place) => {
                   new google.maps.Marker({
                     map: map,
-                    position: placeLocation,
+                    position: place.geometry.location,
                     title: place.name,
                     icon: {
                       url: 'http://maps.google.com/mapfiles/ms/icons/shopping.png',
@@ -202,10 +214,72 @@
                     }
                   });
                 });
+
+                // Limit the list to the 5 closest supermarkets
+                const topResults = supermarketsWithDistance.slice(0, 5);
+
+                // Create list items
+                topResults.forEach((place, index) => {
+                  const listItem = document.createElement('li');
+                  listItem.style = `
+                    padding: 15px;
+                    border-bottom: 1px solid #e0e0e0;
+                    display: flex;
+                    align-items: flex-start;
+                    gap: 15px;
+                    transition: background-color 0.2s ease;
+                  `;
+                  listItem.addEventListener('mouseover', () => listItem.style.backgroundColor = '#f8f9fa');
+                  listItem.addEventListener('mouseout', () => listItem.style.backgroundColor = 'white');
+
+                  const photoUrl = place.photos
+                    ? place.photos[0].getUrl({ maxWidth: 100, maxHeight: 100 })
+                    : 'https://via.placeholder.com/100?text=No+Image';
+
+                  listItem.innerHTML = `
+                    <img src="${photoUrl}" alt="${place.name}" style="
+                      width: 100px;
+                      height: 100px;
+                      object-fit: cover;
+                      border-radius: 8px;
+                      border: 1px solid #ddd;
+                    ">
+                    <div style="flex: 1;">
+                      <strong style="
+                        font-size: 16px;
+                        color: #1a0dab;
+                        text-decoration: none;
+                      ">${index + 1}. ${place.name}</strong>
+                      <p style="
+                        margin: 5px 0;
+                        font-size: 14px;
+                        color: #4d5156;
+                      ">Address: ${place.vicinity || 'Not available'}</p>
+                      <p style="
+                        margin: 5px 0;
+                        font-size: 14px;
+                        color: #188038;
+                      ">Distance: ${place.distance.toFixed(2)} km</p>
+                      <p style="
+                        margin: 5px 0;
+                        font-size: 14px;
+                        color: #f39c12;
+                      ">Rating: ${place.rating || 'No rating'} (${place.user_ratings_total || 'No reviews'} reviews)</p>
+                    </div>
+                  `;
+                  supermarketList.appendChild(listItem);
+
+                  // Add a click listener to each list item to center the map on the corresponding supermarket
+                  listItem.addEventListener('click', () => {
+                    map.setCenter(place.geometry.location);
+                    map.setZoom(15);
+                  });
+                });
               } else {
                 console.error('Places service failed: ' + status);
               }
             });
+
           }, () => {
             handleLocationError(true, map.getCenter());
           });
@@ -214,13 +288,28 @@
         }
       }
 
+      // Haversine formula to calculate distance between two lat/lng points
+      function calculateDistance(lat1, lng1, lat2, lng2) {
+        const R = 6371; // Earth's radius in kilometers
+        const dLat = degreesToRadians(lat2 - lat1);
+        const dLng = degreesToRadians(lng2 - lng1);
+        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                  Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
+                  Math.sin(dLng / 2) * Math.sin(dLng / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // Distance in kilometers
+      }
+
+      function degreesToRadians(degrees) {
+        return degrees * (Math.PI / 180);
+      }
+
       function handleLocationError(browserHasGeolocation, pos) {
         console.error(browserHasGeolocation ?
           'Error: The Geolocation service failed.' :
           'Error: Your browser doesn\'t support geolocation.');
       }
 
-      // Conditionally initialize map based on the presence of map container
       document.addEventListener('turbo:load', function() {
         if (document.getElementById('map')) {
           initMap();
@@ -228,6 +317,7 @@
       });
 
       window.initMap = initMap; // Make initMap globally accessible
+
     </script>
   <% end %>
 

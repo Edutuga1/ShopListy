@@ -34,6 +34,7 @@ en:
   check_on_map_closest_supermarkets: "Check on the map the closest supermarkets"
   please_log_in_or_sign_up_to_continue: "Please log in or sign up to continue"
   select_category: "Select a category"
+  supermarkets_near_you: "Supermarkets near you"
 
   drinks_page:
     title: "Drinks"

@@ -7,6 +7,7 @@ pt:
   check_on_map_closest_supermarkets: "Verifique no mapa os supermercados mais próximos"
   please_log_in_or_sign_up_to_continue: "Por favor, faça login ou inscreva-se para continuar"
   select_category: "Selecione uma categoria"
+  supermarkets_near_you: "Supermercados perto de si"
 
   categories:
     drinks: "Bebidas"

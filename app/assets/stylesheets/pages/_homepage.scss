@@ -1,10 +1,11 @@
 body {
-  min-height: 100vh; // Ensures the body always fills the viewport height
+  min-height: 100vh;
   background: linear-gradient(to bottom, #4b9ef6, #72b0f3);
-  background-attachment: fixed; // Makes the gradient consistent
+  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
+  font-family: 'Roboto', sans-serif; // Google's font
 }
 
 .home-page {
@@ -13,7 +14,7 @@ body {
 
   h1 {
     margin-bottom: 20px;
-    margin-top:20px;
+    margin-top: 20px;
   }
 
   h2 {
@@ -26,14 +27,16 @@ body {
     border: 2px solid white;
     height: 500px;
     width: 70%;
+    border-radius: 8px; // Rounded corners for a polished look
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Soft shadow for depth
   }
 }
 
 .button-container .btn {
-  background-color: #FFFFFF; // White background
-  color: #0056b3; // Blue text
+  background-color: #ffffff;
+  color: #0056b3;
   padding: 10px 20px;
-  border: 2px solid #0056b3; // Blue border
+  border: 2px solid #0056b3;
   border-radius: 5px;
   font-size: 16px;
   text-transform: uppercase;
@@ -42,37 +45,72 @@ body {
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #0056b3; // Blue hover
-    color: #FFFFFF; // White text on hover
+    background-color: #0056b3;
+    color: #ffffff;
   }
 
   &:focus {
     outline: none;
-    box-shadow: 0 0 5px 2px rgba(0, 86, 179, 0.8); // Blue glow
+    box-shadow: 0 0 5px 2px rgba(0, 86, 179, 0.8);
   }
 }
 
-// Language selector positioning
 .language-selector {
   position: fixed;
-  bottom: 8px;  // 20px from the bottom
-  right: 20px;   // 20px from the right
-  z-index: 1000; // Make sure it appears on top of other content
+  bottom: 8px;
+  right: 20px;
+  z-index: 1000;
 
   .form-select {
-    padding: 8px 12px;  // Adjust padding for better size control
-    font-size: 1rem;  // Ensure the font size is readable
-    min-width: 80px; // Ensure the select box has a minimum width
-    appearance: none; // Remove default styling of the select box arrow
-    -webkit-appearance: none; // For Safari
-    -moz-appearance: none; // For Firefox
+    padding: 8px 12px;
+    font-size: 1rem;
+    min-width: 80px;
+    appearance: none;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
   }
 
-  /* Custom arrow styling */
   .form-select::-ms-expand {
-    display: none;  // For Internet Explorer to remove default arrow
+    display: none;
+  }
+}
+
+#supermarket-list {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;  // Add smooth transition for scaling
+
+  h2 {
+    text-align: center;
+    margin: 0;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #005893;
+    color: white;
+    border-radius: 12px 12px 0 0;
+    transition: background-color 0.3s ease;  // Add smooth transition for background color
+  }
+
+  #supermarket-list-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .supermarket-list {
+    max-width: 600px; /* Wider width for tablets and larger screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .supermarket-list {
+    max-width: 800px; /* Even wider for larger screens */
   }
 }
