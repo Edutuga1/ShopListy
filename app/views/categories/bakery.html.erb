@@ -1,24 +1,26 @@
-<div class="bakery-page">
+<div class="category-page">
   <h1><%= t('bakery_page.title') %></h1>
 
   <!-- Back and See Cart Buttons -->
-  <%= link_to t('bakery_page.back'), new_list_path, class: 'btn btn-secondary' %>
-  <%= link_to t('bakery_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  <div class="navigation-buttons">
+    <%= link_to t('bakery_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('bakery_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
 
   <!-- Search Bar -->
-  <div class="search-bar">
+  <div class="search-bar-container">
     <%= form_with url: bakery_path, method: :get, local: true do |form| %>
       <%= form.label :query, t('bakery_page.search_label'), class: "search-label" %>
       <%= form.text_field :query, value: params[:query], placeholder: t('bakery_page.search_placeholder'), class: "search-input" %>
-      <%= form.submit t('bakery_page.search_button'), class: "btn btn-primary" %>
+      <%= form.submit t('bakery_page.search_button'), class: "btn btn-primary search-btn" %>
     <% end %>
   </div>
 
   <!-- Bakery Products Display -->
   <% if @bakery_products.any? %>
-    <div class="bakery-grid">
+    <div class="category-grid">
       <% @bakery_products.each do |bakery_product| %>
-        <div class="bakery-item">
+        <div class="category-item">
           <!-- Translated product name -->
           <p><%= I18n.t("product_names.#{bakery_product.name.parameterize.underscore}") %></p>
 
@@ -33,16 +35,18 @@
           <% end %>
 
           <!-- Add to Cart Form -->
-          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{bakery_product.id}" } do |form| %>
-            <%= form.hidden_field :product_id, value: bakery_product.id %>
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{bakery_product.id}" } do |form| %>
+              <%= form.hidden_field :product_id, value: bakery_product.id %>
 
-            <label class="quantity-label" for="quantity-<%= bakery_product.id %>"><%= t('bakery_page.quantity_label') %>:</label>
-            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{bakery_product.id}" %>
+              <label class="quantity-label" for="quantity-<%= bakery_product.id %>"><%= t('bakery_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{bakery_product.id}" %>
 
-            <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> <%= t('bakery_page.add_to_cart') %>
-            </button>
-          <% end %>
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('bakery_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

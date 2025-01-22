@@ -1,4 +1,4 @@
-<div class="vegetable-page">
+<div class="category-page">
   <h1><%= t('vegetable_page.title') %></h1>
 
   <!-- Back and See Cart Buttons -->
@@ -8,7 +8,7 @@
   </div>
 
   <!-- Centered Search Bar -->
-  <div class="search-container">
+  <div class="search-bar-container">
     <%= form_with url: vegetables_path, method: :get, local: true, class: "search-form" do |form| %>
       <%= form.text_field :query, value: params[:query], placeholder: t('vegetable_page.search_placeholder'), class: "search-input" %>
       <%= form.submit t('vegetable_page.search'), class: "btn search-btn btn-primary" %>
@@ -17,9 +17,9 @@
 
   <!-- Vegetables Products Display -->
   <% if @vegetables.any? %>
-    <div class="vegetable-grid">
+    <div class="category-grid">
       <% @vegetables.each do |product| %>
-        <div class="vegetable-item">
+        <div class="category-item">
           <p><%= I18n.t("product_names.#{product.name.parameterize.underscore}") %></p>
 
           <% image_filename = "#{product.name.parameterize}" %>
@@ -32,14 +32,18 @@
           <% end %>
 
           <!-- Add to Cart Form -->
-          <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
-            <%= form.hidden_field :product_id, value: product.id %>
-            <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('vegetable_page.quantity') %>:</label>
-            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
-            <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> <%= t('vegetable_page.add_to_cart') %>
-            </button>
-          <% end %>
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
+              <%= form.hidden_field :product_id, value: product.id %>
+
+              <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('vegetable_page.quantity') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
+              
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('vegetable_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

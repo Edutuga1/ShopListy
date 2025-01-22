@@ -1,12 +1,20 @@
 <div class="chat-page">
-  <h1><%= t('chat_page.conversation_with') %> <%= @conversation.other_user(current_user).name %></h1>
+  <h1>
+    <%= t('chat_page.conversation_with') %>
+    <%= @conversation.other_user(current_user).name %>
+  </h1>
 
-  <div id="conversation-header" data-conversation-id="<%= @conversation.id %>">
-    <h2><%= t('chat_page.details') %></h2>
-    <p><%= t('chat_page.participants') %>: <%= @conversation.messages.map(&:sender).map(&:email).uniq.join(', ') %></p>
+  <div id="conversation-header" data-conversation-id="<%= @conversation.id %>" data-controller="chat-details">
+    <div class="chat-header-toggle">
+      <button class="toggle-details" data-action="chat-details#toggle" aria-label="Toggle Chat Details">
+        <i class="fas fa-info-circle"></i>
+      </button>
+    </div>
+    <div class="chat-details" data-chat-details-target="details">
+      <p><%= t('chat_page.participants') %>: <%= @conversation.messages.map(&:sender).map(&:email).uniq.join(', ') %></p>
+    </div>
   </div>
 
-  <!-- Updated messages container with Stimulus controller for scrolling -->
   <div id="messages" data-controller="scroll">
     <% @messages.each do |message| %>
       <%= render partial: "messages/message", locals: { message: message } %>
@@ -14,14 +22,15 @@
   </div>
 
   <% if @conversation %>
-    <!-- Form with Stimulus controller to clear the input after sending -->
     <%= form_with(model: Message.new,
                   url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id),
                   data: { turbo_stream: true },
                   local: false,
                   html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } }) do |form| %>
       <%= form.text_area :content, class: "form-control", placeholder: t('chat_page.message_placeholder'), id: "message-content" %>
-      <%= form.submit t('chat_page.send_button'), class: "btn btn-primary" %>
+      <%= form.button class: "btn btn-primary", type: "submit" do %>
+        <i class="fa-regular fa-paper-plane"></i>
+      <% end %>
     <% end %>
   <% else %>
     <p><%= t('chat_page.error_conversation') %></p>

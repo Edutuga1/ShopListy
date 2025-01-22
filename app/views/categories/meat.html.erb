@@ -1,24 +1,25 @@
-<div class="meat-page">
+<div class="category-page">
   <h1><%= t('meat_page.title') %></h1>
 
-  <!-- Back and See Cart Buttons -->
-  <%= link_to t('meat_page.back'), new_list_path, class: 'btn btn-secondary' %>
-  <%= link_to t('meat_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  <div class="navigation-buttons">
+    <%= link_to t('meat_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('meat_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
 
   <!-- Search Bar -->
-  <div class="search-bar">
+  <div class="search-bar-container">
     <%= form_with url: meat_path, method: :get, local: true do |form| %>
       <%= form.label :query, t('meat_page.search_label'), class: "search-label" %>
       <%= form.text_field :query, value: params[:query], placeholder: t('meat_page.search_placeholder'), class: "search-input" %>
-      <%= form.submit t('meat_page.search_button'), class: "btn btn-primary" %>
+      <%= form.submit t('meat_page.search_button'), class: "btn btn-primary search-btn" %>
     <% end %>
   </div>
 
   <!-- Meat Products Display -->
   <% if @meat_products.any? %>
-    <div class="meat-grid">
+    <div class="category-grid">
       <% @meat_products.each do |meat_product| %>
-        <div class="meat-item">
+        <div class="category-item">
           <!-- Translated product name -->
           <p><%= I18n.t("product_names.#{meat_product.name.parameterize.underscore}") %></p>
 
@@ -33,16 +34,18 @@
           <% end %>
 
           <!-- Add to Cart Form -->
-          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{meat_product.id}" } do |form| %>
-            <%= form.hidden_field :product_id, value: meat_product.id %>
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{meat_product.id}" } do |form| %>
+              <%= form.hidden_field :product_id, value: meat_product.id %>
 
-            <label class="quantity-label" for="quantity-<%= meat_product.id %>"><%= t('meat_page.quantity_label') %>:</label>
-            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{meat_product.id}" %>
+              <label class="quantity-label" for="quantity-<%= meat_product.id %>"><%= t('meat_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{meat_product.id}" %>
 
-            <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> <%= t('meat_page.add_to_cart') %>
-            </button>
-          <% end %>
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('meat_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

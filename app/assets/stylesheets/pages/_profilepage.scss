@@ -22,10 +22,11 @@
   }
 
   .profile-header {
-    font-size: 40px;
-    margin-bottom: 30px;
-    color: #f7f0f0;
-    text-align: center; /* Center text alignment explicitly */
+    h1 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #003366;
+    }
   }
 
   .profile-info {
@@ -63,7 +64,7 @@
       display: block;
       height: 10px; /* Adjust the height for the spacing above the line */
       background: transparent; /* Ensure it's invisible */
-      border-bottom: 1px solid #ccc; /* Recreate the white line */
+      border-bottom: 1px solid #003366;
       position: absolute;
       bottom: -10px; /* Position it below the main content */
       left: 0;

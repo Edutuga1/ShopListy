@@ -17,6 +17,17 @@
   <%= link_to t('lists_page.show.edit_button'), edit_list_path(@list), class: 'btn btn-primary' %>
   <%= button_to t('lists_page.show.delete_button'), list_path(@list), method: :delete, class: 'btn btn-danger', data: { confirm: t('lists_page.show.delete_confirm') } %>
   <%= button_to t('lists_page.show.back_to_lists'), user_lists_path(@list.user), method: :get %>
+
+
+
+  <h3><%= t('lists_page.show.share_with_friend') %></h3>
+
+  <%= form_with url: share_list_path(@list), method: :post, local: true do |form| %>
+    <%= form.label :friend_id, 'Select Friend to Share With' %>
+    <%= form.collection_select :friend_id, @friends, :id, :name, prompt: "Select a friend" %>
+    <%= form.submit 'Share List', class: 'btn btn-primary' %>
+  <% end %>
+
 </div>
 
 

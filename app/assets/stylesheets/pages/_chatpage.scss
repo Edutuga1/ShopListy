@@ -9,35 +9,51 @@
 
   // Page Header
   h1 {
-    font-size: 1.8rem;
-    color: #262626;
+    font-size: 2rem;
+    color: #003366;
     text-align: center;
     margin: 20px 0;
+    font-weight: bold;
   }
 
-  // Conversation Header
   #conversation-header {
-    background-color: #fff;
-    border-bottom: 1px solid #dbdbdb;
-    padding: 20px;
-    text-align: center;
-    margin-left: 80px;
-    margin-right: 80px;
-    border-radius: 10px;
+    .chat-header-toggle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    h2 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #262626;
-      margin-bottom: 10px;
+      button.toggle-details {
+        background: none;
+        border: none;
+        color: #3897f0;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #0056b3;
+        }
+
+        i {
+          pointer-events: none; // Ensure only the button is clickable
+        }
+      }
     }
 
-    p {
-      font-size: 0.9rem;
-      color: #8e8e8e;
-      margin: 0;
+    .chat-details {
+      overflow: hidden;
+      max-height: 0; // Initially hidden
+      transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+      opacity: 0;
+      text-align: center;
+
+      &.open {
+        max-height: 200px; // Adjust based on your content
+        opacity: 1;
+      }
     }
   }
+
 
   // Messages Section
   #messages {
@@ -76,7 +92,7 @@
         display: block;
         color: #8e8e8e;
         font-size: 0.75rem;
-        margin-top: 5px;
+        margin-bottom: 3px;
       }
 
       // Message Header for sender's name and profile picture
@@ -106,6 +122,11 @@
         text-align: right;
         margin-left: auto;
         max-width: 70%;
+        color:white;
+
+        p {
+          color: white; /* Ensure the paragraph text is white */
+        }
       }
 
       // Messages from other users

@@ -1,12 +1,13 @@
-<div class="drink-page">
+<div class="category-page">
   <h1><%= t('drinks_page.title') %></h1>
+
   <div class="navigation-buttons">
-     <%= link_to t('drinks_page.back'), new_list_path, class: 'btn btn-secondary' %>
-     <%= link_to t('drinks_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+    <%= link_to t('drinks_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('drinks_page.see_cart'), cart_path, class: 'btn btn-primary' %>
   </div>
 
   <!-- Search Form -->
-  <div class="search-bar">
+  <div class="search-bar-container">
     <%= form_with url: drink_path, method: :get, local: true do |form| %>
       <%= form.label :query, t('drinks_page.search_label'), class: "search-label" %>
       <%= form.text_field :query, value: params[:query], placeholder: t('drinks_page.search_placeholder'), class: "search-input" %>
@@ -16,9 +17,9 @@
 
   <!-- Drink Grid -->
   <% if @drinks_products.any? %>
-    <div class="drink-grid">
+    <div class="category-grid">
       <% @drinks_products.each do |drink_product| %>
-        <div class="drink-item">
+        <div class="category-item">
           <p><%= I18n.t("product_names.#{drink_product.name.parameterize.underscore}") %></p>
 
           <% image_filename = "#{drink_product.name.parameterize}" %>
@@ -32,18 +33,18 @@
           <% end %>
 
           <!-- Add to Cart Form -->
-       <div class="button-container">
-          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{drink_product.id}" } do |form| %>
-            <%= form.hidden_field :product_id, value: drink_product.id %>
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{drink_product.id}", class: "add-to-cart-form" } do |form| %>
+              <%= form.hidden_field :product_id, value: drink_product.id %>
 
-            <label class="quantity-label" for="quantity-<%= drink_product.id %>"><%= t('drinks_page.quantity_label') %>:</label>
-            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{drink_product.id}" %>
+              <label class="quantity-label" for="quantity-<%= drink_product.id %>"><%= t('drinks_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{drink_product.id}" %>
 
-            <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> <%= t('drinks_page.add_to_cart') %>
-            </button>
-          <% end %>
-       </div>
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('drinks_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

@@ -1,0 +1,21 @@
+<h1>Hi <%= @friend.name %>,</h1>
+
+<p><%= @user.name %> has shared a list with you!</p>
+
+<p>List Name: <%= @list.name %></p>
+<p><%= @user.name %> added the following items:</p>
+
+<ul>
+  <% @list.products_lists.each do |product_list| %>
+    <li>
+      <strong><%= product_list.product.name %>:</strong>
+      <%= number_to_currency(product_list.product.price) %>
+      x <%= product_list.quantity %>
+      = <%= number_to_currency(product_list.product.price * product_list.quantity) %>
+    </li>
+  <% end %>
+</ul>
+
+<p><a href="<%= list_url(@list) %>">Click here to view the list!</a></p>
+
+<p>Best regards,<br>Your Application Team</p>

@@ -6,19 +6,14 @@
         <strong><%= t('CREATE_A_NEW_LIST') %></strong>
       <% end %>
     </div>
-
     <!-- Map container -->
     <h2><%= t('check_on_map_closest_supermarkets') %></h2>
-    <div id="map" style="height: 400px; width: 100%;"></div>
-    <br>
-    <br>
-
+    <div id="map"></div>
     <!-- Supermarket list container -->
      <div id="supermarket-list">
        <h2> <%= t('supermarkets_near_you') %>:</h2>
        <ul id="supermarket-list-items"></ul>
      </div>
-
     <!-- Language Selector -->
     <div class="language-selector">
       <form method="get" action="" class="d-flex align-items-center">

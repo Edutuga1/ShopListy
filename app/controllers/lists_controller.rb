@@ -1,12 +1,15 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @lists = current_user.lists.includes(products: :category)
   end
 
   def show
+    @list = List.find(params[:id])
+    @friends = current_user.friends  # Assuming you have a `friends` association on User
   end
 
   def new
@@ -59,6 +62,26 @@ class ListsController < ApplicationController
   def destroy
     @list.destroy
     redirect_to lists_path, notice: 'List was successfully deleted.'
+  end
+
+  def share
+    @friend = User.find(params[:friend_id])  # Get the selected friend
+    @list = List.find(params[:id])           # Get the list to share
+    @user = current_user                     # Get the current user
+
+    # Send the share list email
+    ListMailer.share_list(@friend, @list).deliver_now
+
+    # Create a notification for the friend
+    Notification.create!(
+      user: @user,
+      friend: @friend,
+      list: @list,
+      message: "#{@user.name} has shared a list with you: #{@list.name}",
+      read: false
+    )
+
+    redirect_to list_path(@list), notice: "List shared successfully!"
   end
 
   private

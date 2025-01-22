@@ -1,15 +1,15 @@
 body {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #4b9ef6, #72b0f3);
+  min-height: 70vh;
+  background: linear-gradient(135deg, #e3f2fd, #90caf9);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
-  font-family: 'Roboto', sans-serif; // Google's font
+  font-family: 'Roboto', sans-serif; /* Google's font */
 }
 
 .home-page {
-  text-align: center;
+  text-align: center; /* Center text within the home-page container */
   color: white;
 
   h1 {
@@ -20,17 +20,20 @@ body {
   h2 {
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: 230px;
     text-align: center;
+    font-size: 1.5rem;
+    display: block;
+    width: 100%;
   }
 
   #map {
     margin-top: 30px;
+    margin-bottom: 60px;
     border: 2px solid white;
-    height:800px;
+    height: 800px;
     width: 50%;
-    border-radius: 8px; // Rounded corners for a polished look
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Soft shadow for depth
+    border-radius: 8px; /* Rounded corners for a polished look */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
   }
 }
 
@@ -85,17 +88,17 @@ body {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease;  // Add smooth transition for scaling
+  transition: transform 0.3s ease; /* Add smooth transition for scaling */
 
   h2 {
-    text-align: center;
+    text-align: center; /* Ensure this is applied to h2 inside supermarket-list */
     margin: 0;
     padding: 15px;
     font-size: 18px;
     background-color: #005893;
     color: white;
     border-radius: 12px 12px 0 0;
-    transition: background-color 0.3s ease;  // Add smooth transition for background color
+    transition: background-color 0.3s ease; /* Add smooth transition for background color */
   }
 
   #supermarket-list-items {

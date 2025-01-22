@@ -1,30 +1,29 @@
-<div class="cold-cuts-and-cheeses-page">
+<div class="category-page">
   <h1><%= t('cold_cuts_and_cheeses_page.title') %></h1>
 
-  <!-- Back and See Cart Buttons -->
   <div class="navigation-buttons">
     <%= link_to t('cold_cuts_and_cheeses_page.back'), new_list_path, class: 'btn btn-secondary' %>
     <%= link_to t('cold_cuts_and_cheeses_page.see_cart'), cart_path, class: 'btn btn-primary' %>
   </div>
 
-  <!-- Centered Search Bar -->
-  <div class="search-container">
+  <!-- Search Bar -->
+  <div class="search-bar-container">
     <%= form_with url: cold_cuts_and_cheeses_path, method: :get, local: true, class: "search-form" do |form| %>
       <%= form.label :query, t('cold_cuts_and_cheeses_page.search_label'), class: "search-label" %>
       <%= form.text_field :query, value: params[:query], placeholder: t('cold_cuts_and_cheeses_page.search_placeholder'), class: "search-input" %>
-      <%= form.submit t('cold_cuts_and_cheeses_page.search_button'), class: "btn btn-primary" %>
+      <%= form.submit t('cold_cuts_and_cheeses_page.search_button'), class: "btn btn-primary search-btn" %>
     <% end %>
   </div>
 
-  <!-- Cold Cuts and Cheeses Products Display -->
+  <!-- Cold Cuts and Cheeses Grid -->
   <% if @cold_cuts_and_cheeses_products.any? %>
-    <div class="cold-cuts-and-cheeses-grid">
+    <div class="category-grid">
       <% @cold_cuts_and_cheeses_products.each do |product| %>
-        <div class="cold-cuts-and-cheeses-item">
-          <!-- Translated product name -->
+        <div class="category-item">
           <p><%= I18n.t("product_names.#{product.name.parameterize.underscore}") %></p>
 
           <% image_filename = "#{product.name.parameterize}" %>
+
           <% if File.exist?(Rails.root.join("app/assets/images/#{image_filename}.jpg")) %>
             <%= image_tag "#{image_filename}.jpg", class: "product-image", alt: product.name %>
           <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
@@ -34,16 +33,18 @@
           <% end %>
 
           <!-- Add to Cart Form -->
-          <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
-            <%= form.hidden_field :product_id, value: product.id %>
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
+              <%= form.hidden_field :product_id, value: product.id %>
 
-            <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('cold_cuts_and_cheeses_page.quantity_label') %>:</label>
-            <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
+              <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('cold_cuts_and_cheeses_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
 
-            <button class="btn add-to-cart" type="submit">
-              <i class="fas fa-shopping-cart"></i> <%= t('cold_cuts_and_cheeses_page.add_to_cart') %>
-            </button>
-          <% end %>
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('cold_cuts_and_cheeses_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
         </div>
       <% end %>
     </div>

@@ -1,31 +1,33 @@
 <div class="edit-list-page">
   <h1><%= t('edit_list_page.edit_list') %></h1>  <!-- Translated page header -->
 
-  <table>
-    <thead>
-      <tr>
-        <th><%= t('edit_list_page.product') %></th>  <!-- Translated Product header -->
-        <th><%= t('edit_list_page.price') %></th>  <!-- Translated Price header -->
-        <th><%= t('edit_list_page.quantity') %></th>  <!-- Translated Quantity header -->
-        <th><%= t('edit_list_page.actions') %></th>  <!-- Translated Actions header -->
-      </tr>
-    </thead>
-    <tbody>
-      <% @list.products_lists.each do |products_list| %>
+  <div class="list-table-container">
+    <table class="edit-list-table">
+      <thead>
         <tr>
-          <td><%= products_list.product.name %></td>  <!-- Product name -->
-          <td><%= number_to_currency(products_list.product.price) %></td>  <!-- Product price -->
-          <td>
-            <%= form_with model: products_list, url: list_products_list_path(@list, products_list), method: :patch, local: true do |form| %>
-              <%= form.number_field :quantity, min: 0 %>
-              <%= form.submit t('edit_list_page.update'), class: 'btn btn-warning' %>  <!-- Translated button text -->
-            <% end %>
-          </td>
-          <td>
-            <%= link_to t('edit_list_page.delete'), list_products_list_path(@list, products_list), method: :delete, data: { confirm: t('edit_list_page.confirm_delete') }, class: 'btn btn-danger' %>  <!-- Translated Delete link and confirmation message -->
-          </td>
+          <th><%= t('edit_list_page.product') %></th>  <!-- Translated Product header -->
+          <th><%= t('edit_list_page.price') %></th>  <!-- Translated Price header -->
+          <th><%= t('edit_list_page.quantity') %></th>  <!-- Translated Quantity header -->
+          <th><%= t('edit_list_page.actions') %></th>  <!-- Translated Actions header -->
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @list.products_lists.each do |products_list| %>
+          <tr>
+            <td><%= products_list.product.name %></td>  <!-- Product name -->
+            <td><%= number_to_currency(products_list.product.price) %></td>  <!-- Product price -->
+            <td>
+              <%= form_with model: products_list, url: list_products_list_path(@list, products_list), method: :patch, local: true do |form| %>
+                <%= form.number_field :quantity, min: 0 %>
+                <%= form.submit t('edit_list_page.update'), class: 'btn btn-warning' %>  <!-- Translated button text -->
+              <% end %>
+            </td>
+            <td>
+              <%= link_to t('edit_list_page.remove'), list_products_list_path(@list, products_list), method: :delete, data: { confirm: t('edit_list_page.confirm_delete') }, class: 'btn btn-danger' %>  <!-- Translated Delete link and confirmation message -->
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

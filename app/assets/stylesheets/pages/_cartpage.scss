@@ -1,216 +1,131 @@
 .cart-page {
+  background: linear-gradient(135deg, #e3f2fd, #90caf9); /* Light blue gradient */
+  padding: 30px;
+}
+/* Cart Table Styling */
+.cart-table {
+  width: 100%; /* Full width */
+  border-collapse: collapse; /* Remove gaps between cells */
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Keep the roundness intact */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 20px; /* Spacing below the table */
+  background-color: #ffffff; /* White background for the table */
+}
+
+/* Table Header (th) */
+.cart-table th {
+  background-color: #3498db; /* Bright blue background */
+  color: #ffffff; /* White text */
+  text-align: center; /* Center-align text */
+  padding: 15px; /* Add padding */
+  font-weight: bold; /* Bold text for headers */
+  text-transform: uppercase; /* Capitalize text */
+  letter-spacing: 1px; /* Slight spacing for elegance */
+}
+
+/* Table Body Rows (td) */
+.cart-table td {
+  padding: 15px; /* Add padding for spacing */
+  text-align: center; /* Center-align text */
+  border-bottom: 1px solid #dee2e6; /* Add light border */
+}
+
+/* Table Row Hover Effect */
+.cart-table tbody tr:hover {
+  background-color: #f9f9f9; /* Light gray hover effect */
+}
+
+/* First and Last Rows */
+.cart-table tbody tr:last-child td {
+  border-bottom: none; /* Remove border for the last row */
+}
+
+/* Update Button */
+.cart-update-btn {
+  background-color: #007bff; /* Blue background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Add padding */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.cart-update-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Remove Button */
+.cart-remove-btn {
+  background-color: #dc3545; /* Red background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Add padding */
+  transition: background-color 0.3s; /* Smooth hover effect */
+}
+
+.cart-remove-btn:hover {
+  background-color: #b21f2d; /* Darker red on hover */
+}
+
+/* Align Quantity Input and Button */
+.update-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Add spacing between input and button */
+}
+
+.cart-quantity-input {
+  width: 60px;
+  text-align: center; /* Center-align input text */
+  padding: 5px;
+  border: 1px solid #ced4da; /* Light border */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Total Price Styling */
+.cart-total-price {
+  font-size: 1.5em;
+  color: #333333; /* Dark gray text */
+  margin-top: 20px; /* Spacing above */
   text-align: center;
-  padding: 20px;
+}
 
-  .quantity-update {
-    display: flex;
-    align-items: center; /* Align items vertically */
+/* Add to List Section */
+.cart-add-to-list-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
 
-    .update-wrapper {
-      display: flex;
-      flex-direction: row;
-      gap: 10px; /* Add space between the button and the number field */
+.cart-add-to-list-btn:hover {
+  background-color: #0056b3;
+}
 
-      .btn-warning {
-        order: 2; /* Place the button first */
-      }
+.new-list-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-      .form-control {
-        order: 1; /* Place the selector second */
-        width: 80px; /* Adjust width as needed */
-        text-align: center;
-      }
-    }
+.cart-actions-cell {
+  text-align: center;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .cart-table th, .cart-table td {
+    font-size: 14px; /* Smaller font size */
+    padding: 10px; /* Reduce padding */
   }
 
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    color: #fff;
-  }
-
-  .table-container {
-    overflow-x: auto;
-    margin: 20px auto;
-    max-width: 1000px;
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: fixed;
-      background-color: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-      thead {
-        background-color: #007bff;
-        color: #fff;
-
-        th {
-          padding: 12px;
-          text-align: center;
-          font-size: 1rem;
-          font-weight: bold;
-        }
-      }
-
-      tbody {
-        tr {
-          border-bottom: 1px solid #ddd;
-
-          &:last-child {
-            border-bottom: none;
-          }
-
-          &:hover {
-            background-color: #f9f9f9;
-          }
-
-          td {
-            text-align: center;
-            padding: 12px;
-            vertical-align: middle;
-            font-size: 0.9rem;
-
-            .form-control {
-              width: 70px;
-              margin: 0 auto;
-              text-align: center;
-              border: 1px solid #ccc;
-              border-radius: 4px;
-              padding: 4px;
-            }
-
-            /* Quantity and Update button alignment */
-            .quantity-update {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              gap: 10px; // Space between button and input
-
-              .form-control {
-                width: 70px;
-                text-align: center;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                padding: 4px;
-              }
-
-              .btn-warning {
-                padding: 6px 12px;
-                font-size: 0.9rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .total-price {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 20px;
-    color: #fff;
-  }
-
-  .navigation-buttons {
-    margin: 30px auto;
-    max-width: 600px;
-    text-align: left;
-
-    label {
-      font-weight: bold;
-      display: block;
-      margin: 10px 0 5px;
-    }
-
-    .form-control {
-      width: 100%;
-      padding: 10px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-
-    .new-list-section {
-      margin-top: 20px;
-      h4 {
-        font-size: 1.2rem;
-        color: white;
-        margin-bottom: 10px;
-      }
-    }
-
-    .btn {
-      margin-top: 20px;
-      padding: 10px 15px;
-      font-size: 1rem;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-
-      &.btn-primary {
-        background-color: #007bff;
-        color: #fff;
-
-        &:hover {
-          background-color: #0056b3;
-          transform: translateY(-2px);
-        }
-      }
-
-      &.btn-secondary {
-        background-color: #6c757d;
-        color: #fff;
-
-        &:hover {
-          background-color: #5a6268;
-          transform: translateY(-2px);
-        }
-      }
-
-      &.btn-warning {
-        background-color: #ffc107;
-        color: #212529;
-
-        &:hover {
-          background-color: #e0a800;
-          transform: translateY(-2px);
-        }
-      }
-
-      &.btn-danger {
-        background-color: #dc3545;
-        color: #fff;
-
-        &:hover {
-          background-color: #c82333;
-          transform: translateY(-2px);
-        }
-      }
-    }
-  }
-
-  .delete-all-button {
-    margin: 30px auto;
-
-    .btn-danger {
-      width: 100%;
-      max-width: 300px;
-      font-size: 1rem;
-
-      &:hover {
-        transform: scale(1.05);
-      }
-    }
-  }
-
-  p {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-top: 20px;
+  .cart-update-btn, .cart-remove-btn {
+    padding: 5px 8px; /* Smaller buttons */
   }
 }

@@ -69,12 +69,17 @@ Rails.application.routes.draw do
 
   # List resources with additional actions
   resources :lists do
+    # Member routes (these are actions that act on a specific list)
     post :add_product, on: :member
     post :add_category, on: :member
+    post :share, on: :member  # Custom share route
     patch :update_product, on: :member
     delete :destroy_product, on: :member
+
+    # Nested routes for products_list
     resources :products_lists, only: [:edit, :update, :destroy]
   end
+
 
   # Category-specific routes
   get 'meat', to: 'categories#meat'

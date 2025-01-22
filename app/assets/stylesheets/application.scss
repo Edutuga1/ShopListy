@@ -11,18 +11,6 @@
 @import "components/index";
 @import "pages/homepage";
 @import "pages/create_list";
-@import "pages/drinks";
-@import "pages/meat";
-@import "pages/fish";
-@import "pages/bakery";
-@import "pages/cold_cuts_&_cheese";
-@import "pages/car";
-@import "pages/fruit";
-@import "pages/vegetables";
-@import "pages/dairy";
-@import "pages/frozen";
-@import "pages/hygiene";
-@import "pages/cleaning";
 @import "pages/listspage";
 @import "pages/cartpage";
 @import "pages/edit_list";
@@ -31,6 +19,7 @@
 @import "pages/dmpage";
 @import "pages/friendprofilepage";
 @import "pages/edit_profile_page";
+@import "pages/categories";
 
 .notice {
   padding: 10px;

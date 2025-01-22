@@ -2,8 +2,8 @@
   <h1><%= t('cart_page.title') %></h1>
 
   <% if @cart.cart_items.any? %>
-    <div class="table-container">
-      <table>
+    <div class="cart-table-container">
+      <table class="cart-table">
         <thead>
           <tr>
             <th><%= t('cart_page.product') %></th>
@@ -18,19 +18,19 @@
             <tr>
               <td><%= t("product_names.#{cart_item.product.name.downcase}") %></td>
               <td>
-                <div class="quantity-update">
+                <div class="cart-quantity-update">
                   <%= form_with(model: cart_item, url: update_product_cart_path(cart_item), method: :patch, local: false, remote: true) do |form| %>
                     <div class="update-wrapper">
-                      <%= form.submit t('cart_page.update_button'), class: 'btn btn-warning' %>
-                      <%= form.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control' %>
+                      <%= form.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control cart-quantity-input' %>
+                      <%= form.submit t('cart_page.update_button'), class: 'btn btn-warning cart-update-btn' %>
                     </div>
                   <% end %>
                 </div>
               </td>
               <td><%= number_to_currency(cart_item.product.price) %></td>
               <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
-              <td>
-                <%= button_to t('cart_page.remove_button'), remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger', data: { confirm: t('cart_page.remove_confirm') } %>
+              <td class="cart-actions-cell">
+                <%= button_to t('cart_page.remove_button'), remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger cart-remove-btn', data: { confirm: t('cart_page.remove_confirm') } %>
               </td>
             </tr>
           <% end %>
@@ -38,36 +38,35 @@
       </table>
     </div>
 
-    <h3 class="total-price"><%= t('cart_page.total_price') %>: <%= number_to_currency(@cart.total_price) %></h3>
+    <div class="cart-summary">
+      <h3 class="cart-total-price"><%= t('cart_page.total_price') %>: <%= number_to_currency(@cart.total_price) %></h3>
 
-    <div class="navigation-buttons">
-      <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
-        <% @cart.cart_items.each do |cart_item| %>
-          <%= form.hidden_field :product_ids, value: cart_item.product.id, multiple: true %>
-          <%= form.number_field "quantities[#{cart_item.product.id}]", value: cart_item.quantity, min: 1, class: 'form-control', style: 'display:none;' %>
-        <% end %>
+      <div class="cart-navigation-buttons">
+        <%= form_with url: add_to_list_cart_path, method: :post, local: true do |form| %>
+          <% @cart.cart_items.each do |cart_item| %>
+            <%= form.hidden_field :product_ids, value: cart_item.product.id, multiple: true %>
+            <%= form.hidden_field "quantities[#{cart_item.product.id}]", value: cart_item.quantity, min: 1, class: 'form-control cart-quantity-hidden' %>
+          <% end %>
 
-        <%= form.label :list_id, t('cart_page.select_list_label') %>
-        <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'form-control' } %>
+          <!-- Select List Section -->
+          <%= form.label :list_id, t('cart_page.select_list_label') %>
+          <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'form-control' } %>
 
-        <% if @user.lists.count < 5 %>
-          <div class="new-list-section">
-            <h4><%= t('cart_page.new_list_section_title') %></h4>
-            <%= form.label :new_list_name, t('cart_page.new_list_label') %>
-            <%= form.text_field :new_list_name, class: 'form-control' %>
+          <!-- New List Section -->
+          <div class="cart-new-list-section">
+            <div class="new-list-wrapper">
+              <%= form.text_field :new_list_name, class: 'form-control new-list-input', placeholder: t('cart_page.new_list_label') %>
+              <%= form.submit t('cart_page.add_to_list_button'), class: 'btn btn-primary cart-add-to-list-btn' %>
+            </div>
           </div>
-        <% else %>
-          <p><%= t('cart_page.max_lists_message') %></p>
         <% end %>
 
-        <%= form.submit t('cart_page.add_to_list_button'), class: 'btn btn-primary' %>
-      <% end %>
+        <%= link_to t('cart_page.back_to_products'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
+      </div>
 
-      <%= link_to t('cart_page.back_to_products'), request.referer || root_path, class: 'btn btn-secondary' %>
-    </div>
-
-    <div class="delete-all-button">
-      <%= button_to t('cart_page.delete_all_button'), clear_cart_path(@cart.id), method: :delete, class: 'btn btn-danger', data: { confirm: t('cart_page.delete_all_confirm') } %>
+      <div class="cart-delete-all-button">
+        <%= button_to t('cart_page.delete_all_button'), clear_cart_path(@cart.id), method: :delete, class: 'btn btn-danger cart-delete-all-btn', data: { confirm: t('cart_page.delete_all_confirm') } %>
+      </div>
     </div>
   <% else %>
     <p><%= t('cart_page.empty_message') %></p>
