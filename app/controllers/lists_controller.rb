@@ -4,17 +4,17 @@ class ListsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @lists = current_user.lists.includes(products: :category)
+    @lists = current_user.own_lists.includes(products: :category)
   end
 
   def show
     @list = List.find(params[:id])
-    @friends = current_user.friends  # Assuming you have a `friends` association on User
+    @friends = current_user.friends
   end
 
   def new
     @list = List.new
-    @cart = User.find_by(id: session[:user_id])&.cart  # Assuming user retrieval
+    @cart = User.find_by(id: session[:user_id])&.cart
     render :new
   end
 
@@ -82,6 +82,14 @@ class ListsController < ApplicationController
     )
 
     redirect_to list_path(@list), notice: "List shared successfully!"
+  end
+
+  def save_shared_list
+    @list = List.find(params[:list_id]) # Use :list_id here
+    current_user.saved_lists.create!(list: @list)
+    redirect_to lists_path, notice: "List successfully saved to your Friends Shared Lists."
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to list_path(@list), alert: "Unable to save the list: #{e.message}"
   end
 
   private

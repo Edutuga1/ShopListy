@@ -13,6 +13,8 @@ class CartsController < ApplicationController
   end
 
   def show
+    @user = current_user
+    @cart = current_user.cart
   end
 
   def add_product

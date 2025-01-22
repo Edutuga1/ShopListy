@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   # Associations
   has_many :groceries, dependent: :destroy
-  has_many :lists, dependent: :destroy
+  has_many :own_lists, class_name: 'List', foreign_key: 'user_id', dependent: :destroy # Explicit name for user's own lists
   has_one :cart, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
@@ -15,6 +15,9 @@ class User < ApplicationRecord
   has_many :friends, -> { where(friendships: { status: 'accepted' }) }, through: :friendships, source: :friend
   has_many :recipes
   has_one :favorite_recipe, class_name: 'Recipe'
+  has_many :saved_lists
+  has_many :shared_lists, through: :saved_lists, source: :list
+
 
   # Friendships where the user is the recipient
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy

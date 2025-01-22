@@ -75,6 +75,7 @@ Rails.application.routes.draw do
     post :share, on: :member  # Custom share route
     patch :update_product, on: :member
     delete :destroy_product, on: :member
+    match :save_shared_list, via: [:get, :post]
 
     # Nested routes for products_list
     resources :products_lists, only: [:edit, :update, :destroy]

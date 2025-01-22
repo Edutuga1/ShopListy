@@ -3,7 +3,7 @@
 
   <% if @lists.any? %>
     <ul id="lists">
-      <% @lists.each do |list| %>
+       <% current_user.own_lists.each do |list| %>
         <li>
           <%= link_to list.name, list_path(list) %>
           <br>
@@ -18,4 +18,17 @@
       <%= link_to t('lists_page.index.create_new'), new_list_path(current_user), class: 'btn btn-primary' %>
     </p>
   <% end %>
+
+  <h2>Friends Shared Lists</h2>
+<% if current_user.saved_lists.any? %>
+  <ul>
+    <% current_user.saved_lists.each do |saved_list| %>
+      <li><%= link_to saved_list.list.name, list_path(saved_list.list) %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>No shared lists yet.</p>
+<% end %>
+
+
 </div>

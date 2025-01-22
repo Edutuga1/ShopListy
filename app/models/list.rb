@@ -2,6 +2,8 @@ class List < ApplicationRecord
   belongs_to :user
   has_many :products_lists, dependent: :destroy
   has_many :products, through: :products_lists
+  has_many :saved_lists
+  has_many :users, through: :saved_lists
 
   accepts_nested_attributes_for :products_lists, allow_destroy: true
 

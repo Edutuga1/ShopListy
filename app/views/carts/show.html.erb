@@ -50,7 +50,7 @@
 
           <!-- Select List Section -->
           <%= form.label :list_id, t('cart_page.select_list_label') %>
-          <%= form.collection_select :list_id, @user.lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'form-control' } %>
+          <%= form.collection_select :list_id, @user.own_lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'form-control' }%>
 
           <!-- New List Section -->
           <div class="cart-new-list-section">
