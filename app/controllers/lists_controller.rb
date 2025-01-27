@@ -64,6 +64,17 @@ class ListsController < ApplicationController
     redirect_to lists_path, notice: 'List was successfully deleted.'
   end
 
+  def remove_saved
+    saved_list = current_user.saved_lists.find_by(list_id: params[:id])
+
+    if saved_list
+      saved_list.destroy
+      redirect_to lists_path, notice: t('lists_page.index.delete_success')
+    else
+      redirect_to lists_path, alert: t('lists_page.index.delete_failure')
+    end
+  end
+
   def share
     @friend = User.find(params[:friend_id])  # Get the selected friend
     @list = List.find(params[:id])           # Get the list to share

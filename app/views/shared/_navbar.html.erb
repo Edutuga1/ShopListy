@@ -1,8 +1,8 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
-    <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "https://i.pinimg.com/736x/58/c3/2d/58c32dbe96d382df26d9d500810a35b5.jpg", alt: "Logo" %>
-    <% end %>
+     <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag asset_path('logo.png'), alt: "Logo", style: "width: 50px; height: auto;" %>
+      <% end %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -38,7 +38,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to t('navbar.profile'), profile_path, class: "dropdown-item" %>
-              <%= link_to t('navbar.settings'), "#", class: "dropdown-item" %>
+              <%= link_to t('navbar.settings'), settings_path, class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
               <%= link_to t('navbar.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             </div>

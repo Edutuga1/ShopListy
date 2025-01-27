@@ -2,7 +2,7 @@
   background: linear-gradient(135deg, #e3f2fd, #90caf9); /* Light blue gradient */
   padding: 30px;
 }
-/* Cart Table Styling */
+
 .cart-table {
   width: 100%; /* Full width */
   border-collapse: collapse; /* Remove gaps between cells */
@@ -118,6 +118,13 @@
   text-align: center;
 }
 
+.cart-delete-all-button {
+  margin-top: 10px;
+}
+
+.cart-back-btn {
+  margin-top: 10px;
+}
 /* Responsive Styling */
 @media (max-width: 768px) {
   .cart-table th, .cart-table td {

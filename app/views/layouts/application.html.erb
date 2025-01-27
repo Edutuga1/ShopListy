@@ -13,6 +13,25 @@
 </head>
 <body class="<%= controller_name %> <%= action_name %>" data-user-id="<%= current_user.id if user_signed_in? %>">
   <%= render "shared/navbar" %>
+
+  <% if flash[:notice] %>
+    <div class="alert alert-success">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <% if flash[:alert] %>
+    <div class="alert alert-danger">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <% flash.each do |key, message| %>
+  <div class="alert alert-<%= key == :notice ? 'success' : 'danger' %>">
+    <%= message %>
+  </div>
+<% end %>
+
   <header>
   </header>
   <main>

@@ -28,8 +28,8 @@
                   local: false,
                   html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } }) do |form| %>
       <%= form.text_area :content, class: "form-control", placeholder: t('chat_page.message_placeholder'), id: "message-content" %>
-      <%= form.button class: "btn btn-primary", type: "submit" do %>
-        <i class="fa-regular fa-paper-plane"></i>
+      <%= form.button class: "btn-send", type: "submit" do %>
+        <i class="fa-regular fa-paper-plane icon-large"></i>
       <% end %>
     <% end %>
   <% else %>

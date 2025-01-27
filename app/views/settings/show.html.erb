@@ -1,0 +1,71 @@
+<div class="settings-page">
+  <div class="settings-container">
+    <h1>Settings</h1>
+
+    <%= form_for @user, url: settings_path, method: :patch do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= t('profile.error_header', count: @user.errors.count) %></h2>
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <!-- Name Field -->
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, class: 'form-control' %>
+      </div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+      </div>
+
+       <!-- Current Password Field -->
+      <div class="form-group">
+        <%= f.label :current_password, "Current Password" %>
+        <%= f.password_field :current_password, class: 'form-control', required: true, autocomplete: "current-password" %>
+        <small class="form-text text-muted">Please enter your current password to confirm changes</small>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <%= f.label :password, "New Password" %>
+        <%= f.password_field :password, class: 'form-control', autocomplete: "new-password" %>
+        <small class="form-text text-muted">Leave blank if you don't want to change your password</small>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <%= f.label :password_confirmation, "Confirm New Password" %>
+        <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password" %>
+      </div>
+
+      <!-- Notification Preference -->
+      <div class="form-group">
+        <%= f.label :notifications_enabled, "Enable Notifications" %>
+        <%= f.check_box :notifications_enabled %>
+      </div>
+
+      <!-- Language Selector -->
+      <div class="form-group">
+        <h3><%= t('profile.select_language') %></h3>
+        <div class="language-options">
+          <%= link_to 'English', root_path(locale: 'en'), class: "language-link btn btn-light" %>
+          <%= link_to 'Português', root_path(locale: 'pt'), class: "language-link btn btn-light" %>
+          <%= link_to 'Español', root_path(locale: 'es'), class: "language-link btn btn-light" %>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="form-group">
+        <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>

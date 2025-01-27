@@ -1,7 +1,7 @@
 .chat-page {
+
   body {
     font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
     color: #333;
     margin: 0;
     padding: 0;
@@ -23,49 +23,62 @@
       align-items: center;
 
       button.toggle-details {
-        background: none;
-        border: none;
         color: #3897f0;
         font-size: 1.2rem;
         cursor: pointer;
         transition: color 0.3s;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px; /* Adjust as needed */
+        height: 40px;
+        border-radius: 50%; /* Circular shape */
+        padding: 0;
+        background: none;
 
         &:hover {
           color: #0056b3;
         }
 
         i {
-          pointer-events: none; // Ensure only the button is clickable
+          pointer-events: none; /* Ensure only the button is clickable */
         }
       }
     }
 
     .chat-details {
       overflow: hidden;
-      max-height: 0; // Initially hidden
+      max-height: 0; /* Initially hidden */
       transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
       opacity: 0;
       text-align: center;
 
       &.open {
-        max-height: 200px; // Adjust based on your content
+        max-height: 200px; /* Adjust based on your content */
         opacity: 1;
       }
     }
   }
-
 
   // Messages Section
   #messages {
     max-height: 60vh;
     overflow-y: auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: #fff; // Fallback background color
     border: 1px solid #dbdbdb;
     border-radius: 8px;
     margin: 20px auto;
     width: 90%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    // Add the background image
+    background-image: url('/assets/chat-background.png');
+    background-size: cover; // Make the image cover the entire container
+    background-repeat: no-repeat; // Prevent tiling
+    background-position: center; // Center the image
 
     .message {
       margin-bottom: 15px;
@@ -95,18 +108,17 @@
         margin-bottom: 3px;
       }
 
-      // Message Header for sender's name and profile picture
       .message-header {
         display: flex;
         align-items: center;
         margin-bottom: 10px;
 
         .sender-profile-pic {
-          width: 30px;  // Adjust size as needed
+          width: 30px;
           height: 30px;
-          border-radius: 50%;  // Circular shape
+          border-radius: 50%;
           margin-right: 10px;
-          object-fit: cover;  // Ensures the image fits in the circle
+          object-fit: cover;
         }
 
         strong {
@@ -116,20 +128,18 @@
         }
       }
 
-      // Messages from the current user
       &.sent {
         background-color: #15a1f2;
         text-align: right;
         margin-left: auto;
         max-width: 70%;
-        color:white;
+        color: white;
 
         p {
-          color: white; /* Ensure the paragraph text is white */
+          color: white;
         }
       }
 
-      // Messages from other users
       &.received {
         background-color: #f1f0f0;
         text-align: left;
@@ -155,31 +165,37 @@
       resize: none;
       font-size: 0.9rem;
       margin-right: 10px;
+      box-shadow: 0 2px 4px rgba(45, 44, 44, 0.1);
 
       &:focus {
         outline: none;
         border-color: #3897f0;
-        box-shadow: 0 0 4px rgba(56, 151, 240, 0.5);
+        box-shadow: 0 4px 8px rgba(56, 151, 240, 0.3);
       }
     }
 
-    input[type='submit'] {
+    .btn-send {
       background-color: #3897f0;
       color: #fff;
       border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
+      border-radius: 100px;
+      padding: 20px 25px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: background-color 0.3s;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
       &:hover {
         background-color: #1877f2;
+        box-shadow: 0 8px 16px rgba(24, 119, 242, 0.3);
+      }
+
+      .icon-large {
+        font-size: 1.3rem;
       }
     }
   }
 
-  // Scrollbar Styles for Messages
   #messages {
     &::-webkit-scrollbar {
       width: 8px;

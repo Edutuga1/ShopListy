@@ -1,0 +1,153 @@
+// Variables for consistent design
+$primary-color: #003366; // Green for buttons and highlights
+$secondary-color: #f4f4f4; // Light gray for form background
+$text-color: #333; // Dark gray for text
+$input-border: #ccc;
+$input-focus-border: #003366;
+$border-radius: 8px;
+$box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+$background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
+
+.settings-page {
+  background-color: $background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+
+  .settings-container {
+    background-color: $secondary-color;
+    padding: 2rem;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      color: $primary-color;
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    #error_explanation {
+      background-color: #ffefef;
+      border: 1px solid #f5c6cb;
+      padding: 1rem;
+      border-radius: $border-radius;
+      margin-bottom: 1.5rem;
+      ul {
+        margin: 0;
+        padding-left: 1.5rem;
+        li {
+          color: #c00;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+
+      label {
+        font-weight: bold;
+        color: $text-color;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid $input-border;
+        border-radius: $border-radius;
+        font-size: 1rem;
+        color: $text-color;
+        transition: border-color 0.3s, box-shadow 0.3s;
+
+        &:focus {
+          border-color: $input-focus-border;
+          box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+          outline: none;
+        }
+      }
+
+      small {
+        font-size: 0.875rem;
+        color: $input-border;
+        margin-top: 0.25rem;
+      }
+    }
+
+    .language-options {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+
+      .language-link {
+        flex: 1;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        border-radius: $border-radius;
+        background-color: $primary-color;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1rem;
+
+        &:hover {
+          background-color: darken($primary-color, 10%);
+          text-decoration: none;
+        }
+      }
+    }
+
+    .btn-primary {
+      background-color: $primary-color;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: $border-radius;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+    }
+  }
+}
+
+// Add responsiveness for smaller screens
+@media (max-width: 768px) {
+  .settings-page {
+    padding: 1rem;
+
+    .settings-container {
+      padding: 1rem;
+
+      h1 {
+        font-size: 1.75rem;
+      }
+
+      .form-group {
+        .form-control {
+          font-size: 0.9rem;
+        }
+      }
+
+      .btn-primary {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .language-link {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}

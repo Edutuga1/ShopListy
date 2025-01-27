@@ -2,13 +2,15 @@
   text-align: center;
   padding: 20px;
 
-  h1 {
-    font-size: 3rem;
+  h1{
+    font-size: 2.5rem;
     margin-bottom: 20px;
-    color: white;
+    color: rgb(41, 28, 215);
+    margin-top: 20px;
   }
 
-  #lists {
+  #lists,
+  #friends-lists {
     list-style-type: none;
     padding: 0;
 

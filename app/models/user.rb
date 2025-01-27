@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_initialize :set_default_notifications, if: :new_record?
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -27,6 +28,9 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   validate :acceptable_image
+  validates :password, presence: true, if: -> { new_record? || password.present? }
+  validates :password_confirmation, presence: true, if: -> { password.present? }
+
 
   # Checks if the current user is friends with another user
   def friend?(other_user)
@@ -79,6 +83,17 @@ class User < ApplicationRecord
     user_photo.attached? ? user_photo : "default-avatar.png"
   end
 
+  def update_without_password(params)
+    params.delete(:password) if params[:password].blank?
+    params.delete(:password_confirmation) if params[:password_confirmation].blank?
+
+    update(params)
+  end
+
+  def admin?
+    admin
+  end
+
   private
 
   # Validates attached image size and type
@@ -98,5 +113,9 @@ class User < ApplicationRecord
   def self.search(email)
     # Using `where` to perform a case-insensitive search
     where("email ILIKE ?", "%#{email}%")
+  end
+
+  def set_default_notifications
+    self.notifications_enabled = true if notifications_enabled.nil?
   end
 end

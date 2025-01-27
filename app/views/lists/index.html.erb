@@ -3,7 +3,7 @@
 
   <% if @lists.any? %>
     <ul id="lists">
-       <% current_user.own_lists.each do |list| %>
+      <% current_user.own_lists.each do |list| %>
         <li>
           <%= link_to list.name, list_path(list) %>
           <br>
@@ -19,16 +19,21 @@
     </p>
   <% end %>
 
-  <h2>Friends Shared Lists</h2>
-<% if current_user.saved_lists.any? %>
-  <ul>
-    <% current_user.saved_lists.each do |saved_list| %>
-      <li><%= link_to saved_list.list.name, list_path(saved_list.list) %></li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>No shared lists yet.</p>
-<% end %>
-
-
+  <h1>Friends Shared Lists</h1>
+  <% if current_user.saved_lists.any? %>
+    <ul id="friends-lists">
+      <% current_user.saved_lists.each do |saved_list| %>
+        <li>
+          <%= link_to saved_list.list.name, list_path(saved_list.list) %>
+          <br>
+          <small>
+            <%= t('lists_page.index.shared_on') %>: <%= saved_list.created_at.strftime(t('lists_page.index.date_format')) %>
+          </small>
+          <%= button_to t('lists_page.index.delete_button'), remove_saved_list_path(saved_list.list), method: :delete, class: 'btn btn-danger', data: { confirm: t('lists_page.index.delete_confirm') } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No shared lists yet.</p>
+  <% end %>
 </div>

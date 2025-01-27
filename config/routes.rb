@@ -76,6 +76,7 @@ Rails.application.routes.draw do
     patch :update_product, on: :member
     delete :destroy_product, on: :member
     match :save_shared_list, via: [:get, :post]
+    delete :remove_saved, on: :member
 
     # Nested routes for products_list
     resources :products_lists, only: [:edit, :update, :destroy]
@@ -105,12 +106,27 @@ Rails.application.routes.draw do
     delete 'clear', on: :member
   end
 
+  # Settings route
+  resource :settings, only: [:show, :update, :edit], controller: 'settings'
+
   # Checkout route
   get 'checkout', to: 'checkout#show', as: :checkout
+
+   # Namespace for admin routes
+   namespace :admin do
+    resources :users, only: [:index] do
+      member do
+        patch :toggle_admin
+        delete :destroy
+        patch :reset_password
+      end
+    end
+  end
 
   # Mount ActionCable server
   mount ActionCable.server => '/cable'
 
   # Uncomment this if you create an ErrorsController
   # match '*path', to: 'errors#not_found', via: :all
+
 end

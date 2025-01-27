@@ -1,5 +1,9 @@
 <div class="profile-page">
   <%= link_to t('profile.edit_button'), edit_profile_path, class: "btn btn-primary" %>
+  <% if current_user.admin? %>
+    <%= link_to "Admin", admin_users_path, class: "btn btn-primary" %>
+  <% end %>
+
   <h1 class="profile-header"><%= t('profile.header') %></h1>
 
   <div class="profile-info">
@@ -44,7 +48,7 @@
     <% end %>
   </div>
 
-  <h2 class="section-header"><%= t('profile.friends_header') %>:</h2>
+  <h2 class="section-header"><%= t('profile.friends_header') %></h2>
   <ul class="friends-list">
     <% current_user.friends.each do |friend| %>
       <li class="friend-item">
@@ -52,4 +56,10 @@
       </li>
     <% end %>
   </ul>
+
+  <% if @user.notifications_enabled %>
+    <p>Notifications: Enabled</p>
+  <% else %>
+    <p>Notifications: Disabled</p>
+  <% end %>
 </div>

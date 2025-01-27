@@ -4,6 +4,7 @@ class List < ApplicationRecord
   has_many :products, through: :products_lists
   has_many :saved_lists
   has_many :users, through: :saved_lists
+  has_many :notifications, dependent: :destroy
 
   accepts_nested_attributes_for :products_lists, allow_destroy: true
 
