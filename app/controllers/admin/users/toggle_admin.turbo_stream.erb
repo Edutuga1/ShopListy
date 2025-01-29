@@ -1,0 +1,7 @@
+<% @users.each do |user| %>
+  <div id="user_<%= user.id %>">
+    <p><%= user.name %> (<%= user.admin? ? "Admin" : "User" %>)</p>
+    <%= link_to "Toggle Admin", toggle_admin_admin_user_path(user), method: :patch, data: { turbo_stream: true } %>
+    <%= link_to "Delete", admin_user_path(user), method: :delete, data: { turbo_stream: true, confirm: "Are you sure?" } %>
+  </div>
+<% end %>

@@ -201,8 +201,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_27_185225) do
     t.string "name"
     t.string "location"
     t.text "about_me"
-    t.boolean "notifications_enabled"
-    t.boolean "admin"
+    t.boolean "notifications_enabled", default: true
+    t.boolean "admin", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -13,6 +13,15 @@ class MessagesController < ApplicationController
     @message.receiver = @conversation.other_user(current_user)
 
     if @message.save
+      # Broadcast the message via ActionCable for real-time updates
+      ActionCable.server.broadcast "conversation_#{@conversation.id}_channel", {
+        content: @message.content,
+        sender: @message.sender.name,
+        receiver: @message.receiver.name,
+        message_id: @message.id,
+        created_at: @message.created_at
+      }
+
       respond_to do |format|
         format.turbo_stream { render turbo_stream: turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }) }
         format.html { redirect_to conversation_path(@conversation), notice: 'Message sent.' }
@@ -31,13 +40,12 @@ class MessagesController < ApplicationController
     # Mark all unread messages in this conversation as read for the current user
     @conversation.messages.where(receiver_id: current_user.id, read: false).update_all(read: true)
 
-    # Optionally, you might want to return the conversation data
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @conversation }
     end
   end
-
+  
   def unread_messages_count
     count = Message.where(receiver_id: current_user.id, read: false).count
     render json: { unread_messages: count }, status: :ok

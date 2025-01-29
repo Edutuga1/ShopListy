@@ -114,7 +114,7 @@ Rails.application.routes.draw do
 
    # Namespace for admin routes
    namespace :admin do
-    resources :users, only: [:index] do
+    resources :users, only: [:index, :show, :update, :destroy] do
       member do
         patch :toggle_admin
         delete :destroy

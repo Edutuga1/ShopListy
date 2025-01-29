@@ -11,3 +11,6 @@ pin "channels", to: "channels/index.js"
 pin "message_notification_channel", to: "channels/message_notification_channel.js"
 pin "consumer", to: "channels/consumer.js"
 pin "@rails/actioncable", to: "actioncable.js"
+pin "admin_actions_controller", to: "controllers/admin_actions_controller.js"
+pin "rails-ujs", to: "https://cdnjs.cloudflare.com/ajax/libs/rails-ujs/6.0.0/rails-ujs.js"
+
