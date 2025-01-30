@@ -61,7 +61,7 @@
           </div>
         <% end %>
 
-        <%= link_to t('cart_page.back_to_products'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
+        <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
       </div>
 
       <div class="cart-delete-all-button">
@@ -70,5 +70,10 @@
     </div>
   <% else %>
     <p><%= t('cart_page.empty_message') %></p>
+
+    <!-- The back button only appears when the cart is empty -->
+    <div class="cart-back-button">
+      <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
+    </div>
   <% end %>
 </div>

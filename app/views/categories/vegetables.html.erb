@@ -38,7 +38,7 @@
 
               <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('vegetable_page.quantity') %>:</label>
               <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
-              
+
               <button class="add-to-cart" type="submit">
                 <i class="fas fa-shopping-cart"></i> <%= t('vegetable_page.add_to_cart') %>
               </button>
@@ -50,6 +50,13 @@
   <% else %>
     <p><%= t('vegetable_page.no_products') %></p>
   <% end %>
+
+   <!-- Back and See Cart Buttons -->
+  <div class="navigation-buttons">
+    <%= link_to t('vegetable_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('vegetable_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
 
   <!-- Font Awesome Script -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

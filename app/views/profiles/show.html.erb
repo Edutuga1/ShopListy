@@ -56,10 +56,7 @@
       </li>
     <% end %>
   </ul>
-
-  <% if @user.notifications_enabled %>
-    <p>Notifications: Enabled</p>
-  <% else %>
-    <p>Notifications: Disabled</p>
-  <% end %>
+    <div class="profile-back-button">
+      <%= link_to t('profile_page.back'), request.referer || root_path, class: 'btn btn-secondary profile-back-btn' %>
+    </div>
 </div>

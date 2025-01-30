@@ -67,5 +67,13 @@
         <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
       </div>
     <% end %>
+    <% if @user.notifications_enabled %>
+      <p>Notifications: Enabled</p>
+    <% else %>
+      <p>Notifications: Disabled</p>
+    <% end %>
+    <div class="settings-back-button">
+      <%= link_to t('settings_page.back'), request.referer || root_path, class: 'btn btn-secondary settings-back-btn' %>
+    </div>
   </div>
 </div>

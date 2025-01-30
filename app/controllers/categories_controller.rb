@@ -152,7 +152,7 @@ class CategoriesController < ApplicationController
   end
 
   def cold_cuts_and_cheeses
-    @cold_cuts_and_cheeses_category = Category.find_by(name: 'Cold_cuts_and_cheeses')
+    @cold_cuts_and_cheeses_category = Category.find_by(name: 'Cold Cuts and Cheeses')
 
     if @cold_cuts_and_cheeses_category
       if params[:query].present?
@@ -176,6 +176,17 @@ class CategoriesController < ApplicationController
     else
       @hygiene_products = []
       flash[:alert] = "Hygiene category not found."
+    end
+  end
+
+  def pasta
+    @pasta_category = Category.find_by(name: 'Pasta')
+
+    if @pasta_category
+      @pasta_products = @pasta_category.products
+    else
+      @pasta_products = []
+      flash[:alert] = "Pasta category not found."
     end
   end
 

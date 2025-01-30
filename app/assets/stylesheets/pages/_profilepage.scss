@@ -124,4 +124,15 @@
       }
     }
   }
+
+  .chat-back-button {
+    display: flex; /* Use flexbox for the parent container */
+    justify-content: center; /* Horizontally center the button */
+    margin-top: 10px; /* Adds some top margin */
+  }
+
+  .chat-back-btn {
+    text-align: center; /* Center text inside the button */
+  }
+
 }

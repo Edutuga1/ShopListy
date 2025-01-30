@@ -119,6 +119,17 @@ input[type="number"] {
   background-color: #218838;
 }
 
+.categ-back-btn {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Horizontally center the button */
+  margin-top: 10px; /* Optional: adds some spacing from the top */
+}
+
+.categ-back-btn a {
+  text-align: center; /* Ensure the text inside the button is centered */
+}
+
+
 @media (max-width: 600px) {
   .quantity-container {
     flex-direction: column; /* Stack label and input vertically on smaller screens */

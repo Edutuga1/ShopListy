@@ -3,7 +3,7 @@
 
   <div id="product-list">
     <% @list.products_lists.each do |products_list| %>
-      <div class="product-item">
+      <div class="product-item" data-id="<%= products_list.product.id %>">
         <strong><%= products_list.product.name %></strong>
         <p><%= t('lists_page.show.quantity') %>: <%= products_list.quantity %></p>
         <p><%= t('lists_page.show.price_each') %>: <%= number_to_currency(products_list.product.price) %></p>
@@ -166,12 +166,69 @@
 
 <script>
   // JavaScript scratch-off effect
-  document.addEventListener("turbo:load", function() {
-    const items = document.querySelectorAll('.product-item');
-    items.forEach(item => {
-      item.addEventListener('click', function() {
-        this.classList.toggle('scratch-off');
-      });
+  // Initialize everything on page load and Turbo updates
+  function initializePage() {
+    setupScratchEffect();
+    setupMap(); // Ensure the map also initializes correctly
+  }
+
+  // Set up scratch-off effect with localStorage persistence
+  function setupScratchEffect() {
+    const productList = document.getElementById('product-list');
+
+    if (productList) {
+      // Restore scratched items from localStorage
+      restoreScratchedItems();
+
+      // Prevent duplicate event listeners
+      productList.removeEventListener('click', scratchItem);
+      productList.addEventListener('click', scratchItem);
+    }
+  }
+
+  // Handle scratching effect and save state
+  function scratchItem(event) {
+    const item = event.target.closest('.product-item');
+    if (item) {
+      item.classList.toggle('scratch-off');
+      saveScratchedItem(item);
+    }
+  }
+
+  // Save scratched item states to localStorage
+  function saveScratchedItem(item) {
+    let scratchedItems = JSON.parse(localStorage.getItem('scratchedItems')) || {};
+    const itemId = item.dataset.id; // Ensure each product has a unique data-id attribute
+
+    if (item.classList.contains('scratch-off')) {
+      scratchedItems[itemId] = true;
+    } else {
+      delete scratchedItems[itemId];
+    }
+
+    localStorage.setItem('scratchedItems', JSON.stringify(scratchedItems));
+  }
+
+  // Restore scratched item states from localStorage
+  function restoreScratchedItems() {
+    let scratchedItems = JSON.parse(localStorage.getItem('scratchedItems')) || {};
+
+    document.querySelectorAll('.product-item').forEach(item => {
+      const itemId = item.dataset.id;
+      if (scratchedItems[itemId]) {
+        item.classList.add('scratch-off');
+      }
     });
+  }
+
+  // Detect back/forward navigation and force a reload if needed
+  document.addEventListener("turbo:render", function () {
+    if (performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
+      Turbo.visit(window.location.href, { action: "replace" });
+    }
   });
+
+  // Ensure page initialization happens on both full loads and Turbo updates
+  document.addEventListener("turbo:load", initializePage);
+  document.addEventListener("turbo:render", initializePage);
 </script>

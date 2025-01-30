@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     get 'frozen', on: :collection
     get 'cold_cuts_and_cheeses', on: :collection
     get 'hygiene', on: :collection
+    get 'pasta', on: :collection
   end
 
   # List resources with additional actions
@@ -96,6 +97,7 @@ Rails.application.routes.draw do
   get 'frozen', to: 'categories#frozen', as: :frozen
   get 'cold_cuts_and_cheeses', to: 'categories#cold_cuts_and_cheeses', as: :cold_cuts_and_cheeses
   get 'hygiene', to: 'categories#hygiene', as: :hygiene
+  get 'pasta', to: 'categories#pasta', as: :pasta
 
   # Cart routes
   resource :cart, only: [:show] do

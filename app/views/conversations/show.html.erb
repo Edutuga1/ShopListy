@@ -1,9 +1,11 @@
+<div class="chat-back-button"></div>
+    <%= link_to t('chat_page.back'), request.referer || root_path, class: 'btn btn-secondary chat-back-btn' %>
+</div>
 <div class="chat-page">
   <h1>
     <%= t('chat_page.conversation_with') %>
     <%= @conversation.other_user(current_user).name %>
   </h1>
-
   <div id="conversation-header" data-conversation-id="<%= @conversation.id %>" data-controller="chat-details">
     <div class="chat-header-toggle">
       <button class="toggle-details" data-action="chat-details#toggle" aria-label="Toggle Chat Details">

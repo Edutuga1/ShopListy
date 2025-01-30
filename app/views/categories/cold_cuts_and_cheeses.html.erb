@@ -52,6 +52,11 @@
     <p><%= t('cold_cuts_and_cheeses_page.no_products') %></p>
   <% end %>
 
+    <div class="navigation-buttons">
+      <%= link_to t('cold_cuts_and_cheeses_page.back'), new_list_path, class: 'btn btn-secondary' %>
+      <%= link_to t('cold_cuts_and_cheeses_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
   <!-- Font Awesome Script -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </div>

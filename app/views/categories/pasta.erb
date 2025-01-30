@@ -1,0 +1,62 @@
+<div class="pasta-page">
+  <h1><%= t('pasta_page.title') %></h1>
+
+  <div class="navigation-buttons">
+    <%= link_to t('pasta_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('pasta_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
+  <!-- Search Form -->
+  <div class="search-bar-container">
+    <%= form_with url: pasta_path, method: :get, local: true do |form| %>
+      <%= form.label :query, t('pasta_page.search_label'), class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: t('pasta_page.search_placeholder'), class: "search-input" %>
+      <%= form.submit t('pasta_page.search_button'), class: "btn btn-primary search-btn" %>
+    <% end %>
+  </div>
+
+  <!-- Pasta Grid -->
+  <% if @pasta_products.any? %>
+    <div class="category-grid">
+      <% @pasta_products.each do |pasta_product| %>
+        <div class="category-item">
+          <p><%= I18n.t("product_names.#{pasta_product.name.parameterize.underscore}") %></p>
+
+          <% image_filename = "#{pasta_product.name.parameterize}" %>
+
+          <% if File.exist?(Rails.root.join("app/assets/images/#{image_filename}.jpg")) %>
+            <%= image_tag "#{image_filename}.jpg", class: "product-image", alt: pasta_product.name %>
+          <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
+            <%= image_tag "#{image_filename}.png", class: "product-image", alt: pasta_product.name %>
+          <% else %>
+            <p><%= t('pasta_page.no_image') %></p>
+          <% end %>
+
+          <!-- Add to Cart Form -->
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{pasta_product.id}", class: "add-to-cart-form" } do |form| %>
+              <%= form.hidden_field :product_id, value: pasta_product.id %>
+
+              <label class="quantity-label" for="quantity-<%= pasta_product.id %>"><%= t('pasta_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{pasta_product.id}" %>
+
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('pasta_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p><%= t('pasta_page.no_pasta') %></p>
+  <% end %>
+
+  <div class="navigation-buttons">
+    <%= link_to t('pasta_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('pasta_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
+  <!-- Font Awesome Script -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</div>

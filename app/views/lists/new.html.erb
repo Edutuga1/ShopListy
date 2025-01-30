@@ -51,7 +51,14 @@
         <%= link_to cleaning_path, class: "btn btn-cleaning" do %>
           <span class="btn-text"><strong><%= t('categories.cleaning') %></strong></span>
         <% end %>
+
+        <%= link_to pasta_path, class: "btn btn-pasta" do %>
+          <span class="btn-text"><strong><%= t('categories.pasta') %></strong></span>
+        <% end %>
       </div>
     </main>
   </body>
+  <div class="categ-back-btn">
+    <%= link_to t('category_page.back'), request.referer || root_path, class: 'btn btn-secondary categ-back-btn' %>
+  </div>
 </html>

@@ -36,4 +36,5 @@
   <% else %>
     <p>No shared lists yet.</p>
   <% end %>
+  <%= link_to t('list_page.back'), request.referer || root_path, class: 'btn btn-secondary list-back-btn' %>
 </div>

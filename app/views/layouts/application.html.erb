@@ -9,7 +9,7 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh7L4FQj5_TNUS5TtoMUcFO5tM4_r3E7c&libraries=places&v=beta&loading=async" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh7L4FQj5_TNUS5TtoMUcFO5tM4_r3E7c&libraries=places&v=3&loading=async" async defer></script>
 </head>
 <body class="<%= controller_name %> <%= action_name %>" data-user-id="<%= current_user.id if user_signed_in? %>">
   <%= render "shared/navbar" %>

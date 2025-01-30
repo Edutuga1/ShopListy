@@ -141,6 +141,14 @@ h1 {
   background-position: center !important;
 }
 
+.btn-pasta::before {
+  background-image: url('/assets/pasta.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 /* On hover, apply the blur to the background image only */
 .button-grid .btn:hover::before {
   filter: blur(2px); /* Apply blur effect to the background */

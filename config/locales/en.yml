@@ -255,6 +255,18 @@ en:
     login: "Login"
     sign_up: "Sign Up"
 
+  pasta_page:
+    title: "Pasta"
+    search_label: "Search for Pasta"
+    search_placeholder: "Search for your favorite pasta..."
+    search_button: "Search"
+    no_image: "No image available"
+    no_pasta: "No pasta available"
+    quantity_label: "Quantity"
+    add_to_cart: "Add to Cart"
+    back: "Back"
+    see_cart: "See Cart"
+
   profile:
     edit_button: "Edit Profile"
     header: "Your Profile"
@@ -294,7 +306,6 @@ en:
     friend_request_sent: "Friend request already sent."
     add_friend: "Add Friend"
     are_friends: "You are friends."
-
 
   product_names:
     toothpaste: "Toothpaste"

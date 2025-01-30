@@ -122,8 +122,18 @@
   margin-top: 10px;
 }
 
+.cart-back-button {
+  display: flex; /* Use flexbox for the parent container */
+  justify-content: center; /* Horizontally center the button */
+  margin-top: 20px; /* Adds some top margin */
+}
+
 .cart-back-btn {
-  margin-top: 10px;
+  text-align: center; /* Center text inside the button */
+}
+
+p{
+  text-align: center;
 }
 /* Responsive Styling */
 @media (max-width: 768px) {

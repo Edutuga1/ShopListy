@@ -69,4 +69,8 @@
       <% end %>
     </ul>
   </section>
+
+    <div class="chat-back-button">
+      <%= link_to t('chat_page.back'), request.referer || root_path, class: 'btn btn-secondary chat-back-btn' %>
+    </div>
 </div>
