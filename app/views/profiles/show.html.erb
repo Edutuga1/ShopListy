@@ -1,62 +1,72 @@
-<div class="profile-page">
-  <%= link_to t('profile.edit_button'), edit_profile_path, class: "btn btn-primary" %>
-  <% if current_user.admin? %>
-    <%= link_to "Admin", admin_users_path, class: "btn btn-primary" %>
-  <% end %>
-
-  <h1 class="profile-header"><%= t('profile.header') %></h1>
-
-  <div class="profile-info">
-    <div class="profile-picture">
+<div class="my-profile-page">
+  <!-- Profile Section -->
+  <div class="my-profile-container">
+    <!-- Profile Image -->
+    <div class="my-profile-img-container">
       <% if @user.user_photo.attached? %>
-        <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]).processed, class: "profile-img" %>
+        <img src="<%= url_for(@user.user_photo) %>" alt="<%= @user.name %>'s photo" class="my-profile-img">
       <% else %>
-        <%= image_tag 'placeholder_user_photo.png', class: "profile-img" %> <!-- Placeholder image -->
+        <img src="placeholder_user_photo.png" alt="<%= t('profile.placeholder_photo_alt') %>" class="my-profile-img">
       <% end %>
     </div>
 
-    <p><strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
-    <p><strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
+    <!-- Profile Info -->
+    <h1 class="my-profile-header"><%= t('profile.header') %></h1>
+    <p class="my-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
+    <p class="my-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
 
-    <!-- About Me Section -->
+    <div class="my-profile-btn-container">
+      <%= link_to t('profile.edit_button'), edit_profile_path, class: "my-profile-btn" %>
+      <% if current_user.admin? %>
+        <%= link_to "Admin", admin_users_path, class: "my-profile-btn" %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- About Me Section -->
+  <div class="my-profile-info my-profile-container">
+    <h3><%= t('profile.about_me') %></h3>
     <% if @user.about_me.present? %>
-      <h3><%= t('profile.about_me') %>:</h3>
       <p><%= @user.about_me %></p>
     <% else %>
       <p><em><%= t('profile.no_about_me') %></em></p>
     <% end %>
+  </div>
 
-    <!-- Favorite Recipe Section -->
-    <h3><%= t('profile.favorite_recipe') %>:</h3>
+  <!-- Favorite Recipe Section -->
+  <div class="my-favorite-recipe my-profile-container">
+    <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
     <% if @user.favorite_recipe %>
       <ul>
         <li>
-          <strong><%= @user.favorite_recipe.title %></strong><br>
-
+          ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
           <p><%= @user.favorite_recipe.description %></p>
-
-          <!-- Check if the link is present and render it only if valid -->
           <% if @user.favorite_recipe.link.present? %>
-            <%= link_to t('profile.view_recipe'), @user.favorite_recipe.link, target: "_blank" %><br>
+            <%= link_to t('profile.view_recipe'), @user.favorite_recipe.link, target: "_blank", class: "my-profile-btn" %>
           <% else %>
             <p><em><%= t('profile.no_recipe_link') %></em></p>
           <% end %>
         </li>
       </ul>
     <% else %>
-      <p><%= t('profile.no_favorite_recipe') %></p>
+      <p><em><%= t('profile.no_favorite_recipe') %></em></p>
     <% end %>
   </div>
 
-  <h2 class="section-header"><%= t('profile.friends_header') %></h2>
-  <ul class="friends-list">
-    <% current_user.friends.each do |friend| %>
-      <li class="friend-item">
-        <%= link_to friend.name, user_path(friend), class: "friend-link" %>
-      </li>
-    <% end %>
-  </ul>
-    <div class="profile-back-button">
-      <%= link_to t('profile_page.back'), request.referer || root_path, class: 'btn btn-secondary profile-back-btn' %>
-    </div>
+  <!-- Friends List -->
+  <div class="my-profile-container">
+    <h2 class="section-header"><%= t('profile.friends_header') %></h2>
+    <ul class="friends-list">
+      <% current_user.friends.each do |friend| %>
+        <li class="friend-item">
+          <%= link_to friend.name, user_path(friend), class: "friend-link" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <!-- Back Button -->
+  <div class="my-profile-btn-container">
+    <%= link_to t('profile_page.back'), request.referer || root_path, class: 'my-profile-btn' %>
+  </div>
 </div>

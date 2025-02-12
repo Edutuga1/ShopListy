@@ -7,6 +7,11 @@ class ListsController < ApplicationController
     @lists = current_user.own_lists.includes(products: :category)
   end
 
+  def new
+    @list = List.new
+    @categories = Category.all  # Ensure this line exists
+  end
+
   def show
     @list = List.find(params[:id])
     @friends = current_user.friends
@@ -106,7 +111,7 @@ class ListsController < ApplicationController
   private
 
   def set_user
-    @user = current_user
+    @user = User.find(params[:user_id])
   end
 
   def set_list

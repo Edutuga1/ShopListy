@@ -18,6 +18,8 @@ class User < ApplicationRecord
   has_one :favorite_recipe, class_name: 'Recipe'
   has_many :saved_lists
   has_many :shared_lists, through: :saved_lists, source: :list
+  has_many :lists
+
 
 
   # Friendships where the user is the recipient

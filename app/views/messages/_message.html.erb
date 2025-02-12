@@ -10,11 +10,17 @@
 
     <!-- Sender's Name -->
     <strong><%= message.sender == current_user ? 'You' : message.sender.name.presence || message.sender.email %></strong>
-
-    <!-- Message Timestamp -->
-    <small><%= time_ago_in_words(message.created_at) %> ago</small>
   </div>
 
   <!-- Message Content -->
-  <p><%= message.content %></p>
+  <div class="message-content">
+    <p><%= raw message.content %></p>
+  </div>
+
+  <!-- Message Timestamp (moved outside content and under the message) -->
+  <div class="timestamp">
+  <small>
+    <%= message.content.present? ? time_ago_in_words(message.created_at) + ' ago' : 'No content' %>
+  </small>
+  </div>
 </div>

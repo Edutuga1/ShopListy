@@ -1,30 +1,26 @@
-<%= form_for @product do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
+<div class="add_product_page">
+  <div class="container">
+    <h1>Add a New Product</h1>
+    <%= form_with(model: @product, local: true) do |f| %>
+      <div>
+        <%= f.label :name, "Product Name" %>
+        <%= f.text_field :name, required: true %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :price %>
-    <%= f.number_field :price, class: "form-control" %>
-  </div>
+      <div>
+        <%= f.label :price, "Price" %>
+        <%= f.number_field :price, step: 0.01, required: true %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description, class: "form-control" %>
-  </div>
+      <div>
+        <%= f.label :category_id, "Category" %>
+        <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select a category" %>
+      </div>
 
-  <div class="form-group">
-    <%= f.label :category_id, "Category" %>
-    <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select a category", class: "form-control" %>
+      <div>
+        <%= f.submit "Add Product" %>
+      </div>
+    <% end %>
   </div>
-
-  <div class="form-group">
-    <%= f.label :custom_category, "Custom Category" %>
-    <%= f.text_field :custom_category, class: "form-control", placeholder: "Enter a new category" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit "Create Product", class: "btn btn-primary" %>
-  </div>
-<% end %>
+  <%= link_to t('new_product_page.back'), request.referer || root_path, class: 'btn btn-secondary new-back-btn' %>
+</div>

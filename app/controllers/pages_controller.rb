@@ -14,4 +14,10 @@ class PagesController < ApplicationController
     @user = current_user
     @welcome_message = "Welcome back, #{@user.name}!"
   end
+
+  def terms_of_service
+  end
+
+  def contact_us
+  end
 end

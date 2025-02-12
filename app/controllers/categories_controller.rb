@@ -2,7 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_current_user, :set_cart
 
   def index
-    @categories = Category.all  
+    @categories = Category.all
   end
 
   def show
@@ -11,7 +11,8 @@ class CategoriesController < ApplicationController
   end
 
   def search
-    # Implement search logic here
+    @categories = Category.all
+    @products = Product.where("name ILIKE ?", "%#{params[:query]}%")
   end
 
   def meat
@@ -187,6 +188,50 @@ class CategoriesController < ApplicationController
     else
       @pasta_products = []
       flash[:alert] = "Pasta category not found."
+    end
+  end
+
+  def snacks
+    @snacks_category = Category.find_by(name: 'Snacks')
+
+    if @snacks_category
+      @snacks_products = @snacks_category.products
+    else
+      @snacks_products = []
+      flash[:alert] = "Snacks category not found."
+    end
+  end
+
+  def pharmacy
+    @pharmacy_category = Category.find_by(name: 'Pharmacy')
+
+    if @pharmacy_category
+      @pharmacy_products = @pharmacy_category.products
+    else
+      @pharmacy_products = []
+      flash[:alert] = "Pharmacy category not found."
+    end
+  end
+
+  def baby
+    @baby_category = Category.find_by(name: 'Baby')
+
+    if @baby_category
+      @baby_products = @baby_category.products
+    else
+      @baby_products = []
+      flash[:alert] = "Baby category not found."
+    end
+  end
+
+  def pets
+    @pets_category = Category.find_by(name: 'Pets')
+
+    if @pets_category
+      @pets_products = @pets_category.products
+    else
+      @pets_products = []
+      flash[:alert] = "Pets category not found."
     end
   end
 

@@ -1,127 +1,120 @@
-.friend-page {
-  .profile-container {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 40px auto;
-    text-align: center; /* Center text within this container */
-    font-family: 'Arial', sans-serif;
+$primary-bg: linear-gradient(135deg, #e3f2fd, #90caf9);
+$glass-bg: rgba(255, 255, 255, 0.8); /* Slightly opaque white */
+$glass-border: rgba(255, 255, 255, 0.4);
+$text-color: #0d47a1;
+$btn-color: #1565c0;
+$btn-hover: #0d47a1;
 
-    h1 {
-      font-size: 24px;
-      color: #333;
-      margin-bottom: 20px;
-    }
+/* Global Styles */
+body {
+  background: $primary-bg;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-    .profile-picture {
-      margin-bottom: 20px;
-      position: relative;
+.navbar, .footer {
+  width: 100%; /* Ensure full width */
+  position: relative;
+  z-index: 10; /* Ensure it stays on top of other content */
+}
 
-      img {
-        border-radius: 50%;
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border: 3px solid #fff;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-    }
+/* Friend Profile Page Styles */
+.friend-profile-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding-top: 60px; /* Optional: Adjust if you have a fixed navbar */
+  padding-bottom: 60px; /* Optional: Adjust if you have a fixed footer */
+  flex-direction: column;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
-      background-color: #007bff;
-      color: #fff;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
+.friend-profile-container {
+  background: $glass-bg;
+  border: 1px solid $glass-border;
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
 
-      &:hover {
-        background-color: #0056b3;
-      }
+.friend-profile-header,
+.friend-profile-subheader {
+  color: $text-color;
+}
 
-      &:disabled {
-        background-color: #ccc;
-        cursor: not-allowed;
-      }
-    }
+.friend-profile-img-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
-    .status-message {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #999;
-      text-align: center; /* Centers the status message text */
-    }
+.friend-profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #007bff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.friend-profile-info {
+  text-align: center;
+  padding: 10px;
+}
+
+.friend-profile-btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.friend-profile-btn {
+  background-color: $btn-color;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $btn-hover;
   }
+}
 
-  p {
-    font-size: 16px;
-    color: #555;
-    margin: 10px 0;
-    text-align: center;
-  }
+.friend-favorite-recipe {
+  background: $glass-bg;
+  border: 1px solid $glass-border;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+  text-align: center;
+  width: 100%;
+}
 
-  .centered-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  }
+.friend-favorite-recipe ul {
+  list-style: none;
+  padding: 0;
+}
 
-  .favorite-recipe-section {
-    text-align: center; /* Centers all text within this section */
-    margin-top: 20px; /* Adds spacing above the section */
+.friend-favorite-recipe li {
+  font-size: 16px;
+}
 
-    h3 {
-      font-size: 18px;
-      color: #0d0d0d;
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style: none; /* Removes default list styling (e.g., bullets) */
-      padding: 0;
-      margin: 0 auto; /* Centers the list itself */
-    }
-
-    li {
-      font-size: 16px;
-      color: #2b2b2b;
-    }
-
-    p {
-      font-size: 14px;
-      color: #454545;
-      margin-top: 5px;
-    }
-
-    a {
-      display: inline-block; /* Ensures the link respects margins */
-      color: #1262e3;
-      text-decoration: none;
-      font-weight: bold;
-      margin-top: 10px;
-
-      &:hover {
-        text-decoration: underline; /* Adds underline on hover */
-      }
-    }
-
-    em {
-      font-style: italic;
-      color: #999;
-    }
-  }
-
-  h3 {
-    font-size: 18px;
-    color: #020101;
-    text-align: center;
+.friend-favorite-recipe a {
+  color: $btn-color;
+  text-decoration: none;
+  font-weight: bold;
+  &:hover {
+    text-decoration: underline;
   }
 }

@@ -149,6 +149,46 @@ h1 {
   background-position: center !important;
 }
 
+.btn-new::before {
+  background-image: url('/assets/new.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-snacks::before {
+  background-image: url('/assets/snacks.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-pharmacy::before {
+  background-image: asset-url('pharmacy.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-baby::before {
+  background-image: asset-url('baby.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-pets::before {
+  background-image: asset-url('pets.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 /* On hover, apply the blur to the background image only */
 .button-grid .btn:hover::before {
   filter: blur(2px); /* Apply blur effect to the background */

@@ -1,9 +1,14 @@
-<div class="message <%= message.sender == current_user ? 'current-user' : 'other-user' %>">
-  <p class="message-content">
-    <%= message.content %>
-  </p>
-  <p class="message-timestamp">
-    <small><%= time_ago_in_words(message.created_at) %> ago</small>
-  </p>
+<div class="message <%= message.sender == current_user ? 'sent' : 'received' %>">
+  <div class="message-header">
+    <% if message.sender != current_user %>
+      <img src="<%= message.sender.profile_picture_url || 'default-avatar.png' %>" class="sender-profile-pic">
+    <% end %>
+    <strong><%= message.sender == current_user ? 'You' : message.sender.name %></strong>
+  </div>
+
+  <p class="message-content"><%= message.content %></p>
+
+  <small class="timestamp"><%= message.created_at.strftime('%I:%M %p') %></small>
+
+  <div class="message-tail"></div> <!-- Cartoon talk effect -->
 </div>
-  

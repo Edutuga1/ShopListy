@@ -2,15 +2,6 @@ class CartsController < ApplicationController
   before_action :set_cart, only: [:show, :add_product, :remove_item, :update_item, :add_to_list, :update_product]
   before_action :set_current_user
 
-  def create
-    @cart_item = @cart.cart_items.new(cart_item_params)
-
-    if @cart_item.save
-      redirect_to cart_path, notice: 'Item added to cart.'
-    else
-      redirect_to cart_path, alert: 'Failed to add item to cart.'
-    end
-  end
 
   def show
     @user = current_user
@@ -18,7 +9,6 @@ class CartsController < ApplicationController
   end
 
   def add_product
-    Rails.logger.info("Received params: #{params.inspect}")
     product = Product.find(params[:product_id])
     quantity = params[:quantity].to_i
 
@@ -30,7 +20,7 @@ class CartsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to request.referer || root_path, notice: 'Product successfully added to cart!' }
       format.turbo_stream do
-        render turbo_stream: turbo_stream.append('flash-messages', partial: 'shared/flash', locals: { message: 'Product added to cart!' })
+        render turbo_stream: turbo_stream.update('flash-messages', partial: 'shared/flash', locals: { message: 'Product added to cart!' })
       end
       format.json { render json: { message: 'Product added to cart!' }, status: :ok }
     end

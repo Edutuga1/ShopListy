@@ -39,16 +39,6 @@
       <%= f.text_area :about_me, class: "form-control", rows: 4 %>
     </div>
 
-    <div class="field">
-      <%= f.label :password, t('profile.password') %>
-      <%= f.password_field :password %>
-    </div>
-
-    <div class="field">
-      <%= f.label :password_confirmation, t('profile.password_confirmation') %>
-      <%= f.password_field :password_confirmation %>
-    </div>
-
     <!-- Favorite Recipe Fields -->
     <h2><%= t('profile.favorite_recipe_header', name: @user.name) %></h2>
 

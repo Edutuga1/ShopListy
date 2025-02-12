@@ -1,0 +1,62 @@
+<div class="category-page">
+  <h1><%= t('baby_page.title') %></h1>
+
+  <div class="navigation-buttons">
+    <%= link_to t('baby_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('baby_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
+  <!-- Search Form -->
+  <div class="search-bar-container">
+    <%= form_with url: baby_path, method: :get, local: true do |form| %>
+      <%= form.label :query, t('baby_page.search_label'), class: "search-label" %>
+      <%= form.text_field :query, value: params[:query], placeholder: t('baby_page.search_placeholder'), class: "search-input" %>
+      <%= form.submit t('baby_page.search_button'), class: "btn btn-primary search-btn" %>
+    <% end %>
+  </div>
+
+  <!-- Baby Products Grid -->
+  <% if @baby_products.any? %>
+    <div class="category-grid">
+      <% @baby_products.each do |baby_product| %>
+        <div class="category-item">
+          <p><%= I18n.t("product_names.#{baby_product.name.parameterize.underscore}") %></p>
+
+          <% image_filename = "#{baby_product.name.parameterize}" %>
+
+          <% if File.exist?(Rails.root.join("app/assets/images/#{image_filename}.jpg")) %>
+            <%= image_tag "#{image_filename}.jpg", class: "product-image", alt: baby_product.name %>
+          <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
+            <%= image_tag "#{image_filename}.png", class: "product-image", alt: baby_product.name %>
+          <% else %>
+            <p><%= t('baby_page.no_image') %></p>
+          <% end %>
+
+          <!-- Add to Cart Form -->
+          <div class="button-container">
+            <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{baby_product.id}", class: "add-to-cart-form" } do |form| %>
+              <%= form.hidden_field :product_id, value: baby_product.id %>
+
+              <label class="quantity-label" for="quantity-<%= baby_product.id %>"><%= t('baby_page.quantity_label') %>:</label>
+              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{baby_product.id}" %>
+
+              <button class="add-to-cart" type="submit">
+                <i class="fas fa-shopping-cart"></i> <%= t('baby_page.add_to_cart') %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p><%= t('baby_page.no_baby') %></p>
+  <% end %>
+
+  <div class="navigation-buttons">
+    <%= link_to t('baby_page.back'), new_list_path, class: 'btn btn-secondary' %>
+    <%= link_to t('baby_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+  </div>
+
+  <!-- Font Awesome Script -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</div>

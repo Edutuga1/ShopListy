@@ -1,57 +1,74 @@
-<div class="friend-page">
-  <h1><%= t('profile.friend_page_header', name: @user.name) %></h1>
-
-  <div class="profile-container">
-    <!-- Profile Picture -->
-    <% if @user.user_photo.attached? %>
-      <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), alt: "#{@user.name}'s photo", class: "profile-img" %>
-    <% else %>
-      <%= image_tag 'placeholder_user_photo.png', alt: t('profile.placeholder_photo_alt'), class: "profile-img" %>
-    <% end %>
-
-    <!-- Basic Information -->
-    <p><strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
-    <p><strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
-  </div>
-
-  <!-- About Me Section -->
-  <div class="about-me-section">
-    <% if @user.about_me.present? %>
-      <h3><%= t('profile.about_header', name: @user.name) %>:</h3>
-      <p><%= @user.about_me %></p>
-    <% else %>
-      <p><em><%= t('profile.no_about_me') %></em></p>
-    <% end %>
-  </div>
-
-  <!-- Favorite Recipe Section -->
-  <div class="favorite-recipe-section">
-    <h3><%= t('profile.favorite_recipe_header', name: @user.name) %>:</h3>
-    <% if @user.favorite_recipe %>
-      <ul>
-        <li>
-         ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
-          <p><%= @user.favorite_recipe.description %></p>
-          <% if @user.favorite_recipe.link.present? %>
-            <%= link_to t('profile.view_recipe'), @user.favorite_recipe.link, target: "_blank" %>
-          <% else %>
-            <p><em><%= t('profile.no_recipe_link') %></em></p>
-          <% end %>
-        </li>
-      </ul>
-    <% else %>
-      <p><em><%= t('profile.no_favorite_recipe') %></em></p>
-    <% end %>
-  </div>
-
-  <!-- Friend Request Section -->
-  <div class="friend-request-section centered-container">
-    <% if current_user.friend_request_exists?(@user) %>
-      <p><%= t('profile.friend_request_sent') %></p>
-    <% elsif !current_user.friend?(@user) %>
-      <%= button_to t('profile.add_friend'), user_friendships_path(friend_id: @user.id), method: :post, class: "btn btn-secondary" %>
-    <% else %>
-      <p><%= t('profile.are_friends') %> <i class="fa-regular fa-face-smile"></i></p>
-    <% end %>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= t('profile.friend_page_header', name: @user.name) %></title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
+</head>
+<div class="friend-back-button"></div>
+  <%= link_to t('friend_page.back'), request.referer || root_path, class: 'btn btn-secondary friend-back-btn' %>
 </div>
+<body>
+    <div class="friend-profile-page">
+        <!-- Profile Section -->
+        <div class="friend-profile-container">
+            <!-- Profile Image -->
+            <div class="friend-profile-img-container">
+                <% if @user.user_photo.attached? %>
+                    <img src="<%= url_for(@user.user_photo) %>" alt="<%= @user.name %>'s photo" class="friend-profile-img">
+                <% else %>
+                    <img src="placeholder_user_photo.png" alt="<%= t('profile.placeholder_photo_alt') %>" class="friend-profile-img">
+                <% end %>
+            </div>
+
+            <!-- Profile Info -->
+            <h1 class="friend-profile-header"><%= t('profile.friend_page_header', name: @user.name) %></h1>
+            <p class="friend-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
+            <p class="friend-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
+        </div>
+
+        <!-- About Me Section -->
+        <div class="friend-profile-info friend-profile-container">
+            <h3><%= t('profile.about_header', name: @user.name) %></h3>
+            <% if @user.about_me.present? %>
+                <p><%= @user.about_me %></p>
+            <% else %>
+                <p><em><%= t('profile.no_about_me') %></em></p>
+            <% end %>
+        </div>
+
+        <!-- Favorite Recipe Section -->
+        <div class="friend-favorite-recipe friend-profile-container">
+            <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe_header', name: @user.name) %>:</h3>
+            <% if @user.favorite_recipe %>
+                <ul>
+                    <li>
+                        ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
+                        <p><%= @user.favorite_recipe.description %></p>
+                        <% if @user.favorite_recipe.link.present? %>
+                            <%= link_to t('profile.view_recipe'), @user.favorite_recipe.link, target: "_blank", class: "btn btn-secondary" %>
+                        <% else %>
+                            <p><em><%= t('profile.no_recipe_link') %></em></p>
+                        <% end %>
+                    </li>
+                </ul>
+            <% else %>
+                <p><em><%= t('profile.no_favorite_recipe') %></em></p>
+            <% end %>
+        </div>
+
+        <!-- Friend Status Section -->
+        <div class="friend-profile-btn-container">
+            <% if current_user.friend_request_exists?(@user) %>
+                <p><%= t('profile.friend_request_sent') %></p>
+            <% elsif !current_user.friend?(@user) %>
+                <%= button_to t('profile.add_friend'), user_friendships_path(friend_id: @user.id), method: :post, class: "friend-profile-btn" %>
+            <% else %>
+                <p><%= t('profile.are_friends') %> <i class="fas fa-smile"></i></p>
+            <% end %>
+        </div>
+    </div>
+</body>
+</html>

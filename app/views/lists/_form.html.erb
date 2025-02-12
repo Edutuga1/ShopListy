@@ -1,7 +1,13 @@
 <ul>
-  <% @categories.each do |category| %>
-    <li>
-      <%= link_to category.name, add_category_list_path(list_id: @list.id, category_id: category.id) %>
-    </li>
+  <%= form_with(model: @product, data: { turbo: false }) do |form| %>
+    <% if @categories.present? %>
+      <% @categories.each do |category| %>
+        <li>
+          <%= link_to category.name, add_category_list_path(list_id: @list.id, category_id: category.id) %>
+        </li>
+      <% end %>
+    <% else %>
+      <li>No categories available</li>
+    <% end %>
   <% end %>
 </ul>

@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ShoppingList</title>
+  <title>ShopListy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
+  <%= javascript_include_tag 'message_form' %>
+
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAh7L4FQj5_TNUS5TtoMUcFO5tM4_r3E7c&libraries=places&v=3&loading=async" async defer></script>
 </head>
@@ -32,8 +34,14 @@
   </div>
 <% end %>
 
-  <header>
-  </header>
+<div id="flash-messages">
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key == :notice ? 'success' : 'danger' %>">
+      <%= message %>
+    </div>
+  <% end %>
+</div>
+
   <main>
     <%= yield %>
     <% if controller_name == 'pages' && action_name == 'home' %>
@@ -335,15 +343,79 @@
         }
       });
 
-      window.initMap = initMap; // Make initMap globally accessible
+      window.initMap = initMap;
 
+
+    function autoDismissFlash() {
+  document.querySelectorAll('.alert').forEach(function(alert) {
+    setTimeout(function() {
+      alert.style.transition = "opacity 0.5s ease-out";
+      alert.style.opacity = "0";
+      setTimeout(() => alert.remove(), 500);
+    }, 3000); // 3 seconds before disappearing
+  });
+}
+
+document.addEventListener("DOMContentLoaded", autoDismissFlash);
+
+document.addEventListener("turbo:render", autoDismissFlash);
+document.addEventListener("turbo:load", autoDismissFlash);
+document.addEventListener("turbo:frame-load", autoDismissFlash);
+
+
+document.addEventListener("turbo:before-cache", function() {
+  let flashContainer = document.getElementById("flash-messages");
+  if (flashContainer) {
+    flashContainer.innerHTML = "";
+  }
+});
+
+document.addEventListener("turbo:render", function() {
+  const flashContainer = document.getElementById("flash-messages");
+  if (flashContainer) {
+    const observer = new MutationObserver(autoDismissFlash);
+    observer.observe(flashContainer, { childList: true, subtree: true });
+  }
+});
     </script>
   <% end %>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <p>&copy; 2025 Listify. All rights reserved.</p>
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-column about-us">
+      <h3>About Us</h3>
+      <p>This website is a personal web development project created by a solo developer. Built with passion and dedication, this project showcases skills in front-end and back-end development. Every line of code, design, and feature was carefully crafted to bring you an engaging and user-friendly experience.</p>
+      <p>Feel free to explore and enjoy the results of a one-person development team!</p>
     </div>
-  </footer>
+
+    <div class="footer-column important-info">
+      <h3>Important Information</h3>
+      <ul>
+        <li><a href="<%= privacy_policy_path %>">Privacy Policy</a></li>
+        <li><a href="/terms-of-service">Terms of Service</a></li>
+        <li><a href="/contact-us">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column follow-me">
+      <h3>Follow Me</h3>
+      <ul>
+        <li><a href="https://twitter.com/yourprofile">X</a></li>
+        <li><a href="https://www.linkedin.com/in/jo%C3%A3o-eduardo-malta-herrer-8206261b0/">LinkedIn</a></li>
+        <li><a href="https://github.com/Edutuga1">GitHub</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column more-info">
+      <h3>More Info</h3>
+      <p>Check out more projects and information about the development process.</p>
+      <a href="#">Learn More</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 ShopListy. All rights reserved.</p>
+  </div>
+</footer>
 </body>
 </html>

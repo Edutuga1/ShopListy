@@ -1,5 +1,4 @@
 .chat-page {
-
   body {
     font-family: 'Arial', sans-serif;
     color: #333;
@@ -23,18 +22,21 @@
       align-items: center;
 
       button.toggle-details {
-        color: #3897f0;
+        position: absolute; /* Position it above the title */
+        top: 185px; /* Adjust it as necessary, like `top: 20px` or `top: 0` */
+        left: 970px; /* Adjust the position relative to the header */
+        z-index: 10; /* Ensure it's in front of the title */
+
+        color: #3897f0; /* Default color for buttons */
         font-size: 1.2rem;
         cursor: pointer;
         transition: color 0.3s;
-
         display: flex;
         justify-content: center;
         align-items: center;
-
-        width: 40px; /* Adjust as needed */
+        width: 40px;
         height: 40px;
-        border-radius: 50%; /* Circular shape */
+        border-radius: 50%;
         padding: 0;
         background: none;
 
@@ -43,20 +45,20 @@
         }
 
         i {
-          pointer-events: none; /* Ensure only the button is clickable */
+          pointer-events: none;
         }
       }
     }
 
     .chat-details {
       overflow: hidden;
-      max-height: 0; /* Initially hidden */
+      max-height: 0;
       transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
       opacity: 0;
       text-align: center;
 
       &.open {
-        max-height: 200px; /* Adjust based on your content */
+        max-height: 200px;
         opacity: 1;
       }
     }
@@ -67,85 +69,129 @@
     max-height: 60vh;
     overflow-y: auto;
     padding: 20px;
-    background-color: #fff; // Fallback background color
-    border: 1px solid #dbdbdb;
-    border-radius: 8px;
-    margin: 20px auto;
+    background-color: #f0f0f5; /* Light gray background like iMessage */
+    border: none;
     width: 90%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-
-    // Add the background image
+    margin: auto;
+    display: flex;
+    flex-direction: column;
     background-image: url('/assets/chat-background.png');
-    background-size: cover; // Make the image cover the entire container
-    background-repeat: no-repeat; // Prevent tiling
-    background-position: center; // Center the image
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 
-    .message {
-      margin-bottom: 15px;
-      padding: 10px 15px;
-      border-radius: 20px;
-      position: relative;
-      font-size: 0.9rem;
+    .message-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-start;
+      margin-bottom: 12px;
+    }
 
-      strong {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 600;
-        color: #262626;
-      }
+    .message {
+      display: flex;
+      flex-direction: column;
+      max-width: 90%;
+      min-width: 350px;
+      min-height: auto;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 1rem;
+      position: relative;
+      word-wrap: break-word;
+      line-height: 1.5;
+      margin: 5px 0;
+      margin-bottom: 30px;
+    }
+
+    /* Sent message color */
+    .sent {
+      background-color: #007aff; /* iMessage sent blue */
+      color: white;
+      align-self: flex-end;
+      border-bottom-right-radius: 10px;
+    }
+
+    .sent p {
+      color: white; /* White text for sent messages */
+    }
+
+
+    .sent::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: -5px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 0 10px;
+      border-color: transparent transparent transparent #007aff;
+    }
+
+    /* Received message color */
+    .received {
+      background-color: #e5e5ea; /* iMessage received light gray */
+      color: black;
+      align-self: flex-start;
+      border-bottom-left-radius: 10px;
+    }
+
+    .received::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -5px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 10px 0 0;
+      border-color: transparent #e5e5ea transparent transparent;
+    }
+
+    .message-content {
+      display: block;
+      width: 100%;
+      text-align: left;
+      word-wrap: break-word;
+      white-space: pre-wrap;
 
       p {
-        margin: 0;
-      }
-
-      small {
-        display: block;
-        color: #8e8e8e;
-        font-size: 0.75rem;
-        margin-bottom: 3px;
-      }
-
-      .message-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-
-        .sender-profile-pic {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          margin-right: 10px;
-          object-fit: cover;
-        }
-
-        strong {
-          font-weight: 600;
-          color: #262626;
-          margin-right: 10px;
-        }
-      }
-
-      &.sent {
-        background-color: #15a1f2;
-        text-align: right;
-        margin-left: auto;
-        max-width: 70%;
-        color: white;
-
-        p {
-          color: white;
-        }
-      }
-
-      &.received {
-        background-color: #f1f0f0;
         text-align: left;
-        margin-right: auto;
-        max-width: 70%;
+        line-height: 1.5;
+        margin-top: -38px;
+        margin-bottom: -50px;
+        margin-left: 5px;
       }
+
+      br {
+        display: block;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* Timestamp color */
+    .timestamp {
+      font-size: 0.75rem;
+      color: #070707; /* Light gray timestamp (iMessage style) */
+      position: absolute;
+      bottom: -18px;
+      right: 0;
+      text-align: right;
+      width: 100%;
+      padding: 0 10px;
+    }
+
+    .sender-profile-pic {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+
+    .message-header {
+      display: flex;
+      align-items: center;
+      margin-top: 4px;
     }
   }
 
@@ -166,6 +212,7 @@
       font-size: 0.9rem;
       margin-right: 10px;
       box-shadow: 0 2px 4px rgba(45, 44, 44, 0.1);
+      margin-bottom: 250px;
 
       &:focus {
         outline: none;
@@ -174,8 +221,9 @@
       }
     }
 
+    /* Active button styles */
     .btn-send {
-      background-color: #3897f0;
+      background-color: #007aff; /* iMessage sent blue */
       color: #fff;
       border: none;
       border-radius: 100px;
@@ -184,17 +232,27 @@
       cursor: pointer;
       transition: background-color 0.3s, box-shadow 0.3s;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 250px;
 
       &:hover {
-        background-color: #1877f2;
-        box-shadow: 0 8px 16px rgba(24, 119, 242, 0.3);
+        background-color: #0062cc;
+        box-shadow: 0 8px 16px rgba(0, 96, 204, 0.3);
       }
 
       .icon-large {
         font-size: 1.3rem;
       }
     }
+
+    /* Disabled button styles */
+    .btn-send.disabled {
+      background-color: #ccc; /* Light gray background */
+      color: #888;  /* Light gray text */
+      cursor: not-allowed;  /* Change cursor to show that it's not clickable */
+      box-shadow: none;  /* Remove box shadow for the disabled state */
+    }
   }
+
 
   #messages {
     &::-webkit-scrollbar {
