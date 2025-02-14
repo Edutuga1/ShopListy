@@ -11,6 +11,8 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   margin-bottom: 20px; /* Spacing below the table */
   background-color: #ffffff; /* White background for the table */
+  table-layout: fixed; /* Ensure the table uses the full width */
+  box-sizing: border-box; /* Include padding in the element's width */
 }
 
 /* Table Header (th) */
@@ -22,13 +24,18 @@
   font-weight: bold; /* Bold text for headers */
   text-transform: uppercase; /* Capitalize text */
   letter-spacing: 1px; /* Slight spacing for elegance */
+  width: 100%; /* Ensure it spans the full width of the table */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
 /* Table Body Rows (td) */
 .cart-table td {
-  padding: 15px; /* Add padding for spacing */
+  padding: 10px; /* Adjust padding */
   text-align: center; /* Center-align text */
   border-bottom: 1px solid #dee2e6; /* Add light border */
+  vertical-align: middle; /* Ensure content is vertically centered */
+  width: 100%; /* Ensure cells take full width */
+  box-sizing: border-box; /* Include padding in the cell width */
 }
 
 /* Table Row Hover Effect */
@@ -41,18 +48,74 @@
   border-bottom: none; /* Remove border for the last row */
 }
 
-/* Update Button */
 .cart-update-btn {
-  background-color: #007bff; /* Blue background */
-  color: white; /* White text */
-  border: none;
-  border-radius: 5px; /* Rounded corners */
-  padding: 5px 10px; /* Add padding */
-  transition: background-color 0.3s; /* Smooth hover effect */
+  width: 150px;
+  padding: 10px 22px;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  overflow: hidden; /* Ensures wave stays within the button */
+  border: 0;
+  cursor: pointer;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
+  background-color: transparent;
 }
 
-.cart-update-btn:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+.cart-update-btn:hover .wave {
+  top: -100px;
+}
+
+.cart-update-btn .text {
+  position: relative;
+  z-index: 1;
+  color: white;
+  font-size: 15px;
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.cart-update-btn .wave {
+  width: 150px;
+  height: 150px;
+  background-color: #27a9ff;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: -50px;
+  transition: 0.4s;
+}
+
+.cart-update-btn .wave::before,
+.cart-update-btn .wave::after {
+  width: 200%;
+  height: 200%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -75%);
+}
+
+.cart-update-btn .wave::before {
+  border-radius: 45%;
+  background-color: #0581b3;
+  animation: wave 5s linear infinite;
+}
+
+.cart-update-btn .wave::after {
+  border-radius: 40%;
+  background-color: rgba(20, 20, 20, 0.5);
+  animation: wave 10s linear infinite;
+}
+
+@keyframes wave {
+  0% {
+    transform: translate(-50%, -75%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -75%) rotate(300deg);
+  }
 }
 
 /* Remove Button */
@@ -61,8 +124,12 @@
   color: white; /* White text */
   border: none;
   border-radius: 5px; /* Rounded corners */
-  padding: 5px 10px; /* Add padding */
+  padding: 8px 16px; /* Adjust padding for consistency */
   transition: background-color 0.3s; /* Smooth hover effect */
+  display: block; /* Make it block-level so it takes the full width of the cell */
+  margin: 0 auto; /* Center the button horizontally */
+  width: 90%; /* Set the button width to 90% of the parent width */
+  max-width: 150px; /* Optional: Set a maximum width for buttons */
 }
 
 .cart-remove-btn:hover {
@@ -75,14 +142,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px; /* Add spacing between input and button */
-}
-
-.cart-quantity-input {
-  width: 60px;
-  text-align: center; /* Center-align input text */
-  padding: 5px;
-  border: 1px solid #ced4da; /* Light border */
-  border-radius: 5px; /* Rounded corners */
+  margin-top: 10px; /* Space between buttons and other content */
 }
 
 /* Total Price Styling */
@@ -93,20 +153,96 @@
   text-align: center;
 }
 
-/* Add to List Section */
-.cart-add-to-list-btn {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 20px;
-  font-size: 1em;
-  transition: background-color 0.3s;
+.add-to-list-button-wrapper {
+  display: flex;
+  justify-content: center;  /* Centers the button horizontally */
+  align-items: center;      /* Centers the button vertically */
+  width: 100%;              /* Ensures the wrapper takes full width */
+  margin-top: 20px;         /* Adds space above the button */
 }
 
-.cart-add-to-list-btn:hover {
-  background-color: #0056b3;
+.cart-add-to-list-btn {
+  margin-top: -40px;
+  margin-bottom: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: rgb(0, 107, 179);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  color: #ffff;
+  position: relative;
+  font-weight: bold;
+  font-size: 15px;
+  overflow: hidden;
+  text-transform: uppercase;
+  border: 3px solid #ffffff4d;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  white-space: nowrap; /* Prevents text from wrapping */
+  min-width: 180px; /* Ensures button is always large enough */
+  max-width: 300px; /* Prevents the button from becoming too large (adjust as needed) */
+  flex-shrink: 0; /* Prevents shrinking */
 }
+
+
+.cart-add-to-list-btn:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.cart-add-to-list-btn .icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0; /* Prevents shrinking */
+  position: relative; /* Keeps it inside visible area */
+  z-index: 2; /* Ensures it stays on top */
+}
+
+.cart-add-to-list-btn:hover .icon {
+  transform: translate(4px);
+}
+
+/* Shine Effect */
+.cart-add-to-list-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100px;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -120%;
+  opacity: 0.6;
+
+}
+
+.cart-add-to-list-btn:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
 
 .new-list-wrapper {
   display: flex;
@@ -115,34 +251,271 @@
 }
 
 .cart-actions-cell {
-  text-align: center;
+  display: table-cell;
+  flex-direction: column; /* Stack buttons vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  gap: 10px; /* Add space between buttons */
+  width: 100%; /* Make sure the cell spans the entire width */
+  text-align: center; /* Ensure the text inside is also centered */
+  vertical-align: middle; /* Ensure the remove button is aligned in the middle of the cell */
 }
+
+.cart-form-control {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 1.1rem;
+  color: #333;
+  appearance: none;  /* Remove default styling */
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding-right: 30px; /* Ensure space for the arrow */
+}
+
+.cart-form-control::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #333;
+  pointer-events: none;
+}
+
+.cart-form-control:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 12px rgba(52, 152, 219, 0.5);
+}
+
+.cart-form-control:hover {
+  border-color: #aaa;
+}
+
+.cart-form-control:hover::after {
+  border-top-color: #3498db;
+}
+
 
 .cart-delete-all-button {
   margin-top: 10px;
 }
 
-.cart-back-button {
-  display: flex; /* Use flexbox for the parent container */
-  justify-content: center; /* Horizontally center the button */
-  margin-top: 20px; /* Adds some top margin */
-}
-
 .cart-back-btn {
-  text-align: center; /* Center text inside the button */
+  text-align: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 20px auto; /* Centers the button horizontally */
+  max-width: 200px; /* Prevents it from stretching too wide */
+  width: 100%; /* Ensures it keeps its size */
 }
 
-p{
+p {
   text-align: center;
 }
+
+/* Styling for the delete button */
+.button-cart-delete {
+  position: relative;
+  width: 100%; /* Make the button span full width */
+  max-width: 150px; /* Optional: Set a maximum width for button */
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; /* Center horizontally */
+  cursor: pointer;
+  border-radius: 6px;
+  background-color: #e50000;
+  border: 1px solid #cc0000;
+  overflow: hidden;
+  margin-top: 10px; /* Add some top margin */
+}
+
+.button-cart-delete__text {
+  color: #fff;
+  font-weight: 600;
+  transition: color 0.3s;
+}
+
+.button-cart-delete__icon {
+  position: absolute;
+  transform: translateX(109px); /* Hide icon by default */
+  height: 100%;
+  width: 0; /* Hide icon */
+  background-color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s; /* Smooth transition */
+}
+
+.button-cart-delete .svg {
+  width: 20px;
+}
+
+.button-cart-delete:hover {
+  background: #cc0000;
+}
+
+.button-cart-delete:hover .button-cart-delete__text {
+  color: transparent; /* Hide text on hover */
+}
+
+.button-cart-delete:hover .button-cart-delete__icon {
+  width: 148px; /* Expand the icon */
+  transform: translateX(0); /* Slide the icon into view */
+}
+
+.button-cart-delete:active .button-cart-delete__icon {
+  background-color: #b20000;
+}
+
+.button-cart-delete:active {
+  border: 1px solid #b20000;
+}
+
+/* Styling for the Add to List Button from Uiverse.io */
+.button {
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+  padding-block: 0.5rem;
+  padding-inline: 1.25rem;
+  background-color: rgb(0, 107, 179);
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #ffff;
+  gap: 10px;
+  font-weight: bold;
+  border: 3px solid #ffffff4d;
+  outline: none;
+  overflow: hidden;
+  font-size: 15px;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  border-color: #fff9;
+}
+
+.button:hover .icon {
+  transform: translate(4px);
+}
+
+.button:hover::before {
+  animation: shine 1.5s ease-out infinite;
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0) 70%
+  );
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+
+  60% {
+    left: 100%;
+  }
+
+  to {
+    left: 100%;
+  }
+}
+
+.cart-list-section {
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically (if needed) */
+  text-align: center; /* Center text */
+  width: 100%;
+  margin: 20px auto; /* Add margin for spacing */
+}
+
+.cart-new-list-section {
+  display: flex;
+  flex-direction: column; /* Stack elements */
+  align-items: center; /* Center items */
+  margin-top: 10px;
+}
+
+.new-list-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
 /* Responsive Styling */
 @media (max-width: 768px) {
+  .cart-page {
+    padding: 15px; /* Less padding for smaller screens */
+  }
+
+  .cart-table {
+    width: 100%;
+    overflow-x: auto; /* Allow horizontal scrolling for the table */
+  }
+
   .cart-table th, .cart-table td {
     font-size: 14px; /* Smaller font size */
-    padding: 10px; /* Reduce padding */
+    padding: 8px; /* Reduce padding */
+    word-wrap: break-word; /* Break long words in small screen sizes */
   }
 
   .cart-update-btn, .cart-remove-btn {
-    padding: 5px 8px; /* Smaller buttons */
+    padding: 6px 12px; /* Adjust padding for better button size */
+    width: 100%; /* Make buttons full-width on small screens */
+  }
+
+  .update-wrapper {
+    flex-direction: column; /* Stack the quantity input and button vertically */
+    align-items: stretch; /* Stretch the elements across the screen */
+  }
+
+  .cart-total-price {
+    font-size: 1.3em; /* Adjust font size for better readability */
+    margin-top: 15px; /* Reduce top margin */
+  }
+
+  .cart-add-to-list-btn {
+    font-size: 0.9em; /* Slightly smaller button */
+    padding: 8px 15px; /* Adjust padding */
   }
 }

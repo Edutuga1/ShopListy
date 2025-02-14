@@ -1,6 +1,6 @@
-<div class="chat-back-button"></div>
-    <%= link_to t('chat_page.back'), request.referer || root_path, class: 'btn btn-secondary chat-back-btn' %>
-</div>
+<%= link_to (request.referer.presence || root_path), class: 'button chat-back-btn' do %>
+  <span class="button-content"><%= t('chat_page.back') %></span>
+<% end %>
 <div class="chat-page">
   <h1>
     <%= t('chat_page.conversation_with') %>
@@ -23,18 +23,27 @@
     <% end %>
   </div>
 
-  <% if @conversation %>
-    <%= form_with(model: Message.new,
-                  url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id),
-                  data: { turbo_stream: true },
-                  local: false,
-                  html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } }) do |form| %>
-      <%= form.text_area :content, class: "form-control", placeholder: t('chat_page.message_placeholder'), id: "message-content" %>
-      <%= form.button class: "btn-send", type: "submit" do %>
-        <i class="fa-regular fa-paper-plane icon-large"></i>
-      <% end %>
+<% if @conversation %>
+  <%= form_with(model: Message.new,
+                url: user_conversation_messages_path(user_id: current_user.id, conversation_id: @conversation.id),
+                data: { turbo_stream: true },
+                local: false,
+                html: { data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } }) do |form| %>
+    <%= form.text_area :content, class: "form-control", placeholder: t('chat_page.message_placeholder'), id: "message-content" %>
+
+    <!-- Custom Send Button -->
+    <%= form.button type: "submit", class: "custom-send-btn" do %>
+      <div class="svg-wrapper-1">
+        <div class="svg-wrapper">
+          <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z" fill="currentColor"></path>
+          </svg>
+        </div>
+      </div>
+      <span>Send</span>
     <% end %>
-  <% else %>
-    <p><%= t('chat_page.error_conversation') %></p>
   <% end %>
-</div>
+<% else %>
+  <p><%= t('chat_page.error_conversation') %></p>
+<% end %>

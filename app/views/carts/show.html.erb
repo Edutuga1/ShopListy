@@ -22,7 +22,11 @@
                   <%= form_with(model: cart_item, url: update_product_cart_path(cart_item), method: :patch, local: false, remote: true) do |form| %>
                     <div class="update-wrapper">
                       <%= form.number_field :quantity, value: cart_item.quantity, min: 1, class: 'form-control cart-quantity-input' %>
-                      <%= form.submit t('cart_page.update_button'), class: 'btn btn-warning cart-update-btn' %>
+                      <!-- Updated button style -->
+                      <button type="submit" class="btn cart-update-btn">
+                        <span class="text"><%= t('cart_page.update_button') %></span>
+                        <span class="wave"></span>
+                      </button>
                     </div>
                   <% end %>
                 </div>
@@ -30,7 +34,19 @@
               <td><%= number_to_currency(cart_item.product.price) %></td>
               <td><%= number_to_currency(cart_item.product.price * cart_item.quantity) %></td>
               <td class="cart-actions-cell">
-                <%= button_to t('cart_page.remove_button'), remove_item_cart_path(cart_item), method: :delete, class: 'btn btn-danger cart-remove-btn', data: { confirm: t('cart_page.remove_confirm') } %>
+                <%= button_to remove_item_cart_path(cart_item), method: :delete, data: { confirm: t('cart_page.remove_confirm') }, class: 'button-cart-delete' do %>
+                  <span class="button-cart-delete__text"><%= t('cart_page.remove_button') %></span>
+                  <span class="button-cart-delete__icon">
+                    <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                      <line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line>
+                      <path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                      <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line>
+                      <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line>
+                      <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line>
+                    </svg>
+                  </span>
+                <% end %>
               </td>
             </tr>
           <% end %>
@@ -48,30 +64,56 @@
             <%= form.hidden_field "quantities[#{cart_item.product.id}]", value: cart_item.quantity, min: 1, class: 'form-control cart-quantity-hidden' %>
           <% end %>
 
-          <!-- Select List Section -->
-          <%= form.label :list_id, t('cart_page.select_list_label') %>
-          <%= form.collection_select :list_id, @user.own_lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'form-control' }%>
+          <div class="cart-list-section">
+            <!-- Select List Section -->
+            <%= form.label :list_id, t('cart_page.select_list_label') %>
+            <%= form.collection_select :list_id, @user.own_lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'cart-form-control' } %>
 
-          <!-- New List Section -->
-          <div class="cart-new-list-section">
-            <div class="new-list-wrapper">
-              <%= form.text_field :new_list_name, class: 'form-control new-list-input', placeholder: t('cart_page.new_list_label') %>
-              <%= form.submit t('cart_page.add_to_list_button'), class: 'btn btn-primary cart-add-to-list-btn' %>
+            <!-- New List Section -->
+            <div class="cart-new-list-section">
+              <div class="new-list-wrapper">
+                <%= form.text_field :new_list_name, class: 'form-control new-list-input', placeholder: t('cart_page.new_list_label') %>
+              </div>
             </div>
           </div>
+
+
+          <!-- Submit Button for Add to List -->
+          <div class="add-to-list-button-wrapper">
+            <button type="submit" class="cart-add-to-list-btn">
+              <span><%= t('cart_page.add_to_list_button') %></span>
+              <svg class="icon" fill="currentColor" viewBox="0 0 24 24">
+                <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h6.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
         <% end %>
-
-        <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
       </div>
 
+      <!-- Cart Deletion Button -->
       <div class="cart-delete-all-button">
-        <%= button_to t('cart_page.delete_all_button'), clear_cart_path(@cart.id), method: :delete, class: 'btn btn-danger cart-delete-all-btn', data: { confirm: t('cart_page.delete_all_confirm') } %>
+        <%= button_to clear_cart_path, method: :delete, data: { confirm: t('cart_page.clear_cart_confirm') }, class: 'button-cart-delete' do %>
+          <span class="button-cart-delete__text"><%= t('cart_page.delete_all_button') %></span>
+          <span class="button-cart-delete__icon">
+            <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+              <path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+              <line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line>
+              <path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+              <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line>
+              <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line>
+              <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line>
+            </svg>
+          </span>
+        <% end %>
       </div>
+
+      <!-- Back Button -->
+      <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
     </div>
   <% else %>
     <p><%= t('cart_page.empty_message') %></p>
 
-    <!-- The back button only appears when the cart is empty -->
+    <!-- Back Button when Cart is Empty -->
     <div class="cart-back-button">
       <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
     </div>
