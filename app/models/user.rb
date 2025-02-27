@@ -3,8 +3,8 @@ class User < ApplicationRecord
   attr_accessor :change_password
   # Devise modules
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-
+         :recoverable, :rememberable, :validatable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
   # Associations
   has_many :groceries, dependent: :destroy
   has_many :own_lists, class_name: 'List', foreign_key: 'user_id', dependent: :destroy # Explicit name for user's own lists
@@ -100,6 +100,20 @@ class User < ApplicationRecord
   def user_params
     params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation, :notifications_enabled)
   end
+
+  def self.from_omniauth(auth)
+    user = User.where(email: auth.info.email).first
+    unless user
+      user = User.create(
+        email: auth.info.email,
+        password: Devise.friendly_token[0, 20],
+        name: auth.info.name,        # Store user's name
+        image: auth.info.image       # Optionally, store user's profile picture URL
+      )
+    end
+    user
+  end
+
 
   private
 

@@ -62,9 +62,12 @@ gem "simple_form", github: "heartcombo/simple_form"
 # SASS for CSS [https://github.com/sass/sassc-rails]
 gem "sassc-rails"
 
+# Google OAuth2
+gem 'omniauth-google-oauth2'
+
 group :development, :test do
   # Environment variables [https://github.com/bkeepers/dotenv]
-  gem "dotenv-rails"
+  gem 'dotenv-rails', '~> 3.1.2'
 
   # Debugging tools [https://github.com/ruby/debug]
   gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]

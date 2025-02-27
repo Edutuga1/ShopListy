@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Devise routes for user authentication
-  devise_for :users
+  devise_for :users, controllers: {
+  omniauth_callbacks: 'users/omniauth_callbacks'
+}
 
   # Root route
   root to: "pages#home"
