@@ -68,7 +68,7 @@
             <!-- Select List Section -->
             <%= form.label :list_id, t('cart_page.select_list_label') %>
             <%= form.collection_select :list_id, @user.own_lists, :id, :name, { prompt: t('cart_page.select_list_prompt') }, { class: 'cart-form-control' } %>
-
+              <p> OR </p>
             <!-- New List Section -->
             <div class="cart-new-list-section">
               <div class="new-list-wrapper">
@@ -108,14 +108,16 @@
       </div>
 
       <!-- Back Button -->
-      <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
+        <%= link_to request.referer || root_path, class: 'cart-back-button' do %>
+          <span class="button-content"><%= t('cart_page.back') %></span>
+        <% end %>
     </div>
   <% else %>
     <p><%= t('cart_page.empty_message') %></p>
 
     <!-- Back Button when Cart is Empty -->
-    <div class="cart-back-button">
-      <%= link_to t('cart_page.back'), request.referer || root_path, class: 'btn btn-secondary cart-back-btn' %>
-    </div>
+   <%= link_to request.referer || root_path, class: 'cart-back-button' do %>
+     <span class="button-content"><%= t('cart_page.back') %></span>
+   <% end %>
   <% end %>
 </div>

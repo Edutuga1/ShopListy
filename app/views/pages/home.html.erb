@@ -2,8 +2,8 @@
   <div class="home-page">
     <h1><%= t('welcome_back', name: current_user.name) %></h1>
     <div class="button-container">
-      <%= link_to new_user_list_path(current_user), class: "btn" do %>
-        <strong><%= t('CREATE_A_NEW_LIST') %></strong>
+      <%= link_to new_user_list_path(current_user), class: "btn-shine-create-list" do %>
+        <span><strong><%= t('CREATE_A_NEW_LIST') %></strong></span>
       <% end %>
     </div>
     <!-- Map container -->

@@ -2,6 +2,7 @@
   <h1><%= @list.name %></h1>
 
   <div id="product-list">
+    <h2 class="product-title shopping-list-title">I need to buy...</h2>
     <% @list.products_lists.each do |products_list| %>
       <div class="product-item" data-id="<%= products_list.product.id %>">
         <strong><%= products_list.product.name %></strong>
@@ -14,36 +15,66 @@
 
   <p><strong><%= t('lists_page.show.total_cost') %>:</strong> <%= number_to_currency(@list.total_cost) %></p>
 
-  <%= link_to t('lists_page.show.edit_button'), edit_list_path(@list), class: 'btn btn-primary' %>
-  <%= button_to t('lists_page.show.delete_button'), list_path(@list), method: :delete, class: 'btn btn-danger', data: { confirm: t('lists_page.show.delete_confirm') } %>
-  <%= button_to t('lists_page.show.back_to_lists'), user_lists_path(@list.user), method: :get %>
+  <div class="edit-button-container">
+    <%= link_to edit_list_path(@list), class: 'list-edit-btn' do %>
+      <svg class="edit-svgIcon" viewBox="0 0 512 512">
+        <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+      </svg>
+    <% end %>
+  </div>
 
-
-
-
-  <h3><%= t('lists_page.show.share_with_friend') %></h3>
-
-  <%= form_with url: share_list_path(@list), method: :post, local: true do |form| %>
-    <%= form.label :friend_id, 'Select Friend to Share With' %>
-    <%= form.collection_select :friend_id, @friends, :id, :name, prompt: "Select a friend" %>
-    <%= form.submit 'Share List', class: 'btn btn-primary' %>
+  <%= button_to list_path(@list), method: :delete, class: 'list-delete-btn', data: { confirm: t('lists_page.show.delete_confirm') } do %>
+    <span class="list-delete-btn__text"><%= t('lists_page.show.delete_button') %></span>
+    <span class="list-delete-btn__icon">
+      <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><title></title>
+        <path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+        <line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line>
+        <path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40" style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+        <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line>
+        <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line>
+        <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line>
+      </svg>
+    </span>
   <% end %>
 
+  <%= button_to t('lists_page.show.back_to_lists'), user_lists_path(@list.user), method: :get, class: 'back-to-list-button' %>
+
+  <h3 class="share-with-friend"><%= t('lists_page.show.share_with_friend') %></h3>
+
+  <%= form_with url: share_list_path(@list), method: :post, local: true do |form| %>
+  <%= form.label :friend_id, 'Select Friend to Share With' %>
+  <%= form.collection_select :friend_id, @friends, :id, :name, prompt: "Select a friend" %>
+    <button type="submit" class="share-button">
+      <span class="share-button__text">Share</span>
+      <span class="share-button__icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 134 134" class="list-svg">
+          <circle stroke-width="13" stroke="white" r="20.5" cy="27" cx="107"></circle>
+          <circle stroke-width="13" stroke="white" r="20.5" cy="107" cx="107"></circle>
+          <circle stroke-width="13" stroke="white" r="20.5" cy="67" cx="27"></circle>
+          <line stroke-width="13" stroke="white" y2="36.1862" x2="88.0931" y1="56.1862" x1="48.0931"></line>
+          <line stroke-width="13" stroke="white" y2="97.6221" x2="89.0893" y1="78.1486" x1="48.8304"></line>
+        </svg>
+      </span>
+    </button>
+  <% end %>
 </div>
-
-
 <style>
   /* Import Google Fonts for handwritten style */
   @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
-  body {
+  /* Apply the font only inside the product list */
+  #product-list, #product-list * {
     font-family: 'Patrick Hand', sans-serif; /* Handwritten font */
-    background-color: #f9f9f9; /* Off-white background to simulate paper */
-    color: #333; /* Dark text for readability */
-    line-height: 1.6;
-    padding: 0; /* Remove default body padding */
-    margin: 0;
-    min-height: 100vh; /* Ensure the body takes up the full height of the viewport */
+  }
+
+  /* Ensure the rest of the page is unaffected by the font-family */
+  body {
+    font-family: 'Arial', sans-serif; /* Default font for the rest of the page */
+  }
+
+  /* Specific adjustments to buttons and other elements */
+  .list-delete-btn, .edit-button-container, .shopping-list-title, h1, h2, p {
+    font-family: 'Arial', sans-serif; /* Ensure buttons and headings use the default font */
   }
 
   /* Ensuring the navbar isn't affected by these styles */
@@ -74,24 +105,33 @@
     padding-left: 40px;  /* Add left margin */
     padding-right: 40px; /* Add right margin */
     border-radius: 8px;
-    width: 100%; /* Ensure it takes up most of the width */
+    width: 80%; /* Ensure it takes up most of the width */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for a more realistic look */
     text-align: center; /* Center all text inside the product list */
+
+    /* Center the element horizontally */
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .product-item {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; /* Create four equal columns for name, quantity, price, and total */
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    align-items: center; /* Ensures vertical alignment */
     gap: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
-    transition: background-color 0.3s ease-in-out; /* Smooth transition on hover */
-    text-align: left; /* Align text to the left */
+    transition: background-color 0.3s ease-in-out;
+    text-align: left;
   }
 
-  .product-name {
-    grid-column: span 4; /* Make the product name span across all four columns */
+  .shopping-list-title {
+    text-align: center;
+    font-size: 1.8em;
     font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px; /* Remove default margin */
+    color: #333;
   }
 
   .product-quantity, .product-price, .product-total {
@@ -115,32 +155,270 @@
     font-weight: bold;
   }
 
-  .btn {
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-family: 'Patrick Hand', sans-serif;
-    transition: all 0.3s ease-in-out;
-    border: none;
+  .list-delete-btn {
+    position: relative;
+    width: 100%; /* Make the button span full width */
+    max-width: 150px; /* Optional: Set a maximum width for button */
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Center horizontally */
+    cursor: pointer;
+    border-radius: 6px;
+    background-color: #e50000;
+    border: 1px solid #cc0000;
+    overflow: hidden;
+    margin-bottom: 30px;
+  }
+
+  .list-delete-btn__text {
     display: inline-block;
-    margin-top: 10px; /* Add some space between the buttons and text */
+    color: #fff;
+    font-weight: 600;
+    text-align: center; /* Center the text horizontally */
+    line-height: 40px; /* Vertically center the text */
   }
 
-  .btn-primary {
-    background-color: #4CAF50;
+  .list-delete-btn__icon {
+    position: absolute;
+    transform: translateX(109px);
+    height: 100%;
+    width: 39px;
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .list-delete-btn .svg {
+    width: 20px;
+  }
+
+  .list-delete-btn .svg path {
+    fill: #fff; /* Ensures the icon is white */
+    stroke: #fff; /* Makes sure the border is also white, if it's using strokes */
+  }
+
+  .list-delete-btn:hover {
+    background: #cc0000;
+  }
+
+  .list-delete-btn:hover .list-delete-btn__text {
+    color: transparent;
+  }
+
+  .list-delete-btn:hover .list-delete-btn__icon {
+    width: 148px;
+    transform: translateX(0);
+  }
+
+  .list-delete-btn:active .list-delete-btn__icon {
+    background-color: #b20000;
+  }
+
+  .list-delete-btn:active {
+    border: 1px solid #b20000;
+  }
+
+  .back-to-list-button {
+    position: relative;
+    display: inline-block;
+    padding: 16px 28px;
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background-color: #1f347b;
+    border-radius: 40px;
+    overflow: hidden;
+    border: none;
+    z-index: 1;
+    margin-bottom: 20px;
+  }
+
+  .back-to-list-button:before {
+    transition: 1s;
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+  }
+
+  .back-to-list-button:hover:before {
+    width: 300px;
+    height: 300px;
+    opacity: 0.4;
+    transition: all 0.5s ease-out;
+  }
+
+  .back-to-list-button:hover {
+    background-color: #fff;
+    color: #202960;
+    transition: all 0.5s ease-out;
+  }
+
+  .back-to-list-button:hover:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: #255ea4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      width: 0;
+      height: 0;
+      opacity: 0.5;
+    }
+
+    100% {
+      width: 200px;
+      height: 200px;
+      opacity: 0;
+    }
+  }
+
+  .share-with-friend{
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+  .list-edit-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgb(20, 20, 20);
+    border: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none !important;
+    margin-bottom: 10px;
+  }
+
+  .edit-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+
+  .edit-svgIcon {
+    width: 17px;
+    transition-duration: 0.3s;
+  }
+
+  .edit-svgIcon path {
+    fill: white;
+  }
+
+  .list-edit-btn:hover {
+    width: 120px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: rgb(255, 69, 69);
+    align-items: center;
+  }
+
+  .list-edit-btn:hover .edit-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: rotate(360deg);
+  }
+
+  .list-edit-btn::before {
+    content: "Edit";
     color: white;
+    transition-duration: 0.3s;
+    font-size: 2px;
+    display: none;
   }
 
-  .btn-danger {
-    background-color: #f44336;
+  .list-edit-btn:hover::before {
+    display: block;
+    padding-right: 10px;
+    font-size: 13px;
+    opacity: 1;
+    transform: translateY(0px);
+    transition-duration: 0.3s;
+  }
+
+  .share-button {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 40px;
+    position: relative;
+    border: 1px solid #81aca0;
+    background-color: #209978;
+    overflow: hidden;
+    cursor: pointer;
     color: white;
+    padding: 0;
+    border-radius: 5px;
+    margin: 0 auto; /* This will center the button horizontally */
+    margin-top: 10px;
+    margin-bottom: 100px;
   }
 
-  .btn:hover {
-    background-color: #ffb84d; /* Slightly lighter on hover */
+  .share-button__text {
+    width: 80px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  button, a {
-    margin-top: 10px; /* Add some space between buttons and text */
+  .share-button__icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #17795e;
+    position: absolute;
+    right: 0;
+    transition: all 0.3s;
+  }
+
+  .share-button__icon svg {
+    width: 18px;
+  }
+
+  .share-button:hover .share-button__icon {
+    width: 100%;
+  }
+
+  /* Center the button in its parent container */
+  .center-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    height: 100vh;            /* Full viewport height */
   }
 
   @media (max-width: 768px) {
@@ -165,7 +443,6 @@
 </style>
 
 <script>
-  // JavaScript scratch-off effect
   // Initialize everything on page load and Turbo updates
   function initializePage() {
     setupScratchEffect();

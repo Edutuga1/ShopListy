@@ -132,6 +132,159 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   }
 }
 
+
+/* The switch - the box around the slider */
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 4em;
+  height: 2em;
+  z-index: 1; /* Make sure the checkbox is clickable and above other elements */
+}
+
+.switch input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  z-index: 2; /* Make sure the checkbox can still interact with clicks */
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 30px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 0; /* The slider should be behind the checkbox */
+
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 1.6em;
+  width: 1.6em;
+  border-radius: 20px;
+  left: 0.2em;
+  bottom: 0.2em;
+  background-color: white;
+  transition: 0.4s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.switch input:checked + .slider {
+  background-color: #003366;
+}
+
+.switch input:focus + .slider {
+  box-shadow: 0 0 1px #003366;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(2em);
+  background-color: #f1f4f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Add some cool effects */
+.slider:after {
+  content: "OFF";
+  color: white;
+  position: absolute;
+  right: 0.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8em;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+
+.switch input:checked + .slider:after {
+  content: "ON";
+  left: 0.5em;
+  opacity: 1;
+  right: auto;
+}
+
+.settings-back-button {
+  position: relative;
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  text-decoration: none; // Remove link underline
+  text-align: center;
+  margin: 0 auto; // Center horizontally
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; // Add space above the button
+  align-items: center;
+  width: fit-content; // Ensures button is only as wide as needed
+}
+
+.settings-back-button::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  animation-delay: 0;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+.settings-back-button:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.settings-back-button:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+.settings-back-button > .settings-back-button-content {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
 // Add responsiveness for smaller screens
 @media (max-width: 768px) {
   .settings-page {

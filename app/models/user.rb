@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   after_initialize :set_default_notifications, if: :new_record?
+  attr_accessor :change_password
   # Devise modules
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -94,6 +95,10 @@ class User < ApplicationRecord
 
   def admin?
     admin
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :email, :current_password, :password, :password_confirmation, :notifications_enabled)
   end
 
   private

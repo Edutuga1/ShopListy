@@ -57,11 +57,12 @@ body {
 }
 
 .friend-profile-img {
-  width: 120px;
-  height: 120px;
+  width: 168px;
+  height: 168px;
   border-radius: 50%;
   border: 3px solid #007bff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
 }
 
 .friend-profile-info {
@@ -116,5 +117,67 @@ body {
   font-weight: bold;
   &:hover {
     text-decoration: underline;
+  }
+}
+
+.friend-back-btn {
+  position: relative;
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.friend-back-btn::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  animation-delay: 0;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+.friend-back-btn:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.friend-back-btn:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+.friend-back-btn .button-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

@@ -23,6 +23,9 @@
 @import "pages/settings_page";
 @import "pages/addproduct";
 @import "pages/index_list_page";
+@import "pages/index_dm_page";
+@import "pages/search_friends_page";
+@import "pages/log-in-page";
 
 .notice {
   padding: 10px;
@@ -57,11 +60,15 @@
 }
 
 .home-page #map {
-  position: relative; /* Ensure proper positioning */
-  z-index: 1; /* Ensure it's on top */
-  height: 500px; /* Ensure the height is set */
-  width: 100%; /* Ensure the width is set */
+  position: relative;
+  z-index: 1;
+  height: 500px;
+  width: 85%;
+  margin: 0 auto; /* Center horizontally */
+  display: block; /* Ensure it's a block element */
+  margin-bottom: 80px;
 }
+
 
 .popup-notification {
   position: fixed; /* Fixed positioning to keep it in place relative to the viewport */
@@ -158,6 +165,7 @@ body {
   background-color: #2c3e50; /* Dark background for footer */
   color: #ecf0f1; /* Light text color */
   padding: 40px 20px;
+  border-top: 2px solid #333;
 }
 
 .footer-content {
@@ -169,18 +177,23 @@ body {
 .footer-column {
   display: flex;
   flex-direction: column;
+  text-align: center; /* This will center-align all inline elements inside the column, including links */
+
 }
 
 .footer-column h3 {
   font-size: 18px;
   margin-bottom: 10px;
   color: #ecf0f1;
+  text-align: center; /* This will center the text horizontally */
 }
+
 
 .footer-column p,
 .footer-column ul {
   font-size: 14px;
   color: #bdc3c7;
+  margin-top: 20px;
 }
 
 .footer-column ul {
@@ -206,8 +219,218 @@ body {
   margin-top: 30px;
   font-size: 14px;
   color: #bdc3c7;
+  border-top: 2px solid #333; /* Dark gray line */
+  padding-top: 10px;
 }
 
 .footer-column ul li a:hover {
   color: #1abc9c; /* Highlight hover color */
+}
+
+.footer p {
+  color: #ffffff; /* Change to your desired color */
+}
+
+
+.twitter-link-style {
+  text-decoration: none;
+  color: inherit; /* Removes default link styling */
+}
+
+.twitter-button {
+  background-color: #1DA1F2;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
+  animation: sway 2s infinite alternate;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 500px;
+  transition: transform 0.5s, box-shadow 0.5s;
+  margin: 0 auto; /* Centers the button */
+}
+
+.twitter-button:hover {
+  transform: rotate(-360deg);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 255, 0.5);
+}
+
+@keyframes grow {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(10);
+  }
+}
+
+@keyframes glow {
+  0% {
+    text-shadow: gold 1px 1px 1px;
+  }
+
+  100% {
+    text-shadow: gold 0 0 10px gold;
+  }
+}
+
+.icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  transition: transform 0.5s, filter 0.5s; /* Include filter for smoother transition */
+  transform: scale(0.7); /* Scale down the icon size */
+
+}
+
+.icon:hover {
+  transform: scale(1.5);
+  filter: drop-shadow(1px 2px 4px rgba(0,0,0,0.9))
+}
+
+.icon.icons8-X {
+  display: none;
+  top: 2em; /* Adjusted for smaller size */
+  left: 2em; /* Adjusted for smaller size */
+}
+
+.twitter-button:hover .icons8-Twitter-Filled {
+  display: none;
+}
+
+.twitter-button:hover .icons8-X {
+  display: block;
+  position: relative;
+  top: 3em;
+  left: 3em;
+  text-align: center;
+}
+
+.follow-text {
+  color: white;
+  position: relative;
+  top: 3em;
+  left: -4em;
+  transition: transform 0.5s;
+}
+
+.follow-text:hover {
+  transform: scale(1.2);
+  color: rgba(31,81,255,100);
+  filter: drop-shadow(2px 2px 4px rgba(31,81,255,2.0))
+}
+
+.linked-in-Btn {
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  position: relative;
+  background: #0274b3; /* LinkedIn blue */
+  text-decoration: none; /* Remove link underline */
+  margin: 0 auto; /* Centers the button */
+}
+
+.svgIcon {
+  transition-duration: 0.3s;
+  top: 2em; /* Adjusted for smaller size */
+  left: 2em; /* Adjusted for smaller size */
+}
+
+.svgIcon path {
+  fill: white;
+}
+
+.linked-in-text {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  opacity: 0;
+  transition-duration: 0.4s;
+  white-space: nowrap; /* Prevent text from wrapping */
+  left: 50%; /* Position the text horizontally in the center */
+  transform: translateX(-50%); /* Center the text properly */
+  padding-left: 5px; /* Add padding to prevent the text from starting too far to the left */
+}
+
+.linked-in-Btn:hover {
+  width: 110px;
+  transition-duration: 0.4s;
+  border-radius: 30px;
+}
+
+.linked-in-Btn:hover .linked-in-text {
+  opacity: 1;
+  transition-duration: 0.4s;
+}
+
+.linked-in-Btn:hover .svgIcon {
+  opacity: 0;
+  transition-duration: 0.3s;
+}
+
+.github-Btn {
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: .4s;
+  cursor: pointer;
+  margin: 0 auto; /* Centers the button */
+  position: relative;
+  background-color: rgb(31, 31, 31); /* Dark GitHub background */
+  overflow: hidden;
+}
+
+.gitsvgIcon {
+  transition-duration: .3s;
+}
+
+.gitsvgIcon path {
+  fill: white; /* White color for the icon */
+}
+
+.github-text {
+  position: absolute;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  opacity: 0;
+  transition-duration: .4s;
+  left: 50%;  /* Positioning the text */
+  transform: translateX(-50%); /* Centering the text */
+  white-space: nowrap; /* Prevent text from breaking into multiple lines */
+  max-width: 0;  /* Initially, no text width */
+}
+
+.github-Btn:hover {
+  width: 110px;
+  transition-duration: .4s;
+  border-radius: 30px;
+}
+
+.github-Btn:hover .github-text {
+  opacity: 1;
+  max-width: 120px; /* Set the width of the text when hovered */
+  transition-duration: .4s;
+}
+
+.github-Btn:hover .gitsvgIcon {
+  opacity: 0;
+  transition-duration: .3s;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
 }

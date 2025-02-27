@@ -5,21 +5,51 @@
     <ul id="lists">
       <% current_user.own_lists.each do |list| %>
         <li>
-          <%= link_to list.name, list_path(list) %>
-          <br>
-          <small><%= t('lists_page.index.created_on') %>: <%= list.created_at.strftime(t('lists_page.index.date_format')) %></small>
-          <%= button_to t('lists_page.index.delete_button'), list_path(list), method: :delete, class: 'btn btn-danger', data: { confirm: t('lists_page.index.delete_confirm') } %>
+          <div class="list-info">
+            <%= link_to list.name, list_path(list), class: "list-name" %>
+            <small class="list-timestamp">
+              <%= t('lists_page.index.created_on') %>: <%= list.created_at.strftime(t('lists_page.index.date_format')) %>
+            </small>
+          </div>
+          <%= button_to list_path(list), method: :delete, data: { confirm: t('lists_page.index.delete_confirm') }, class: 'button-index-list-delete' do %>
+            <span class="button-index-list-delete__text"><%= t('lists_page.index.delete_button') %></span>
+            <span class="button-index-list-delete__icon">
+              <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+                <title>Trash</title>
+                <path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                <line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px" x1="80" x2="432" y1="112" y2="112"></line>
+                <path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="256" x2="256" y1="176" y2="400"></line>
+                <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="184" x2="192" y1="176" y2="400"></line>
+                <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" x1="328" x2="320" y1="176" y2="400"></line>
+              </svg>
+            </span>
+          <% end %>
         </li>
       <% end %>
     </ul>
   <% else %>
-    <p>
+    <p class="no-lists-text">
       <%= t('lists_page.index.no_lists') %>
-      <%= link_to t('lists_page.index.create_new'), new_list_path(current_user), class: 'btn btn-primary' %>
     </p>
+    <%= link_to new_list_path(current_user), class: 'index-create-new-list-btn' do %>
+      <span>
+        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor"></path>
+        </svg>
+        <%= t('lists_page.index.create_new') %>
+      </span>
+    <% end %>
   <% end %>
 
+  <!-- Dark Gray Line Between Lists Sections -->
+  <hr class="section-divider" />
+
   <h1>Friends Shared Lists</h1>
+
   <% if current_user.saved_lists.any? %>
     <ul id="friends-lists">
       <% current_user.saved_lists.each do |saved_list| %>
@@ -34,7 +64,12 @@
       <% end %>
     </ul>
   <% else %>
-    <p>No shared lists yet.</p>
+    <p class="no-shared-lists-text">
+      No shared lists yet.
+    </p>
   <% end %>
-  <%= link_to t('list_page.back'), request.referer || root_path, class: 'btn btn-secondary list-back-btn' %>
+
+  <%= link_to request.referer || root_path, class: 'index-list-back-btn' do %>
+    <span class="button-content"><%= t('list_page.back') %></span>
+  <% end %>
 </div>

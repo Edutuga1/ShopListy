@@ -2,46 +2,18 @@
   text-align: center;
   margin: 0 auto;
   padding: 20px;
+
+
+  h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+  }
 }
 
 .navigation-buttons {
   margin: 20px 0;
   display: flex;
   justify-content: space-between;
-}
-
-.search-bar-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-}
-
-.search-label {
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-.search-input {
-  flex: 1;
-  max-width: 400px;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.search-btn {
-  padding: 12px 20px;
-  font-size: 16px;
-  background-color: #042853;
-  color: #fff;
-  border-radius: 8px;
 }
 
 .category-grid {
@@ -60,14 +32,16 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
   align-items: center;
+  margin-bottom: 15px;
+  justify-content: center; /* Ensure child elements (like button) are centered */
 }
 
 .product-image {
-  width: 150px; /* Set a fixed width */
-  height: 150px; /* Set a fixed height */
-  object-fit: cover; /* Ensures the image scales without distortion */
-  border-radius: 8px; /* Optional: Adds rounded corners for uniformity */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow for aesthetic */
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .button-container {
@@ -77,59 +51,454 @@
   align-items: center;
   width: 100%;
   text-align: center;
-  flex-wrap: wrap; /* Allow items to wrap if necessary */
+  flex-wrap: wrap;
+  text-align: center;
 }
 
 .quantity-container {
   display: flex;
-  justify-content: center; /* Center label and input horizontally */
-  align-items: center; /* Vertically align them */
+  justify-content: center;
+  align-items: center;
   gap: 10px; /* Adds spacing between the label and input */
 }
 
 .quantity-label {
   margin-right: 10px; /* Space between label and input */
   font-size: 16px;
-  line-height: 32px; /* Vertically align with the input */
+  line-height: 32px;
 }
 
 input[type="number"] {
-  width: 80px; /* Fixed width for the input */
+  width: 80px;
   padding: 8px;
-  margin: 0; /* Remove any default margin */
+  margin: 0;
   font-size: 16px;
   border-radius: 8px;
   border: 1px solid #ccc;
 }
 
 .add-to-cart {
-  display: block;
-  margin: 0 auto;
-  background-color: #1caf3e;
-  color: #fff;
+  width: 140px;
+  height: 40px;
+  border-radius: 12px;
   border: none;
-  padding: 10px 15px;
-  border-radius: 15px;
+  background-color: #32CD32;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
+  transition-duration: .5s;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.103);
+  position: relative;
+  margin-top: 15px;
+  margin-left: 10px;
+  padding: 10px 20px; /* Optional, add padding to adjust the button's size */
   text-align: center;
-  transition: background-color 0.3s ease;
+  line-height: normal;
+  vertical-align: middle;
 }
 
-.add-to-cart:hover {
-  background-color: #218838;
+.add-to-cart svg {
+  width: 18px;
+  height: 18px;
+  fill: rgb(17, 17, 17);
+  opacity: 1;
+  transition: transform 0.3s ease;
+}
+
+.IconContainer {
+  position: absolute;
+  left: -50px;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 2;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.IconContainer svg {
+  width: 18px;
+  height: 18px;
+  fill: rgb(17, 17, 17);
+  transition: transform 0.3s ease;
+}
+
+.icon {
+  border-radius: 1px;
+}
+
+.text {
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(17, 17, 17);
+  z-index: 1;
+  transition-duration: .5s;
+  font-size: 1.04em;
+  font-weight: 600;
+}
+
+.add-to-cart:hover .IconContainer {
+  left: 5px;
+  opacity: 1;
+  transition: all 0.5s ease-in-out;
+}
+
+.add-to-cart:hover .text {
+  transform: translateX(10px);
+  transition: all 0.5s ease-in-out;
+}
+
+.add-to-cart:active {
+  transform: scale(0.95);
+  transition-duration: .5s;
 }
 
 .categ-back-btn {
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Horizontally center the button */
-  margin-top: 10px; /* Optional: adds some spacing from the top */
-  margin-bottom: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+.btn-back-categ.button {
+  position: relative;
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 30px;
+}
+
+/* Style for the spinning effect */
+.btn-back-categ.button::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  animation-delay: 0;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+.btn-back-categ.button:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.btn-back-categ.button:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+/* Button text */
+.btn-back-categ.button > .button-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 .categ-back-btn a {
-  text-align: center; /* Ensure the text inside the button is centered */
+  text-align: center;
 }
 
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.search__wrapper {
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 25px;
+  background-color: #fff;
+  width: 450px; /* Slightly wider for better spacing */
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  margin: 0 auto; /* Ensures centering inside its parent */
+}
+
+/* Input field */
+.search__input {
+  font-family: inherit;
+  font-size: 16px;
+  border: 2px solid #767676; /* Keep only this border */
+  color: #333;
+  padding: 10px 14px;
+  border-radius: 25px;
+  flex-grow: 1;
+  outline: none;
+  width: 100%;
+}
+
+/* Search button */
+.search__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 14px;
+}
+
+
+.search__button svg {
+  width: 20px;
+  height: 20px;
+  color: #000000;
+}
+
+.search__button:hover svg {
+  color: #000;
+}
+
+.cat-arrow-back-button {
+  display: block;
+  position: relative;
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+.cat-arrow-back-button:before,
+.cat-arrow-back-button:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 7px;
+}
+
+.cat-arrow-back-button:before {
+  border: 4px solid #000000;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.cat-arrow-back-button:after {
+  border: 4px solid #96daf0;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+}
+
+.cat-arrow-back-button:hover:before,
+.cat-arrow-back-button:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.cat-arrow-back-button:hover:after,
+.cat-arrow-back-button:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.cat-arrow-back-button-box {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cat-arrow-back-button-elem {
+  margin: 20px 18px 0 18px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  transform: rotate(180deg);
+  fill: #000000;
+}
+
+.cat-arrow-back-button:hover .cat-arrow-back-button-box,
+.cat-arrow-back-button:focus .cat-arrow-back-button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
+/* Ensure consistency between both buttons */
+.see-cart-button,
+.bottom-see-cart-button {
+  --clr-font-main: hsla(0, 0%, 20%, 1);
+  --btn-bg-1: hsla(194, 100%, 69%, 1);
+  --btn-bg-2: hsla(217, 100%, 56%, 1);
+  --btn-bg-color: hsla(360, 100%, 100%, 1);
+  --radii: 0.5em;
+
+  cursor: pointer;
+  padding: 0.9em 1.4em;
+  min-width: 120px;
+  min-height: 44px;
+  font-size: var(--size, 1rem);
+  font-weight: 500;
+  transition: 0.8s;
+  background-size: 280% auto;
+  background-image: linear-gradient(
+    325deg,
+    var(--btn-bg-2) 0%,
+    var(--btn-bg-1) 55%,
+    var(--btn-bg-2) 90%
+  );
+
+  border: none;
+  border-radius: var(--radii);
+  color: var(--btn-bg-color);
+
+  box-shadow:
+    0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 5px 5px -1px rgba(58, 125, 233, 0.25),
+    inset 4px 4px 8px rgba(175, 230, 255, 0.5),
+    inset -4px -4px 8px rgba(19, 95, 216, 0.35);
+
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: white;
+}
+
+.see-cart-button svg,
+.bottom-see-cart-button svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.see-cart-button:hover,
+.bottom-see-cart-button:hover {
+  background-position: right top;
+}
+
+.see-cart-button:is(:focus, :focus-visible, :active),
+.bottom-see-cart-button:is(:focus, :focus-visible, :active) {
+  outline: none;
+  box-shadow:
+    0 0 0 3px var(--btn-bg-color),
+    0 0 0 6px var(--btn-bg-2);
+}
+
+.bottom-navigation-buttons {
+  display: flex;
+  justify-content: center;
+  padding: 1em; /* Optional: Add some padding if needed */
+  width: 100%;
+}
+
+/* Style for the back button */
+.bottom-cat-back-button {
+  position: relative;
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  margin-right: 50px;
+}
+
+.bottom-cat-back-button::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  animation-delay: 0;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+.bottom-cat-back-button:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.bottom-cat-back-button:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+.bottom-cat-back-button > .bottom-cat-back-button-text {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animation for the spinning effect */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 @media (max-width: 600px) {
   .quantity-container {

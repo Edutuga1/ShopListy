@@ -1,10 +1,6 @@
 // General Styles
-$primary-color: #007bff;
-$secondary-color: #f8f9fa;
 $border-radius: 8px;
 $input-padding: 15px;
-$button-color: #28a745;
-$button-hover-color: #218838;
 $font-family: 'Arial', sans-serif;
 
 // Body
@@ -16,8 +12,9 @@ body {
 }
 
 // Page wrapper specific styles
+// Page wrapper specific styles
 .add_product_page {
-  padding: 30px 0; // Add space around the content
+  padding: 30px 0;
 
   .container {
     max-width: 600px;
@@ -31,21 +28,22 @@ body {
     h1 {
       text-align: center;
       font-size: 2rem;
-      color: $primary-color;
-      margin-bottom: 20px;
+      color: #164ca7;
+      margin-bottom: 30px;
       font-weight: bold;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 20px; // Adds spacing between form elements
+      gap: 20px;
     }
 
     label {
       font-size: 1rem;
       margin-bottom: 8px;
-      color: #495057;
+      color: #0b0c0d;
+      display: block;
     }
 
     input[type="text"], input[type="number"], select, textarea {
@@ -53,80 +51,104 @@ body {
       border: 1px solid #ced4da;
       border-radius: $border-radius;
       font-size: 1rem;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       outline: none;
       transition: border-color 0.3s ease;
+      display: block;
 
       &:focus {
         border-color: $primary-color;
       }
     }
 
-    textarea {
-      resize: vertical;
-      min-height: 100px;
+    // Center the submit button specifically
+    .submit-button-wrapper {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px; // Optional: Adjust for spacing
     }
 
-    select {
+    .add-product-button {
+      position: relative;
+      width: 150px;
+      height: 40px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #34974d;
+      background-color: #3aa856;
+      overflow: hidden;
     }
 
-    button[type="submit"] {
-      background-color: $button-color;
-      color: #ffffff;
-      border: none;
-      padding: 12px 20px;
-      font-size: 1rem;
-      border-radius: $border-radius;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 10px;
+    .add-product-button, .add-product-button__icon, .add-product-button__text {
+      transition: all 0.3s;
+    }
 
-      &:hover {
-        background-color: $button-hover-color;
-      }
+    .add-product-button .add-product-button__text {
+      transform: translateX(0);  // Remove any translation for text
+      color: #fff;
+      font-weight: 600;
+      padding-right: 10px;  // Space for the icon on the right
+    }
 
-      &:focus {
-        outline: none;
-      }
+    .add-product-button .add-product-button__icon {
+      position: absolute;
+      transform: translateX(109px);
+      height: 100%;
+      width: 39px;
+      background-color: #34974d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .add-product-button .svg {
+      width: 30px;
+      stroke: #fff;
+    }
+
+    .add-product-button:hover {
+      background: #34974d;
+    }
+
+    .add-product-button:hover .add-product-button__text {
+      color: transparent;
+    }
+
+    .add-product-button:hover .add-product-button__icon {
+      width: 148px;
+      transform: translateX(0);
+    }
+
+    .add-product-button:active .add-product-button__icon {
+      background-color: #2e8644;
+    }
+
+    .add-product-button:active {
+      border: 1px solid #2e8644;
     }
   }
 
-  // Add this to your existing SCSS (e.g., add to the bottom of the container styles)
-
-  // Button Alignment
-  .new-back-btn {
-    display: block;
-    width: fit-content; // Make sure the button is only as wide as the content
-    margin: 30px auto; // Center the button by setting margin auto
-    text-align: center; // Ensure text within the button is centered
-
-    // Additional button styling if needed
-    background-color: #6c757d; // Adjust to match btn-secondary color
-    color: white;
-
-    &:hover {
-      background-color: #5a6268; // Slightly darker color for hover state
+  // Responsive Styles for small devices
+  @media (max-width: 600px) {
+    .add_product_page .container {
+      margin: 15px;
+      padding: 20px;
     }
-  }
-}
 
-// Responsive Styles for small devices
-@media (max-width: 600px) {
-  .add_product_page .container {
-    margin: 15px;
-    padding: 20px;
-  }
+    .add_product_page h1 {
+      font-size: 1.8rem;
+    }
 
-  .add_product_page h1 {
-    font-size: 1.8rem;
-  }
+    input[type="text"], input[type="number"], select, textarea {
+      font-size: 0.9rem;
+    }
 
-  input[type="text"], input[type="number"], select, textarea {
-    font-size: 0.9rem;
-  }
-
-  button[type="submit"] {
-    padding: 10px 18px;
+    .add-product-button {
+      width: 120px; // Adjust width for smaller screens
+      height: 35px; // Adjust height for smaller screens
+    }
   }
 }

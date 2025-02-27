@@ -32,7 +32,7 @@ pt:
     search_button: "Pesquisar"
     no_image: "Imagem não disponível"
     quantity_label: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar ao cesto"
     no_drinks: "Nenhum produto de bebida disponível."
 
   meat_page:
@@ -44,7 +44,7 @@ pt:
     search_button: "Pesquisar"
     no_image: "Imagem não disponível"
     quantity_label: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_meats: "Nenhum produto de carne disponível."
 
   fish_page:
@@ -56,7 +56,7 @@ pt:
     search_button: "Pesquisar"
     no_image: "Imagem não disponível"
     quantity_label: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_fish: "Nenhum produto de peixe disponível."
 
   bakery_page:
@@ -68,7 +68,7 @@ pt:
     search_button: "Pesquisar"
     no_image: "Imagem não disponível"
     quantity_label: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_bakery: "Nenhum produto de padaria disponível."
 
   cold_cuts_and_cheeses_page:
@@ -79,7 +79,7 @@ pt:
     search_button: "Pesquisar"
     no_image: "Imagem não disponível"
     quantity_label: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto disponível."
 
   car_page:
@@ -90,7 +90,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto de carro disponível."
 
   frozen_page:
@@ -101,7 +101,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto congelado disponível."
 
   dairy_page:
@@ -112,7 +112,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto lácteo disponível."
 
   fruit_page:
@@ -123,7 +123,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto de fruta disponível."
 
   hygiene_page:
@@ -134,7 +134,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto de higiene disponível."
 
   cleaning_page:
@@ -145,7 +145,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum produto de limpeza disponível."
 
   vegetable_page:
@@ -156,7 +156,7 @@ pt:
     search: "Procurar"
     no_image: "Imagem não disponível"
     quantity: "Quantidade"
-    add_to_cart: "Adicionar ao Carrinho"
+    add_to_cart: "Adicionar"
     no_products: "Nenhum vegetal disponível."
 
   cart_page:

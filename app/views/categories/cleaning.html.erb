@@ -1,19 +1,54 @@
 <div class="category-page">
-  <h1><%= t('cleaning_page.title') %></h1>
+    <div class="navigation-buttons">
+  <%= link_to new_list_path, class: 'cat-arrow-back-button' do %>
+    <div class="cat-arrow-back-button-box">
+      <span class="cat-arrow-back-button-elem">
+        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+      <span class="cat-arrow-back-button-elem">
+        <svg viewBox="0 0 46 40">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+    </div>
+  <% end %>
 
-  <!-- Back and See Cart Buttons -->
-  <div class="navigation-buttons">
-    <%= link_to t('cleaning_page.back'), new_list_path, class: 'btn btn-secondary' %>
-    <%= link_to t('cleaning_page.see_cart'), cart_path, class: 'btn btn-primary' %>
-  </div>
+  <%= link_to cart_path, class: 'see-cart-button' do %>
+    <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(255, 255, 255)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+    <span><%= t('drinks_page.see_cart') %></span>
+  <% end %>
+</div>
 
-  <!-- Centered Search Bar -->
-  <div class="search-bar-container">
-    <%= form_with url: cleaning_path, method: :get, local: true, class: "search-form" do |form| %>
-      <%= form.text_field :query, value: params[:query], placeholder: t('cleaning_page.search_placeholder'), class: "search-input" %>
-      <%= form.submit t('cleaning_page.search'), class: "btn search-btn btn-primary" %>
-    <% end %>
-  </div>
+    <h1><%= t('cleaning_page.title') %></h1>
+    
+   <!-- Search Bar -->
+    <div class="search-container">
+      <%= form_with url: cleaning_path, method: :get, local: true, class: "search" do |form| %>
+        <div class="search__wrapper">
+          <%= form.text_field :query, value: params[:query], placeholder: t('meat_page.search_placeholder'), class: "search__input" %>
+          <button type="submit" class="search__button">
+            <svg
+              viewBox="0 0 16 16"
+              class="bi bi-search"
+              fill="currentColor"
+              height="20"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      <% end %>
+    </div>
 
   <!-- Cleaning Products Display -->
   <% if @cleaning_products.any? %>
@@ -33,28 +68,41 @@
 
           <!-- Add to Cart Form -->
           <div class="button-container">
-            <%= form_with url: add_product_cart_path, method: :post, local: true, html: { id: "add-to-cart-form-#{product.id}" } do |form| %>
-              <%= form.hidden_field :product_id, value: product.id %>
-              <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('cleaning_page.quantity') %>:</label>
-              <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
-              <button class="add-to-cart" type="submit">
-                <i class="fas fa-shopping-cart"></i> <%= t('cleaning_page.add_to_cart') %>
-              </button>
+                  <%= form_with url: add_product_cart_path, method: :post, remote: true, html: { id: "add-to-cart-form-#{product.id}", class: "add-to-cart-form" } do |form| %>
+                    <%= form.hidden_field :product_id, value: product.id %>
+
+                    <label class="quantity-label" for="quantity-<%= product.id %>"><%= t('cleaning_page.quantity') %>:</label>
+                    <%= form.number_field :quantity, min: 1, value: 1, id: "quantity-#{product.id}" %>
+
+                    <button class="add-to-cart" type="submit">
+                      <span class="IconContainer">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(17, 17, 17)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+                      </span>
+                      <p class="text"><%= t('cleaning_page.add_to_cart') %></p>
+                    </button>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
           </div>
-        </div>
-      <% end %>
-    </div>
-  <% else %>
-    <p><%= t('cleaning_page.no_products') %></p>
-  <% end %>
+        <% else %>
+          <p><%= t('cleaning_page.no_products') %></p>
+        <% end %>
 
-    <!-- Back and See Cart Buttons -->
-  <div class="navigation-buttons">
-    <%= link_to t('cleaning_page.back'), new_list_path, class: 'btn btn-secondary' %>
-    <%= link_to t('cleaning_page.see_cart'), cart_path, class: 'btn btn-primary' %>
+   <div class="bottom-navigation-buttons">
+    <%= button_to new_list_path, class: 'bottom-cat-back-button', method: :get do %>
+      <div class="bottom-cat-back-button-box">
+        <span class="bottom-cat-back-button-text">
+         <%= t('Back') %>
+        </span>
+      </div>
+    <% end %>
+
+   <%= link_to cart_path, class: 'bottom-see-cart-button' do %>
+     <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" fill="rgb(255, 255, 255)" class="cart"><path d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"></path></svg>
+     <span><%= t('drinks_page.see_cart') %></span>
+   <% end %>
   </div>
-
 
   <!-- Font Awesome Script -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>

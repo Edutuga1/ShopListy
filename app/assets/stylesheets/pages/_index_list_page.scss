@@ -28,7 +28,13 @@
       align-items: center;
       box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
 
-      a {
+      .list-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .list-name {
         font-size: 18px;
         font-weight: 600;
         color: #007bff;
@@ -39,9 +45,10 @@
         }
       }
 
-      small {
+      .list-timestamp {
         font-size: 12px;
         color: #777;
+        margin-top: 5px; // Adds spacing between name and timestamp
       }
 
       .btn-danger {
@@ -60,43 +67,189 @@
     }
   }
 
-  p {
-    font-size: 16px;
-    color: #555;
-    margin-top: 20px;
-
-    .btn-primary {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 15px;
-      font-size: 16px;
-      font-weight: 600;
-      background: #007bff;
-      color: white;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: background 0.3s ease;
-
-      &:hover {
-        background: #0056b3;
-      }
-    }
-  }
-
   .list-back-btn {
-    display: block;
-    margin: 30px auto;
-    padding: 10px 15px;
-    font-size: 16px;
+    display: inline-block; // Makes button fit its content
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
     font-weight: 600;
     background: #6c757d;
     color: white;
     border-radius: 6px;
     text-decoration: none;
     transition: background 0.3s ease;
+    text-align: center;
 
     &:hover {
       background: #5a6268;
     }
   }
+
+  .button-index-list-delete {
+    position: relative;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the text horizontally */
+    border: 1px solid #cc0000;
+    background-color: #e50000;
+    overflow: hidden;
+    padding: 0;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+
+  .button-index-list-delete, .button-index-list-delete__icon, .button-index-list-delete__text {
+    transition: all 0.3s;
+  }
+
+  .button-index-list-delete__text {
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 1; /* Keep text above the icon */
+  }
+
+  .button-index-list-delete__icon {
+    position: absolute;
+    top: 0;
+    right: -40px; /* Initially position the icon off-screen on the right */
+    height: 100%;
+    width: 0; /* Initially hide the icon */
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .button-index-list-delete .svg {
+    width: 20px;
+  }
+
+  .button-index-list-delete:hover {
+    background: #cc0000;
+  }
+
+  .button-index-list-delete:hover .button-index-list-delete__text {
+    color: transparent; /* Hide text on hover */
+  }
+
+  .button-index-list-delete:hover .button-index-list-delete__icon {
+    width: 40px; /* Make the icon visible */
+    right: 50%; /* Move the icon towards the center */
+    transform: translateX(50%); /* Ensure the icon is centered */
+  }
+
+  .button-index-list-delete:active .button-index-list-delete__icon {
+    background-color: #b20000;
+  }
+
+  .button-index-list-delete:active {
+    border: 1px solid #b20000;
+  }
+
+  .section-divider {
+    border: 0;
+    border-top: 2px solid #333; /* Dark Gray Line */
+    margin: 40px auto 20px; /* Increased space above the line */
+    width: 90%;
+    align-self: center;
+  }
+
+  /* Styling for "No lists" and "No shared lists" messages */
+  .no-lists-text, .no-shared-lists-text {
+    margin-bottom: 20px; /* Space between the message and the button */
+  }
+
+  .index-list-back-btn {
+    position: relative;
+    display: inline-block;
+    padding: 16px 32px;
+    border-radius: 14px;
+    overflow: hidden;
+    z-index: 1;
+    border: 1px solid rgb(221, 218, 218);
+    background: white;
+    font-weight: bold;
+    font-size: 16px;
+    color: #1993e4;
+    transition: all 1.2s linear;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 20px;
+  }
+
+  .index-list-back-btn::after {
+    content: "";
+    position: absolute;
+    background: linear-gradient(to right, #1993e4, #1993e456);
+    border-radius: 30%;
+    height: 96px;
+    width: 96px;
+    animation: spin infinite linear 1.8s;
+    animation-delay: 0;
+    bottom: -38px;
+    right: -112px;
+    transition: all 1.2s linear;
+    z-index: 0;
+  }
+
+  .index-list-back-btn:hover {
+    color: #fff;
+    transition-duration: 1.2s;
+  }
+
+  .index-list-back-btn:hover::after {
+    right: -60px;
+    bottom: -92px;
+    width: 256px;
+    height: 256px;
+  }
+
+  .index-list-back-btn > .button-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .index-create-new-list-btn {
+    display: inline-flex;
+    align-items: center;
+    border: 2px solid #24b4fb;
+    background-color: #24b4fb;
+    border-radius: 0.9em;
+    cursor: pointer;
+    padding: 0.8em 1.2em 0.8em 1em;
+    transition: all ease-in-out 0.2s;
+    font-size: 16px;
+    text-decoration: none; /* Remove underline from link */
+  }
+
+  .index-create-new-list-btn span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .index-create-new-list-btn:hover {
+    background-color: #0071e2;
+  }
+
+  .index-create-new-list-btn svg {
+    margin-right: 0.5em; /* Space between icon and text */
+  }
+
 }

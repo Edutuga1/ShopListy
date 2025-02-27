@@ -50,7 +50,6 @@
 
 .cart-update-btn {
   width: 150px;
-  padding: 10px 22px;
   position: relative;
   display: block;
   text-decoration: none;
@@ -162,8 +161,8 @@
 }
 
 .cart-add-to-list-btn {
-  margin-top: -40px;
-  margin-bottom: 35px;
+  margin-bottom: 100px;
+  margin-top: -10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,6 +242,85 @@
   }
 }
 
+P{
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.cart-back-button {
+  position: relative;
+  display: inline-block;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  text-decoration: none; // Remove link underline
+  text-align: center;
+  margin: 0 auto; // Center horizontally
+  display: flex;
+  justify-content: center;
+  margin-top: 10px; // Add space above the button
+  align-items: center;
+  width: fit-content; // Ensures button is only as wide as needed
+  margin-bottom: 50px;
+}
+
+.cart-back-button::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  animation-delay: 0;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+.cart-back-button:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.cart-back-button:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+.cart-back-button > .button-content {
+  position: relative;
+  z-index: 2;
+}
+
+// Centering the button wrapper
+.cart-back-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; // Adjust spacing if needed
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .new-list-wrapper {
   display: flex;
@@ -307,10 +385,6 @@
 }
 
 
-.cart-delete-all-button {
-  margin-top: 10px;
-}
-
 .cart-back-btn {
   text-align: center;
   align-items: center;
@@ -331,7 +405,7 @@ p {
   width: 100%; /* Make the button span full width */
   max-width: 150px; /* Optional: Set a maximum width for button */
   height: 40px;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto; /* Center horizontally */
@@ -340,7 +414,6 @@ p {
   background-color: #e50000;
   border: 1px solid #cc0000;
   overflow: hidden;
-  margin-top: 10px; /* Add some top margin */
 }
 
 .button-cart-delete__text {
@@ -386,77 +459,6 @@ p {
   border: 1px solid #b20000;
 }
 
-/* Styling for the Add to List Button from Uiverse.io */
-.button {
-  position: relative;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-  padding-block: 0.5rem;
-  padding-inline: 1.25rem;
-  background-color: rgb(0, 107, 179);
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: #ffff;
-  gap: 10px;
-  font-weight: bold;
-  border: 3px solid #ffffff4d;
-  outline: none;
-  overflow: hidden;
-  font-size: 15px;
-}
-
-.icon {
-  width: 24px;
-  height: 24px;
-  transition: all 0.3s ease-in-out;
-}
-
-.button:hover {
-  transform: scale(1.05);
-  border-color: #fff9;
-}
-
-.button:hover .icon {
-  transform: translate(4px);
-}
-
-.button:hover::before {
-  animation: shine 1.5s ease-out infinite;
-}
-
-.button::before {
-  content: "";
-  position: absolute;
-  width: 100px;
-  height: 100%;
-  background-image: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.8),
-    rgba(255, 255, 255, 0) 70%
-  );
-  top: 0;
-  left: -100px;
-  opacity: 0.6;
-}
-
-@keyframes shine {
-  0% {
-    left: -100px;
-  }
-
-  60% {
-    left: 100%;
-  }
-
-  to {
-    left: 100%;
-  }
-}
-
 .cart-list-section {
   display: flex;
   flex-direction: column; /* Stack elements vertically */
@@ -480,7 +482,6 @@ p {
   align-items: center;
   width: 100%;
 }
-
 
 /* Responsive Styling */
 @media (max-width: 768px) {

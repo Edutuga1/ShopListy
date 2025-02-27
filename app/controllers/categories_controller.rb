@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products  
+    @products = @category.products
   end
 
   def search
@@ -16,226 +16,133 @@ class CategoriesController < ApplicationController
   end
 
   def meat
-    @meat_category = Category.find_by(name: 'Meat')
-
-    if @meat_category
-      # If a search query exists, filter products
-      if params[:query].present?
-        @meat_products = @meat_category.products.where("name ILIKE ?", "%#{params[:query]}%")
-      else
-        @meat_products = @meat_category.products
-      end
-    else
-      @meat_products = []
-      flash[:alert] = "Meat category not found."
-    end
-
-    @cart = current_user&.cart
+    load_category_products('Meat')
+    @meat_products = @products
   end
-
 
   def milk_and_eggs
     milk_category = Category.find_by(name: 'Milk')
     eggs_category = Category.find_by(name: 'Eggs')
 
+    # Ensure @dairy_products is always an array
     if milk_category && eggs_category
-      @dairy_products = Product.where(category: [milk_category, eggs_category])
+      # Filter products by the search query if it exists
+      if params[:query].present?
+        @dairy_products = Product.where(category: [milk_category, eggs_category])
+                                 .where("name ILIKE ?", "%#{params[:query]}%")
+      else
+        @dairy_products = Product.where(category: [milk_category, eggs_category])
+      end
     else
-      @dairy_products = Product.none
+      @dairy_products = []  # Fallback to an empty array if categories are not found
       flash[:alert] = "Milk or Eggs category not found."
     end
   end
 
   def fruits
-    @fruits_category = Category.find_by(name: 'Fruits')
-
-    if @fruits_category
-      @fruits_products = @fruits_category.products
-    else
-      @fruits_products = []
-      flash[:alert] = "Fruits category not found."
-    end
+    load_category_products('Fruits')
+    @fruits_products = @products
   end
 
   def vegetables
-    vegetables_category = Category.find_by(name: 'Vegetables')
-
-    if vegetables_category
-      @vegetables = vegetables_category.products
-    else
-      @vegetables = []
-      flash[:alert] = "Vegetables category not found."
-    end
+    load_category_products('Vegetables')
+    @vegetables_products = @products
   end
 
   def cleaning
-    cleaning_category = Category.find_by(name: 'Cleaning')
-
-    if cleaning_category
-      @cleaning_products = cleaning_category.products
-    else
-      @cleaning_products = []
-      flash[:alert] = "Cleaning category not found."
-    end
+    load_category_products('Cleaning')
+    @cleaning_products = @products
   end
 
   def fish
-    @fish_category = Category.find_by(name: 'Fish')
-
-    if @fish_category
-      if params[:query].present?
-        @fish_products = @fish_category.products.where("name ILIKE ?", "%#{params[:query]}%")
-      else
-        @fish_products = @fish_category.products
-      end
-    else
-      @fish_products = []
-      flash[:alert] = "Fish category not found."
-    end
-
-    @cart = current_user&.cart
+    load_category_products('Fish')
+    @fish_products = @products
   end
 
   def drink
-    @drinks_category = Category.find_by(name: 'Drinks')
-
-    if @drinks_category
-      if params[:query].present?
-        @drinks_products = @drinks_category.products.where("name ILIKE ?", "%#{params[:query]}%")
-      else
-        @drinks_products = @drinks_category.products
-      end
-    else
-      @drinks_products = []
-      flash[:alert] = "Drinks category not found."
-    end
-
-    @cart = current_user&.cart
+    load_category_products('Drinks')
+    @drinks_products = @products
   end
 
   def bakery
-    @bakery_category = Category.find_by(name: 'Bakery')
-
-    if @bakery_category
-      if params[:query].present?
-        @bakery_products = @bakery_category.products.where("name ILIKE ?", "%#{params[:query]}%")
-      else
-        @bakery_products = @bakery_category.products
-      end
-    else
-      @bakery_products = []
-      flash[:alert] = "Bakery category not found."
-    end
-
-    @cart = current_user&.cart
+    load_category_products('Bakery')
+    @bakery_products = @products
   end
 
   def car
-    @car_category = Category.find_by(name: 'Car')
-
-    if @car_category
-      @car_products = @car_category.products
-    else
-      @car_products = []
-      flash[:alert] = "Car category not found."
-    end
+    load_category_products('Car')
+    @car_products = @products
   end
 
   def frozen
-    @frozen_category = Category.find_by(name: 'Frozen')
-
-    if @frozen_category
-      @frozen_products = @frozen_category.products
-    else
-      @frozen_products = []
-      flash[:alert] = "Frozen category not found."
-    end
+    load_category_products('Frozen')
+    @frozen_products = @products
   end
 
   def cold_cuts_and_cheeses
-    @cold_cuts_and_cheeses_category = Category.find_by(name: 'Cold Cuts and Cheeses')
+    load_category_products('Cold Cuts and Cheeses')
+    @cold_cuts_and_cheeses_products = @products
+  end
 
-    if @cold_cuts_and_cheeses_category
+  def hygiene
+    load_category_products('Hygiene')
+    @hygiene_products = @products
+  end
+
+  def pasta
+    load_category_products('Pasta')
+    @pasta_products = @products
+  end
+
+  def snacks
+    load_category_products('Snacks')
+    @snacks_products = @products
+  end
+
+  def pharmacy
+    load_category_products('Pharmacy')
+    @pharmacy_products = @products
+  end
+
+  def baby
+    load_category_products('Baby')
+    @baby_products = @products
+  end
+
+  def pets
+    load_category_products('Pets')
+    @pets_products = @products
+  end
+
+  private
+
+  def load_category_products(category_name)
+    @category = Category.find_by(name: category_name)
+
+    if @category
       if params[:query].present?
-        @cold_cuts_and_cheeses_products = @cold_cuts_and_cheeses_category.products.where("name ILIKE ?", "%#{params[:query]}%")
+        @products = @category.products.where("name ILIKE ?", "%#{params[:query]}%")
       else
-        @cold_cuts_and_cheeses_products = @cold_cuts_and_cheeses_category.products
+        @products = @category.products
       end
     else
-      @cold_cuts_and_cheeses_products = []
-      flash[:alert] = "Cold cuts and cheeses category not found."
+      @products = []
+      flash[:alert] = "#{category_name} category not found."
     end
 
     @cart = current_user&.cart
   end
 
-  def hygiene
-    @hygiene_category = Category.find_by(name: 'Hygiene')
+  def load_multiple_category_products(category_names)
+    categories = Category.where(name: category_names)
 
-    if @hygiene_category
-      @hygiene_products = @hygiene_category.products
+    if categories.any?
+      @products = Product.where(category: categories)
     else
-      @hygiene_products = []
-      flash[:alert] = "Hygiene category not found."
+      @products = []
+      flash[:alert] = "#{category_names.join(' or ')} category not found."
     end
   end
-
-  def pasta
-    @pasta_category = Category.find_by(name: 'Pasta')
-
-    if @pasta_category
-      @pasta_products = @pasta_category.products
-    else
-      @pasta_products = []
-      flash[:alert] = "Pasta category not found."
-    end
-  end
-
-  def snacks
-    @snacks_category = Category.find_by(name: 'Snacks')
-
-    if @snacks_category
-      @snacks_products = @snacks_category.products
-    else
-      @snacks_products = []
-      flash[:alert] = "Snacks category not found."
-    end
-  end
-
-  def pharmacy
-    @pharmacy_category = Category.find_by(name: 'Pharmacy')
-
-    if @pharmacy_category
-      @pharmacy_products = @pharmacy_category.products
-    else
-      @pharmacy_products = []
-      flash[:alert] = "Pharmacy category not found."
-    end
-  end
-
-  def baby
-    @baby_category = Category.find_by(name: 'Baby')
-
-    if @baby_category
-      @baby_products = @baby_category.products
-    else
-      @baby_products = []
-      flash[:alert] = "Baby category not found."
-    end
-  end
-
-  def pets
-    @pets_category = Category.find_by(name: 'Pets')
-
-    if @pets_category
-      @pets_products = @pets_category.products
-    else
-      @pets_products = []
-      flash[:alert] = "Pets category not found."
-    end
-  end
-
-  private
 
   def set_current_user
     @current_user = current_user # Replace with your logic to retrieve the current user

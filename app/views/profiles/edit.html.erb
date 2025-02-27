@@ -40,7 +40,7 @@
     </div>
 
     <!-- Favorite Recipe Fields -->
-    <h2><%= t('profile.favorite_recipe_header', name: @user.name) %></h2>
+    <h2 class="profile-favorite-title"><%= t('profile.favorite_recipe_header', name: @user.name) %></h2>
 
     <div class="form-group">
       <%= f.fields_for :favorite_recipe do |recipe_form| %>

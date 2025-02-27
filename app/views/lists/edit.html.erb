@@ -1,4 +1,23 @@
 <div class="edit-list-page">
+    <%= link_to request.referer || root_path, class: 'back-arrow-edit-list-btn' do %>
+    <div class="button-box">
+      <span class="button-elem">
+        <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+      <span class="button-elem">
+        <svg viewBox="0 0 46 40">
+          <path
+            d="M46 20.038c0-.7-.3-1.5-.8-2.1l-16-17c-1.1-1-3.2-1.4-4.4-.3-1.2 1.1-1.2 3.3 0 4.4l11.3 11.9H3c-1.7 0-3 1.3-3 3s1.3 3 3 3h33.1l-11.3 11.9c-1 1-1.2 3.3 0 4.4 1.2 1.1 3.3.8 4.4-.3l16-17c.5-.5.8-1.1.8-1.9z"
+          ></path>
+        </svg>
+      </span>
+    </div>
+  <% end %>
+
   <h1><%= t('edit_list_page.edit_list') %></h1>  <!-- Translated page header -->
 
   <div class="list-table-container">
@@ -17,18 +36,48 @@
             <td><%= products_list.product.name %></td>  <!-- Product name -->
             <td><%= number_to_currency(products_list.product.price) %></td>  <!-- Product price -->
             <td>
+             <div class="quantity-wrapper">
               <%= form_with model: products_list, url: list_products_list_path(@list, products_list), method: :patch, local: true do |form| %>
                 <%= form.number_field :quantity, min: 0 %>
-                <%= form.submit t('edit_list_page.update'), class: 'btn btn-warning' %>  <!-- Translated button text -->
-              <% end %>
+                <%= form.button type: "submit", class: "btn-edit-list-update" do %>
+                  <span class="button-content"><%= t('edit_list_page.update') %></span>
+                  <div class="wave"></div> <!-- Wave effect here -->
+                <% end %>
+              <% end %>  <!-- End of form_with -->
+             </div>
             </td>
             <td>
-              <%= link_to t('edit_list_page.remove'), list_products_list_path(@list, products_list), method: :delete, data: { confirm: t('edit_list_page.confirm_delete') }, class: 'btn btn-danger' %>  <!-- Translated Delete link and confirmation message -->
+              <%= button_to list_products_list_path(@list, products_list),
+                  method: :delete,
+                  data: { confirm: t('edit_list_page.confirm_delete') },
+                  class: 'edit-list-delete-button' do %>
+                <span class="button-edit-list-delete__text"><%= t('edit_list_page.remove') %></span>
+                <span class="button-edit-list-delete__icon">
+                  <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                    <line style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+                      x1="80" x2="432" y1="112" y2="112"></line>
+                    <path d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"></path>
+                    <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="256" x2="256" y1="176" y2="400"></line>
+                    <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="184" x2="192" y1="176" y2="400"></line>
+                    <line style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="328" x2="320" y1="176" y2="400"></line>
+                  </svg>
+                </span>
+              <% end %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-  <%= link_to t('list_page.back'), request.referer || root_path, class: 'btn btn-secondary list-back-btn' %>
+  <div class="edit-list-container">
+    <%= link_to request.referer || root_path, class: 'wavy-edit-list-btn' do %>
+     <span class="button-content"><%= t('cart_page.back') %></span>
+   <% end %>
+  </div>
 </div>

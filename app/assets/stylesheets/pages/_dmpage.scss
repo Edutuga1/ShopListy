@@ -6,6 +6,7 @@
   padding: 20px;
   background: #ffffff; /* White background for the container */
   border-radius: 12px;
+  position: relative; /* Create a positioning context for child elements */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Clean shadow for separation */
 }
 
@@ -45,6 +46,7 @@ section {
 .card .form-group .form-control {
   flex: 1; /* Ensures the input takes available space */
   margin-right: 10px; /* Adds space between input and button */
+  border-radius: 25px;
 }
 
 .card {

@@ -3,24 +3,37 @@
     <h1>Add a New Product</h1>
     <%= form_with(model: @product, local: true) do |f| %>
       <div>
-        <%= f.label :name, "Product Name" %>
+       <strong><%= f.label :name, "Product Name" %></strong>
         <%= f.text_field :name, required: true %>
       </div>
 
       <div>
-        <%= f.label :price, "Price" %>
+        <strong><%= f.label :price, "Price" %></strong>
         <%= f.number_field :price, step: 0.01, required: true %>
       </div>
 
       <div>
-        <%= f.label :category_id, "Category" %>
+       <strong><%= f.label :category_id, "Category" %></strong>
         <%= f.collection_select :category_id, @categories, :id, :name, prompt: "Select a category" %>
       </div>
 
       <div>
-        <%= f.submit "Add Product" %>
+      <div class="submit-button-wrapper">
+      <%= button_tag(type: 'submit', class: 'add-product-button') do %>
+        <span class="add-product-button__text">Add</span>
+        <span class="add-product-button__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke="currentColor" height="24" fill="none" class="svg">
+            <line y2="19" y1="5" x2="12" x1="12"></line>
+            <line y2="12" y1="12" x2="19" x1="5"></line>
+          </svg>
+        </span>
+      <% end %>
       </div>
+    </div>
     <% end %>
   </div>
-  <%= link_to t('new_product_page.back'), request.referer || root_path, class: 'btn btn-secondary new-back-btn' %>
+   <%= link_to request.referer || root_path, class: 'cart-back-button' do %>
+      <span class="button-content"><%= t('cart_page.back') %></span>
+    <% end %>
+  </div>
 </div>
