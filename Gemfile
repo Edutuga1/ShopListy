@@ -65,13 +65,7 @@ gem "sassc-rails"
 # Google OAuth2
 gem 'omniauth-google-oauth2'
 
-group :development, :test do
-  # Environment variables [https://github.com/bkeepers/dotenv]
-  gem 'dotenv-rails', '~> 3.1.2'
-
-  # Debugging tools [https://github.com/ruby/debug]
-  gem "debug", platforms: %i[mri mswin mswin64 mingw x64_mingw]
-end
+gem 'dotenv-rails', groups: [:development, :test]
 
 group :development do
   # Rails console in the browser [https://github.com/rails/web-console]
