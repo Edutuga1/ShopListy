@@ -15,7 +15,9 @@ FROM base as build
 
 # Install necessary dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn
+    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl && \
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs yarn
 
 # Install RubyGems version that is compatible with ffi (>=3.3.22)
 RUN gem update --system 3.3.22
