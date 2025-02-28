@@ -13,14 +13,20 @@ ENV RAILS_ENV="production" \
 # Build Stage
 FROM base as build
 
+# Install necessary dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config nodejs yarn
 
+# Install RubyGems version that is compatible with ffi (>=3.3.22)
+RUN gem update --system 3.3.22
+
+# Install the correct Bundler version (2.5.9 to match lockfile)
+RUN gem install bundler -v 2.5.9
+
+# Copy Gemfile and Gemfile.lock for bundle install
 COPY Gemfile Gemfile.lock ./
 
-# Install the correct Bundler version
-RUN gem install bundler -v 2.3.5
-
+# Run bundle install with the correct settings
 RUN bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle install --jobs 4 --retry 3
@@ -33,17 +39,22 @@ RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile || echo "Skipping asse
 # Final Stage
 FROM base
 
+# Install runtime dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y curl libvips postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Copy over the installed gems and the Rails app
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
+# Set up user and permissions
 RUN useradd rails --create-home --shell /bin/bash && \
     chown -R rails:rails db log storage tmp
+
 USER rails:rails
 
+# Set entrypoint and default command
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
