@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for shoplisty-work-spring-meadow-8628 on 2025-02-28T16:01:33Z
+# fly.toml app configuration file generated for shoplisty-work-icy-bird-683 on 2025-02-28T18:46:07Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'shoplisty-work-spring-meadow-8628'
+app = 'shoplisty-work-icy-bird-683'
 primary_region = 'iad'
 console_command = '/rails/bin/rails console'
 

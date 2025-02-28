@@ -65,7 +65,7 @@ gem "sassc-rails"
 # Google OAuth2
 gem 'omniauth-google-oauth2'
 
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 
 group :development do
   # Rails console in the browser [https://github.com/rails/web-console]
