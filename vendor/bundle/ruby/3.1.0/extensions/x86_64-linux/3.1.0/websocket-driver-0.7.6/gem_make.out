@@ -1,0 +1,15 @@
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+/home/edutuga/.rbenv/versions/3.1.2/bin/ruby -I /home/edutuga/.rbenv/versions/3.1.2/lib/ruby/site_ruby/3.1.0 extconf.rb
+creating Makefile
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250228-98322-r4u14j sitelibdir\=./.gem.20250228-98322-r4u14j clean
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250228-98322-r4u14j sitelibdir\=./.gem.20250228-98322-r4u14j
+compiling websocket_mask.c
+linking shared-object websocket_mask.so
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/websocket-driver-0.7.6/ext/websocket-driver
+make DESTDIR\= sitearchdir\=./.gem.20250228-98322-r4u14j sitelibdir\=./.gem.20250228-98322-r4u14j install
+/usr/bin/install -c -m 0755 websocket_mask.so ./.gem.20250228-98322-r4u14j
