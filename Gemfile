@@ -88,3 +88,9 @@ group :test do
   # Web browser control for testing [https://github.com/SeleniumHQ/selenium]
   gem "selenium-webdriver"
 end
+
+gem "dockerfile-rails", ">= 1.7", :group => :development
+
+gem "redis", "~> 5.4"
+
+gem "aws-sdk-s3", "~> 1.182", :require => false
