@@ -65,6 +65,7 @@ gem "sassc-rails"
 # Google OAuth2
 gem 'omniauth-google-oauth2'
 
+# Move dotenv-rails outside the :development group
 gem 'dotenv-rails'
 
 group :development do
