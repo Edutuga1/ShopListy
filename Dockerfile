@@ -1,7 +1,8 @@
 # syntax = docker/dockerfile:1
 
 ARG RUBY_VERSION=3.1.2
-FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
+# Use a Debian-based Ruby image that is more likely to include a compatible glibc version
+FROM ruby:$RUBY_VERSION-buster as base
 
 WORKDIR /rails
 
