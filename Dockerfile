@@ -15,8 +15,20 @@ FROM base as build
 
 # Install necessary dependencies including nodejs and yarn
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl && \
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    git \
+    libpq-dev \
+    libvips \
+    pkg-config \
+    curl \
+    wget \
+    gcc \
+    make \
+    libncurses5-dev
+
+# Install Node.js and Yarn
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs yarn
 
 # Copy Gemfile and Gemfile.lock first to install dependencies
@@ -39,7 +51,10 @@ FROM base
 
 # Install runtime dependencies
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y curl libvips postgresql-client && \
+    apt-get install --no-install-recommends -y \
+    curl \
+    libvips \
+    postgresql-client && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy over the installed gems and the Rails app
@@ -48,7 +63,7 @@ COPY --from=build /rails /rails
 
 # Set up user and permissions
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /rails/db /rails/log /rails/storage /rails/tmp
 
 USER rails:rails
 
