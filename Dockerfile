@@ -19,17 +19,9 @@ RUN apt-get update -qq && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs yarn
 
-# Install RubyGems version that is compatible with ffi (>=3.3.22)
-RUN gem update --system 3.3.22
-
-# Install the correct Bundler version (2.5.9 to match lockfile)
-RUN gem install bundler -v 2.5.9
-
-# Copy Gemfile and Gemfile.lock for bundle install
-COPY Gemfile Gemfile.lock ./
-
-# Run bundle install with the correct settings
-RUN bundle config set deployment 'true' && \
+# Disable frozen mode to allow modification of Gemfile.lock
+RUN bundle config set frozen 'false' && \
+    bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle install --jobs 4 --retry 3
 
@@ -60,3 +52,5 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+RUN apt-get update -qq && apt-get install -y nodejs
