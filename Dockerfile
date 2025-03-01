@@ -13,11 +13,14 @@ ENV RAILS_ENV="production" \
 # Build Stage
 FROM base as build
 
-# Install necessary dependencies
+# Install necessary dependencies including nodejs and yarn
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config curl && \
     curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs yarn
+
+# Copy Gemfile and Gemfile.lock first to install dependencies
+COPY Gemfile Gemfile.lock ./
 
 # Disable frozen mode to allow modification of Gemfile.lock
 RUN bundle config set frozen 'false' && \
@@ -25,6 +28,7 @@ RUN bundle config set frozen 'false' && \
     bundle config set without 'development test' && \
     bundle install --jobs 4 --retry 3
 
+# Copy the rest of the application files
 COPY . .
 
 # Precompile assets (if Webpacker is used)
@@ -52,5 +56,3 @@ USER rails:rails
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
-
-RUN apt-get update -qq && apt-get install -y nodejs
