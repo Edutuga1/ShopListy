@@ -1,8 +1,8 @@
 # syntax = docker/dockerfile:1
 
-ARG RUBY_VERSION=3.1.2
-# Use a Debian-based Ruby image that is more likely to include a compatible glibc version
-FROM ruby:$RUBY_VERSION-buster as base
+ARG RUBY_VERSION=3.1.4
+# Use a more stable Ruby base image
+FROM ruby:$RUBY_VERSION-slim AS base
 
 WORKDIR /rails
 
@@ -12,9 +12,9 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development test"
 
 # Build Stage
-FROM base as build
+FROM base AS build
 
-# Install necessary dependencies including nodejs and yarn
+# Install necessary dependencies and clean up unnecessary files after installing
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     build-essential \
@@ -26,25 +26,30 @@ RUN apt-get update -qq && \
     wget \
     gcc \
     make \
-    libncurses5-dev
+    libncurses5-dev \
+    postgresql-client \
+    nodejs \
+    npm && \
+    rm -rf /var/lib/apt/lists/*
 
-# Install Node.js and Yarn
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs yarn
+# Install Yarn manually and specify a version
+RUN npm install -g yarn@1.22.19
 
-# Copy Gemfile and Gemfile.lock first to install dependencies
+# Copy Gemfile and Gemfile.lock first
 COPY Gemfile Gemfile.lock ./
 
-# Disable frozen mode to allow modification of Gemfile.lock
-RUN bundle config set frozen 'false' && \
-    bundle config set deployment 'true' && \
+# Ensure Gemfile.lock is writable
+RUN chmod 666 Gemfile.lock
+
+# Install dependencies
+RUN bundle config set deployment 'true' && \
     bundle config set without 'development test' && \
     bundle install --jobs 4 --retry 3
 
 # Copy the rest of the application files
 COPY . .
 
-# Precompile assets (if Webpacker is used)
+# Precompile assets
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile || echo "Skipping assets..."
 
 # Final Stage
@@ -56,19 +61,23 @@ RUN apt-get update -qq && \
     curl \
     libvips \
     postgresql-client && \
-    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+    rm -rf /var/lib/apt/lists/*
 
 # Copy over the installed gems and the Rails app
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
 # Set up user and permissions
-RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails /rails/db /rails/log /rails/storage /rails/tmp
+RUN useradd -m -s /bin/bash rails && \
+    chown -R rails:rails /rails
 
-USER rails:rails
+USER rails
 
 # Set entrypoint and default command
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+# Optional Healthcheck (you can adjust as needed)
+HEALTHCHECK --interval=30s --timeout=30s --retries=3 \
+  CMD curl --silent --fail http://localhost:3000/ || exit 1
