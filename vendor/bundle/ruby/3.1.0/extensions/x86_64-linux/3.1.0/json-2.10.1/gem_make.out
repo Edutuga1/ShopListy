@@ -1,5 +1,5 @@
 current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/json-2.10.1/ext/json/ext/parser
-/home/edutuga/.rbenv/versions/3.1.2/bin/ruby -I /home/edutuga/.rbenv/versions/3.1.2/lib/ruby/site_ruby/3.1.0 extconf.rb
+/home/edutuga/.rbenv/versions/3.1.4/bin/ruby -I /home/edutuga/.rbenv/versions/3.1.4/lib/ruby/3.1.0 extconf.rb
 checking for rb_enc_interned_str() in ruby.h... yes
 checking for rb_hash_new_capa() in ruby.h... no
 checking for rb_hash_bulk_insert() in ruby.h... yes
@@ -9,13 +9,13 @@ checking for whether -std=c99 is accepted as CFLAGS... yes
 creating Makefile
 
 current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/json-2.10.1/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250228-98322-blrapu sitelibdir\=./.gem.20250228-98322-blrapu clean
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-h1bbgu sitelibdir\=./.gem.20250306-94511-h1bbgu clean
 
 current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/json-2.10.1/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250228-98322-blrapu sitelibdir\=./.gem.20250228-98322-blrapu
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-h1bbgu sitelibdir\=./.gem.20250306-94511-h1bbgu
 compiling parser.c
 linking shared-object json/ext/parser.so
 
 current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/json-2.10.1/ext/json/ext/parser
-make DESTDIR\= sitearchdir\=./.gem.20250228-98322-blrapu sitelibdir\=./.gem.20250228-98322-blrapu install
-/usr/bin/install -c -m 0755 parser.so ./.gem.20250228-98322-blrapu/json/ext
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-h1bbgu sitelibdir\=./.gem.20250306-94511-h1bbgu install
+/usr/bin/install -c -m 0755 parser.so ./.gem.20250306-94511-h1bbgu/json/ext

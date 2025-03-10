@@ -33,3 +33,15 @@ console_command = '/rails/bin/rails console'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
+
+# Mount the volume here
+[mounts]
+  source = "tigris_storage"
+  destination = "/path/to/mount"  # Update with the desired directory path inside your app
+
+[env]
+  AWS_ACCESS_KEY_ID = "${AWS_ACCESS_KEY_ID}"
+  AWS_SECRET_ACCESS_KEY = "${AWS_SECRET_ACCESS_KEY}"
+  AWS_REGION = "${AWS_REGION}"
+  AWS_ENDPOINT_URL_S3 = "${AWS_ENDPOINT_URL_S3}"
+  BUCKET_NAME = "${BUCKET_NAME}"

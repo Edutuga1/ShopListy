@@ -1,0 +1,15 @@
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.5/ext/stringio
+/home/edutuga/.rbenv/versions/3.1.4/bin/ruby -I /home/edutuga/.rbenv/versions/3.1.4/lib/ruby/3.1.0 extconf.rb
+creating Makefile
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.5/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-hsovhs sitelibdir\=./.gem.20250306-94511-hsovhs clean
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.5/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-hsovhs sitelibdir\=./.gem.20250306-94511-hsovhs
+compiling stringio.c
+linking shared-object stringio.so
+
+current directory: /home/edutuga/code/Edutuga1/Shopping-List/Shopping-List/vendor/bundle/ruby/3.1.0/gems/stringio-3.1.5/ext/stringio
+make DESTDIR\= sitearchdir\=./.gem.20250306-94511-hsovhs sitelibdir\=./.gem.20250306-94511-hsovhs install
+/usr/bin/install -c -m 0755 stringio.so ./.gem.20250306-94511-hsovhs

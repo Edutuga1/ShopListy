@@ -116,15 +116,19 @@ categories_with_products = {
     { name: 'Soda', price: 1.19 },
     { name: 'Monster Energy Drink', price: 2.49 },
     { name: 'Red Bull', price: 2.99 },
+    { name: 'White Wine', price: 8.49 },
+    { name: 'Porto Wine', price: 25.00 },
+    { name: 'Champagne', price: 30.00 },
+    { name: 'Tequila', price: 18.00 },
+    { name: 'Aperol', price: 17.49 },
+    { name: 'Vodka', price: 15.00 },
+    { name: 'Whiskey', price: 20.00 },
+    { name: 'Rum', price: 18.00 },
+    { name: 'Gin', price: 17.00 },
+    { name: 'Beer', price: 1.50 },
+    { name: 'Cider', price: 3.00 },
     # Add other drink products here
   ],
-    'Alcoholic Drinks' => [
-      { name: 'White Wine', price: 8.49 },
-      { name: 'Porto Wine', price: 25.00 },
-      { name: 'Champagne', price: 30.00 },
-      { name: 'Tequila', price: 18.00 },
-      { name: 'Aperol', price: 17.49 }
-    ],
   'Bakery' => [
     { name: 'Sourdough Bread', price: 3.99 },
     { name: 'Whole Wheat Bread', price: 2.89 },

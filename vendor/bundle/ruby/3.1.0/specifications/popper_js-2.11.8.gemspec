@@ -14,10 +14,10 @@ Gem::Specification.new do |s|
   s.email = ["glex.spb@gmail.com".freeze]
   s.homepage = "https://github.com/glebm/popper_js-rubygem".freeze
   s.licenses = ["MIT".freeze]
-  s.rubygems_version = "3.3.22".freeze
+  s.rubygems_version = "3.3.26".freeze
   s.summary = "Popper.js assets as a Ruby gem. https://popper.js.org/".freeze
 
-  s.installed_by_version = "3.3.22" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.3.26" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4

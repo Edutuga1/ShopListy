@@ -17,10 +17,10 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT".freeze]
   s.post_install_message = "\nYou have installed oauth2 version 2.0.9, congratulations!\n\nThere are BREAKING changes if you are upgrading from < v2, but most will not encounter them, and updating your code should be easy!\n\nWe have made two other major migrations:\n1. master branch renamed to main\n2. Github has been replaced with Gitlab\n\nPlease see:\n\u2022 https://gitlab.com/oauth-xx/oauth2#what-is-new-for-v20\n\u2022 https://gitlab.com/oauth-xx/oauth2/-/blob/main/CHANGELOG.md\n\u2022 https://groups.google.com/g/oauth-ruby/c/QA_dtrXWXaE\n\nPlease report issues, and support the project! Thanks, |7eter l-|. l3oling\n\n".freeze
   s.required_ruby_version = Gem::Requirement.new(">= 2.2.0".freeze)
-  s.rubygems_version = "3.3.22".freeze
+  s.rubygems_version = "3.3.26".freeze
   s.summary = "A Ruby wrapper for the OAuth 2.0 protocol.".freeze
 
-  s.installed_by_version = "3.3.22" if s.respond_to? :installed_by_version
+  s.installed_by_version = "3.3.26" if s.respond_to? :installed_by_version
 
   if s.respond_to? :specification_version then
     s.specification_version = 4
