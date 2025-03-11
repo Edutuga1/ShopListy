@@ -234,6 +234,68 @@ input[type="number"] {
   }
 }
 
+.custom-prod-remove-button {
+  position: relative;
+  border-radius: 6px;
+  width: 140px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cc0000;
+  background-color: #e50000;
+  overflow: hidden;
+  transition: background 0.3s ease;
+  margin-bottom: -10px;
+}
+
+.custom-prod-remove-button, .custom-prod-remove-button__icon, .custom-prod-remove-button__text {
+  transition: all 0.3s;
+}
+
+.custom-prod-remove-button .custom-prod-remove-button__text {
+  color: #fff;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.custom-prod-remove-button .custom-prod-remove-button__icon {
+  position: absolute;
+  transform: translateX(109px);
+  height: 100%;
+  width: 39px;
+  background-color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-prod-remove-button .svg {
+  width: 20px;
+}
+
+.custom-prod-remove-button:hover {
+  background: #cc0000;
+}
+
+.custom-prod-remove-button:hover .custom-prod-remove-button__text {
+  color: transparent;
+}
+
+.custom-prod-remove-button:hover .custom-prod-remove-button__icon {
+  width: 148px;
+  transform: translateX(0);
+}
+
+.custom-prod-remove-button:active .custom-prod-remove-button__icon {
+  background-color: #b20000;
+}
+
+.custom-prod-remove-button:active {
+  border: 1px solid #b20000;
+}
+
 
 .categ-back-btn a {
   text-align: center;

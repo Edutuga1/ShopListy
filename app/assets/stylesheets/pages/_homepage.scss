@@ -1,15 +1,17 @@
 body {
-  min-height: 70vh;
+  min-height: 100vh;
   background: linear-gradient(135deg, #e3f2fd, #90caf9);
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   margin: 0;
-  font-family: 'Roboto', sans-serif; /* Google's font */
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  padding: 10px;
 }
 
 .home-page {
-  text-align: center; /* Center text within the home-page container */
+  text-align: center;
   color: white;
 
   h1 {
@@ -30,10 +32,10 @@ body {
     margin-top: 30px;
     margin-bottom: 60px;
     border: 2px solid white;
-    height: 800px;
-    width: 50%;
-    border-radius: 8px; /* Rounded corners for a polished look */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    height: 300px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -120,14 +122,10 @@ body {
   }
 }
 
-.btn-shine-create-list {
-  border: 1px solid;
-  overflow: hidden;
-  position: relative;
-}
-
-.btn-shine-create-list span {
-  z-index: 20;
+#supermarket-list-items {
+  padding-left: 0;
+  list-style: none;
+  margin: 0;
 }
 
 .btn-shine-create-list:after {
@@ -171,40 +169,69 @@ body {
 }
 
 #supermarket-list {
-  max-width: 800px;
-  margin: 20px auto;
+  max-width: 700px;
+  margin: 20px auto 10px;
   background-color: #f9f9f9;
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: transform 0.3s ease; /* Add smooth transition for scaling */
+  transition: transform 0.3s ease;
+  margin-bottom: 150px;
+}
 
-  h2 {
-    text-align: center; /* Ensure this is applied to h2 inside supermarket-list */
-    margin: 0;
-    padding: 15px;
-    font-size: 18px;
-    background-color: #005893;
-    color: white;
-    border-radius: 12px 12px 0 0;
-    transition: background-color 0.3s ease; /* Add smooth transition for background color */
+#supermarket-list h2 {
+  background-color: #005893;
+  color: white; /* White text */
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 12px 12px 0 0;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  #supermarket-list {
+    max-width: 100%;
+    margin: 20px 10px;
+    margin-bottom: 150px;
   }
 
-  #supermarket-list-items {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  #map {
+    height: 300px;
+    width: 100%;
+  }
+
+  .home-page .btn-shine-create-list {
+    width: auto;
+    padding: 12px 25px;
+    margin: 0 20px;
   }
 }
 
 @media (min-width: 768px) {
-  .supermarket-list {
-    max-width: 600px; /* Wider width for tablets and larger screens */
+  #map {
+    height: 400px;
+    width: 80%;
+  }
+
+  .home-page .btn-shine-create-list {
+    width: auto;
+    padding: 17px 35px;
+  }
+
+  #supermarket-list {
+    max-width: 600px;
+    margin-bottom: 150px;
   }
 }
 
 @media (min-width: 1200px) {
-  .supermarket-list {
-    max-width: 800px; /* Even wider for larger screens */
+  #map {
+    height: 600px;
+    width: 50%;
+  }
+
+  #supermarket-list {
+    max-width: 800px;
+    margin-bottom: 150px;
   }
 }

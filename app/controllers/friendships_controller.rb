@@ -2,12 +2,11 @@ class FriendshipsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    # Assuming current_user is already set by a before action
     friend = User.find(params[:friend_id])
-    current_user.friendships.create(friend: friend) # Adjust based on your Friendship model
-    redirect_to users_path, notice: "Friend request sent."
+    current_user.friendships.create(friend: friend)
+    redirect_to root_path, notice: "Friend request sent."
   rescue ActiveRecord::RecordNotFound
-    redirect_to users_path, alert: "User not found."
+    redirect_to root_path, alert: "User not found."
   end
 
   def index
@@ -20,7 +19,7 @@ class FriendshipsController < ApplicationController
     friendship = Friendship.find(params[:id])
 
     if friendship.friend == current_user && friendship.status == 'pending'
-      friendship.accept_friend_request # Call the correct method to accept
+      friendship.accept_friend_request
       flash[:notice] = "Friend request accepted."
     else
       flash[:alert] = "You can't accept this friend request."
@@ -42,7 +41,6 @@ class FriendshipsController < ApplicationController
     redirect_to friendships_path
   end
 
-  # Assuming you have a pending action to display friend requests
   def pending
     @pending_requests = current_user.pending_friend_requests
   end
