@@ -26,7 +26,7 @@
 </div>
 
     <h1><%= t('cleaning_page.title') %></h1>
-    
+
    <!-- Search Bar -->
     <div class="search-container">
       <%= form_with url: cleaning_path, method: :get, local: true, class: "search" do |form| %>
@@ -82,6 +82,11 @@
                     </button>
                   <% end %>
                 </div>
+                <% if product.user_id.present? %>
+                  <div class="button-container">
+                    <%= button_to "Remove", product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "remove-button" %>
+                  </div>
+                  <% end %>
               </div>
             <% end %>
           </div>

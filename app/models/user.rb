@@ -20,6 +20,10 @@ class User < ApplicationRecord
   has_many :saved_lists
   has_many :shared_lists, through: :saved_lists, source: :list
   has_many :lists
+  has_many :products
+  has_many :drink_products, -> { where(category_id: DRINKS_CATEGORY_ID) }, class_name: 'Product'
+  has_many :meat_products, -> { where(category_id: MEATS_CATEGORY_ID) }, class_name: 'Product'
+  has_many :fruit_products, -> { where(category_id: FRUITS_CATEGORY_ID) }, class_name: 'Product'
 
 
 

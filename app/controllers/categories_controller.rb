@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products
+    @products = @category.products.where(user_id: current_user.id)
   end
 
   def search
@@ -23,10 +23,7 @@ class CategoriesController < ApplicationController
   def milk_and_eggs
     milk_category = Category.find_by(name: 'Milk')
     eggs_category = Category.find_by(name: 'Eggs')
-
-    # Ensure @dairy_products is always an array
     if milk_category && eggs_category
-      # Filter products by the search query if it exists
       if params[:query].present?
         @dairy_products = Product.where(category: [milk_category, eggs_category])
                                  .where("name ILIKE ?", "%#{params[:query]}%")
@@ -34,7 +31,7 @@ class CategoriesController < ApplicationController
         @dairy_products = Product.where(category: [milk_category, eggs_category])
       end
     else
-      @dairy_products = []  # Fallback to an empty array if categories are not found
+      @dairy_products = []
       flash[:alert] = "Milk or Eggs category not found."
     end
   end
@@ -120,17 +117,19 @@ class CategoriesController < ApplicationController
     @category = Category.find_by(name: category_name)
 
     if @category
-      if params[:query].present?
-        @products = @category.products.where("name ILIKE ?", "%#{params[:query]}%")
-      else
-        @products = @category.products
-      end
+      @products = @category.products.where("user_id IS NULL OR user_id = ?", current_user.id)
+      @products = @products.where("name ILIKE ?", "%#{params[:query]}%") if params[:query].present?
     else
       @products = []
       flash[:alert] = "#{category_name} category not found."
     end
 
     @cart = current_user&.cart
+  end
+
+  def show
+    @category = Category.find(params[:id])
+    @products = @category.products.where("user_id IS NULL OR user_id = ?", current_user.id)
   end
 
   def load_multiple_category_products(category_names)
@@ -145,7 +144,7 @@ class CategoriesController < ApplicationController
   end
 
   def set_current_user
-    @current_user = current_user # Replace with your logic to retrieve the current user
+    @current_user = current_user
   end
 
   def set_cart

@@ -85,6 +85,11 @@
                     </button>
                   <% end %>
                 </div>
+                    <% if bakery_product.user_id.present? %>
+                    <div class="button-container">
+                      <%= button_to "Remove", product_path(bakery_product), method: :delete, data: { confirm: "Are you sure?" }, class: "remove-button" %>
+                    </div>
+                    <% end %>
               </div>
             <% end %>
           </div>

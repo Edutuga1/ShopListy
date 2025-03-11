@@ -57,7 +57,14 @@
     <div class="category-grid">
       <% @drinks_products.each do |drink_product| %>
         <div class="category-item">
-          <p><%= I18n.t("product_names.#{drink_product.name.parameterize.underscore}") %></p>
+          <% if drink_product.persisted? && Product.exists?(drink_product.id) %>
+            <% if product_is_seeded?(drink_product) %>
+              <p><%= I18n.t("product_names.#{drink_product.name.parameterize.underscore}") %></p>
+            <% else %>
+              <p><%= drink_product.name %></p>
+            <% end %>
+          <% end %>
+
 
           <% image_filename = "#{drink_product.name.parameterize}" %>
 
@@ -85,6 +92,11 @@
               </button>
             <% end %>
           </div>
+          <% if drink_product.user_id.present? %>
+            <div class="button-container">
+              <%= button_to "Remove", product_path(drink_product), method: :delete, data: { confirm: "Are you sure?" }, class: "remove-button" %>
+            </div>
+          <% end %>
         </div>
       <% end %>
     </div>

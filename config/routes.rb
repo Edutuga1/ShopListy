@@ -55,7 +55,7 @@ Rails.application.routes.draw do
   # Independent resources
   resources :groceries
   resources :meat_products, only: %i[index show]
-  resources :products
+  resources :products, only: [:index, :new, :create, :destroy]
   resources :categories do
     get :products, on: :member
     get 'meat', on: :collection
