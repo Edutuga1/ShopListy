@@ -1,19 +1,18 @@
 .DM-page {
-  /* Page Wrapper */
   font-family: 'Roboto', sans-serif;
-  margin: 40px auto; /* Adds spacing from top and bottom */
-  max-width: 1200px; /* Restricts content width */
+  margin: 40px auto;
+  max-width: 1200px;
   padding: 20px;
-  background: #ffffff; /* White background for the container */
+  background: #ffffff;
   border-radius: 12px;
-  position: relative; /* Create a positioning context for child elements */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Clean shadow for separation */
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2, h3 {
   font-weight: 700;
   margin-bottom: 20px;
-  color: #003366; /* Dark blue for headings */
+  color: #003366;
 }
 
 h1 {
@@ -32,28 +31,27 @@ p {
 }
 
 section {
-  margin-bottom: 40px; /* Spacing between sections */
+  margin-bottom: 40px;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ddd; /* Subtle divider */
+  border-bottom: 1px solid #ddd;
 }
 
-/* Search Section: Aligning Input and Button */
 .card .form-group {
   display: flex;
-  align-items: center; /* Vertically aligns input and button */
+  align-items: center;
 }
 
 .card .form-group .form-control {
-  flex: 1; /* Ensures the input takes available space */
-  margin-right: 10px; /* Adds space between input and button */
+  flex: 1;
+  margin-right: 10px;
   border-radius: 25px;
 }
 
 .card {
   border: none;
   border-radius: 10px;
-  background-color: #f9f9f9; /* Soft background for cards */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Modern shadow */
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
@@ -134,4 +132,372 @@ section {
 .text-muted {
   color: #6c757d;
   font-style: italic;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Ensures spacing between input and button */
+  width: 100%;
+}
+
+.search__input-container {
+  position: relative;
+  width: 100%;
+}
+
+.search__input {
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid #767676;
+  color: #767676;
+  padding: 5px 10px 5px 10px; /* Adjust padding to make room for the icon on the right */
+  border-radius: 25px;
+  height: 30px;
+  width: 100%; /* Ensure it takes full width */
+  transition: border-color 0.2s ease-in-out;
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 400;
+  color: #767676;
+  font-size: 14px;
+}
+
+.search__input:focus {
+  outline: none;
+  border-color: #0056b3; /* Adjust color for focus state */
+}
+
+.search__button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 10px; /* Position the icon inside the input on the right */
+  top: 50%;
+  transform: translateY(-50%); /* Vertically center the icon */
+  padding: 0;
+}
+
+.search__button svg {
+  fill: #0056b3; /* Set the color of the SVG icon */
+}
+
+
+.search__button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+/* Ensures the button does not have Bootstrap's default btn styles */
+.search__button.btn {
+  box-shadow: none;
+  border: none;
+  background: transparent;
+}
+
+/* Center the parent container for the button */
+.index-dm-back-button {
+  display: flex;
+  justify-content: center; /* Centers the button horizontally */
+  align-items: center; /* Centers the button vertically */
+}
+
+/* Button styling */
+.index-dm-back-btn {
+  display: flex; /* Use flex to align content inside the button */
+  position: relative;
+  padding: 16px 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  z-index: 1;
+  border: 1px solid rgb(221, 218, 218);
+  background: white;
+  font-weight: bold;
+  font-size: 16px;
+  color: #1993e4;
+  transition: all 1.2s linear;
+  cursor: pointer;
+  text-decoration: none;
+  justify-content: center; /* Centers text/content horizontally inside the button */
+  align-items: center; /* Centers the content vertically */
+}
+
+/* After pseudo-element animation */
+.index-dm-back-btn::after {
+  content: "";
+  position: absolute;
+  background: linear-gradient(to right, #1993e4, #1993e456);
+  border-radius: 30%;
+  height: 96px;
+  width: 96px;
+  animation: spin infinite linear 1.8s;
+  bottom: -38px;
+  right: -112px;
+  transition: all 1.2s linear;
+  z-index: 0;
+}
+
+/* Hover effect */
+.index-dm-back-btn:hover {
+  color: #fff;
+  transition-duration: 1.2s;
+}
+
+.index-dm-back-btn:hover::after {
+  right: -60px;
+  bottom: -92px;
+  width: 256px;
+  height: 256px;
+}
+
+/* Content inside the button */
+.index-dm-back-btn > .button-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+h4 {
+ color: #003366;
+}
+
+.message-delete-button {
+  position: relative;
+  border-radius: 6px;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cc0000;
+  background-color: #e50000;
+  overflow: hidden;
+  transition: background 0.3s ease;
+}
+
+.message-delete-button__text {
+  color: #fff;
+  font-weight: 600;
+  transition: opacity 0.3s ease;
+}
+
+.message-delete-button__icon {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 0;
+  background-color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: width 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+}
+
+.message-delete-button .svg {
+  width: 20px;
+}
+
+.message-delete-button:hover {
+  background: #cc0000;
+}
+
+.message-delete-button:hover .message-delete-button__text {
+  opacity: 0; /* Hide text when hovered */
+}
+
+.message-delete-button:hover .message-delete-button__icon {
+  width: 100%;
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.message-delete-button:active .message-delete-button__icon {
+  background-color: #b20000;
+}
+
+.message-delete-button:active {
+  border: 1px solid #b20000;
+}
+
+.index-dm-back-arrow {
+  display: block;
+  position: absolute; /* Fix the position to the left of the screen */
+  top: 20px; /* Adjust to keep it inside the container, not outside */
+  left: 20px; /* Position the button 20px from the left */
+  width: 56px;
+  height: 56px;
+  margin: 0;
+  overflow: hidden;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: 0;
+}
+
+.index-dm-back-arrow:before,
+.index-dm-back-arrow:after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  inset: 7px;
+}
+
+.index-dm-back-arrow:before {
+  border: 4px solid #000000;
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.index-dm-back-arrow:after {
+  border: 4px solid #96daf0;
+  transform: scale(1.3);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+}
+
+.index-dm-back-arrow:hover:before,
+.index-dm-back-arrow:focus:before {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
+    transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.index-dm-back-arrow:hover:after,
+.index-dm-back-arrow:focus:after {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1) 80ms,
+    transform 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955) 80ms;
+}
+
+.index-dm-button-box {
+  display: flex;
+  position: absolute;
+  top: 3px;
+  left: 0;
+}
+
+.index-dm-button-elem {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 17px 18px 0 18px;
+  transform: rotate(180deg);
+  fill: #000000;
+}
+
+.index-dm-back-arrow:hover .index-dm-button-box,
+.index-dm-back-arrow:focus .index-dm-button-box {
+  transition: 0.4s;
+  transform: translateX(-56px);
+}
+
+
+@media (max-width: 600px) {
+  .DM-page {
+    padding: 20px 10px;  /* Increased top and bottom padding, reduced left and right padding for mobile */
+    margin: 20px; /* Added margin to give space from edges */
+  }
+
+  /* If you need to add more specific space for the top and bottom, you can adjust the padding individually */
+  .DM-page {
+    padding: 20px 10px;  /* Reduced left and right padding for mobile */
+    margin: 20px; /* Added margin to give space from edges */
+  }
+
+  .card {
+    padding: 15px; /* Ensure card content doesn't touch edges */
+  }
+
+  /* Optional: Adjust list-group-item padding for smaller screens */
+  .list-group-item {
+    padding: 8px 10px; /* Reduce padding inside list items for smaller screens */
+  }
+
+  .form-control {
+    padding: 8px; /* Adjust padding for form controls on smaller screens */
+  }
+
+  h1, h2, h3 {
+    font-size: 1.5rem;
+  }
+
+  .index-dm-back-arrow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    z-index: 10;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+  }
+
+  .index-dm-back-arrow:before,
+  .index-dm-back-arrow:after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 7px;
+  }
+
+  .index-dm-back-arrow:before {
+    border: 3px solid #000000;
+  }
+
+  .index-dm-back-arrow:after {
+    border: 3px solid #96daf0;
+    transform: scale(1.3);
+    opacity: 0;
+  }
+
+  .index-dm-back-arrow svg {
+    width: 17px;
+    height: 17px;
+    fill: #000;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    top: 8px;
+    left: 9px;
+  }
+
+  .index-dm-back-arrow:hover svg {
+    fill: #007bff;
+    width: 28px;
+    height: 28px;
+  }
+
+  .index-dm-back-arrow:hover {
+    opacity: 0.8;
+  }
+
+  .index-dm-back-arrow:hover:before {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  .index-dm-back-arrow:hover:after {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

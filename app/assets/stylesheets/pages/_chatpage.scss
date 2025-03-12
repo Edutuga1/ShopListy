@@ -90,8 +90,8 @@
     .message {
       display: flex;
       flex-direction: column;
-      max-width: 90%;
-      min-width: 350px;
+      max-width: 80%;
+      min-width: 100px;
       min-height: auto;
       padding: 8px 12px;
       border-radius: 20px;
@@ -408,4 +408,76 @@
   height: 25px;
   margin-right: 5px;
   transform: rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .chat-page {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  #messages {
+    width: 100%;
+    max-height: 50vh;
+  }
+
+  .message {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  form {
+    width: 100%;
+    flex-direction: row; /* Ensures that the button stays to the right of the textarea */
+    margin: 10px 0;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  textarea {
+    flex: 1;
+    margin-bottom: 10px;
+    font-size: 0.8rem; /* Reduce text size */
+    padding: 8px 12px;
+  }
+
+  .btn-send {
+    width: auto;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .custom-send-btn {
+    width: auto;
+    font-size: 16px;
+    padding: 0.8em 1.2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .chat-page {
+    padding: 5px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .message {
+    padding: 8px;
+    font-size: 0.9rem; /* Smaller message font size */
+  }
+
+  textarea {
+    font-size: 0.75rem; /* Make the text smaller on smaller screens */
+    padding: 6px 10px; /* Adjust padding accordingly */
+  }
+
+  .custom-send-btn {
+    font-size: 14px;
+    padding: 0.8em 1.2em;
+  }
 }

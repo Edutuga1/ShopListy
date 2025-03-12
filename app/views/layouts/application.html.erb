@@ -53,14 +53,14 @@
 
         // Check if current-user-id element exists
         const currentUserIdElement = document.getElementById('current-user-id');
-        const currentUserId = currentUserIdElement ? currentUserIdElement.value : null; // Set to null if not found
+        const currentUserId = currentUserIdElement ? currentUserIdElement.value : null;
 
         if (userId) {
           loadUnreadMessageCount();
           checkForNewMessages();
         }
 
-        // Load the unread message count from local storage
+        // Load the unread message count
         function loadUnreadMessageCount() {
           const storedCount = parseInt(localStorage.getItem('unreadMessagesCount')) || 0;
           updateUnreadMessageCount(storedCount);
@@ -70,7 +70,7 @@
         function updateUnreadMessageCount(unreadCount) {
           const unreadCountElement = document.getElementById('unread-message-count');
           if (unreadCountElement) {
-            unreadCountElement.textContent = unreadCount > 0 ? unreadCount : ''; // Hide counter if 0
+            unreadCountElement.textContent = unreadCount > 0 ? unreadCount : '';
             console.log('Updated unread message count displayed:', unreadCount);
           } else {
             console.error('Unread message count element not found');

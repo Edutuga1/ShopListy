@@ -33,7 +33,7 @@
   text-align: center;
   align-items: center;
   margin-bottom: 15px;
-  justify-content: center; /* Ensure child elements (like button) are centered */
+  justify-content: center;
 }
 
 .product-image {
@@ -59,11 +59,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Adds spacing between the label and input */
+  gap: 10px;
 }
 
 .quantity-label {
-  margin-right: 10px; /* Space between label and input */
+  margin-right: 10px;
   font-size: 16px;
   line-height: 32px;
 }
@@ -93,7 +93,7 @@ input[type="number"] {
   position: relative;
   margin-top: 15px;
   margin-left: 10px;
-  padding: 10px 20px; /* Optional, add padding to adjust the button's size */
+  padding: 10px 20px;
   text-align: center;
   line-height: normal;
   vertical-align: middle;
@@ -190,7 +190,6 @@ input[type="number"] {
   margin-bottom: 30px;
 }
 
-/* Style for the spinning effect */
 .btn-back-categ.button::after {
   content: "";
   position: absolute;
@@ -218,12 +217,10 @@ input[type="number"] {
   height: 256px;
 }
 
-/* Button text */
 .btn-back-categ.button > .button-content {
   position: relative;
   z-index: 2;
 }
-
 
 @keyframes spin {
   0% {
@@ -315,18 +312,17 @@ input[type="number"] {
   border: none;
   border-radius: 25px;
   background-color: #fff;
-  width: 450px; /* Slightly wider for better spacing */
+  width: 450px;
   max-width: 90%;
   position: relative;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
-  margin: 0 auto; /* Ensures centering inside its parent */
+  margin: 0 auto;
 }
 
-/* Input field */
 .search__input {
   font-family: inherit;
   font-size: 16px;
-  border: 2px solid #767676; /* Keep only this border */
+  border: 2px solid #767676;
   color: #333;
   padding: 10px 14px;
   border-radius: 25px;
@@ -335,7 +331,6 @@ input[type="number"] {
   width: 100%;
 }
 
-/* Search button */
 .search__button {
   background: none;
   border: none;
@@ -347,7 +342,6 @@ input[type="number"] {
   position: absolute;
   right: 14px;
 }
-
 
 .search__button svg {
   width: 20px;
@@ -432,7 +426,6 @@ input[type="number"] {
   transform: translateX(-56px);
 }
 
-/* Ensure consistency between both buttons */
 .see-cart-button,
 .bottom-see-cart-button {
   --clr-font-main: hsla(0, 0%, 20%, 1);
@@ -461,7 +454,7 @@ input[type="number"] {
   color: var(--btn-bg-color);
 
   box-shadow:
-    0px 0px 20px rgba(71, 184, 255, 0.5),
+    0px 0px 20px #47b8ff80,
     0px 5px 5px -1px rgba(58, 125, 233, 0.25),
     inset 4px 4px 8px rgba(175, 230, 255, 0.5),
     inset -4px -4px 8px rgba(19, 95, 216, 0.35);
@@ -498,11 +491,10 @@ input[type="number"] {
 .bottom-navigation-buttons {
   display: flex;
   justify-content: center;
-  padding: 1em; /* Optional: Add some padding if needed */
+  padding: 1em;
   width: 100%;
 }
 
-/* Style for the back button */
 .bottom-cat-back-button {
   position: relative;
   display: inline-block;
@@ -551,7 +543,6 @@ input[type="number"] {
   position: relative;
   z-index: 2;
 }
-
 /* Animation for the spinning effect */
 @keyframes spin {
   0% {
@@ -564,12 +555,33 @@ input[type="number"] {
 
 @media (max-width: 600px) {
   .quantity-container {
-    flex-direction: column; /* Stack label and input vertically on smaller screens */
-    gap: 5px; /* Reduce space between label and input on small screens */
+    flex-direction: column;
+    gap: 5px;
   }
 
   .quantity-label,
   input[type="number"] {
-    width: 100%; /* Ensure they fill available space */
+    width: 15%;
+    margin-top: 10px;
+  }
+
+  .button-container {
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  .add-to-cart {
+    width: 120px;
+    height: 40px;
+    margin-left: 110px;
+    padding: 10px 20px;
+  }
+
+  .custom-prod-remove-button {
+    margin-top: 20px;
+    margin-bottom: 10px;
   }
 }

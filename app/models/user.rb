@@ -118,7 +118,6 @@ class User < ApplicationRecord
     user
   end
 
-
   private
 
   # Validates attached image size and type

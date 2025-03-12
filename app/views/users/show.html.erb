@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
 </head>
-<div class="friend-back-button"></div>
-  <%= link_to t('friend_page.back'), request.referer || root_path, class: 'friend-back-btn' %>
-</div>
 <body>
+    <!-- Back Button -->
+    <%= link_to t('friend_page.back'), request.referer || root_path, class: 'friend-back-btn' %>
+
     <div class="friend-profile-page">
         <!-- Profile Section -->
         <div class="friend-profile-container">
@@ -39,41 +39,30 @@
         </div>
 
         <!-- Favorite Recipe Section -->
-        <div class="my-favorite-recipe my-profile-container">
-          <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
-          <% if @user.favorite_recipe %>
-            <ul>
-              <li>
-                ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
-                <p><%= @user.favorite_recipe.description %></p>
-                <% if @user.favorite_recipe.link.present? %>
-                  <div class="view-recipe-btn-container">
-                    <%= link_to @user.favorite_recipe.link, target: "_blank", class: "my-profile-view-recipe-btn" do %>
-                      <svg
-                        class="w-6 h-6"
-                        stroke="currentColor"
-                        stroke-width="1.5"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                          stroke-linejoin="round"
-                          stroke-linecap="round"
-                        ></path>
-                      </svg>
-                      <div class="text"><%= t('profile.view_recipe') %></div>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <p><em><%= t('profile.no_recipe_link') %></em></p>
-                <% end %>
-              </li>
-            </ul>
-          <% else %>
-            <p><em><%= t('profile.no_favorite_recipe') %></em></p>
-          <% end %>
+        <div class="friend-favorite-recipe friend-profile-container">
+            <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
+            <% if @user.favorite_recipe %>
+                <ul>
+                    <li>
+                        ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
+                        <p><%= @user.favorite_recipe.description %></p>
+                        <% if @user.favorite_recipe.link.present? %>
+                            <div class="view-recipe-btn-container">
+                                <%= link_to @user.favorite_recipe.link, target: "_blank", class: "friend-profile-view-recipe-btn" do %>
+                                    <svg class="w-6 h-6" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75" stroke-linejoin="round" stroke-linecap="round"></path>
+                                    </svg>
+                                    <div class="text"><%= t('profile.view_recipe') %></div>
+                                <% end %>
+                            </div>
+                        <% else %>
+                            <p><em><%= t('profile.no_recipe_link') %></em></p>
+                        <% end %>
+                    </li>
+                </ul>
+            <% else %>
+                <p><em><%= t('profile.no_favorite_recipe') %></em></p>
+            <% end %>
         </div>
 
         <!-- Friend Status Section -->

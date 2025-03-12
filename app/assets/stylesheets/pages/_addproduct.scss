@@ -12,11 +12,10 @@ body {
 }
 
 // Page wrapper specific styles
-// Page wrapper specific styles
 .add_product_page {
   padding: 30px 0;
 
-  .container {
+  .add-new-product-container {
     max-width: 600px;
     margin: 30px auto;
     padding: 30px;
@@ -133,17 +132,18 @@ body {
 
   // Responsive Styles for small devices
   @media (max-width: 600px) {
-    .add_product_page .container {
-      margin: 15px;
-      padding: 20px;
+    .add_product_page .add-new-product-container {
+      margin: 10px;    // Ensure there's margin for mobile screens
+      padding: 20px;   // Adjust padding as needed
+      max-width: calc(100% - 20px);  // Ensure container doesn't touch the edges
     }
 
     .add_product_page h1 {
-      font-size: 1.8rem;
+      font-size: 1.6rem;  // Smaller font size for mobile screens
     }
 
     input[type="text"], input[type="number"], select, textarea {
-      font-size: 0.9rem;
+      font-size: 0.9rem;  // Adjust font size for better readability on small screens
     }
 
     .add-product-button {

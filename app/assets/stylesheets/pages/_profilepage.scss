@@ -51,7 +51,6 @@ $btn-hover: #1259a7;
 .my-profile-container {
   background: $glass-bg;
   border: 1px solid $glass-border;
-  backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -317,5 +316,56 @@ $btn-hover: #1259a7;
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 600px) {
+  .my-profile-page {
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    justify-content: center;  // Ensure the content is horizontally centered
+    flex-direction: column;
+    align-items: center;      // Vertically centers the content
+    width: 100%;
+  }
+
+  .my-profile-container {
+    padding: 15px;
+    width: 100%;              // Ensure container doesn't stretch too much
+    max-width: 500px;         // Limit the max-width for better mobile design
+  }
+
+  .my-profile-img {
+    width: 140px;             // Keeps the profile image smaller on mobile
+    height: 140px;
+    margin-bottom: 15px;      // Gives a bit of space below the image
+  }
+
+  .my-profile-btn-container {
+    display: flex;
+    flex-direction: column;   // Stack buttons vertically on mobile
+    align-items: center;      // Center buttons horizontally
+    width: 100%;
+  }
+
+  .my-profile-btn {
+    width: 100%;              // Makes buttons full width on mobile for better touch targets
+    padding: 12px;            // Adds proper padding for readability
+    margin-bottom: 10px;      // Adds space between buttons
+  }
+
+  .my-profile-edit-btn .Btn {
+    margin-bottom: 10px;
+  }
+
+  .my-profile-view-recipe-btn {
+    width: 100%;              // Makes the recipe view button fit on mobile
+    padding: 12px;
+  }
+
+  .my-profile-back-btn {
+    width: 100%;              // Makes back button fit on mobile
+    padding: 12px;
   }
 }
