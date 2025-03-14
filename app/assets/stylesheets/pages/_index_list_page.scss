@@ -6,11 +6,13 @@
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 90px;
+  margin-top: 30px;
 
   h1 {
     font-size: 24px;
     font-weight: bold;
-    color: rgb(41, 28, 215);
+    color: #005893;
     margin-bottom: 20px;
   }
 
@@ -37,7 +39,7 @@
       .list-name {
         font-size: 18px;
         font-weight: 600;
-        color: #007bff;
+        color: #005893;
         text-decoration: none;
 
         &:hover {
@@ -48,7 +50,7 @@
       .list-timestamp {
         font-size: 12px;
         color: #777;
-        margin-top: 5px; // Adds spacing between name and timestamp
+        margin-top: 5px;
       }
 
       .btn-danger {
@@ -68,7 +70,7 @@
   }
 
   .list-back-btn {
-    display: inline-block; // Makes button fit its content
+    display: inline-block;
     width: auto;
     padding: 8px 12px;
     font-size: 14px;
@@ -92,7 +94,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    justify-content: center; /* Center the text horizontally */
+    justify-content: center;
     border: 1px solid #cc0000;
     background-color: #e50000;
     overflow: hidden;
@@ -109,15 +111,15 @@
     color: #fff;
     font-weight: 600;
     font-size: 14px;
-    z-index: 1; /* Keep text above the icon */
+    z-index: 1;
   }
 
   .button-index-list-delete__icon {
     position: absolute;
     top: 0;
-    right: -40px; /* Initially position the icon off-screen on the right */
+    right: -40px;
     height: 100%;
-    width: 0; /* Initially hide the icon */
+    width: 0;
     background-color: #cc0000;
     display: flex;
     align-items: center;
@@ -134,13 +136,13 @@
   }
 
   .button-index-list-delete:hover .button-index-list-delete__text {
-    color: transparent; /* Hide text on hover */
+    color: transparent;
   }
 
   .button-index-list-delete:hover .button-index-list-delete__icon {
-    width: 40px; /* Make the icon visible */
-    right: 50%; /* Move the icon towards the center */
-    transform: translateX(50%); /* Ensure the icon is centered */
+    width: 40px;
+    right: 50%;
+    transform: translateX(50%);
   }
 
   .button-index-list-delete:active .button-index-list-delete__icon {
@@ -153,15 +155,14 @@
 
   .section-divider {
     border: 0;
-    border-top: 2px solid #333; /* Dark Gray Line */
-    margin: 40px auto 20px; /* Increased space above the line */
+    border-top: 2px solid #333;
+    margin: 40px auto 20px;
     width: 90%;
     align-self: center;
   }
 
-  /* Styling for "No lists" and "No shared lists" messages */
   .no-lists-text, .no-shared-lists-text {
-    margin-bottom: 20px; /* Space between the message and the button */
+    margin-bottom: 20px;
   }
 
   .index-list-back-btn {
@@ -233,7 +234,7 @@
     padding: 0.8em 1.2em 0.8em 1em;
     transition: all ease-in-out 0.2s;
     font-size: 16px;
-    text-decoration: none; /* Remove underline from link */
+    text-decoration: none;
   }
 
   .index-create-new-list-btn span {
@@ -249,7 +250,15 @@
   }
 
   .index-create-new-list-btn svg {
-    margin-right: 0.5em; /* Space between icon and text */
+    margin-right: 0.5em;
   }
+}
 
+@media (max-width: 767px) {
+  .index-lists-page {
+    margin: 20px;
+    padding: 15px;
+    margin-bottom: 90px;
+    margin-top: 30px;
+  }
 }

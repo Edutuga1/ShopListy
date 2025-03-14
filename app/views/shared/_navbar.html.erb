@@ -1,57 +1,47 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
-  <div class="container-fluid">
-     <%= link_to root_path, class: "navbar-brand" do %>
+<div class="navbar navbar-light navbar-lewagon">
+  <div class="container-fluid d-flex align-items-center justify-content-between">
+    <!-- LOGO -->
+    <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag asset_path('logo.png'), alt: "Logo", style: "width: 50px; height: auto;" %>
-      <% end %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
-        <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to t('navbar.my_grocery_lists'), user_lists_path(current_user), class: "nav-link", style: "text-decoration: underline;" %>
-          </li>
-          <%= link_to cart_path, class: "nav-link" do %>
-            <i class="fa-solid fa-cart-shopping"></i>
-          <% end %>
-          <li class="nav-item active">
-            <%= link_to root_path, class: "nav-link" do %>
-              <i class="fa-solid fa-house"></i>
-            <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to user_conversations_path(current_user), class: "nav-link" do %>
-              <div class="icon-container">
-                <i class="fa-solid fa-message"></i>
-                <span id="unread-message-count" class="badge badge-danger">0</span>
-              </div>
-            <% end %>
-          </li>
-          <li class="nav-item dropdown">
-            <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <% if current_user.user_photo.attached? %>
-                <%= image_tag current_user.user_photo.variant(resize_to_limit: [50, 50]).processed, class: "avatar", alt: "User avatar" %>
-              <% else %>
-                <%= image_tag "https://m.media-amazon.com/images/I/61yQAF86FKL.jpg", class: "avatar", alt: "Default avatar" %>
-              <% end %>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to t('navbar.profile'), profile_path, class: "dropdown-item" %>
-              <%= link_to t('navbar.settings'), settings_path, class: "dropdown-item" %>
-              <div class="dropdown-divider"></div>
-              <%= link_to t('navbar.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
-            </div>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to t('navbar.login'), new_user_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t('navbar.sign_up'), new_user_registration_path, class: "nav-link" %>
-          </li>
+    <% end %>
+
+    <!-- ICONS -->
+    <div class="d-flex align-items-center gap-3">
+      <% if user_signed_in? %>
+        <%= link_to user_lists_path(current_user), class: "nav-link" do %>
+          <i class="fa-solid fa-rectangle-list"></i>
         <% end %>
-      </ul>
+        <%= link_to cart_path, class: "nav-link" do %>
+          <i class="fa-solid fa-cart-shopping"></i>
+        <% end %>
+        <%= link_to root_path, class: "nav-link" do %>
+          <i class="fa-solid fa-house"></i>
+        <% end %>
+        <%= link_to user_conversations_path(current_user), class: "nav-link position-relative" do %>
+          <i class="fa-solid fa-message"></i>
+          <span id="unread-message-count" class="badge badge-danger position-absolute top-0 start-100 translate-middle">0</span>
+        <% end %>
+
+        <!-- USER AVATAR DROPDOWN -->
+        <div class="dropdown">
+          <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown">
+            <% if current_user.user_photo.attached? %>
+              <%= image_tag current_user.user_photo.variant(resize_to_limit: [50, 50]).processed, class: "avatar", alt: "User avatar" %>
+            <% else %>
+              <%= image_tag "https://m.media-amazon.com/images/I/61yQAF86FKL.jpg", class: "avatar", alt: "Default avatar" %>
+            <% end %>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end">
+            <%= link_to t('navbar.profile'), profile_path, class: "dropdown-item" %>
+            <%= link_to t('navbar.settings'), settings_path, class: "dropdown-item" %>
+            <div class="dropdown-divider"></div>
+            <%= link_to t('navbar.logout'), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
+          </div>
+        </div>
+      <% else %>
+        <%= link_to t('navbar.login'), new_user_session_path, class: "nav-link" %>
+        <%= link_to t('navbar.sign_up'), new_user_registration_path, class: "nav-link" %>
+      <% end %>
     </div>
   </div>
 </div>

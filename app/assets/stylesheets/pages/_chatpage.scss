@@ -6,7 +6,6 @@
     padding: 0;
   }
 
-  // Page Header
   h1 {
     font-size: 2rem;
     color: #003366;
@@ -22,12 +21,12 @@
       align-items: center;
 
       button.toggle-details {
-        position: absolute; /* Position it above the title */
-        top: 215px; /* Adjust it as necessary, like `top: 20px` or `top: 0` */
-        left: 970px; /* Adjust the position relative to the header */
-        z-index: 10; /* Ensure it's in front of the title */
+        position: absolute;
+        top: 215px;
+        left: 970px;
+        z-index: 10;
 
-        color: #3897f0; /* Default color for buttons */
+        color: #3897f0;
         font-size: 1.2rem;
         cursor: pointer;
         transition: color 0.3s;
@@ -70,7 +69,7 @@
     max-height: 60vh;
     overflow-y: auto;
     padding: 20px;
-    background-color: #f0f0f5; /* Light gray background like iMessage */
+    background-color: #f0f0f5;
     border: none;
     width: 90%;
     margin: auto;
@@ -103,16 +102,15 @@
       margin-bottom: 30px;
     }
 
-    /* Sent message color */
     .sent {
-      background-color: #007aff; /* iMessage sent blue */
+      background-color: #007aff;
       color: white;
       align-self: flex-end;
       border-bottom-right-radius: 10px;
     }
 
     .sent p {
-      color: white; /* White text for sent messages */
+      color: white;
     }
 
 
@@ -130,7 +128,7 @@
 
     /* Received message color */
     .received {
-      background-color: #e5e5ea; /* iMessage received light gray */
+      background-color: #e5e5ea;
       color: black;
       align-self: flex-start;
       border-bottom-left-radius: 10px;
@@ -169,16 +167,14 @@
       }
     }
 
-    /* Timestamp color */
     .timestamp {
       font-size: 0.75rem;
-      color: #070707; /* Light gray timestamp (iMessage style) */
+      color: #070707;
+      white-space: nowrap;
       position: absolute;
-      bottom: -18px;
-      right: 0;
-      text-align: right;
-      width: 100%;
-      padding: 0 10px;
+      right: 3px;
+      top: 112%;
+      transform: translateY(-50%); /* Centers it vertically */
     }
 
     .sender-profile-pic {
@@ -196,7 +192,6 @@
     }
   }
 
-  // Form Section
   form {
     display: flex;
     justify-content: space-between;
@@ -222,9 +217,8 @@
       }
     }
 
-    /* Active button styles */
     .btn-send {
-      background-color: #007aff; /* iMessage sent blue */
+      background-color: #007aff;
       color: #fff;
       border: none;
       border-radius: 100px;
@@ -245,12 +239,11 @@
       }
     }
 
-    /* Disabled button styles */
     .btn-send.disabled {
-      background-color: #ccc; /* Light gray background */
-      color: #888;  /* Light gray text */
-      cursor: not-allowed;  /* Change cursor to show that it's not clickable */
-      box-shadow: none;  /* Remove box shadow for the disabled state */
+      background-color: #ccc;
+      color: #888;
+      cursor: not-allowed;
+      box-shadow: none;
     }
   }
 
@@ -335,7 +328,6 @@
   }
 }
 
-/* Custom Send Button */
 .custom-send-btn {
   font-family: inherit;
   font-size: 18px;
@@ -353,7 +345,6 @@
   margin-top: -250px;
 }
 
-/* Hover and Active Effects */
 .custom-send-btn:hover {
   transform: translateY(-3px);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
@@ -365,7 +356,6 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Icon and Animation */
 .custom-send-btn span {
   display: block;
   margin-left: 0.4em;
@@ -431,7 +421,7 @@
 
   form {
     width: 100%;
-    flex-direction: row; /* Ensures that the button stays to the right of the textarea */
+    flex-direction: row;
     margin: 10px 0;
     align-items: center;
     justify-content: space-between;
@@ -440,7 +430,7 @@
   textarea {
     flex: 1;
     margin-bottom: 10px;
-    font-size: 0.8rem; /* Reduce text size */
+    font-size: 0.8rem;
     padding: 8px 12px;
   }
 
@@ -468,12 +458,12 @@
 
   .message {
     padding: 8px;
-    font-size: 0.9rem; /* Smaller message font size */
+    font-size: 0.9rem;
   }
 
   textarea {
-    font-size: 0.75rem; /* Make the text smaller on smaller screens */
-    padding: 6px 10px; /* Adjust padding accordingly */
+    font-size: 0.75rem;
+    padding: 6px 10px;
   }
 
   .custom-send-btn {

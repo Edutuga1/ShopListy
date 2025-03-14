@@ -66,11 +66,15 @@
           updateUnreadMessageCount(storedCount);
         }
 
-        // Function to update the unread message count in the UI
         function updateUnreadMessageCount(unreadCount) {
           const unreadCountElement = document.getElementById('unread-message-count');
           if (unreadCountElement) {
-            unreadCountElement.textContent = unreadCount > 0 ? unreadCount : '';
+            if (unreadCount > 0) {
+              unreadCountElement.textContent = unreadCount;
+              unreadCountElement.style.display = 'flex';
+            } else {
+              unreadCountElement.style.display = 'none'; // Hide when count is 0
+            }
             console.log('Updated unread message count displayed:', unreadCount);
           } else {
             console.error('Unread message count element not found');
@@ -94,8 +98,8 @@
             .catch(error => console.error('Error fetching unread messages:', error));
         }
 
-        // Optionally, refresh the count periodically
-        setInterval(checkForNewMessages, 30000); // every 30 seconds
+        // Refresh the count periodically
+        setInterval(checkForNewMessages, 2000); // every 2 seconds
 
         // Function to send a message
         function sendMessage(message, conversationId) {
@@ -238,7 +242,7 @@
                   });
                 });
 
-                // Limit the list to the 5 closest supermarkets
+                // List the 5 closest supermarkets
                 const topResults = supermarketsWithDistance.slice(0, 5);
 
                 // Create list items

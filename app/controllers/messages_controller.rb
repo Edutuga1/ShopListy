@@ -45,7 +45,7 @@ class MessagesController < ApplicationController
       format.json { render json: @conversation }
     end
   end
-  
+
   def unread_messages_count
     count = Message.where(receiver_id: current_user.id, read: false).count
     render json: { unread_messages: count }, status: :ok

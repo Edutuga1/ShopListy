@@ -25,6 +25,7 @@
 @import "pages/index_list_page";
 @import "pages/search_friends_page";
 @import "pages/log-in-page";
+@import "pages/navbar";
 
 .notice {
   padding: 10px;
@@ -32,30 +33,6 @@
   color: #fff;
   background-color: #4CAF50;
   border-radius: 5px;
-}
-
-.navbar {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-bottom: 1px solid #dcdcdc;
-}
-
-.navbar-expand-sm {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-bottom: 1px solid #dcdcdc;
-}
-
-.navbar-light {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-bottom: 1px solid #dcdcdc;
-}
-
-.navbar-lewagon {
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-bottom: 1px solid #dcdcdc;
 }
 
 .home-page #map {
@@ -91,7 +68,6 @@
 .popup-notification a:hover {
   text-decoration: underline;
 }
-
 
 .profile {
   text-align: center;
@@ -131,13 +107,22 @@
 #unread-message-count {
   position: absolute;
   top: -10px;
-  right: -10px;
+  right: -10px; /* Keep this the same */
   background-color: #dc3545;
   color: #fff;
   border-radius: 50%;
-  padding: 2px 6px;
+  padding: 2px 8px;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
+#unread-message-count span {
+  position: relative;
+  left: -2px; /* Adjust this value to move the number left */
+}
+
 
 .user-photo {
   width: 50px;
@@ -224,7 +209,6 @@ body {
 .footer p {
   color: #ffffff;
 }
-
 
 .twitter-link-style {
   text-decoration: none;

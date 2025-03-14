@@ -10,7 +10,6 @@ pin "@popperjs/core", to: "popper.js", preload: true
 pin "channels", to: "channels/index.js"
 pin "message_notification_channel", to: "channels/message_notification_channel.js"
 pin "consumer", to: "channels/consumer.js"
-pin "@rails/actioncable", to: "actioncable.js"
 pin "admin_actions_controller", to: "controllers/admin_actions_controller.js"
 pin "@rails/ujs", to: "https://cdn.jsdelivr.net/npm/@rails/ujs@7.1.3-4"
-
+pin "@rails/actioncable", to: "actioncable.js"

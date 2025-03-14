@@ -1,0 +1,31 @@
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.navbar .d-flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Navbar icon styling */
+.navbar .nav-link i {
+  font-size: 1.2rem;
+  color: #003366;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Align avatar properly */
+.navbar .avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.navbar {
+  background-color: #f5f5f5; /* Light gray */
+}
+

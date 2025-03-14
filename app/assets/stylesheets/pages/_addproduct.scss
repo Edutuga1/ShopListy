@@ -1,9 +1,7 @@
-// General Styles
 $border-radius: 8px;
 $input-padding: 15px;
 $font-family: 'Arial', sans-serif;
 
-// Body
 body {
   font-family: $font-family;
   background-color: #f0f4f8;
@@ -11,7 +9,6 @@ body {
   padding: 0;
 }
 
-// Page wrapper specific styles
 .add_product_page {
   padding: 30px 0;
 
@@ -30,6 +27,7 @@ body {
       color: #164ca7;
       margin-bottom: 30px;
       font-weight: bold;
+      margin-bottom: 50px;
     }
 
     form {
@@ -60,12 +58,11 @@ body {
       }
     }
 
-    // Center the submit button specifically
     .submit-button-wrapper {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin-top: 20px; // Optional: Adjust for spacing
+      margin-top: 20px;
     }
 
     .add-product-button {
@@ -86,10 +83,10 @@ body {
     }
 
     .add-product-button .add-product-button__text {
-      transform: translateX(0);  // Remove any translation for text
+      transform: translateX(0);
       color: #fff;
       font-weight: 600;
-      padding-right: 10px;  // Space for the icon on the right
+      padding-right: 10px;
     }
 
     .add-product-button .add-product-button__icon {
@@ -130,25 +127,36 @@ body {
     }
   }
 
-  // Responsive Styles for small devices
   @media (max-width: 600px) {
-    .add_product_page .add-new-product-container {
-      margin: 10px;    // Ensure there's margin for mobile screens
-      padding: 20px;   // Adjust padding as needed
-      max-width: calc(100% - 20px);  // Ensure container doesn't touch the edges
+    .add_product_page {
+      padding: 20px;
+    }
+
+    .add-new-product-container {
+      margin: 0 auto;
+      padding: 20px;
+      max-width: 90%;
+      box-sizing: border-box;
+      margin-bottom: 30px;
     }
 
     .add_product_page h1 {
-      font-size: 1.6rem;  // Smaller font size for mobile screens
+      font-size: 1.6rem;
     }
 
     input[type="text"], input[type="number"], select, textarea {
-      font-size: 0.9rem;  // Adjust font size for better readability on small screens
+      font-size: 0.9rem;
+    }
+
+    .quantity-label, input[type="number"] {
+      width: 40%;
+      margin-top: 10px;
     }
 
     .add-product-button {
-      width: 120px; // Adjust width for smaller screens
-      height: 35px; // Adjust height for smaller screens
+      width: 120px;
+      height: 35px;
     }
+
   }
 }

@@ -1,59 +1,64 @@
 .cart-page {
-  background: linear-gradient(135deg, #e3f2fd, #90caf9); /* Light blue gradient */
+  background: linear-gradient(135deg, #e3f2fd, #90caf9);
   padding: 30px;
 }
 
+body h1 {
+  font-size: 4em;
+}
+
+
 .cart-table {
-  width: 100%; /* Full width */
-  border-collapse: collapse; /* Remove gaps between cells */
-  border-radius: 10px; /* Rounded corners */
-  overflow: hidden; /* Keep the roundness intact */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  margin-bottom: 20px; /* Spacing below the table */
-  background-color: #ffffff; /* White background for the table */
-  table-layout: fixed; /* Ensure the table uses the full width */
-  box-sizing: border-box; /* Include padding in the element's width */
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  table-layout: fixed;
+  box-sizing: border-box;
 }
 
-/* Table Header (th) */
 .cart-table th {
-  background-color: #3498db; /* Bright blue background */
-  color: #ffffff; /* White text */
-  text-align: center; /* Center-align text */
-  padding: 15px; /* Add padding */
-  font-weight: bold; /* Bold text for headers */
-  text-transform: uppercase; /* Capitalize text */
-  letter-spacing: 1px; /* Slight spacing for elegance */
-  width: 100%; /* Ensure it spans the full width of the table */
-  box-sizing: border-box; /* Ensure padding is included in width */
+  background-color: #3498db;
+  color: #ffffff;
+  text-align: center;
+  padding: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Table Body Rows (td) */
 .cart-table td {
-  padding: 10px; /* Adjust padding */
-  text-align: center; /* Center-align text */
-  border-bottom: 1px solid #dee2e6; /* Add light border */
-  vertical-align: middle; /* Ensure content is vertically centered */
-  width: 100%; /* Ensure cells take full width */
-  box-sizing: border-box; /* Include padding in the cell width */
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid #dee2e6;
+  vertical-align: middle;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Table Row Hover Effect */
 .cart-table tbody tr:hover {
-  background-color: #f9f9f9; /* Light gray hover effect */
+  background-color: #f9f9f9;
 }
 
-/* First and Last Rows */
 .cart-table tbody tr:last-child td {
-  border-bottom: none; /* Remove border for the last row */
+  border-bottom: none;
 }
 
 .cart-update-btn {
-  width: 150px;
+  width: 100%;
+  min-width: 100px;
+  padding: 8px 10px;
+  font-size: 10px;
+  white-space: nowrap;
   position: relative;
   display: block;
   text-decoration: none;
-  overflow: hidden; /* Ensures wave stays within the button */
+  overflow: hidden;
   border: 0;
   cursor: pointer;
   border-radius: 1.5rem;
@@ -117,51 +122,48 @@
   }
 }
 
-/* Remove Button */
 .cart-remove-btn {
-  background-color: #dc3545; /* Red background */
-  color: white; /* White text */
+  background-color: #dc3545;
+  color: white;
   border: none;
-  border-radius: 5px; /* Rounded corners */
-  padding: 8px 16px; /* Adjust padding for consistency */
-  transition: background-color 0.3s; /* Smooth hover effect */
-  display: block; /* Make it block-level so it takes the full width of the cell */
-  margin: 0 auto; /* Center the button horizontally */
-  width: 90%; /* Set the button width to 90% of the parent width */
-  max-width: 150px; /* Optional: Set a maximum width for buttons */
+  border-radius: 5px;
+  padding: 8px 16px;
+  transition: background-color 0.3s;
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 150px;
 }
 
 .cart-remove-btn:hover {
-  background-color: #b21f2d; /* Darker red on hover */
+  background-color: #b21f2d;
 }
 
-/* Align Quantity Input and Button */
 .update-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Add spacing between input and button */
-  margin-top: 10px; /* Space between buttons and other content */
+  gap: 10px;
+  margin-top: 10px;
 }
 
-/* Total Price Styling */
 .cart-total-price {
   font-size: 1.5em;
-  color: #333333; /* Dark gray text */
-  margin-top: 20px; /* Spacing above */
+  color: #333333;
+  margin-top: 20px;
   text-align: center;
 }
 
 .add-to-list-button-wrapper {
   display: flex;
-  justify-content: center;  /* Centers the button horizontally */
-  align-items: center;      /* Centers the button vertically */
-  width: 100%;              /* Ensures the wrapper takes full width */
-  margin-top: 20px;         /* Adds space above the button */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
 }
 
 .cart-add-to-list-btn {
-  margin-bottom: 100px;
+  margin-bottom: 50px;
   margin-top: -10px;
   display: flex;
   align-items: center;
@@ -180,12 +182,11 @@
   border-radius: 50px;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  white-space: nowrap; /* Prevents text from wrapping */
-  min-width: 180px; /* Ensures button is always large enough */
-  max-width: 300px; /* Prevents the button from becoming too large (adjust as needed) */
-  flex-shrink: 0; /* Prevents shrinking */
+  white-space: nowrap;
+  min-width: 180px;
+  max-width: 300px;
+  flex-shrink: 0;
 }
-
 
 .cart-add-to-list-btn:hover {
   transform: scale(1.05);
@@ -195,16 +196,15 @@
 .cart-add-to-list-btn .icon {
   width: 20px;
   height: 20px;
-  flex-shrink: 0; /* Prevents shrinking */
-  position: relative; /* Keeps it inside visible area */
-  z-index: 2; /* Ensures it stays on top */
+  flex-shrink: 0;
+  position: relative;
+  z-index: 2;
 }
 
 .cart-add-to-list-btn:hover .icon {
   transform: translate(4px);
 }
 
-/* Shine Effect */
 .cart-add-to-list-btn::before {
   content: "";
   position: absolute;
@@ -221,7 +221,6 @@
   top: 0;
   left: -120%;
   opacity: 0.6;
-
 }
 
 .cart-add-to-list-btn:hover::before {
@@ -242,7 +241,7 @@
   }
 }
 
-P{
+P {
   text-align: center;
   font-weight: bold;
   margin-top: 20px;
@@ -262,14 +261,14 @@ P{
   color: #1993e4;
   transition: all 1.2s linear;
   cursor: pointer;
-  text-decoration: none; // Remove link underline
+  text-decoration: none;
   text-align: center;
-  margin: 0 auto; // Center horizontally
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  margin-top: 10px; // Add space above the button
+  margin-top: 10px;
   align-items: center;
-  width: fit-content; // Ensures button is only as wide as needed
+  width: fit-content;
   margin-bottom: 50px;
 }
 
@@ -305,12 +304,11 @@ P{
   z-index: 2;
 }
 
-// Centering the button wrapper
 .cart-back-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px; // Adjust spacing if needed
+  margin-top: 20px;
 }
 
 @keyframes spin {
@@ -330,13 +328,13 @@ P{
 
 .cart-actions-cell {
   display: table-cell;
-  flex-direction: column; /* Stack buttons vertically */
-  justify-content: center; /* Center vertically */
-  align-items: center; /* Center horizontally */
-  gap: 10px; /* Add space between buttons */
-  width: 100%; /* Make sure the cell spans the entire width */
-  text-align: center; /* Ensure the text inside is also centered */
-  vertical-align: middle; /* Ensure the remove button is aligned in the middle of the cell */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .cart-form-control {
@@ -349,11 +347,12 @@ P{
   background-color: #f9f9f9;
   font-size: 1.1rem;
   color: #333;
-  appearance: none;  /* Remove default styling */
+  appearance: none;
   transition: all 0.3s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  padding-right: 30px; /* Ensure space for the arrow */
+  padding-right: 30px;
+  margin-top: 5px;
 }
 
 .cart-form-control::after {
@@ -384,31 +383,29 @@ P{
   border-top-color: #3498db;
 }
 
-
 .cart-back-btn {
   text-align: center;
   align-items: center;
   display: flex;
   justify-content: center;
-  margin: 20px auto; /* Centers the button horizontally */
-  max-width: 200px; /* Prevents it from stretching too wide */
-  width: 100%; /* Ensures it keeps its size */
+  margin: 20px auto;
+  max-width: 200px;
+  width: 100%;
 }
 
 p {
   text-align: center;
 }
 
-/* Styling for the delete button */
 .button-cart-delete {
   position: relative;
-  width: 100%; /* Make the button span full width */
-  max-width: 150px; /* Optional: Set a maximum width for button */
+  width: 100%;
+  max-width: 150px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;
   cursor: pointer;
   border-radius: 6px;
   background-color: #e50000;
@@ -424,14 +421,14 @@ p {
 
 .button-cart-delete__icon {
   position: absolute;
-  transform: translateX(109px); /* Hide icon by default */
+  transform: translateX(109px);
   height: 100%;
-  width: 0; /* Hide icon */
+  width: 0;
   background-color: #cc0000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s; /* Smooth transition */
+  transition: all 0.3s;
 }
 
 .button-cart-delete .svg {
@@ -443,12 +440,12 @@ p {
 }
 
 .button-cart-delete:hover .button-cart-delete__text {
-  color: transparent; /* Hide text on hover */
+  color: transparent;
 }
 
 .button-cart-delete:hover .button-cart-delete__icon {
-  width: 148px; /* Expand the icon */
-  transform: translateX(0); /* Slide the icon into view */
+  width: 148px;
+  transform: translateX(0);
 }
 
 .button-cart-delete:active .button-cart-delete__icon {
@@ -461,18 +458,18 @@ p {
 
 .cart-list-section {
   display: flex;
-  flex-direction: column; /* Stack elements vertically */
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically (if needed) */
-  text-align: center; /* Center text */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   width: 100%;
-  margin: 20px auto; /* Add margin for spacing */
+  margin: 20px auto;
 }
 
 .cart-new-list-section {
   display: flex;
-  flex-direction: column; /* Stack elements */
-  align-items: center; /* Center items */
+  flex-direction: column;
+  align-items: center;
   margin-top: 10px;
 }
 
@@ -483,40 +480,88 @@ p {
   width: 100%;
 }
 
-/* Responsive Styling */
 @media (max-width: 768px) {
   .cart-page {
-    padding: 15px; /* Less padding for smaller screens */
+    padding: 15px;
   }
 
   .cart-table {
     width: 100%;
-    overflow-x: auto; /* Allow horizontal scrolling for the table */
+    overflow-x: auto;
   }
 
-  .cart-table th, .cart-table td {
-    font-size: 14px; /* Smaller font size */
-    padding: 8px; /* Reduce padding */
-    word-wrap: break-word; /* Break long words in small screen sizes */
+  .cart-table th {
+    font-size: 11px;
   }
 
-  .cart-update-btn, .cart-remove-btn {
-    padding: 6px 12px; /* Adjust padding for better button size */
-    width: 100%; /* Make buttons full-width on small screens */
-  }
-
-  .update-wrapper {
-    flex-direction: column; /* Stack the quantity input and button vertically */
-    align-items: stretch; /* Stretch the elements across the screen */
+  .cart-remove-btn {
+    padding: 6px 12px;
+    width: 100%;
   }
 
   .cart-total-price {
-    font-size: 1.3em; /* Adjust font size for better readability */
-    margin-top: 15px; /* Reduce top margin */
+    font-size: 1.3em;
+    margin-top: 15px;
   }
 
   .cart-add-to-list-btn {
-    font-size: 0.9em; /* Slightly smaller button */
-    padding: 8px 15px; /* Adjust padding */
+    font-size: 0.9em;
+    padding: 8px 15px;
   }
+
+  .update-wrapper {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cart-update-btn {
+    width: 110%;
+    min-width: 0;
+    max-width: none;
+    font-size: 12px;
+    padding: 10px 20px;
+    margin: 0 auto;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cart-update-btn .text {
+    color: white;
+    font-size: 12px;
+    letter-spacing: 2px;
+    margin-left: -12px;
+  }
+
+  .cart-page input[type="number"] {
+    width: 109%;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .cart-page .quantity-label {
+    font-size: 16px;
+  }
+
+  .cart-form-control {
+    width: 60%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 1.1rem;
+    color: #333;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-right: 30px;
+    margin-top: 5px;
+}
 }

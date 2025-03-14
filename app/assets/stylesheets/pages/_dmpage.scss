@@ -11,7 +11,7 @@
 
 h1, h2, h3 {
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   color: #003366;
 }
 
@@ -22,6 +22,8 @@ h1 {
 
 h2, h3 {
   font-size: 1.8rem;
+  text-align: center;
+  text-decoration: bold;
 }
 
 p {
@@ -137,7 +139,7 @@ section {
 .search {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Ensures spacing between input and button */
+  gap: 0.5rem;
   width: 100%;
 }
 
@@ -151,10 +153,10 @@ section {
   font-size: inherit;
   border: 1px solid #767676;
   color: #767676;
-  padding: 5px 10px 5px 10px; /* Adjust padding to make room for the icon on the right */
+  padding: 5px 10px 5px 10px;
   border-radius: 25px;
   height: 30px;
-  width: 100%; /* Ensure it takes full width */
+  width: 100%;
   transition: border-color 0.2s ease-in-out;
 }
 
@@ -166,49 +168,45 @@ section {
 
 .search__input:focus {
   outline: none;
-  border-color: #0056b3; /* Adjust color for focus state */
+  border-color: #0056b3;
 }
 
-.search__button {
+.dm-search__button {
   border: none;
   background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 10px; /* Position the icon inside the input on the right */
+  right: 10px;
   top: 50%;
-  transform: translateY(-50%); /* Vertically center the icon */
+  transform: translateY(-50%);
   padding: 0;
 }
 
-.search__button svg {
-  fill: #0056b3; /* Set the color of the SVG icon */
+.dm-search__button svg {
+  fill: #0056b3;
 }
-
 
 .search__button:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 
-/* Ensures the button does not have Bootstrap's default btn styles */
 .search__button.btn {
   box-shadow: none;
   border: none;
   background: transparent;
 }
 
-/* Center the parent container for the button */
 .index-dm-back-button {
   display: flex;
-  justify-content: center; /* Centers the button horizontally */
-  align-items: center; /* Centers the button vertically */
+  justify-content: center;
+  align-items: center;
 }
 
-/* Button styling */
 .index-dm-back-btn {
-  display: flex; /* Use flex to align content inside the button */
+  display: flex;
   position: relative;
   padding: 16px 32px;
   border-radius: 14px;
@@ -222,11 +220,10 @@ section {
   transition: all 1.2s linear;
   cursor: pointer;
   text-decoration: none;
-  justify-content: center; /* Centers text/content horizontally inside the button */
-  align-items: center; /* Centers the content vertically */
+  justify-content: center;
+  align-items: center;
 }
 
-/* After pseudo-element animation */
 .index-dm-back-btn::after {
   content: "";
   position: absolute;
@@ -241,7 +238,6 @@ section {
   z-index: 0;
 }
 
-/* Hover effect */
 .index-dm-back-btn:hover {
   color: #fff;
   transition-duration: 1.2s;
@@ -254,7 +250,6 @@ section {
   height: 256px;
 }
 
-/* Content inside the button */
 .index-dm-back-btn > .button-content {
   position: relative;
   z-index: 2;
@@ -277,7 +272,7 @@ h4 {
 .message-delete-button {
   position: relative;
   border-radius: 6px;
-  width: 150px;
+  width: 110px;
   height: 40px;
   cursor: pointer;
   display: flex;
@@ -287,6 +282,7 @@ h4 {
   background-color: #e50000;
   overflow: hidden;
   transition: background 0.3s ease;
+  margin-left: auto;
 }
 
 .message-delete-button__text {
@@ -318,7 +314,7 @@ h4 {
 }
 
 .message-delete-button:hover .message-delete-button__text {
-  opacity: 0; /* Hide text when hovered */
+  opacity: 0;
 }
 
 .message-delete-button:hover .message-delete-button__icon {
@@ -337,9 +333,9 @@ h4 {
 
 .index-dm-back-arrow {
   display: block;
-  position: absolute; /* Fix the position to the left of the screen */
-  top: 20px; /* Adjust to keep it inside the container, not outside */
-  left: 20px; /* Position the button 20px from the left */
+  position: absolute;
+  top: 20px;
+  left: 20px;
   width: 56px;
   height: 56px;
   margin: 0;
@@ -410,30 +406,34 @@ h4 {
   transform: translateX(-56px);
 }
 
+.dm-page-conversation-username {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #0056b3;
+  text-decoration: none;
+}
 
 @media (max-width: 600px) {
   .DM-page {
-    padding: 20px 10px;  /* Increased top and bottom padding, reduced left and right padding for mobile */
-    margin: 20px; /* Added margin to give space from edges */
+    padding: 20px 10px;
+    margin: 20px;
   }
 
-  /* If you need to add more specific space for the top and bottom, you can adjust the padding individually */
   .DM-page {
-    padding: 20px 10px;  /* Reduced left and right padding for mobile */
-    margin: 20px; /* Added margin to give space from edges */
+    padding: 20px 10px;
+    margin: 20px;
   }
 
   .card {
-    padding: 15px; /* Ensure card content doesn't touch edges */
+    padding: 15px;
   }
 
-  /* Optional: Adjust list-group-item padding for smaller screens */
   .list-group-item {
-    padding: 8px 10px; /* Reduce padding inside list items for smaller screens */
+    padding: 8px 10px;
   }
 
   .form-control {
-    padding: 8px; /* Adjust padding for form controls on smaller screens */
+    padding: 8px;
   }
 
   h1, h2, h3 {
@@ -472,12 +472,12 @@ h4 {
   }
 
   .index-dm-back-arrow svg {
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     fill: #000;
     transition: all 0.3s ease-in-out;
     position: relative;
-    top: 8px;
+    top: 9px;
     left: 9px;
   }
 

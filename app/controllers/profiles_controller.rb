@@ -35,7 +35,7 @@ class ProfilesController < ApplicationController
       params[:user][:favorite_recipe][:link] = link
     end
 
-    # Update user profile information
+    # Begin user update, excluding the photo for now
     if @user.update(clean_params.except(:user_photo))
       # Attach the profile photo if it's present
       if params[:user][:user_photo].present?
