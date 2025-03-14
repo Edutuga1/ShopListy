@@ -37,6 +37,7 @@ class User < ApplicationRecord
   validate :acceptable_image
   validates :password, presence: true, if: -> { new_record? || password.present? }
   validates :password_confirmation, presence: true, if: -> { password.present? }
+  
 
 
   # Checks if the current user is friends with another user

@@ -30,7 +30,7 @@ class SettingsController < ApplicationController
       redirect_to settings_path, notice: 'Settings updated successfully.'
     else
       render :show
-    end
+    end 
   end
 
 

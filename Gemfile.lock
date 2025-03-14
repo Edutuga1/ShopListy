@@ -391,6 +391,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  actioncable
   autoprefixer-rails
   aws-sdk-s3 (~> 1.182)
   bootsnap

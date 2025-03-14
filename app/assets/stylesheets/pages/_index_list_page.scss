@@ -33,7 +33,7 @@
       .list-info {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
       }
 
       .list-name {
@@ -41,10 +41,8 @@
         font-weight: 600;
         color: #005893;
         text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
-        }
+        text-align: center;
+        width: 100%;
       }
 
       .list-timestamp {
@@ -101,6 +99,7 @@
     padding: 0;
     border-radius: 6px;
     transition: all 0.3s ease;
+    margin-left: auto;
   }
 
   .button-index-list-delete, .button-index-list-delete__icon, .button-index-list-delete__text {
@@ -260,5 +259,22 @@
     padding: 15px;
     margin-bottom: 90px;
     margin-top: 30px;
+  }
+
+  .button-index-list-delete {
+    width: 100px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+    padding: 0 8px !important;
+    margin-left: auto !important;
+  }
+
+  .button-index-list-delete__text {
+    font-size: 12px !important;
+  }
+
+  .button-index-list-delete__icon {
+    width: 20px !important;
+    height: 20px !important;
   }
 }

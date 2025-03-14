@@ -26,7 +26,10 @@
 
     <div class="field">
       <%= f.label :user_photo, t('profile.profile_picture') %>
-      <%= f.file_field :user_photo %>
+
+      <!-- Use 'direct_upload' to upload directly to cloud storage, bypassing Rails server -->
+      <%= f.file_field :user_photo, direct_upload: true, accept: "image/*", id: "user_photo_input" %>
+
       <% if @user.user_photo.attached? %>
         <div>
           <%= image_tag @user.user_photo.variant(resize_to_limit: [150, 150]), size: "150x150" %>

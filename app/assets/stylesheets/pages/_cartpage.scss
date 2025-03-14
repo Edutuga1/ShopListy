@@ -50,8 +50,6 @@ body h1 {
 }
 
 .cart-update-btn {
-  width: 100%;
-  min-width: 100px;
   padding: 8px 10px;
   font-size: 10px;
   white-space: nowrap;
@@ -77,6 +75,7 @@ body h1 {
   font-size: 15px;
   letter-spacing: 3px;
   font-weight: 600;
+  text-align: center;
 }
 
 .cart-update-btn .wave {
