@@ -60,7 +60,8 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     curl \
     libvips \
-    postgresql-client && \
+    postgresql-client \
+    imagemagick  && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy over the installed gems and the Rails app

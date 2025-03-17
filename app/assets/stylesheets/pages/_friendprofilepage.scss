@@ -25,9 +25,9 @@ body {
   min-height: 100vh;
   width: 100%;
   margin: 0;
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-bottom: 150px;
   flex-direction: column;
+  margin-top: 50px;
 }
 
 .friend-profile-container {
@@ -45,6 +45,7 @@ body {
 
 .friend-profile-header, .friend-profile-subheader {
   color: $text-color;
+  font-size: 1rem;
 }
 
 /* Profile Image */
@@ -69,11 +70,9 @@ body {
   padding: 10px;
 }
 
-/* Buttons */
 .friend-profile-btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
 }
 
 .friend-profile-btn {
@@ -119,6 +118,13 @@ body {
   &:hover {
     text-decoration: underline;
   }
+}
+
+.friend-status-text {
+  color: #555;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 75px;
 }
 
 /* Back Button */
@@ -184,6 +190,19 @@ body {
 }
 
 @media (max-width: 600px) {
+
+  .friend-profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 150px;
+    flex-direction: column;
+    margin-top: -70px;
+  }
+
   .friend-profile-container {
     padding: 15px;
     margin: 10px;
@@ -196,7 +215,7 @@ body {
 
   .friend-profile-header,
   .friend-profile-subheader {
-    font-size: 20px;
+    font-size: 1rem;
   }
 
   .friend-profile-btn {
@@ -224,6 +243,19 @@ body {
 }
 
 @media (max-width: 768px) {
+  .friend-profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 150px;
+    flex-direction: column;
+    margin-top: -70px;
+  }
+
+
   .friend-profile-container {
     max-width: 90%;
   }
@@ -264,6 +296,18 @@ body {
 }
 
 @media (min-width: 1024px) {
+  .friend-profile-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 150px;
+    flex-direction: column;
+    margin-top: -70px;
+  }
+
   .friend-profile-container {
     max-width: 800px;
   }
@@ -275,7 +319,7 @@ body {
 
   .friend-profile-header,
   .friend-profile-subheader {
-    font-size: 24px;
+    font-size: 1rem;
   }
 
   .friend-profile-btn {

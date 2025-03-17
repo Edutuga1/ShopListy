@@ -12,6 +12,17 @@
     <%= link_to t('friend_page.back'), request.referer || root_path, class: 'friend-back-btn' %>
 
     <div class="friend-profile-page">
+
+      <!-- Friend Status Section -->
+        <div class="friend-profile-btn-container">
+          <% if current_user.friend_request_exists?(@user) %>
+            <p class="friend-status-text"><%= t('profile.friend_request_sent') %></p>
+          <% elsif !current_user.friend?(@user) %>
+            <%= button_to t('profile.add_friend'), user_friendships_path(friend_id: @user.id), method: :post, class: "friend-profile-btn" %>
+          <% else %>
+            <p class="friend-status-text"><%= t('profile.are_friends') %> <i class="fas fa-smile"></i></p>
+          <% end %>
+        </div>
         <!-- Profile Section -->
         <div class="friend-profile-container">
             <!-- Profile Image -->
@@ -64,17 +75,7 @@
                 <p><em><%= t('profile.no_favorite_recipe') %></em></p>
             <% end %>
         </div>
-
-        <!-- Friend Status Section -->
-        <div class="friend-profile-btn-container">
-            <% if current_user.friend_request_exists?(@user) %>
-                <p><%= t('profile.friend_request_sent') %></p>
-            <% elsif !current_user.friend?(@user) %>
-                <%= button_to t('profile.add_friend'), user_friendships_path(friend_id: @user.id), method: :post, class: "friend-profile-btn" %>
-            <% else %>
-                <p><%= t('profile.are_friends') %> <i class="fas fa-smile"></i></p>
-            <% end %>
-        </div>
+     </div>
     </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <div class="edit-list-page">
-    <%= link_to request.referer || root_path, class: 'back-arrow-edit-list-btn' do %>
+    <%= link_to request.referer || lists_path, class: 'back-arrow-edit-list-btn' do %>
     <div class="button-box">
       <span class="button-elem">
         <svg viewBox="0 0 46 40" xmlns="http://www.w3.org/2000/svg">
@@ -18,32 +18,32 @@
     </div>
   <% end %>
 
-  <h1><%= t('edit_list_page.edit_list') %></h1>  <!-- Translated page header -->
+  <h1><%= t('edit_list_page.edit_list') %></h1>
 
   <div class="list-table-container">
     <table class="edit-list-table">
       <thead>
         <tr>
-          <th><%= t('edit_list_page.product') %></th>  <!-- Translated Product header -->
-          <th><%= t('edit_list_page.price') %></th>  <!-- Translated Price header -->
-          <th><%= t('edit_list_page.quantity') %></th>  <!-- Translated Quantity header -->
-          <th><%= t('edit_list_page.actions') %></th>  <!-- Translated Actions header -->
+          <th><%= t('edit_list_page.product') %></th>
+          <th><%= t('edit_list_page.price') %></th>
+          <th><%= t('edit_list_page.quantity') %></th>
+          <th><%= t('edit_list_page.actions') %></th>
         </tr>
       </thead>
       <tbody>
         <% @list.products_lists.each do |products_list| %>
           <tr>
-            <td><%= products_list.product.name %></td>  <!-- Product name -->
-            <td><%= number_to_currency(products_list.product.price) %></td>  <!-- Product price -->
+            <td><%= products_list.product.name %></td>
+            <td><%= number_to_currency(products_list.product.price) %></td>
             <td>
              <div class="quantity-wrapper">
               <%= form_with model: products_list, url: list_products_list_path(@list, products_list), method: :patch, local: true do |form| %>
                 <%= form.number_field :quantity, min: 0 %>
                 <%= form.button type: "submit", class: "btn-edit-list-update" do %>
                   <span class="button-content"><%= t('edit_list_page.update') %></span>
-                  <div class="wave"></div> <!-- Wave effect here -->
+                  <div class="wave"></div>
                 <% end %>
-              <% end %>  <!-- End of form_with -->
+              <% end %>
              </div>
             </td>
             <td>

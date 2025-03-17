@@ -6,8 +6,8 @@
   border-radius: 12px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 90px;
-  margin-top: 30px;
+  margin-bottom: 150px;
+  margin-top: 50px;
 
   h1 {
     font-size: 24px;
@@ -253,12 +253,75 @@
   }
 }
 
+#friends-lists {
+  list-style: none;
+  padding: 0;
+}
+
+#friends-lists li {
+  background: #f8f9fa;
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+#friends-lists .list-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#friends-lists .list-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #005893;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}
+
+#friends-lists .list-timestamp {
+  font-size: 12px;
+  color: #777;
+  margin-top: 5px;
+}
+
+#friends-lists .button-index-list-delete {
+  position: relative;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cc0000;
+  background-color: #e50000;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  margin-left: auto;
+}
+
+#friends-lists .button-index-list-delete:hover {
+  background: #cc0000;
+}
+
+#friends-lists .button-index-list-delete .svg {
+  width: 20px;
+}
+
+
 @media (max-width: 767px) {
   .index-lists-page {
     margin: 20px;
     padding: 15px;
-    margin-bottom: 90px;
-    margin-top: 30px;
+    margin-bottom: 150px;
+    margin-top: 50px;
   }
 
   .button-index-list-delete {

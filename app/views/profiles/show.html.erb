@@ -4,17 +4,14 @@
     <!-- Profile Image -->
     <div class="my-profile-img-container">
       <% if @user.user_photo.attached? %>
-        <img src="<%= url_for(@user.user_photo) %>" alt="<%= @user.name %>'s photo" class="my-profile-img">
+        <%= image_tag @user.user_photo.variant(resize_to_fill: [400, 400], saver: { quality: 85 }).processed, alt: "#{@user.name}'s photo", class: "my-profile-img" %>
       <% else %>
-        <img src="placeholder_user_photo.png" alt="<%= t('profile.placeholder_photo_alt') %>" class="my-profile-img">
+        <%= image_tag 'default-avatar.jpg', alt: t('profile.placeholder_photo_alt'), class: "my-profile-img" %>
       <% end %>
     </div>
-
     <!-- Profile Info -->
-
     <p class="my-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
     <p class="my-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
-
    <div class="my-profile-btn-container">
     <div class="my-profile-btn-container">
       <%= link_to edit_profile_path, class: "my-profile-edit-btn" do %>
@@ -25,7 +22,6 @@
           </svg>
         </button>
       <% end %>
-
       <% if current_user.admin? %>
         <%= link_to admin_users_path, class: "my-profile-admin-btn" do %>
           <button class="Btn">
@@ -38,7 +34,6 @@
       <% end %>
     </div>
   </div>
-
   <!-- About Me Section -->
   <div class="my-profile-info my-profile-container">
     <h3><%= t('profile.about_me') %></h3>
@@ -48,7 +43,6 @@
       <p><em><%= t('profile.no_about_me') %></em></p>
     <% end %>
   </div>
-
   <!-- Favorite Recipe Section -->
   <div class="my-favorite-recipe my-profile-container">
     <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
@@ -86,8 +80,6 @@
       <p><em><%= t('profile.no_favorite_recipe') %></em></p>
     <% end %>
   </div>
-
-
   <!-- Friends List -->
   <div class="my-profile-container">
     <h2 class="section-header"><%= t('profile.friends_header') %></h2>
@@ -99,7 +91,6 @@
       <% end %>
     </ul>
   </div>
-
   <!-- Back Button -->
   <div class="my-profile-back-btn-container">
     <%= link_to t('profile_page.back'), request.referer || root_path, class: 'my-profile-back-btn' %>

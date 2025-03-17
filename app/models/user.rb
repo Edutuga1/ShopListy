@@ -7,7 +7,7 @@ class User < ApplicationRecord
          :omniauthable, omniauth_providers: [:google_oauth2]
   # Associations
   has_many :groceries, dependent: :destroy
-  has_many :own_lists, class_name: 'List', foreign_key: 'user_id', dependent: :destroy # Explicit name for user's own lists
+  has_many :own_lists, class_name: 'List', foreign_key: 'user_id', dependent: :destroy
   has_one :cart, dependent: :destroy
   has_many :sent_messages, class_name: 'Message', foreign_key: 'sender_id', dependent: :destroy
   has_many :received_messages, class_name: 'Message', foreign_key: 'receiver_id', dependent: :destroy
@@ -25,8 +25,6 @@ class User < ApplicationRecord
   has_many :meat_products, -> { where(category_id: MEATS_CATEGORY_ID) }, class_name: 'Product'
   has_many :fruit_products, -> { where(category_id: FRUITS_CATEGORY_ID) }, class_name: 'Product'
 
-
-
   # Friendships where the user is the recipient
   has_many :inverse_friendships, class_name: 'Friendship', foreign_key: 'friend_id', dependent: :destroy
   has_many :inverse_friends, -> { where(friendships: { status: 'accepted' }) }, through: :inverse_friendships, source: :user
@@ -37,7 +35,6 @@ class User < ApplicationRecord
   validate :acceptable_image
   validates :password, presence: true, if: -> { new_record? || password.present? }
   validates :password_confirmation, presence: true, if: -> { password.present? }
-  
 
 
   # Checks if the current user is friends with another user
@@ -112,8 +109,8 @@ class User < ApplicationRecord
       user = User.create(
         email: auth.info.email,
         password: Devise.friendly_token[0, 20],
-        name: auth.info.name,        # Store user's name
-        image: auth.info.image       # Optionally, store user's profile picture URL
+        name: auth.info.name,
+        image: auth.info.image
       )
     end
     user
@@ -125,18 +122,21 @@ class User < ApplicationRecord
   def acceptable_image
     return unless user_photo.attached?
 
-    if user_photo.byte_size > 1.megabyte
+    if user_photo.byte_size > 5.megabyte
       errors.add(:user_photo, "is too big")
     end
 
-    acceptable_types = ["image/jpeg", "image/png"]
+    # Define acceptable image types including HEIF and HEIC
+    acceptable_types = ["image/jpeg", "image/png", "image/heif", "image/heic"]
+
+    # Validate the content type against the acceptable formats
     unless acceptable_types.include?(user_photo.content_type)
-      errors.add(:user_photo, "must be a JPEG or PNG")
+      errors.add(:user_photo, "must be a JPEG, PNG, HEIF or HEIC image")
     end
   end
 
+
   def self.search(email)
-    # Using `where` to perform a case-insensitive search
     where("email ILIKE ?", "%#{email}%")
   end
 

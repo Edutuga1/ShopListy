@@ -1,9 +1,9 @@
 .edit-list-page {
-  background: linear-gradient(135deg, #e3f2fd, #90caf9); // Light blue gradient
-  padding: 30px; // Uniform padding
+  background: linear-gradient(135deg, #e3f2fd, #90caf9);
+  padding: 30px;
 }
 
-h1{
+h1 {
   margin-top: 50px;
 }
 
@@ -14,17 +14,18 @@ h1{
 }
 
 .edit-list-page .list-table-container {
-  border-radius: 10px; // Rounded container
-  overflow: hidden; // Prevent table overflow
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); // Match other page's shadow
+  border-radius: 10px;
+  overflow-x: auto;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   margin-top: 100px;
+  max-width: 100%;
 }
 
 .edit-list-page .edit-list-table {
   width: 100%;
-  border-collapse: collapse; // Remove gaps between cells
-  margin: 0; // Align with container
-  background-color: #ffffff; // White background for clarity
+  border-collapse: collapse;
+  margin: 0;
+  background-color: #ffffff;
 }
 
 .edit-list-page .edit-list-table th {
@@ -35,49 +36,49 @@ h1{
 }
 
 .edit-list-page .edit-list-table th {
-  background-color: #3498db; // Primary blue for headers
-  color: #ecf0f1; // Light text
+  background-color: #3498db;
+  color: #ecf0f1;
   font-weight: bold;
-  text-transform: uppercase; // Consistent with modern table design
-  border-bottom: 1px solid #dee2e6; // Subtle border
+  text-transform: uppercase;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .edit-list-page .edit-list-table td {
-  background-color: #f9f9f9; // Light background for rows
-  color: #2c3e50; // Dark text
-  border-bottom: 1px solid #dee2e6; // Subtle row separator
+  background-color: #f9f9f9;
+  color: #2c3e50;
+  border-bottom: 1px solid #dee2e6;
   text-align: center;
   vertical-align: middle;
   padding: 10px;
 }
 
 .edit-list-page .edit-list-table tr:hover {
-  background-color: #f1f1f1; // Light gray hover effect
+  background-color: #f1f1f1;
 }
 
 .edit-list-page form {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Add a gap to control spacing between input and button */
+  gap: 10px;
   width: 100%;
-  margin: 0; /* Prevents unwanted spacing */
+  margin: 0;
 }
 
 .edit-list-page .btn-edit-list-update {
   position: relative;
   width: 100%;
-  max-width: 150px; /* Match delete button width */
-  height: 40px; /* Match delete button height */
+  max-width: 150px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0; /* Remove margin if you want to keep them closer */
+  margin: 0;
   cursor: pointer;
-  border-radius: 2rem; /* Rounded corners */
+  border-radius: 2rem;
   overflow: hidden;
   border: none;
-  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5); /* Add shadow similar to button */
+  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.5);
   position: relative;
 }
 
@@ -140,8 +141,8 @@ h1{
 
 .edit-list-container {
   display: flex;
-  justify-content: center; /* Centers horizontally */
-  align-items: center;     /* Centers vertically */
+  justify-content: center;
+  align-items: center;
   margin-top: 50px;
   margin-bottom: 100px;
 }
@@ -160,7 +161,7 @@ h1{
   color: #1993e4;
   transition: all 1.2s linear;
   cursor: pointer;
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
 }
 
 .wavy-edit-list-btn::after {
@@ -206,13 +207,13 @@ h1{
 
 .edit-list-page .edit-list-delete-button {
   position: relative;
-  width: 100%; /* Make the button span full width */
-  max-width: 150px; /* Optional: Set a maximum width for button */
+  width: 100%;
+  max-width: 150px;
   height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto; /* Center horizontally */
+  margin: 0 auto;
   cursor: pointer;
   border-radius: 6px;
   background-color: #e50000;
@@ -265,29 +266,29 @@ h1{
 
 .edit-list-page .quantity-wrapper {
   display: flex;
-  align-items: center; /* ✅ Ensures vertical centering */
-  justify-content: center; /* ✅ Ensures horizontal centering */
+  align-items: center;
+  justify-content: center;
   gap: 8px;
   width: 100%;
-  height: 100%; /* ✅ Makes sure it stretches to match the table cell */
+  height: 100%;
 }
 
 .edit-list-page input[type="number"] {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  width: 60px; /* Default width */
+  width: 60px;
   max-width: 80px;
   min-width: 40px;
   text-align: center;
   font-size: 1rem;
   transition: width 0.3s ease;
-  display: block; /* Ensure it's a block element */
+  display: block;
 }
 
 .edit-list-page input[type="number"]:focus {
   outline: none;
-  border-color: #3498db; // Consistent with buttons
+  border-color: #3498db;
 }
 
 .back-arrow-edit-list-btn {
@@ -353,9 +354,9 @@ h1{
   display: block;
   width: 20px;
   height: 20px;
-  margin: 21px 18px 0 18px; /* Moves it down by 2px */
+  margin: 21px 18px 0 18px;
   transform: rotate(180deg);
-  fill: #000; 
+  fill: #000;
 }
 
 .back-arrow-edit-list-btn:hover .button-box,
@@ -364,10 +365,14 @@ h1{
   transform: translateX(-56px);
 }
 
-
 @media (max-width: 768px) {
   .edit-list-page input[type="number"] {
-    width: 50px; // Slightly smaller on narrow screens
-    max-width: 80px; // Prevent it from expanding
+    width: 50px;
+    max-width: 80px;
+  }
+
+  .edit-list-page .btn-edit-list-update .button-content {
+    font-size: 13px;
+    letter-spacing: 1px;
   }
 }

@@ -35,11 +35,17 @@ class ProfilesController < ApplicationController
       params[:user][:favorite_recipe][:link] = link
     end
 
-    # Begin user update, excluding the photo for now
+    # Start updating the user
     if @user.update(clean_params.except(:user_photo))
-      # Attach the profile photo if it's present
+      # If user photo is present, handle attachment
       if params[:user][:user_photo].present?
-        @user.user_photo.attach(params[:user][:user_photo])
+        image = params[:user][:user_photo]
+        io = MiniMagick::Image.read(image.tempfile)
+        io.resize "1024x1024"
+        io.strip
+        image.tempfile.rewind
+        @user.user_photo.attach(io: image.tempfile, filename: image.original_filename)
+        @user.save!
       end
 
       # Update the favorite recipe if it was provided in the form
@@ -47,17 +53,20 @@ class ProfilesController < ApplicationController
         @user.favorite_recipe.update(params[:user][:favorite_recipe].permit(:title, :link, :description))
       end
 
+      # Respond to the request (success)
       respond_to do |format|
-        format.html { redirect_to profile_path, notice: 'Profile was successfully updated.' }
+        format.html { redirect_to @user, notice: 'Profile updated successfully.' }
         format.turbo_stream { render turbo_stream: turbo_stream.replace('profile', partial: 'profile', locals: { user: @user }) }
       end
     else
+      # If update failed, render the edit form again
       respond_to do |format|
         format.html { render :edit }
         format.turbo_stream { render turbo_stream: turbo_stream.replace('profile', partial: 'profile', locals: { user: @user }) }
       end
     end
   end
+
 
   private
 

@@ -26,9 +26,9 @@
         <div class="dropdown">
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown">
             <% if current_user.user_photo.attached? %>
-              <%= image_tag current_user.user_photo.variant(resize_to_limit: [50, 50]).processed, class: "avatar", alt: "User avatar" %>
+              <%= image_tag current_user.user_photo.variant(resize_to_limit: [200, 200], saver: { quality: 85 }).processed, class: "avatar", alt: "User avatar" %>
             <% else %>
-              <%= image_tag "https://m.media-amazon.com/images/I/61yQAF86FKL.jpg", class: "avatar", alt: "Default avatar" %>
+              <%= image_tag 'default-avatar.jpg', class: "avatar", alt: "Default avatar" %>
             <% end %>
           </a>
           <div class="dropdown-menu dropdown-menu-end">

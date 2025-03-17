@@ -5,7 +5,7 @@
     <% if message.sender.user_photo.attached? %>
       <%= image_tag message.sender.user_photo, class: 'sender-profile-pic', alt: message.sender.name %>
     <% else %>
-      <%= image_tag 'default-avatar.jpg', class: 'sender-profile-pic', alt: 'Default Avatar' %>  <!-- Replace with the correct path to a default avatar -->
+      <%= image_tag 'default-avatar.jpg', class: 'sender-profile-pic', alt: 'Default Avatar' %>
     <% end %>
 
     <!-- Sender's Name -->
