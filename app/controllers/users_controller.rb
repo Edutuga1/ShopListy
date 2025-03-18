@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
+  before_action :authenticate_user!
   after_action :create_cart, only: :create
 
   def new
@@ -26,7 +27,14 @@ class UsersController < ApplicationController
       @users = []
     end
 
-    @user = current_user # Set this if you want to reference the current user
+    @user = current_user
+  end
+
+  def remove_friend
+    friend = User.find(params[:friend_id])
+    current_user.friends.destroy(friend) # Remove the friend from the list
+
+    redirect_to user_path(current_user), notice: 'Friend removed successfully.'
   end
 
   private
@@ -40,7 +48,7 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id]) # Check that this line correctly finds the user
+    @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     @user = nil
   end

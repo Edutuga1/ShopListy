@@ -8,11 +8,8 @@
     <script src="https://kit.fontawesome.com/yourkit.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Back Button -->
     <%= link_to t('friend_page.back'), request.referer || root_path, class: 'friend-back-btn' %>
-
     <div class="friend-profile-page">
-
       <!-- Friend Status Section -->
         <div class="friend-profile-btn-container">
           <% if current_user.friend_request_exists?(@user) %>
@@ -30,10 +27,9 @@
                 <% if @user.user_photo.attached? %>
                     <img src="<%= url_for(@user.user_photo) %>" alt="<%= @user.name %>'s photo" class="friend-profile-img">
                 <% else %>
-                    <img src="placeholder_user_photo.png" alt="<%= t('profile.placeholder_photo_alt') %>" class="friend-profile-img">
+                  <%= image_tag 'default-avatar.jpg', alt: t('profile.placeholder_photo_alt'), class: 'friend-profile-img' %>
                 <% end %>
             </div>
-
             <!-- Profile Info -->
             <p class="friend-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
             <p class="friend-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>

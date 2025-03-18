@@ -54,7 +54,6 @@
         <li class="shared-list-item">
           <div class="list-info">
             <%= link_to saved_list.list.name, list_path(saved_list.list), class: "list-name" %>
-            <br>
             <small class="list-timestamp">
               <%= t('lists_page.index.shared_on') %>: <%= saved_list.created_at.strftime(t('lists_page.index.date_format')) %>
             </small>

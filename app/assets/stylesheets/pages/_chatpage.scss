@@ -22,8 +22,8 @@
 
       button.toggle-details {
         position: absolute;
-        top: 215px;
-        left: 970px;
+        top: 143px;
+        right: 55px;
         z-index: 10;
 
         color: #3897f0;
@@ -445,6 +445,11 @@
     font-size: 16px;
     padding: 0.8em 1.2em;
   }
+
+  .chat-header-toggle button.toggle-details {
+    top: 140px !important;
+    right: 10px !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -469,5 +474,10 @@
   .custom-send-btn {
     font-size: 14px;
     padding: 0.8em 1.2em;
+  }
+
+  .chat-header-toggle button.toggle-details {
+    top: 140px !important;
+    right: 10px !important;
   }
 }

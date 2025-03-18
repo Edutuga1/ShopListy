@@ -5,8 +5,8 @@ Rails.application.routes.draw do
 
   # Devise routes for user authentication
   devise_for :users, controllers: {
-  omniauth_callbacks: 'users/omniauth_callbacks'
-}
+    omniauth_callbacks: 'users/omniauth_callbacks'
+  }
 
   # Root route
   root to: "pages#home"
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   # User resources with nested lists, conversations, friendships, and search
   resources :users, only: %i[show update destroy] do
+    delete 'remove_friend/:friend_id', to: 'users#remove_friend', as: 'remove_friend_user'
     # Add search route for finding users by email
     collection do
       get :search  # route for user search functionality
@@ -29,16 +30,14 @@ Rails.application.routes.draw do
     # Friendships routes nested under users
     resources :friendships, only: %i[index create update destroy] do
       member do
-        patch 'accept', to: 'friendships#accept'  # Accept a friend request
-        patch 'reject', to: 'friendships#reject'  # Reject a friend request
+        patch 'accept', to: 'friendships#accept'
+        patch 'reject', to: 'friendships#reject'
       end
     end
 
     # Conversations routes nested under users
     resources :conversations, only: %i[index new show create destroy] do
-      # Ensure this route is correctly defined for marking messages as read
       post 'mark_as_read', on: :member, to: 'conversations#mark_as_read'
-
       resources :messages, only: %i[create index]
     end
 
