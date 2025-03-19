@@ -23,7 +23,7 @@
     <% end %>
   </div>
 
-  <%= button_to list_path(@list), method: :delete, class: 'list-delete-btn', data: { confirm: t('lists_page.show.delete_confirm') } do %>
+  <%= button_to list_path(@list), method: :delete, class: 'list-delete-btn', data: { turbo_confirm: t('lists_page.show.delete_confirm') } do %>
     <span class="list-delete-btn__text"><%= t('lists_page.show.delete_button') %></span>
     <span class="list-delete-btn__icon">
       <svg class="svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg"><title></title>

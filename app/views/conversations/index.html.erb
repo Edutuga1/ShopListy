@@ -79,9 +79,18 @@
     <% if @friends_without_conversations.any? %>
       <ul class="list-group">
         <% @friends_without_conversations.each do |friend| %>
-          <li class="list-group-item d-flex align-items-center">
-            <%= image_tag(friend.user_photo.variant(resize_to_limit: [200, 200], saver: { quality: 85 }).processed, class: "rounded-circle me-3", alt: "#{friend.name}'s profile picture") if friend.user_photo.attached? %>
-            <%= link_to friend.name, new_user_conversation_path(current_user, friend_id: friend.id), class: "text-primary fw-bold" %>
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+              <!-- Show profile photo if attached -->
+              <% if friend.user_photo.attached? %>
+                <%= image_tag(friend.user_photo.variant(resize_to_limit: [200, 200], saver: { quality: 85 }).processed, class: "rounded-circle me-3", alt: "#{friend.name}'s profile picture") %>
+              <% else %>
+                <!-- Fallback avatar if no photo is attached -->
+                <%= image_tag("default-avatar.jpg", class: "rounded-circle me-3", alt: "Default avatar") %>
+              <% end %>
+              <%= link_to friend.name, new_user_conversation_path(current_user, friend_id: friend.id), class: "dm-page-conversation-username" %>
+            </div>
+            <%= link_to t('dm_page.start_conversation'), new_user_conversation_path(current_user, friend_id: friend.id), class: "btn btn-primary" %>
           </li>
         <% end %>
       </ul>

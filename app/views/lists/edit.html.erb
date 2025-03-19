@@ -49,7 +49,7 @@
             <td>
               <%= button_to list_products_list_path(@list, products_list),
                   method: :delete,
-                  data: { confirm: t('edit_list_page.confirm_delete') },
+                  data: { turbo_confirm: t('edit_list_page.confirm_delete') },
                   class: 'edit-list-delete-button' do %>
                 <span class="button-edit-list-delete__text"><%= t('edit_list_page.remove') %></span>
                 <span class="button-edit-list-delete__icon">

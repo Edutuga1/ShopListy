@@ -93,4 +93,3 @@ gem "aws-sdk-s3", "~> 1.182", :require => false
 gem 'actioncable'
 
 gem 'mini_magick'
-

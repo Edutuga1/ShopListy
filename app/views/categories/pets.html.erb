@@ -85,7 +85,7 @@
                 </div>
                  <% if pet_product.user_id.present? %>
                     <div class="button-container">
-                      <%= button_to "Remove", product_path(pet_product), method: :delete, data: { confirm: "Are you sure?" }, class: "custom-prod-remove-button" %>
+                      <%= button_to "Remove", product_path(pet_product), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "custom-prod-remove-button" %>
                     </div>
                   <% end %>
               </div>

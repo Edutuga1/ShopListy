@@ -22,10 +22,21 @@ class ConversationsController < ApplicationController
     @conversation = Conversation.find(params[:conversation_id])
     @message = @conversation.messages.new(message_params)
     @message.sender = current_user
+    @message.receiver = @conversation.other_user(current_user)
 
     if @message.save
+      # Broadcast the new message via ActionCable
+      ActionCable.server.broadcast "conversation_#{@conversation.id}_channel", {
+        content: @message.content,
+        sender: @message.sender.name,
+        receiver: @message.receiver.name,
+        message_id: @message.id,
+        created_at: @message.created_at
+      }
+
       respond_to do |format|
-        format.turbo_stream
+        # Turbo Stream to append the new message
+        format.turbo_stream { render turbo_stream: turbo_stream.append("messages", partial: "messages/message", locals: { message: @message }) }
         format.html { redirect_to user_conversation_path(current_user, @conversation), notice: 'Message sent.' }
       end
     else
@@ -37,12 +48,8 @@ class ConversationsController < ApplicationController
   def mark_as_read
     # Find the conversation by ID
     @conversation = Conversation.find(params[:id])
-
-    # Mark messages as read (implement your logic here)
-    # For example, assuming you have a method that marks messages as read
     @conversation.mark_messages_as_read(current_user)
 
-    # Return the unread message count as JSON
     render json: { unread_messages: current_user.unread_messages_count }
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'Conversation not found' }, status: :not_found
@@ -53,7 +60,6 @@ class ConversationsController < ApplicationController
     @messages = @conversation.messages.includes(:sender).order(created_at: :asc)
   end
 
-  # ConversationsController#new
   def new
     if params[:friend_id]
       friend = User.find(params[:friend_id])
@@ -81,7 +87,7 @@ class ConversationsController < ApplicationController
       @conversation.destroy
       respond_to do |format|
         format.html { redirect_to user_conversations_path(current_user), notice: 'Conversation deleted successfully.' }
-        format.turbo_stream # This allows Turbo to handle the removal without a full page refresh
+        format.turbo_stream
       end
     end
   end
@@ -101,7 +107,7 @@ class ConversationsController < ApplicationController
   end
 
   def conversation_params
-    params.require(:conversation).permit(:receiver_id) # Ensure you permit the receiver_id
+    params.require(:conversation).permit(:receiver_id)
   end
 
   def message_params

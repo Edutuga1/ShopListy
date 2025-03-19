@@ -1,101 +1,151 @@
-<div class="my-profile-page">
-  <!-- Profile Section -->
-  <div class="my-profile-container">
-    <!-- Profile Image -->
-    <div class="my-profile-img-container">
-      <% if @user.user_photo.attached? %>
-        <%= image_tag @user.user_photo.variant(resize_to_fill: [400, 400], saver: { quality: 85 }).processed, alt: "#{@user.name}'s photo", class: "my-profile-img" %>
-      <% else %>
-        <%= image_tag 'default-avatar.jpg', alt: t('profile.placeholder_photo_alt'), class: "my-profile-img" %>
-      <% end %>
-    </div>
-    <!-- Profile Info -->
-    <p class="my-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
-    <p class="my-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
-   <div class="my-profile-btn-container">
+  <div class="my-profile-page">
+    <!-- Profile Section -->
+    <div class="my-profile-container">
+      <!-- Profile Image -->
+      <div class="my-profile-img-container">
+        <% if @user.user_photo.attached? %>
+          <%= image_tag @user.user_photo.variant(resize_to_fill: [400, 400], saver: { quality: 85 }).processed, alt: "#{@user.name}'s photo", class: "my-profile-img" %>
+        <% else %>
+          <%= image_tag 'default-avatar.jpg', alt: t('profile.placeholder_photo_alt'), class: "my-profile-img" %>
+        <% end %>
+      </div>
+      <!-- Profile Info -->
+      <p class="my-profile-subheader"><i class="fas fa-user"></i> <strong><%= t('profile.name') %>:</strong> <%= @user.name %></p>
+      <p class="my-profile-subheader"><i class="fas fa-envelope"></i> <strong><%= t('profile.email') %>:</strong> <%= @user.email %></p>
     <div class="my-profile-btn-container">
-      <%= link_to edit_profile_path, class: "my-profile-edit-btn" do %>
-        <button class="Btn">
-          Edit
-          <svg class="svg" viewBox="0 0 512 512">
-            <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
-          </svg>
-        </button>
-      <% end %>
-      <% if current_user.admin? %>
-        <%= link_to admin_users_path, class: "my-profile-admin-btn" do %>
+      <div class="my-profile-btn-container">
+        <%= link_to edit_profile_path, class: "my-profile-edit-btn" do %>
           <button class="Btn">
-            Admin
-            <svg class="svg" viewBox="0 0 36 24">
-              <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
+            Edit
+            <svg class="svg" viewBox="0 0 512 512">
+              <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
             </svg>
           </button>
         <% end %>
+        <% if current_user.admin? %>
+          <%= link_to admin_users_path, class: "my-profile-admin-btn" do %>
+            <button class="Btn">
+              Admin
+              <svg class="svg" viewBox="0 0 36 24">
+                <path d="m18 0 8 12 10-8-4 20H4L0 4l10 8 8-12z"></path>
+              </svg>
+            </button>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <!-- About Me Section -->
+    <div class="my-profile-info my-profile-container">
+      <h3><%= t('profile.about_me') %></h3>
+      <% if @user.about_me.present? %>
+        <p><%= @user.about_me %></p>
+      <% else %>
+        <p><em><%= t('profile.no_about_me') %></em></p>
       <% end %>
     </div>
-  </div>
-  <!-- About Me Section -->
-  <div class="my-profile-info my-profile-container">
-    <h3><%= t('profile.about_me') %></h3>
-    <% if @user.about_me.present? %>
-      <p><%= @user.about_me %></p>
-    <% else %>
-      <p><em><%= t('profile.no_about_me') %></em></p>
-    <% end %>
-  </div>
-  <!-- Favorite Recipe Section -->
-  <div class="my-favorite-recipe my-profile-container">
-    <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
-    <% if @user.favorite_recipe %>
-      <ul>
-        <li>
-          ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
-          <p><%= @user.favorite_recipe.description %></p>
-          <% if @user.favorite_recipe.link.present? %>
-            <div class="view-recipe-btn-container">
-              <%= link_to @user.favorite_recipe.link, target: "_blank", class: "my-profile-view-recipe-btn" do %>
-                <svg
-                  class="w-6 h-6"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-                    stroke-linejoin="round"
-                    stroke-linecap="round"
-                  ></path>
-                </svg>
-                <div class="text"><%= t('profile.view_recipe') %></div>
-              <% end %>
-            </div>
-          <% else %>
-            <p><em><%= t('profile.no_recipe_link') %></em></p>
-          <% end %>
-        </li>
-      </ul>
-    <% else %>
-      <p><em><%= t('profile.no_favorite_recipe') %></em></p>
-    <% end %>
-  </div>
-  <!-- Friends List -->
-  <div class="my-profile-container">
-    <h2 class="section-header"><%= t('profile.friends_header') %></h2>
-    <ul class="friends-list">
-      <% current_user.friends.each do |friend| %>
-        <li class="friend-item">
-          <%= image_tag friend.user_photo.attached? ? friend.user_photo : 'default-avatar.jpg', alt: "#{friend.name}'s photo", class: 'my-profile-friend-img' %>
-          <%= link_to friend.name, user_path(friend), class: "friend-link" %>
-
-          <!-- Remove Friend Button -->
-        <%= link_to t('profile.remove_friend'), user_remove_friend_user_path(user_id: current_user.id, friend_id: friend.id), method: :delete, data: { confirm: t('profile.remove_friend_confirmation') }, class: 'remove-friend-btn' %>
-        </li>
+    <!-- Favorite Recipe Section -->
+    <div class="my-favorite-recipe my-profile-container">
+      <h3><i class="fas fa-utensils"></i> <%= t('profile.favorite_recipe') %></h3>
+      <% if @user.favorite_recipe %>
+        <ul>
+          <li>
+            ➔ <strong><%= @user.favorite_recipe.title %></strong><br>
+            <p><%= @user.favorite_recipe.description %></p>
+            <% if @user.favorite_recipe.link.present? %>
+              <div class="view-recipe-btn-container">
+                <%= link_to @user.favorite_recipe.link, target: "_blank", class: "my-profile-view-recipe-btn" do %>
+                  <svg
+                    class="w-6 h-6"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    ></path>
+                  </svg>
+                  <div class="text"><%= t('profile.view_recipe') %></div>
+                <% end %>
+              </div>
+            <% else %>
+              <p><em><%= t('profile.no_recipe_link') %></em></p>
+            <% end %>
+          </li>
+        </ul>
+      <% else %>
+        <p><em><%= t('profile.no_favorite_recipe') %></em></p>
       <% end %>
-    </ul>
+    </div>
+    <!-- Friends List -->
+    <div class="my-profile-container">
+      <h2 class="section-header"><%= t('profile.friends_header') %></h2>
+      <ul class="friends-list">
+        <% current_user.friends.each do |friend| %>
+          <li class="friend-item">
+            <%= image_tag friend.user_photo.attached? ? friend.user_photo : 'default-avatar.jpg', alt: "#{friend.name}'s photo", class: 'my-profile-friend-img' %>
+            <%= link_to friend.name, user_path(friend), class: "friend-link" %>
+            <!-- Remove Friend Button -->
+            <%= form_with url: user_remove_friend_user_path(current_user, friend.id), method: :delete, data: { turbo_confirm: "Are you sure you want to remove this friend?" }, local: true do %>
+              <button class="profile-friend-remove-button" type="submit">
+                <span class="profile-friend-remove-button__text">Remove</span>
+                <span class="profile-friend-remove-button__icon">
+                  <svg
+                    class="svg"
+                    height="512"
+                    viewBox="0 0 512 512"
+                    width="512"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <title></title>
+                    <path
+                      d="M112,112l20,320c.95,18.49,14.4,32,32,32H348c17.67,0,30.87-13.51,32-32l20-320"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                    ></path>
+                    <line
+                      style="stroke:#fff;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px"
+                      x1="80"
+                      x2="432"
+                      y1="112"
+                      y2="112"
+                    ></line>
+                    <path
+                      d="M192,112V72h0a23.93,23.93,0,0,1,24-24h80a23.93,23.93,0,0,1,24,24h0v40"
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                    ></path>
+                    <line
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="256"
+                      x2="256"
+                      y1="176"
+                      y2="400"
+                    ></line>
+                    <line
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="184"
+                      x2="192"
+                      y1="176"
+                      y2="400"
+                    ></line>
+                    <line
+                      style="fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px"
+                      x1="328"
+                      x2="320"
+                      y1="176"
+                      y2="400"
+                    ></line>
+                  </svg>
+                </span>
+              </button>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="my-profile-back-btn-container">
+      <%= link_to t('profile_page.back'), request.referer || root_path, class: 'my-profile-back-btn' %>
+    </div>
   </div>
-  <div class="my-profile-back-btn-container">
-    <%= link_to t('profile_page.back'), request.referer || root_path, class: 'my-profile-back-btn' %>
-  </div>
-</div>

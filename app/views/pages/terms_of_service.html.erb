@@ -3,58 +3,100 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <title>Terms of Service</title>
   <style>
     body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
-}
+      font-family: 'Georgia', serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
 
-.container {
-  width: 80%;
-  max-width: 900px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-}
+    .container {
+      width: 90%;
+      max-width: 900px;
+      margin: 20px auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
 
-h1 {
-  text-align: center;
-  color: #333;
-}
+    h1 {
+      text-align: center;
+      color: #333;
+    }
 
-h2 {
-  color: #555;
-}
+    h2 {
+      color: #555;
+    }
 
-p {
-  color: #666;
-  line-height: 1.6;
-  margin-bottom: 15px;
-}
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
 
-a {
-  color: #0066cc;
-  text-decoration: none;
-}
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
 
-a:hover {
-  text-decoration: underline;
-}
-</style>
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      display: none;
+      width: 130px;
+      height: 35px;
+      background-color: #0066cc;
+      color: white;
+      font-size: 1em;
+      border-radius: 5px;
+      text-decoration: none;
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-button:hover {
+      background-color: #005bb5;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        width: 95%;
+        padding: 15px;
+      }
+
+      h1 {
+        font-size: 2.5em;
+      }
+
+      h2 {
+        font-size: 1.6em;
+      }
+
+      p {
+        font-size: 14px;
+      }
+    }
+  </style>
 </head>
 <body>
 
   <div class="container">
     <h1>Terms of Service</h1>
 
-    <p>Welcome to <strong>MyAppName</strong>. These terms and conditions outline the rules and regulations for the use of our website and services.</p>
+    <p>Welcome to <strong>ShopListy</strong>. These terms and conditions outline the rules and regulations for the use of our website and services.</p>
 
     <h2>1. Acceptance of Terms</h2>
     <p>By accessing or using this website and services, you agree to comply with and be bound by these Terms of Service. If you disagree with any part of the terms, you must not use our services.</p>
@@ -81,7 +123,27 @@ a:hover {
     <p>These Terms of Service shall be governed by and construed in accordance with the laws of Portugal. Any disputes will be resolved in the competent courts of Portugal.</p>
 
     <h2>9. Contact Us</h2>
-    <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support@example.com">support@example.com</a>.</p>
+    <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support_shoplisty@example.com">support_shoplisty@example.com</a>.</p>
   </div>
+  <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Go Back</a>
 </body>
+  <script>
+    document.addEventListener('turbo:load', function () {
+      const backButton = document.querySelector('.back-button');
+
+      if (!backButton) return;
+
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 800) {
+          backButton.style.display = 'flex';
+        } else {
+          backButton.style.display = 'none';
+        }
+      });
+
+      window.addEventListener('turbo:before-cache', function () {
+        backButton.style.display = 'none';
+      });
+    });
+  </script>
 </html>

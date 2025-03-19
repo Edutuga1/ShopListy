@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   # User resources with nested lists, conversations, friendships, and search
   resources :users, only: %i[show update destroy] do
     delete 'remove_friend/:friend_id', to: 'users#remove_friend', as: 'remove_friend_user'
+
     # Add search route for finding users by email
     collection do
       get :search  # route for user search functionality

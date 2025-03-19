@@ -31,10 +31,22 @@ class UsersController < ApplicationController
   end
 
   def remove_friend
-    friend = User.find(params[:friend_id])
-    current_user.friends.destroy(friend) # Remove the friend from the list
+    @user = User.find(params[:user_id])
+    @friend = User.find(params[:friend_id])
 
-    redirect_to user_path(current_user), notice: 'Friend removed successfully.'
+    friendship1 = Friendship.find_by(user_id: @user.id, friend_id: @friend.id, status: 'accepted')
+    friendship2 = Friendship.find_by(user_id: @friend.id, friend_id: @user.id, status: 'accepted')
+
+    if friendship1
+      friendship1.destroy
+      flash[:notice] = "Friendship removed"
+    elsif friendship2
+      friendship2.destroy
+      flash[:notice] = "Friendship removed"
+    else
+      flash[:alert] = "Friendship not found"
+    end
+    redirect_to profile_path(@user)
   end
 
   private

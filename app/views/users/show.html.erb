@@ -15,7 +15,7 @@
           <% if current_user.friend_request_exists?(@user) %>
             <p class="friend-status-text"><%= t('profile.friend_request_sent') %></p>
           <% elsif !current_user.friend?(@user) %>
-            <%= button_to t('profile.add_friend'), user_friendships_path(friend_id: @user.id), method: :post, class: "friend-profile-btn" %>
+            <%= button_to t('profile.add_friend'), user_friendships_path(user_id: @user.id), method: :post, class: "friend-profile-btn" %>
           <% else %>
             <p class="friend-status-text"><%= t('profile.are_friends') %> <i class="fas fa-smile"></i></p>
           <% end %>
