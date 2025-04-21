@@ -4,9 +4,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Devise routes for user authentication
-  devise_for :users, controllers: {
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   # Root route
   root to: "pages#home"
@@ -75,6 +73,14 @@ Rails.application.routes.draw do
     get 'pharmacy', on: :collection
     get 'baby', on: :collection
     get 'pets', on: :collection
+    get 'coffee_tea_instant_drinks', on: :collection
+    get 'cereals_bars', on: :collection
+    get 'olive_oil_vinegar', on: :collection
+    get 'preserves', on: :collection
+    get 'sauces_seasonings_salt', on: :collection
+    get 'jams_creams_honey', on: :collection
+    get 'sugar_desserts', on: :collection
+    get 'search', on: :collection
   end
 
   # List resources with additional actions
@@ -112,6 +118,15 @@ Rails.application.routes.draw do
   get 'pharmacy', to: 'categories#pharmacy', as: :pharmacy
   get 'baby', to: 'categories#baby', as: :baby
   get 'pets', to: 'categories#pets', as: :pets
+  get 'coffee_tea_instant_drinks', to: 'categories#coffee_tea_instant_drinks', as: :coffee_tea_instant_drinks
+  get 'categories/cereals_bars', to: 'categories#cereals_bars', as: 'cereals_bars'
+  get 'categories/olive_oil_vinegar', to: 'categories#olive_oil_vinegar', as: 'olive_oil_vinegar'
+  get 'categories/preserves', to: 'categories#preserves', as: 'preserves'
+  get 'categories/sauces_seasonings_salt', to: 'categories#sauces_seasonings_salt', as: 'sauces_seasonings_salt'
+  get 'categories/jams_creams_honey', to: 'categories#jams_creams_honey', as: 'jams_creams_honey'
+  get 'categories/sugar_desserts', to: 'categories#sugar_desserts', as: 'sugar_desserts'
+
+
 
   #  Footer routes
 

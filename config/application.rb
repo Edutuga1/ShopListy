@@ -37,5 +37,8 @@ module ShoppingList
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.middleware.use OmniAuth::Builder do
+      provider :google_oauth2, 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET', scope: 'email,profile'
+    end
   end
 end

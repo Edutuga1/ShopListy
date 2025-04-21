@@ -115,50 +115,51 @@
 <body>
 
   <div class="container">
-    <h1>Privacy Policy</h1>
+    <h1><%= t("privacy_policy.title") %></h1>
 
-    <p>At <strong>ShopListy</strong>, your privacy is a top priority. This Privacy Policy outlines how we collect, use, and protect your information when you visit our website and use our services.</p>
+    <p><%= t("privacy_policy.intro_html", site_name: "ShopListy") %></p>
 
-    <h2>1. Information We Collect</h2>
-    <p>We collect information from you when you visit our website, fill out a form, or interact with our content. The types of information we collect include:</p>
+    <h2><%= t("privacy_policy.section1.title") %></h2>
+    <p><%= t("privacy_policy.section1.description") %></p>
     <ul>
-      <li><strong>Personal Information:</strong> Name, email address, or other details that you provide voluntarily through forms.</li>
-      <li><strong>Non-Personal Information:</strong> Browser type, device information, and usage data (e.g., pages visited, time spent on the website).</li>
+      <li><strong><%= t("privacy_policy.section1.personal_info_title") %></strong> <%= t("privacy_policy.section1.personal_info_desc") %></li>
+      <li><strong><%= t("privacy_policy.section1.non_personal_info_title") %></strong> <%= t("privacy_policy.section1.non_personal_info_desc") %></li>
     </ul>
 
-    <h2>2. How We Use Your Information</h2>
-    <p>We use the information we collect to improve your user experience, provide customer support, and personalize content. Specifically, we may use your data for:</p>
+    <h2><%= t("privacy_policy.section2.title") %></h2>
+    <p><%= t("privacy_policy.section2.description") %></p>
     <ul>
-      <li>Responding to your inquiries or comments.</li>
-      <li>Improving website functionality and user experience.</li>
-      <li>Sending promotional materials, if you have opted-in to receive them.</li>
+      <li><%= t("privacy_policy.section2.use1") %></li>
+      <li><%= t("privacy_policy.section2.use2") %></li>
+      <li><%= t("privacy_policy.section2.use3") %></li>
     </ul>
 
-    <h2>3. How We Protect Your Information</h2>
-    <p>We implement a variety of security measures to maintain the safety of your personal information. However, no data transmission method over the Internet is completely secure. While we strive to protect your data, we cannot guarantee its absolute security.</p>
+    <h2><%= t("privacy_policy.section3.title") %></h2>
+    <p><%= t("privacy_policy.section3.description") %></p>
 
-    <h2>4. Sharing Your Information</h2>
-    <p>We do not sell, trade, or transfer your personal information to third parties without your consent, except for the following:</p>
+    <h2><%= t("privacy_policy.section4.title") %></h2>
+    <p><%= t("privacy_policy.section4.description") %></p>
     <ul>
-      <li>To trusted service providers who help us operate our website and provide services.</li>
-      <li>When required by law or to protect our legal rights.</li>
+      <li><%= t("privacy_policy.section4.share1") %></li>
+      <li><%= t("privacy_policy.section4.share2") %></li>
     </ul>
 
-    <h2>5. Cookies</h2>
-    <p>Our website may use cookies to enhance your browsing experience. Cookies are small files stored on your device that help us track your preferences and interactions with our site. You can choose to disable cookies through your browser settings, but this may impact your experience on the site.</p>
+    <h2><%= t("privacy_policy.section5.title") %></h2>
+    <p><%= t("privacy_policy.section5.description") %></p>
 
-    <h2>6. Your Rights</h2>
-    <p>You have the right to access, correct, or delete your personal information. If you'd like to exercise any of these rights, please contact us through the contact form on our website.</p>
+    <h2><%= t("privacy_policy.section6.title") %></h2>
+    <p><%= t("privacy_policy.section6.description") %></p>
 
-    <h2>7. Image Credits & Usage Disclaimer</h2>
-    <p>Some of the images used on this website/app are sourced from free image websites, including but not limited to free PNG sites, Unsplash, Pexels, and others. We do not claim ownership of these images unless otherwise stated. If you are the owner of any image displayed here and would like it removed or properly credited, please contact us at [your email] and we will take the necessary actions to credit you or remove the image from our platform. All rights to the images remain with their respective owners.</p>
+    <h2><%= t("privacy_policy.section7.title") %></h2>
+    <p><%= t("privacy_policy.section7.description_html", email: "shoplisty.help@gmail.com") %></p>
 
-    <h2>8. Changes to This Privacy Policy</h2>
-    <p>We may update this Privacy Policy from time to time. Any changes will be posted on this page, and the date of the latest update will be displayed at the top of the policy.</p>
+    <h2><%= t("privacy_policy.section8.title") %></h2>
+    <p><%= t("privacy_policy.section8.description") %></p>
 
-    <h2>9. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support_shoplisty@example.com">support_shoplisty@example.com</a>.</p>
+    <h2><%= t("privacy_policy.section9.title") %></h2>
+    <p><%= t("privacy_policy.section9.description_html", email: "shoplisty.help@gmail.com") %></p>
   </div>
+
 
   <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Go Back</a>
   <script>

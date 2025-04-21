@@ -14,6 +14,15 @@ class ProductsListsController < ApplicationController
     redirect_back(fallback_location: lists_path, notice: 'Product list was successfully deleted.')
   end
 
+  def search
+    @query = params[:query]
+    if @query.present?
+      @products = Product.where("name LIKE ?", "%#{@query}%").all
+    else
+      @products = Product.none
+    end
+  end
+  
   private
 
   def products_list_params

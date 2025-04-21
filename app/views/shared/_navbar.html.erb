@@ -8,14 +8,14 @@
     <!-- ICONS -->
     <div class="d-flex align-items-center gap-3">
       <% if user_signed_in? %>
+       <%= link_to root_path, class: "nav-link" do %>
+          <i class="fa-solid fa-house"></i>
+        <% end %>
         <%= link_to user_lists_path(current_user), class: "nav-link" do %>
           <i class="fa-solid fa-rectangle-list"></i>
         <% end %>
         <%= link_to cart_path, class: "nav-link" do %>
           <i class="fa-solid fa-cart-shopping"></i>
-        <% end %>
-        <%= link_to root_path, class: "nav-link" do %>
-          <i class="fa-solid fa-house"></i>
         <% end %>
         <%= link_to user_conversations_path(current_user), class: "nav-link position-relative" do %>
           <i class="fa-solid fa-message"></i>

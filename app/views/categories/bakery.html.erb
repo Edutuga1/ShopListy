@@ -66,7 +66,7 @@
           <% elsif File.exist?(Rails.root.join("app/assets/images/#{image_filename}.png")) %>
             <%= image_tag "#{image_filename}.png", class: "product-image", alt: bakery_product.name %>
           <% else %>
-            <p><%= t('bakery_page.no_image') %></p>
+            <%= image_tag "product-placeholder.png", class: "product-image", alt: t('bakery_page.no_image') %>
           <% end %>
 
           <!-- Add to Cart Form -->

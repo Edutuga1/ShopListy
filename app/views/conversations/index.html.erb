@@ -22,7 +22,7 @@
 
   <!-- Page Header -->
   <header class="text-center mb-4">
-    <h1 class="display-4"><%= t('dm_page.title') %></h1>
+    <h1 class="display-4"><strong><%= t('dm_page.title') %></strong></h1>
   </header>
 
   <!-- Search for a Friend by Email -->
@@ -90,7 +90,9 @@
               <% end %>
               <%= link_to friend.name, new_user_conversation_path(current_user, friend_id: friend.id), class: "dm-page-conversation-username" %>
             </div>
-            <%= link_to t('dm_page.start_conversation'), new_user_conversation_path(current_user, friend_id: friend.id), class: "btn btn-primary" %>
+           <%= link_to t('dm_page.start_conversation'),
+            new_user_conversation_path(current_user, friend_id: friend.id),
+            class: "btn codepen-button" %>
           </li>
         <% end %>
       </ul>

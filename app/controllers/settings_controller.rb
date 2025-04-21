@@ -30,13 +30,12 @@ class SettingsController < ApplicationController
       redirect_to settings_path, notice: 'Settings updated successfully.'
     else
       render :show
-    end 
+    end
   end
 
 
   private
 
-  # Use this method when updating with or without password
   def user_params
     # If password fields are present, allow current password as well
     if params[:user][:password].present? || params[:user][:password_confirmation].present?

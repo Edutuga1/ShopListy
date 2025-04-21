@@ -111,6 +111,41 @@ class CategoriesController < ApplicationController
     @pets_products = @products
   end
 
+  def cereals_bars
+    load_category_products('Cereals & Bars')
+    @cereals_bars_products = @products
+  end
+
+  def olive_oil_vinegar
+    load_category_products('Olive Oil & Vinegar')
+    @olive_oil_vinegar_products = @products
+  end
+
+  def preserves
+    load_category_products('Preserves')
+    @preserves_products = @products
+  end
+
+  def sauces_seasonings_salt
+    load_category_products('Sauces, Seasonings & Salt')
+    @sauces_seasonings_salt_products = @products
+  end
+
+  def jams_creams_honey
+    load_category_products('Jams, Creams & Honey')
+    @jams_creams_honey_products = @products
+  end
+
+  def sugar_desserts
+    load_category_products('Sugar & Desserts')
+    @sugar_desserts_products = @products
+  end
+
+  def coffee_tea_instant_drinks
+    category = Category.find_by(name: 'Coffee, Tea & Instant Drinks')
+    @coffee_tea_product = category ? category.products : []
+  end
+
   private
 
   def load_category_products(category_name)

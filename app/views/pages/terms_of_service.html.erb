@@ -94,37 +94,38 @@
 <body>
 
   <div class="container">
-    <h1>Terms of Service</h1>
+    <h1><%= t('terms_of_service.title') %></h1>
 
-    <p>Welcome to <strong>ShopListy</strong>. These terms and conditions outline the rules and regulations for the use of our website and services.</p>
+    <p><%= t('terms_of_service.intro', strong_tag: '<strong>ShopListy</strong>') %></p>
 
-    <h2>1. Acceptance of Terms</h2>
-    <p>By accessing or using this website and services, you agree to comply with and be bound by these Terms of Service. If you disagree with any part of the terms, you must not use our services.</p>
+    <h2>1. <%= t('terms_of_service.acceptance_of_terms.title') %></h2>
+    <p><%= t('terms_of_service.acceptance_of_terms.content') %></p>
 
-    <h2>2. Changes to the Terms</h2>
-    <p>We reserve the right to modify or replace these Terms of Service at any time. It is your responsibility to review the terms periodically. Changes will be posted on this page with an updated date.</p>
+    <h2>2. <%= t('terms_of_service.changes_to_terms.title') %></h2>
+    <p><%= t('terms_of_service.changes_to_terms.content') %></p>
 
-    <h2>3. User Responsibilities</h2>
-    <p>You agree to use the services only for lawful purposes and to comply with all applicable laws and regulations. You are responsible for any content you upload, share, or post on the platform.</p>
+    <h2>3. <%= t('terms_of_service.user_responsibilities.title') %></h2>
+    <p><%= t('terms_of_service.user_responsibilities.content') %></p>
 
-    <h2>4. Privacy and Data Collection</h2>
-    <p>Your use of the services is also governed by our <a href="/privacy-policy">Privacy Policy</a>, which outlines how we collect, use, and protect your information.</p>
+    <h2>4. <%= t('terms_of_service.privacy_and_data_collection.title') %></h2>
+    <p><%= t('terms_of_service.privacy_and_data_collection.content', link: link_to(t('terms_of_service.privacy_and_data_collection.link_text'), '/privacy-policy')) %></p>
 
-    <h2>5. Prohibited Activities</h2>
-    <p>Users are prohibited from engaging in activities that may harm the platform, its users, or the integrity of the services. This includes, but is not limited to, hacking, spamming, or distributing malicious content.</p>
+    <h2>5. <%= t('terms_of_service.prohibited_activities.title') %></h2>
+    <p><%= t('terms_of_service.prohibited_activities.content') %></p>
 
-    <h2>6. Account Termination</h2>
-    <p>We reserve the right to suspend or terminate your account if you violate these Terms of Service or engage in any prohibited activities.</p>
+    <h2>6. <%= t('terms_of_service.account_termination.title') %></h2>
+    <p><%= t('terms_of_service.account_termination.content') %></p>
 
-    <h2>7. Limitation of Liability</h2>
-    <p>Our liability for any claims, damages, or losses is limited to the extent permitted by law. We are not responsible for any indirect, incidental, or consequential damages.</p>
+    <h2>7. <%= t('terms_of_service.limitation_of_liability.title') %></h2>
+    <p><%= t('terms_of_service.limitation_of_liability.content') %></p>
 
-    <h2>8. Governing Law</h2>
-    <p>These Terms of Service shall be governed by and construed in accordance with the laws of Portugal. Any disputes will be resolved in the competent courts of Portugal.</p>
+    <h2>8. <%= t('terms_of_service.governing_law.title') %></h2>
+    <p><%= t('terms_of_service.governing_law.content') %></p>
 
-    <h2>9. Contact Us</h2>
-    <p>If you have any questions about these Terms of Service, please contact us at <a href="mailto:support_shoplisty@example.com">support_shoplisty@example.com</a>.</p>
+    <h2>9. <%= t('terms_of_service.contact_us.title') %></h2>
+    <p><%= t('terms_of_service.contact_us.content', email: link_to('shoplisty.help@gmail.com', 'mailto:shoplisty.help@gmail.com')) %></p>
   </div>
+
   <a href="javascript:history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Go Back</a>
 </body>
   <script>

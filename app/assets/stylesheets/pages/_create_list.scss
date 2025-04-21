@@ -189,6 +189,62 @@ h1 {
   background-position: center !important;
 }
 
+.btn-preserves::before {
+  background-image: asset-url('preserves.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-coffee-tea-and-instant-drinks::before {
+  background-image: asset-url('coffee-tea-and-instant-drinks.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-cereals-and-bars::before {
+  background-image: asset-url('cereals-and-bars.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-olive-oil-and-vinegar::before {
+  background-image: asset-url('olive-oil-title.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-sauces::before {
+  background-image: asset-url('sauces.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-jams-and-creams::before {
+  background-image: asset-url('jam.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
+.btn-sugar-and-desserts::before {
+  background-image: asset-url('sugar-title.png');
+  background-color: #ffffff;
+  background-size: 140px !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 /* On hover, apply the blur to the background image only */
 .button-grid .btn:hover::before {
   filter: blur(2px); /* Apply blur effect to the background */

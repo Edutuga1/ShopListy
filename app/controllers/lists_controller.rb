@@ -9,7 +9,7 @@ class ListsController < ApplicationController
 
   def new
     @list = List.new
-    @categories = Category.all  # Ensure this line exists
+    @categories = Category.all 
   end
 
   def show
@@ -25,7 +25,7 @@ class ListsController < ApplicationController
 
   def add_product
     list = List.find(params[:id])
-    product = Product.find(params[:product_id]) # Use Product model
+    product = Product.find(params[:product_id])
 
     products_list = ProductsList.find_or_create_by(list_id: list.id, product_id: product.id)
     products_list.update(quantity: (products_list.quantity || 0) + 1)
@@ -35,8 +35,8 @@ class ListsController < ApplicationController
 
 
   def add_category
-    list = List.find(params[:id]) # Use params[:id] to access list
-    Category.find(params[:category_id]) # Use params[:category_id]
+    list = List.find(params[:id])
+    Category.find(params[:category_id])
 
     redirect_to list_path(list), notice: 'Category added to list'
   end
@@ -56,7 +56,7 @@ class ListsController < ApplicationController
   end
 
   def update
-    @products_list = @list.products_lists.find(params[:id])  # Updated from items_lists to products_lists
+    @products_list = @list.products_lists.find(params[:id])
     if @products_list.update(products_list_params)
       redirect_to edit_list_path(@list), notice: 'Quantity updated successfully.'
     else
@@ -81,14 +81,12 @@ class ListsController < ApplicationController
   end
 
   def share
-    @friend = User.find(params[:friend_id])  # Get the selected friend
-    @list = List.find(params[:id])           # Get the list to share
-    @user = current_user                     # Get the current user
+    @friend = User.find(params[:friend_id])
+    @list = List.find(params[:id])
+    @user = current_user
 
-    # Send the share list email
     ListMailer.share_list(@friend, @list).deliver_now
 
-    # Create a notification for the friend
     Notification.create!(
       user: @user,
       friend: @friend,
@@ -101,7 +99,7 @@ class ListsController < ApplicationController
   end
 
   def save_shared_list
-    @list = List.find(params[:list_id]) # Use :list_id here
+    @list = List.find(params[:list_id])
     current_user.saved_lists.create!(list: @list)
     redirect_to lists_path, notice: "List successfully saved to your Friends Shared Lists."
   rescue ActiveRecord::RecordInvalid => e

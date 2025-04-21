@@ -1,18 +1,20 @@
-<h2>Forgot your password?</h2>
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="forgot-password-card shadow-lg p-5 rounded-4" style="max-width: 400px; width: 100%; min-height: 450px;">
+    <div class="forgot-password-card-body text-center d-flex flex-column justify-content-center">
+      <h2 class="forgot-pw-title">Forgot Password?</h2>
+      <p class="forgot-pw-text">Enter your email to receive reset instructions.</p>
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
+      <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <div class="mb-3">
+          <%= f.input :email, required: true, autofocus: true, input_html: { class: "form-control", autocomplete: "email", placeholder: "Enter your email" }, label: false %>
+        </div>
 
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
+        <%= f.button :submit, "Send Reset Instructions", class: "btn btn-primary w-100 py-2" %>
+      <% end %>
+
+      <div class="mt-4">
+        <a href="<%= new_session_path(resource_name) %>" class="text-decoration-none text-primary">Back to Login</a>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Send me reset password instructions" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

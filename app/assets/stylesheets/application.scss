@@ -26,6 +26,26 @@
 @import "pages/search_friends_page";
 @import "pages/log-in-page";
 @import "pages/navbar";
+@import "pages/forgotpassword";
+@import "pages/changepassword";
+@import "pages/signuppage";
+@import "pages/adminpage";
+@import "pages/contactpage";
+
+
+.custom-modal {
+  background-color: white !important;
+  color: #333 !important;
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal .modal-header,
+.custom-modal .modal-body,
+.custom-modal .modal-footer {
+  background-color: white !important;
+  color: black !important;
+}
 
 .notice {
   padding: 10px;
@@ -107,7 +127,7 @@
 #unread-message-count {
   position: absolute;
   top: -10px;
-  right: -10px; /* Keep this the same */
+  right: -10px;
   background-color: #dc3545;
   color: #fff;
   border-radius: 50%;
@@ -120,9 +140,8 @@
 
 #unread-message-count span {
   position: relative;
-  left: -2px; /* Adjust this value to move the number left */
+  left: -2px;
 }
-
 
 .user-photo {
   width: 50px;
@@ -367,6 +386,7 @@ body {
   position: relative;
   background-color: rgb(31, 31, 31);
   overflow: hidden;
+  margin-top: 10px;
 }
 
 .gitsvgIcon {

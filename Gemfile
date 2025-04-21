@@ -93,3 +93,6 @@ gem "aws-sdk-s3", "~> 1.182", :require => false
 gem 'actioncable'
 
 gem 'mini_magick'
+
+gem 'omniauth-rails_csrf_protection'
+gem 'omniauth'

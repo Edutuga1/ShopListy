@@ -1,0 +1,13 @@
+<h1><%= t('search.results_for', query: @query) %></h1>
+
+<% if @products.any? %>
+  <ul class="product-list">
+    <% @products.each do |product| %>
+      <li>
+        <%= link_to product.name, product_path(product) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p><%= t('search.no_results') %></p>
+<% end %>

@@ -1,0 +1,115 @@
+.admin-dashboard-container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.admin-dashboard-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-dashboard-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.admin-dashboard-table {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.admin-dashboard-table th {
+  background: #f8f9fa;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 12px;
+}
+
+.admin-dashboard-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.admin-role-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.admin-badge-admin {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.admin-badge-user {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.admin-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.admin-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  cursor: pointer;
+}
+
+.admin-btn-toggle {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.admin-btn-toggle:hover {
+  background-color: #0056b3;
+}
+
+.admin-btn-reset {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.admin-btn-reset:hover {
+  background-color: #e0a800;
+}
+
+.admin-btn-delete {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.admin-btn-delete:hover {
+  background-color: #c82333;
+}
+
+.admin-back-btn-container {
+  margin-bottom: 20px;
+}
+
+.admin-btn-back {
+  background-color: #6c757d;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.admin-btn-back:hover {
+  background-color: #5a6268;
+}

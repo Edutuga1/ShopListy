@@ -8,14 +8,11 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    # @user is set by set_user
-    # @recipe is set by set_recipe
   end
 
   def update
     @user = current_user
 
-    # Filter out password fields if they are blank
     if user_params[:password].blank? && user_params[:password_confirmation].blank?
       clean_params = user_params.except(:password, :password_confirmation)
     else
@@ -35,9 +32,7 @@ class ProfilesController < ApplicationController
       params[:user][:favorite_recipe][:link] = link
     end
 
-    # Start updating the user
     if @user.update(clean_params.except(:user_photo))
-      # If user photo is present, handle attachment
       if params[:user][:user_photo].present?
         image = params[:user][:user_photo]
         io = MiniMagick::Image.read(image.tempfile)

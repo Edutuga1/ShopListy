@@ -18,7 +18,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: rem;
   font-weight: bold;
 }
 
@@ -270,6 +270,7 @@ section {
 
 h4 {
  color: #003366;
+ font-weight: bold;
 }
 
 .message-delete-button {
@@ -410,11 +411,60 @@ h4 {
 }
 
 .dm-page-conversation-username {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #0056b3;
   text-decoration: none;
 }
+
+.codepen-button {
+  display: inline-block;
+  cursor: pointer;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 100px;
+  overflow: hidden;
+  padding: 1px;
+  isolation: isolate;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.codepen-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400%;
+  height: 100%;
+  background: linear-gradient(115deg, #d1d1d1, #02367b, #a7bfde);
+  background-size: 25% 100%;
+  animation: borderAnimation 0.75s linear infinite;
+  translate: -5% 0%;
+  transition: translate 0.25s ease-out;
+}
+
+.codepen-button:hover::before {
+  translate: 0% 0%;
+}
+
+@keyframes borderAnimation {
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.codepen-button span {
+  position: relative;
+  display: block;
+  padding: 0.9rem 1rem;
+  font-size: 0.8rem;
+  background: #02367b;
+  border-radius: 100px;
+  height: 100%;
+}
+
 
 @media (max-width: 600px) {
   .DM-page {

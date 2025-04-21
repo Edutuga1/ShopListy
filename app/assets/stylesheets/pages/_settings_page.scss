@@ -1,7 +1,6 @@
-// Variables for consistent design
-$primary-color: #003366; // Green for buttons and highlights
-$secondary-color: #f4f4f4; // Light gray for form background
-$text-color: #333; // Dark gray for text
+$primary-color: #003366;
+$secondary-color: #f4f4f4;
+$text-color: #333;
 $input-border: #ccc;
 $input-focus-border: #003366;
 $border-radius: 8px;
@@ -14,7 +13,8 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1rem;
+
 
   .settings-container {
     background-color: $secondary-color;
@@ -23,12 +23,19 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
     box-shadow: $box-shadow;
     width: 100%;
     max-width: 500px;
+    margin-top: 50px;
+    margin-bottom: 150px;
+    width: 90%;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    align-items: center;
+
+
 
     h1 {
       color: $primary-color;
-      font-size: 2rem;
+      font-size: 3rem;
       text-align: center;
       margin-bottom: 1.5rem;
     }
@@ -122,41 +129,38 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   }
 
   .settings-back-button {
-    display: flex; /* Use flexbox for the parent container */
-    justify-content: center; /* Horizontally center the button */
-    margin-top: 10px; /* Adds some top margin */
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
   }
 
   .settings-back-btn {
-    text-align: center; /* Center text inside the button */
+    text-align: center;
   }
 }
 
-
-/* The switch - the box around the slider */
 .switch {
   font-size: 17px;
   position: relative;
   display: inline-block;
   width: 4em;
   height: 2em;
-  z-index: 1; /* Make sure the checkbox is clickable and above other elements */
+  z-index: 1;
+  margin: 0 auto;
 }
 
 .switch input[type="checkbox"] {
   position: absolute;
   opacity: 0;
-  z-index: 2; /* Make sure the checkbox can still interact with clicks */
+  z-index: 2;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -168,8 +172,7 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   transition: 0.4s;
   border-radius: 30px;
   box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 0; /* The slider should be behind the checkbox */
-
+  z-index: 0;
 }
 
 .slider:before {
@@ -199,7 +202,6 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Add some cool effects */
 .slider:after {
   content: "OFF";
   color: white;
@@ -233,14 +235,14 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   color: #1993e4;
   transition: all 1.2s linear;
   cursor: pointer;
-  text-decoration: none; // Remove link underline
+  text-decoration: none;
   text-align: center;
-  margin: 0 auto; // Center horizontally
+  margin: 0 auto;
   display: flex;
   justify-content: center;
-  margin-top: 10px; // Add space above the button
+  margin-top: 10px;
   align-items: center;
-  width: fit-content; // Ensures button is only as wide as needed
+  width: fit-content;
 }
 
 .settings-back-button::after {
@@ -284,17 +286,21 @@ $background-color: linear-gradient(135deg, #e3f2fd, #90caf9);
   }
 }
 
+.settings-container {
+  overflow: hidden;
+}
 
-// Add responsiveness for smaller screens
+
 @media (max-width: 768px) {
   .settings-page {
-    padding: 1rem;
+    padding: 1rem 0;
 
     .settings-container {
+      width: 95%;
       padding: 1rem;
 
       h1 {
-        font-size: 1.75rem;
+        font-size: 3rem;
       }
 
       .form-group {

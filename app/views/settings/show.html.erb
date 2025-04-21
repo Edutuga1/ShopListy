@@ -1,14 +1,14 @@
 <div class="settings-page">
   <div class="settings-container">
-    <h1>Settings</h1>
+    <h1><%= t('settings.title') %></h1>
 
     <%= form_for @user, url: settings_path, method: :patch do |f| %>
       <% if @user.errors.any? %>
         <div id="error_explanation">
-          <h2><%= t('profile.error_header', count: @user.errors.count) %></h2>
+          <h2><%= t('settings.error_header', count: @user.errors.count) %></h2>
           <ul>
             <% @user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+              <li><%= message %></li> 
             <% end %>
           </ul>
         </div>
@@ -16,19 +16,19 @@
 
       <!-- Name Field -->
       <div class="form-group">
-        <%= f.label :name %>
+        <%= f.label :name, t('settings.fields.name') %>
         <%= f.text_field :name, class: 'form-control' %>
       </div>
 
       <!-- Email Field -->
       <div class="form-group">
-        <%= f.label :email %>
+        <%= f.label :email, t('settings.fields.email') %>
         <%= f.email_field :email, class: 'form-control' %>
       </div>
 
       <!-- Notification Preference -->
       <div class="form-group">
-        <%= f.label :notifications_enabled, "Enable Notifications" %>
+        <%= f.label :notifications_enabled, t('settings.fields.notifications_enabled') %>
         <label class="switch">
           <%= f.check_box :notifications_enabled, class: "toggle-checkbox" %>
           <span class="slider"></span>
@@ -36,33 +36,33 @@
       </div>
       <div id="notification-status">
         <% if @user.notifications_enabled %>
-          Notifications: Enabled
+          <%= t('settings.notifications.enabled') %>
         <% else %>
-          Notifications: Disabled
+          <%= t('settings.notifications.disabled') %>
         <% end %>
       </div>
 
-      <!-- Password Fields (Always Visible) -->
+      <!-- Password Fields -->
       <div class="form-group">
-        <%= f.label :current_password, "Current Password" %>
+        <%= f.label :current_password, t('settings.fields.current_password') %>
         <%= f.password_field :current_password, class: 'form-control', autocomplete: "current-password" %>
-        <small class="form-text text-muted">Please enter your current password to confirm changes</small>
+        <small class="form-text text-muted"><%= t('settings.hints.current_password') %></small>
       </div>
 
       <div class="form-group">
-        <%= f.label :password, "New Password" %>
+        <%= f.label :password, t('settings.fields.new_password') %>
         <%= f.password_field :password, class: 'form-control', autocomplete: "new-password" %>
-        <small class="form-text text-muted">Leave blank if you don't want to change your password</small>
+        <small class="form-text text-muted"><%= t('settings.hints.new_password') %></small>
       </div>
 
       <div class="form-group">
-        <%= f.label :password_confirmation, "Confirm New Password" %>
+        <%= f.label :password_confirmation, t('settings.fields.confirm_new_password') %>
         <%= f.password_field :password_confirmation, class: 'form-control', autocomplete: "new-password" %>
       </div>
 
       <!-- Submit Button -->
       <div class="form-group">
-        <%= f.submit 'Save Changes', class: 'btn btn-primary' %>
+        <%= f.submit t('settings.buttons.save_changes'), class: 'btn btn-primary' %>
       </div>
     <% end %>
 
@@ -73,16 +73,12 @@
 </div>
 
 <script>
-  // Update notification status text when toggled
   const notificationStatus = document.getElementById('notification-status');
   const notificationToggle = document.querySelector('.toggle-checkbox');
 
   notificationToggle.addEventListener('change', () => {
-    if (notificationToggle.checked) {
-      notificationStatus.textContent = 'Notifications: Enabled';
-    } else {
-      notificationStatus.textContent = 'Notifications: Disabled';
-    }
+    notificationStatus.textContent = notificationToggle.checked
+      ? "<%= j t('settings.notifications.enabled') %>"
+      : "<%= j t('settings.notifications.disabled') %>";
   });
-
 </script>

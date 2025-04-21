@@ -1,0 +1,39 @@
+.register-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+  margin-bottom: 150px;
+  background-color: #f9f9f9;
+}
+
+.register-form .form-label {
+  font-weight: 500;
+}
+
+.sign-up-title {
+  font-size: 45px;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 50px;
+}
+
+.register-form .form-control {
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1rem;
+}
+
+.register-form .btn-primary {
+  background-color: #4e73df;
+  border-color: #4e73df;
+  font-size: 1.1rem;
+  border-radius: 8px;
+}
+
+.register-form .btn-primary:hover {
+  background-color: #3f4a96;
+  border-color: #3f4a96;
+}

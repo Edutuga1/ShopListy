@@ -1,19 +1,20 @@
 <div class="lists-page">
   <h1><%= @list.name %></h1>
+  <button id="toggle-prices-btn" class="toggle-prices-btn">Hide Prices</button>
 
   <div id="product-list">
-    <h2 class="product-title shopping-list-title">I need to buy...</h2>
-    <% @list.products_lists.each do |products_list| %>
-      <div class="product-item" data-id="<%= products_list.product.id %>">
-        <strong><%= products_list.product.name %></strong>
-        <p><%= t('lists_page.show.quantity') %>: <%= products_list.quantity %></p>
-        <p><%= t('lists_page.show.price_each') %>: <%= number_to_currency(products_list.product.price) %></p>
-        <p><%= t('lists_page.show.total_cost') %>: <%= number_to_currency(products_list.quantity * products_list.product.price) %></p>
-      </div>
-    <% end %>
+  <h2 class="product-title shopping-list-title">I need to buy...</h2>
+  <% @list.products_lists.each do |products_list| %>
+    <div class="product-item" data-id="<%= products_list.product.id %>">
+      <strong><%= products_list.product.name %></strong>
+      <p><%= t('lists_page.show.quantity') %>: <%= products_list.quantity %></p>
+      <p class="price"><%= t('lists_page.show.price_each') %>: <%= number_to_currency(products_list.product.price) %></p>
+      <p class="price"><%= t('lists_page.show.total_cost') %>: <%= number_to_currency(products_list.quantity * products_list.product.price) %></p>
+    </div>
+   <% end %>
   </div>
 
-  <p><strong><%= t('lists_page.show.total_cost') %>:</strong> <%= number_to_currency(@list.total_cost) %></p>
+  <p class="price"><strong><%= t('lists_page.show.total_cost') %>:</strong> <%= number_to_currency(@list.total_cost) %></p>
 
   <div class="edit-button-container">
     <%= link_to edit_list_path(@list), class: 'list-edit-btn' do %>
@@ -59,57 +60,48 @@
   <% end %>
 </div>
 <style>
-  /* Import Google Fonts for handwritten style */
   @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
-  /* Apply the font only inside the product list */
   #product-list, #product-list * {
-    font-family: 'Patrick Hand', sans-serif; /* Handwritten font */
+    font-family: 'Patrick Hand', sans-serif;
   }
 
-  /* Ensure the rest of the page is unaffected by the font-family */
   body {
-    font-family: 'Arial', sans-serif; /* Default font for the rest of the page */
+    font-family: 'Arial', sans-serif;
   }
 
-  /* Specific adjustments to buttons and other elements */
   .list-delete-btn, .edit-button-container, .shopping-list-title, h1, h2, p {
-    font-family: 'Arial', sans-serif; /* Ensure buttons and headings use the default font */
+    font-family: 'Arial', sans-serif;
   }
 
-  /* Ensuring the navbar isn't affected by these styles */
   nav {
     position: relative;
-    z-index: 10; /* Ensure navbar stays on top of other elements */
+    z-index: 10;
   }
 
-  /* Centering the main content within the new div */
   .content-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center everything horizontally */
-    justify-content: flex-start; /* Align items at the top */
+    align-items: center;
+    justify-content: flex-start;
     padding: 20px;
     width: 100%;
-    max-width: 1000px; /* Max width for larger screens */
-    margin-left: auto;  /* Center horizontally */
-    margin-right: auto; /* Center horizontally */
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* Background and texture for the product list area */
   #product-list {
     margin-top: 20px;
-    background-color: #ffffff; /* White background to simulate clean paper */
-    background-image: url('https://www.transparenttextures.com/patterns/soft-paper.png'); /* Subtle paper texture */
+    background-color: #ffffff;
+    background-image: url('https://www.transparenttextures.com/patterns/soft-paper.png');
     padding: 20px;
-    padding-left: 40px;  /* Add left margin */
-    padding-right: 40px; /* Add right margin */
+    padding-left: 40px;
+    padding-right: 40px;
     border-radius: 8px;
-    width: 80%; /* Ensure it takes up most of the width */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for a more realistic look */
-    text-align: center; /* Center all text inside the product list */
-
-    /* Center the element horizontally */
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
     margin-left: auto;
     margin-right: auto;
   }
@@ -117,7 +109,7 @@
   .product-item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    align-items: center; /* Ensures vertical alignment */
+    align-items: center;
     gap: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #ddd;
@@ -131,7 +123,7 @@
     font-size: 2.8em;
     font-weight: bold;
     margin-bottom: 20px;
-    margin-top: 20px; /* Remove default margin */
+    margin-top: 20px;
     color: #333;
   }
 
@@ -142,29 +134,29 @@
   .product-item.scratch-off {
     text-decoration: line-through;
     color: gray;
-    background-color: #f0f0f0; /* Light background for scratched items */
+    background-color: #f0f0f0;
   }
 
   .product-item:hover {
-    background-color: #ffe6b3; /* Light yellow background when hovering */
+    background-color: #ffe6b3;
     cursor: pointer;
   }
 
   p {
     font-size: 1.2em;
-    text-align: center; /* Center the total cost text */
+    text-align: center;
     font-weight: bold;
   }
 
   .list-delete-btn {
     position: relative;
-    width: 100%; /* Make the button span full width */
-    max-width: 150px; /* Optional: Set a maximum width for button */
+    width: 100%;
+    max-width: 150px;
     height: 40px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto;
     cursor: pointer;
     border-radius: 6px;
     background-color: #e50000;
@@ -177,8 +169,8 @@
     display: inline-block;
     color: #fff;
     font-weight: 600;
-    text-align: center; /* Center the text horizontally */
-    line-height: 40px; /* Vertically center the text */
+    text-align: center;
+    line-height: 40px;
   }
 
   .list-delete-btn__icon {
@@ -198,8 +190,8 @@
   }
 
   .list-delete-btn .svg path {
-    fill: #fff; /* Ensures the icon is white */
-    stroke: #fff; /* Makes sure the border is also white, if it's using strokes */
+    fill: #fff;
+    stroke: #fff;
   }
 
   .list-delete-btn:hover {
@@ -297,10 +289,11 @@
     }
   }
 
-  .share-with-friend{
+  .share-with-friend {
     margin-bottom: 30px;
     margin-top: 30px;
   }
+
   .list-edit-btn {
     width: 40px;
     height: 40px;
@@ -318,6 +311,8 @@
     position: relative;
     text-decoration: none !important;
     margin-bottom: 10px;
+    margin-top: 10px;
+
   }
 
   .edit-button-container {
@@ -326,7 +321,6 @@
     align-items: center;
     width: 100%;
   }
-
 
   .edit-svgIcon {
     width: 17px;
@@ -381,7 +375,7 @@
     color: white;
     padding: 0;
     border-radius: 5px;
-    margin: 0 auto; /* This will center the button horizontally */
+    margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 100px;
   }
@@ -414,40 +408,97 @@
     width: 100%;
   }
 
-  /* Center the button in its parent container */
   .center-container {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;     /* Center vertically */
-    height: 100vh;            /* Full viewport height */
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .toggle-prices-btn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #1f347b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  }
+
+  .toggle-prices-btn:hover {
+    background-color: #15265b;
   }
 
   @media (max-width: 768px) {
-    h1 {
-      font-size: 1.4em;
-      text-align: center; /* Center the title on smaller screens */
-    }
-
-    .product-item {
-      font-size: 2em;
-      grid-template-columns: 1fr; /* Stack the product details on top of each other on smaller screens */
-    }
-
-    .product-name {
-      grid-column: span 1;
-    }
-
-    .product-quantity, .product-price, .product-total {
-      font-size: 0.9em;
-    }
+  .lists-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
+
+  #product-list, .product-item, h1, h2, p, {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .product-item {
+    font-size: 1.5em;
+    grid-template-columns: 1fr;
+  }
+
+  .product-item p {
+    text-align: center;
+  }
+
+  .list-delete-btn, .share-button, .back-to-list-button {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .toggle-prices-btn {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .list-delete-btn {
+    max-width: 122px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .back-to-list-button {
+    max-width: 149px;
+    font-size: 14px;
+    padding: 12px 20px;
+  }
+
+  .share-button {
+    width: 120px;
+    height: 35px;
+    font-size: 14px;
+  }
+
+  .list-edit-btn {
+    width: 35px;
+    height: 35px;
+  }
+
+  .list-edit-btn:hover {
+    width: 100px;
+  }
+}
+
 </style>
 
 <script>
-  // Initialize everything on page load and Turbo updates
   function initializePage() {
     setupScratchEffect();
-    setupMap(); // Ensure the map also initializes correctly
   }
 
   // Set up scratch-off effect with localStorage persistence
@@ -476,7 +527,7 @@
   // Save scratched item states to localStorage
   function saveScratchedItem(item) {
     let scratchedItems = JSON.parse(localStorage.getItem('scratchedItems')) || {};
-    const itemId = item.dataset.id; // Ensure each product has a unique data-id attribute
+    const itemId = item.dataset.id;
 
     if (item.classList.contains('scratch-off')) {
       scratchedItems[itemId] = true;
@@ -487,7 +538,6 @@
     localStorage.setItem('scratchedItems', JSON.stringify(scratchedItems));
   }
 
-  // Restore scratched item states from localStorage
   function restoreScratchedItems() {
     let scratchedItems = JSON.parse(localStorage.getItem('scratchedItems')) || {};
 
@@ -499,14 +549,50 @@
     });
   }
 
-  // Detect back/forward navigation and force a reload if needed
   document.addEventListener("turbo:render", function () {
     if (performance.getEntriesByType("navigation")[0]?.type === "back_forward") {
       Turbo.visit(window.location.href, { action: "replace" });
     }
   });
 
-  // Ensure page initialization happens on both full loads and Turbo updates
+
   document.addEventListener("turbo:load", initializePage);
   document.addEventListener("turbo:render", initializePage);
+
+  document.addEventListener("turbo:load", setupPriceToggle);
+  document.addEventListener("DOMContentLoaded", setupPriceToggle);
+
+  function setupPriceToggle() {
+      const toggleButton = document.getElementById("toggle-prices-btn");
+      if (!toggleButton) return;
+
+      // Set initial price visibility based on localStorage
+      const pricesHidden = localStorage.getItem("pricesHidden") === "true";
+      togglePricesVisibility(pricesHidden);
+
+      // Remove existing event listeners before adding a new one
+      toggleButton.removeEventListener("click", togglePrices);
+      toggleButton.addEventListener("click", togglePrices);
+  }
+
+  function togglePrices() {
+      const priceElements = document.querySelectorAll(".price");
+      const isHidden = priceElements[0].style.display === "none";  // Check if any price is currently hidden
+
+      // Toggle the visibility of prices
+      togglePricesVisibility(!isHidden);
+
+      // Save the state to localStorage
+      localStorage.setItem("pricesHidden", !isHidden);
+  }
+
+  function togglePricesVisibility(hide) {
+      const priceElements = document.querySelectorAll(".price");
+      priceElements.forEach((price) => {
+          price.style.display = hide ? "none" : "block";
+      });
+
+      const toggleButton = document.getElementById("toggle-prices-btn");
+      toggleButton.textContent = hide ? "Show Prices" : "Hide Prices";
+  }
 </script>

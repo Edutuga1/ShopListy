@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
   <body class="categories-page">
+
     <main>
       <h1><%= t('select_category') %></h1>
+
       <div class="button-grid">
         <%= link_to drink_path, class: "btn btn-drink" do %>
           <span class="btn-text"><strong><%= t('categories.drinks') %></strong></span>
@@ -21,7 +23,7 @@
         <% end %>
 
         <%= link_to cold_cuts_and_cheeses_path, class: "btn btn-cheese" do %>
-          <span class="btn-text"><strong><%= t('categories.cold_cuts_and_cheese') %></strong></span>
+          <span class="btn-text"><strong><%= t('categories.cold_cuts_&_cheeses') %></strong></span>
         <% end %>
 
         <%= link_to car_path, class: "btn btn-car" do %>
@@ -33,7 +35,7 @@
         <% end %>
 
         <%= link_to milk_and_eggs_path, class: "btn btn-milk" do %>
-          <span class="btn-text"><strong><%= t('categories.milk_and_eggs') %></strong></span>
+          <span class="btn-text"><strong><%= t('categories.milk_&_eggs') %></strong></span>
         <% end %>
 
         <%= link_to fruits_path, class: "btn btn-fruit" do %>
@@ -72,7 +74,35 @@
           <span class="btn-text"><strong><%= t('categories.pets') %></strong></span>
         <% end %>
 
-         <%= link_to new_product_path, class: "btn btn-new" do %>
+        <%= link_to coffee_tea_instant_drinks_path, class: "btn btn-coffee-tea-and-instant-drinks" do %>
+          <span class="btn-text"><strong><%= t('categories.coffee_tea_&_instant_drinks') %></strong></span>
+        <% end %>
+
+        <%= link_to cereals_bars_path, class: "btn btn-cereals-and-bars" do %>
+          <span class="btn-text"><strong><%= t('categories.cereals_&_bars') %></strong></span>
+        <% end %>
+
+        <%= link_to olive_oil_vinegar_path, class: "btn btn-olive-oil-and-vinegar" do %>
+          <span class="btn-text"><strong><%= t('categories.olive_oil_&_vinegar') %></strong></span>
+        <% end %>
+
+        <%= link_to preserves_path, class: "btn btn-preserves" do %>
+          <span class="btn-text"><strong><%= t('categories.preserves') %></strong></span>
+        <% end %>
+
+        <%= link_to sauces_seasonings_salt_path, class: "btn btn-sauces" do %>
+          <span class="btn-text"><strong><%= t('categories.sauces_seasonings_&_salt') %></strong></span>
+        <% end %>
+
+        <%= link_to jams_creams_honey_path, class: "btn btn-jams-and-creams" do %>
+          <span class="btn-text"><strong><%= t('categories.jams_&_creams') %></strong></span>
+        <% end %>
+
+        <%= link_to sugar_desserts_path, class: "btn btn-sugar-and-desserts" do %>
+          <span class="btn-text"><strong><%= t('categories.sugar_&_desserts') %></strong></span>
+        <% end %>
+
+        <%= link_to new_product_path, class: "btn btn-new" do %>
           <span class="btn-text"><strong><%= t('categories.new_product') %></strong></span>
         <% end %>
       </div>

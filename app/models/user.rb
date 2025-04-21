@@ -5,6 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:google_oauth2]
+
   # Associations
   has_many :groceries, dependent: :destroy
   has_many :own_lists, class_name: 'List', foreign_key: 'user_id', dependent: :destroy
@@ -35,7 +36,10 @@ class User < ApplicationRecord
   validate :acceptable_image
   validates :password, presence: true, if: -> { new_record? || password.present? }
   validates :password_confirmation, presence: true, if: -> { password.present? }
+  validates :uid, uniqueness: { scope: :provider }, allow_nil: true
+  validate :skip_password_validation_for_omniauth, on: :create
 
+  # Methods
 
   # Checks if the current user is friends with another user
   def friend?(other_user)
@@ -104,17 +108,29 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user = User.where(email: auth.info.email).first
-    unless user
-      user = User.create(
-        email: auth.info.email,
-        password: Devise.friendly_token[0, 20],
-        name: auth.info.name,
-        image: auth.info.image
-      )
+    user = User.where(email: auth.info.email).first_or_initialize
+
+    # Assign OmniAuth data to user attributes
+    user.provider = auth.provider
+    user.uid = auth.uid
+    user.name = auth.info.name
+    user.image = auth.info.image
+    user.email = auth.info.email
+
+    # Set password and password_confirmation to avoid validation errors
+    if user.new_record?
+      user.password = SecureRandom.hex(10)  # Generate a random password
+      user.password_confirmation = user.password  # Make sure the confirmation matches the password
     end
-    user
+
+    if user.save
+      user
+    else
+      Rails.logger.debug "User could not be saved: #{user.errors.full_messages}"
+      nil
+    end
   end
+
 
   private
 
@@ -122,7 +138,7 @@ class User < ApplicationRecord
   def acceptable_image
     return unless user_photo.attached?
 
-    if user_photo.byte_size > 5.megabyte
+    if user_photo.byte_size > 6.megabyte
       errors.add(:user_photo, "is too big")
     end
 
@@ -135,7 +151,6 @@ class User < ApplicationRecord
     end
   end
 
-
   def self.search(email)
     where("email ILIKE ?", "%#{email}%")
   end
@@ -143,4 +158,11 @@ class User < ApplicationRecord
   def set_default_notifications
     self.notifications_enabled = true if notifications_enabled.nil?
   end
+
+  def skip_password_validation_for_omniauth
+    if provider.present? && uid.present?
+      self.password_confirmation = password if password_confirmation.blank?
+    end
+  end
+
 end
