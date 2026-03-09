@@ -7,7 +7,6 @@ FROM ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 ENV RAILS_ENV="production" \
-    BUNDLE_DEPLOYMENT="1" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development test"
 
@@ -42,9 +41,7 @@ COPY Gemfile Gemfile.lock ./
 RUN chmod 666 Gemfile.lock
 
 # Install dependencies
-RUN bundle config set deployment 'true' && \
-    bundle config set without 'development test' && \
-    bundle install --jobs 4 --retry 3
+RUN bundle install --jobs 4 --retry 3
 
 # Copy the rest of the application files
 COPY . .
