@@ -57,7 +57,7 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 
 # Simple form builder [https://github.com/heartcombo/simple_form]
-gem "simple_form", github: "heartcombo/simple_form"
+gem "simple_form", "~> 5.3"
 
 # SASS for CSS [https://github.com/sass/sassc-rails]
 gem "sassc-rails"
