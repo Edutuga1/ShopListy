@@ -7,7 +7,7 @@ FROM ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 ENV RAILS_ENV="production" \
-    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_PATH="/rails/vendor/bundle" \
     BUNDLE_WITHOUT="development test"
 
 # Build Stage
@@ -61,8 +61,7 @@ RUN apt-get update -qq && \
     imagemagick  && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy over the installed gems and the Rails app
-COPY --from=build /usr/local/bundle /usr/local/bundle
+# Copy over the Rails app (including vendor/bundle from build stage)
 COPY --from=build /rails /rails
 
 # Set up user and permissions
