@@ -492,7 +492,6 @@
       return element.getAttribute("content");
     }
   }
-  console.log("DEPRECATION: action_cable.js has been renamed to actioncable.js – please update your reference before Rails 8");
   exports.Connection = Connection;
   exports.ConnectionMonitor = ConnectionMonitor;
   exports.Consumer = Consumer;

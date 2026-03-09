@@ -28,9 +28,10 @@
 
       <!-- Notification Preference -->
       <div class="form-group">
-        <%= f.label :notifications_enabled, t('settings.fields.notifications_enabled') %>
-        <label class="switch">
-          <%= f.check_box :notifications_enabled, class: "toggle-checkbox" %>
+        <%= f.label :notifications_enabled, t('settings.fields.notifications_enabled'), for: "notifications_enabled_toggle" %>
+        <label class="switch" for="notifications_enabled_toggle">
+          <span class="visually-hidden"><%= t('settings.fields.notifications_enabled') %></span>
+          <%= f.check_box :notifications_enabled, id: "notifications_enabled_toggle", class: "toggle-checkbox", 'aria-label': t('settings.fields.notifications_enabled') %>
           <span class="slider"></span>
         </label>
       </div>
@@ -74,11 +75,15 @@
 
 <script>
   const notificationStatus = document.getElementById('notification-status');
-  const notificationToggle = document.querySelector('.toggle-checkbox');
+  const notificationToggle = document.getElementById('notifications_enabled_toggle');
 
-  notificationToggle.addEventListener('change', () => {
-    notificationStatus.textContent = notificationToggle.checked
-      ? "<%= j t('settings.notifications.enabled') %>"
-      : "<%= j t('settings.notifications.disabled') %>";
-  });
+  if (!notificationStatus || !notificationToggle) {
+    // Settings form not present on this page.
+  } else {
+    notificationToggle.addEventListener('change', () => {
+      notificationStatus.textContent = notificationToggle.checked
+        ? "<%= j t('settings.notifications.enabled') %>"
+        : "<%= j t('settings.notifications.disabled') %>";
+    });
+  }
 </script>

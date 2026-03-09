@@ -2,7 +2,7 @@ require "test_helper"
 
 class CheckoutControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get checkout_show_url
+    get checkout_url
     assert_response :success
   end
 end

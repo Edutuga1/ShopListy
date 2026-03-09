@@ -5,7 +5,6 @@ import "bootstrap";              // Bootstrap for dropdowns, modals, etc.
 import "channels";               // ActionCable for real-time updates
 import './message_form';
 
-import * as Rails from "@rails/ujs"
+import Rails from "@rails/ujs"
 
 Rails.start()
-import "controllers"

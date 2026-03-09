@@ -4,7 +4,6 @@ document.addEventListener('turbo:load', function() {
   const form = document.querySelector('form');
 
   if (!messageTextarea || !submitButton || !form) {
-    console.error("Missing elements! Check your selectors.");
     return;
   }
 

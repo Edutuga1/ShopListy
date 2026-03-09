@@ -29,7 +29,6 @@ class Conversation < ApplicationRecord
   end
 
   def mark_messages_as_read(user)
-    # Assuming you have a Message model with a read attribute and a conversation_id foreign key
     messages.where(receiver_id: user.id).update_all(read: true)
   end
 

@@ -7,12 +7,10 @@
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
   <%= javascript_importmap_tags %>
-  <%= javascript_include_tag 'message_form' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=places&v=3&loading=async" async defer></script>
-
-
+  <% if (google_maps_api_key = ENV['GOOGLE_MAPS_API_KEY']).present? %>
+    <script id="google-maps-js" src="https://maps.googleapis.com/maps/api/js?key=<%= google_maps_api_key %>&libraries=places,marker&v=weekly" async defer></script>
+  <% end %>
 
   <% if params[:refresh] %>
     <script>window.location.reload();</script>
@@ -53,12 +51,14 @@
     <% end %>
   </main>
 
+  <div id="welcomeModalFocusSentinel" class="visually-hidden" tabindex="-1"></div>
+
     <turbo-frame id="welcome-modal-frame">
-    <div id="welcomeModal" class="modal fade" data-turbo="false" tabindex="-1" aria-labelledby="welcomeModalLabel" aria-hidden="true">
+    <div id="welcomeModal" class="modal fade" data-turbo="false" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="welcomeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-login-content custom-modal">
           <div class="modal-header">
-            <h5 class="modal-title"><%= t('welcome_modal.title') %></h5>
+            <h5 id="welcomeModalLabel" class="modal-title"><%= t('welcome_modal.title') %></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('welcome_modal.close') %>"></button>
           </div>
           <div class="modal-body">
@@ -78,7 +78,6 @@
       </div>
     </div>
   </turbo-frame>
-
 
     <% if user_signed_in? %>
       <script>
@@ -107,10 +106,7 @@
               } else {
                 unreadCountElement.style.display = 'none'; // Hide when count is 0
               }
-              console.log('Updated unread message count displayed:', unreadCount);
-            } else {
-              console.error('Unread message count element not found');
-            }
+            } 
           }
 
           // Function to fetch and update the unread messages count
@@ -123,7 +119,6 @@
                 return response.json();
               })
               .then(data => {
-                console.log('Unread messages fetched:', data);
                 updateUnreadMessageCount(data.unread_messages);
                 localStorage.setItem('unreadMessagesCount', data.unread_messages);
               })
@@ -131,7 +126,7 @@
           }
 
           // Refresh the count periodically
-          setInterval(checkForNewMessages, 2000); // every 2 seconds
+          setInterval(checkForNewMessages, 10000); // every 10 seconds
 
           // Function to send a message
           function sendMessage(message, conversationId) {
@@ -156,7 +151,6 @@
 
           // Function to mark messages as read when a conversation is opened
           function markMessagesAsRead(conversationId) {
-            console.log('Marking messages as read for conversation:', conversationId); // Debugging line
             return fetch(`/users/${userId}/conversations/${conversationId}/mark_as_read`, {
               method: 'POST',
               headers: {
@@ -164,7 +158,6 @@
               }
             })
             .then(response => {
-              console.log('Response from mark as read:', response); // Debugging line
               if (response.ok) {
                 return response.json(); // Get the unread count returned from the server
               } else {
@@ -172,7 +165,6 @@
               }
             })
             .then(data => {
-              console.log('Updated unread messages count:', data.unread_messages); // Debugging line
               updateUnreadMessageCount(data.unread_messages); // Update UI with the new count
               localStorage.setItem('unreadMessagesCount', data.unread_messages); // Update localStorage with the new unread count
             })
@@ -181,7 +173,6 @@
 
           // Event listeners for Turbo navigation
           document.addEventListener('turbo:load', function() {
-            console.log('Turbo load event fired'); // Debugging line
             loadUnreadMessageCount(); // Load the count when navigating
             checkForNewMessages(); // Fetch the latest count
 
@@ -201,24 +192,65 @@
           });
 
           // Button event listener for marking messages as read
-          document.getElementById('mark-as-read-button').addEventListener('click', function() {
-            const conversationHeader = document.getElementById('conversation-header');
-            if (conversationHeader) {
-              const conversationId = conversationHeader.dataset.conversationId;
-              markMessagesAsRead(conversationId);
-            }
-          });
+          const markAsReadButton = document.getElementById('mark-as-read-button');
+          if (markAsReadButton) {
+            markAsReadButton.addEventListener('click', function() {
+              const conversationHeader = document.getElementById('conversation-header');
+              if (conversationHeader) {
+                const conversationId = conversationHeader.dataset.conversationId;
+                markMessagesAsRead(conversationId);
+              }
+            });
+          }
         });
 
-        // Google Maps initialization function
         function initMap() {
+          const mapElement = document.getElementById("map");
+          if (!mapElement) return;
+
+          const googleMaps = window.google && window.google.maps;
+          if (!googleMaps) return;
+
+          if (typeof googleMaps.Map !== "function") return;
+
+          if (mapElement.dataset.mapInitialized === "true") return;
+
           const mapOptions = {
             center: { lat: 40.7128, lng: -74.0060 }, // Default location
             zoom: 12,
             mapId: '199aae26c3acd33a',
           };
 
-          const map = new google.maps.Map(document.getElementById("map"), mapOptions);
+          mapElement.dataset.mapInitialized = "true";
+          const google = window.google;
+          const map = new google.maps.Map(mapElement, mapOptions);
+
+          function createMapMarker({ map, position, title, iconUrl }) {
+            const markerLib = google.maps && google.maps.marker;
+            if (markerLib && typeof markerLib.AdvancedMarkerElement === "function") {
+              const img = document.createElement("img");
+              img.src = iconUrl;
+              img.width = 32;
+              img.height = 32;
+              img.alt = title || "";
+
+              return new markerLib.AdvancedMarkerElement({
+                map,
+                position,
+                title,
+                content: img,
+              });
+            }
+
+            const markerOptions = { map, position, title };
+            if (iconUrl) {
+              markerOptions.icon = {
+                url: iconUrl,
+                scaledSize: new google.maps.Size(32, 32),
+              };
+            }
+            return new google.maps.Marker(markerOptions);
+          }
 
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -229,14 +261,11 @@
               map.setCenter(userLocation);
 
               // Add marker for user's location
-              new google.maps.Marker({
+              createMapMarker({
                 map: map,
                 position: userLocation,
                 title: "You are here",
-                icon: {
-                  url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                  scaledSize: new google.maps.Size(32, 32)
-                }
+                iconUrl: "https://maps.google.com/mapfiles/ms/icons/red-dot.png",
               });
 
               const service = new google.maps.places.PlacesService(map);
@@ -263,14 +292,11 @@
 
                   // Show all markers on the map
                   supermarketsWithDistance.forEach((place) => {
-                    new google.maps.Marker({
+                    createMapMarker({
                       map: map,
                       position: place.geometry.location,
                       title: place.name,
-                      icon: {
-                        url: 'http://maps.google.com/mapfiles/ms/icons/shopping.png',
-                        scaledSize: new google.maps.Size(32, 32)
-                      }
+                      iconUrl: "https://maps.google.com/mapfiles/ms/icons/shopping.png",
                     });
                   });
 
@@ -347,7 +373,6 @@
           }
         }
 
-        // Haversine formula to calculate distance between two lat/lng points
         function calculateDistance(lat1, lng1, lat2, lng2) {
           const R = 6371; // Earth's radius in kilometers
           const dLat = degreesToRadians(lat2 - lat1);
@@ -369,11 +394,43 @@
             'Error: Your browser doesn\'t support geolocation.');
         }
 
-        document.addEventListener('turbo:load', function() {
-          if (document.getElementById('map')) {
+        function ensureGoogleMapInitialized() {
+          const mapElement = document.getElementById('map');
+          if (!mapElement) return;
+
+          if (mapElement.dataset.mapInitialized === "true") return;
+
+          if (window.google && window.google.maps && typeof window.google.maps.Map === "function") {
             initMap();
+            return;
           }
-        });
+
+          const mapsScript = document.getElementById('google-maps-js');
+          if (mapsScript) {
+            if (mapsScript.dataset.mapsLoadListenerAttached !== "true") {
+              mapsScript.dataset.mapsLoadListenerAttached = "true";
+              mapsScript.addEventListener('load', ensureGoogleMapInitialized, { once: true });
+            }
+
+            const retries = Number(mapElement.dataset.googleMapsInitRetries || "0");
+            if (retries < 50) {
+              mapElement.dataset.googleMapsInitRetries = String(retries + 1);
+              setTimeout(ensureGoogleMapInitialized, 100);
+            }
+
+            return;
+          }
+
+          console.warn('Google Maps script tag not present; map will not initialize.');
+        }
+
+        document.addEventListener('turbo:load', ensureGoogleMapInitialized);
+        document.addEventListener('turbo:render', ensureGoogleMapInitialized);
+        document.addEventListener('turbo:frame-load', ensureGoogleMapInitialized);
+        document.addEventListener('DOMContentLoaded', ensureGoogleMapInitialized);
+
+        // Also attempt immediately in case this script runs after turbo:load.
+        ensureGoogleMapInitialized();
 
         window.initMap = initMap;
 
@@ -410,10 +467,92 @@
     }
   });
 
-  document.addEventListener("DOMContentLoaded", function() {
-    let welcomeModal = new bootstrap.Modal(document.getElementById("welcomeModal"));
-    welcomeModal.show();
-  });
+  (function () {
+    function focusOutsideWelcomeModal(modalElement) {
+      if (!modalElement) return;
+
+      const activeElement = document.activeElement;
+      if (activeElement && modalElement.contains(activeElement)) {
+        activeElement.blur();
+      }
+
+      const sentinel = document.getElementById("welcomeModalFocusSentinel");
+      if (sentinel && typeof sentinel.focus === "function") {
+        sentinel.focus({ preventScroll: true });
+        return;
+      }
+
+      const main = document.querySelector("main");
+      if (main && typeof main.focus === "function") {
+        main.setAttribute("tabindex", "-1");
+        main.focus({ preventScroll: true });
+        return;
+      }
+    }
+
+    function setupWelcomeModalA11y() {
+      const modalElement = document.getElementById("welcomeModal");
+      if (!modalElement) return;
+      if (!window.bootstrap || !window.bootstrap.Modal) return;
+
+      if (modalElement.dataset.welcomeModalA11ySetup === "true") return;
+      modalElement.dataset.welcomeModalA11ySetup = "true";
+
+      modalElement.addEventListener("hide.bs.modal", function () {
+        focusOutsideWelcomeModal(modalElement);
+      });
+
+      modalElement.addEventListener("hidden.bs.modal", function () {
+        focusOutsideWelcomeModal(modalElement);
+      });
+    }
+
+    function maybeShowWelcomeModal(retryCount) {
+      const modalElement = document.getElementById("welcomeModal");
+      if (!modalElement) return;
+
+      const shownKey = "welcomeModalShown";
+      if (window.sessionStorage && window.sessionStorage.getItem(shownKey) === "true") return;
+
+      if (!window.bootstrap || !window.bootstrap.Modal) {
+        const nextRetryCount = (retryCount || 0) + 1;
+        if (nextRetryCount <= 40) {
+          setTimeout(function () {
+            maybeShowWelcomeModal(nextRetryCount);
+          }, 50);
+        }
+        return;
+      }
+
+      setupWelcomeModalA11y();
+
+      if (window.sessionStorage) window.sessionStorage.setItem(shownKey, "true");
+
+      const instance = window.bootstrap.Modal.getOrCreateInstance(modalElement, { focus: true });
+      instance.show();
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      setupWelcomeModalA11y();
+      maybeShowWelcomeModal(0);
+    });
+
+    document.addEventListener("turbo:load", function () {
+      setupWelcomeModalA11y();
+      maybeShowWelcomeModal(0);
+    });
+
+    document.addEventListener("turbo:before-cache", function () {
+      const modalElement = document.getElementById("welcomeModal");
+      if (!modalElement) return;
+      if (!window.bootstrap || !window.bootstrap.Modal) return;
+
+      focusOutsideWelcomeModal(modalElement);
+
+      const instance = window.bootstrap.Modal.getInstance(modalElement);
+      if (instance) instance.hide();
+    });
+  })();
       </script>
   <% end %>
 

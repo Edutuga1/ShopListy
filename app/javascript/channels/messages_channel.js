@@ -1,15 +1,20 @@
 // app/javascript/channels/messages_channel.js
 import consumer from "./consumer"
 
-document.addEventListener('turbolinks:load', () => {
-  const element = document.getElementById('conversation_id');
-  const conversationId = element.getAttribute('data-conversation-id');
+document.addEventListener("turbo:load", () => {
+  const element = document.getElementById("conversation_id");
+  if (!element) return;
 
-  if (conversationId) {
-    consumer.subscriptions.create({ channel: "MessagesChannel", conversation_id: conversationId }, {
+  const conversationId = element.getAttribute("data-conversation-id");
+  if (!conversationId) return;
+
+  consumer.subscriptions.create(
+    { channel: "MessagesChannel", conversation_id: conversationId },
+    {
       received(data) {
-        document.getElementById('messages-list').insertAdjacentHTML('beforeend', data);
-      }
-    });
-  }
+        const list = document.getElementById("messages-list");
+        if (list) list.insertAdjacentHTML("beforeend", data);
+      },
+    }
+  );
 });

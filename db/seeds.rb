@@ -631,14 +631,14 @@ admin_email = ENV.fetch("ADMIN_EMAIL")
 admin_password = ENV.fetch("ADMIN_PASSWORD")
 
 # Create or update the admin user
-User.find_or_create_by!(email: admin_email) do |user|
-  user.name = "Admin User"
-  user.password = admin_password
-  user.password_confirmation = admin_password
-  user.admin = true
-end
+admin_user = User.find_or_initialize_by(email: admin_email)
+admin_user.name = admin_user.name.presence || "Admin User"
+admin_user.admin = true
+admin_user.password = admin_password
+admin_user.password_confirmation = admin_password
+admin_user.save!
 
-puts "Admin user '#{admin_email}' created or updated successfully."
+puts "Admin user '#{admin_email}' created/updated successfully."
 
 # Iterate through categories and seed data
 categories_with_products.each do |category_name, products|

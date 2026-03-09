@@ -4,4 +4,5 @@
 //= link_tree ../../../vendor/javascript .js
 //= link popper.js
 //= link bootstrap.min.js
+//= link rails-ujs.esm.js
 //= link_tree ../builds

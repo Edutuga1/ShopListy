@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_current_user, :set_cart
 
   def index
@@ -7,7 +8,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
-    @products = @category.products.where(user_id: current_user.id)
+    @products = @category.products.where("user_id IS NULL OR user_id = ?", current_user.id)
   end
 
   def search
@@ -160,11 +161,6 @@ class CategoriesController < ApplicationController
     end
 
     @cart = current_user&.cart
-  end
-
-  def show
-    @category = Category.find(params[:id])
-    @products = @category.products.where("user_id IS NULL OR user_id = ?", current_user.id)
   end
 
   def load_multiple_category_products(category_names)

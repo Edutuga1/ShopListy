@@ -4,13 +4,15 @@ document.addEventListener("turbo:load", () => {
   const conversationId = document.getElementById("conversation-header")?.dataset.conversationId;
 
   if (conversationId) {
+    const messagesContainer = document.getElementById("messages-container");
+    if (!messagesContainer) return;
+
     // Subscribe to the conversation channel
     consumer.subscriptions.create(
       { channel: "ConversationChannel", conversation_id: conversationId },
       {
         received(data) {
           // Append the new message to the messages container
-          const messagesContainer = document.getElementById("messages-container");
           const newMessage = document.createElement("div");
           newMessage.classList.add("message");
           newMessage.innerHTML = `
