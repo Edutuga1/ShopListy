@@ -7,7 +7,7 @@ FROM ruby:$RUBY_VERSION-slim AS base
 WORKDIR /rails
 
 ENV RAILS_ENV="production" \
-    BUNDLE_PATH="/rails/vendor/bundle" \
+    BUNDLE_PATH="/usr/local/bundle"
     BUNDLE_WITHOUT="development test"
 
 # Build Stage
@@ -73,7 +73,7 @@ USER rails
 # Set entrypoint and default command
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 EXPOSE 3000
-CMD ["./bin/rails", "server"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 
 # Optional Healthcheck (you can adjust as needed)
 HEALTHCHECK --interval=30s --timeout=30s --retries=3 \
